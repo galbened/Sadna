@@ -15,7 +15,7 @@ namespace test
             {
                 Console.WriteLine("Kishkush Mekushkash");
                 line = Console.ReadLine();
-                if (line == "q")
+                if (line == "kash")
                     break;
             }
 
