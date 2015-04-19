@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Message
+namespace Interfaces
 {
-     public interface IMessage
+    public interface IMessage
     {
         String getContent();
         String getPublisherName();
