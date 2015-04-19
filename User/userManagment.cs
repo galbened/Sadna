@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace User
 {
-    class userManagment
+    interface userManagment
     {
     }
 }
