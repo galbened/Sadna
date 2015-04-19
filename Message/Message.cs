@@ -7,8 +7,9 @@ using Interfaces;
 
 namespace Message
 {
-    public class Message : IMessage
+    public abstract class Message : IMessage
     {
+        private int id;
         private int publisherID;
         private string title;
         private string body;
@@ -16,12 +17,20 @@ namespace Message
         
 
 
-        public Message(int publisherID, string title, string body, DateTime publishDate)
+        public Message(int id, int publisherID, string title, string body, DateTime publishDate)
         {
+            this.id = id;
             this.publisherID = publisherID;
             this.title = title;
             this.body = body;
             this.publishDate = publishDate;
+        }
+
+        public abstract bool isFirst();
+
+        public int getMessageID()
+        {
+            return id;
         }
 
         public String getContent()
@@ -38,5 +47,12 @@ namespace Message
         {
             return publishDate;
         }
+
+        public void editMessage(string title, string body)
+        {
+            this.title = title;
+            this.body = body;
+        }
+
     }
 }

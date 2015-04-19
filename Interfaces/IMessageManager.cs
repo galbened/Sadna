@@ -8,9 +8,34 @@ namespace Interfaces
 {
     public interface IMessageManager
     {
+        /*
+         * Creating new Thread
+         * int subForumId - ID of subForum the thread published in
+         * int publisherID - ID of publisher (User)
+         **/
         void addThread(int subForumId, int publisherID, string title, string body, DateTime publishDate);
+
+        /*
+         * Add comment (ResponseMessage)
+         * int firstMessageId - the head message of the thread
+         * int publisherID - ID of publisher (User)
+         **/
         void addComment(int firstMessageId, int publisherID, string title, string body, DateTime publishDate);
-        //void editMessage(int messageId, int publisherID, string title, string body, DateTime publishDate);     //we don't have requirement for that
-        void deleteMessage(int messageId);
+
+        /*
+         * Edit Message (First\Response)
+         * int messageId - ID of the message to edit
+         * int userId - the ID of the user who wants to edit the messsage,
+         * the user permission to edit the message should be checked
+         **/
+        void editMessage(int messageId, int userId, string title, string body);
+
+        /*
+         * Delete Message(First\Response)
+         * int messageId - ID of the message to delete
+         * int userId - the ID of the user who wants to edit the messsage,
+         * the user permission to delete the message should be checked 
+         **/
+        void deleteMessage(int messageId, int userId);
     }
 }

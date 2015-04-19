@@ -8,8 +8,11 @@ namespace Message
 {
     interface IMessage
     {
-        String getContent();
-        String getPublisherName();
+        int getMessageID();
+        bool isFirst();
+        string getContent();
+        string getPublisherName();
         DateTime getPublishDate();
+        void editMessage(string title, string body); 
     }
 }
