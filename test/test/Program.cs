@@ -10,12 +10,10 @@ namespace test
     {
         static void Main(string[] args)
         {
-            String line;
-            for (; ;)
+            for (;;)
             {
                 Console.WriteLine("Kishkush Mekushkash");
-                line = Console.ReadLine();
-                if (line == "kash")
+                if (Console.ReadLine() == "kash")
                     break;
             }
 
