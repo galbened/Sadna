@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace Message
 {
-    public class Class1
+    public interface IMessage
     {
+        public String getContent();
+        public String getPublisherName();
+        public DateTime getPublishDate();
     }
 }
