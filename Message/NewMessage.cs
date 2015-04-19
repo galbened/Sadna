@@ -3,19 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Collections.Generic;
 
 namespace Message
 {
     class NewMessage : Message
     {
 
-        private List<ResponseMessage> responseMessages = new List<ResponseMessage>(); 
+        private List<ResponseMessage> responseMessages = new List<ResponseMessage>();
 
-        public NewMessage() : base()
-        {
-           
-        }
+        public NewMessage(int publisherID, string title, string body, DateTime publishDate)
+            : base(publisherID, title, body, publishDate) { }
+ 
 
         public bool hasComments()
         {

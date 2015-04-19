@@ -8,9 +8,9 @@ namespace Interfaces
 {
     public interface IMessageManager
     {
-        void addThread(int subForumId, int userID, string title, string body);
-        void addComment(int firstMessageId, int userID, string title, string body);
-        //void editMessage(int messageId, int userID, string title, string body);     //we don't have requirement for that
+        void addThread(int subForumId, int publisherID, string title, string body, DateTime publishDate);
+        void addComment(int firstMessageId, int publisherID, string title, string body, DateTime publishDate);
+        //void editMessage(int messageId, int publisherID, string title, string body, DateTime publishDate);     //we don't have requirement for that
         void deleteMessage(int messageId);
     }
 }

@@ -14,5 +14,7 @@ namespace Message
         {
             this.firstMessage = firstMessage;
         }
+
+
     }
 }

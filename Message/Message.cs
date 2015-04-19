@@ -9,15 +9,19 @@ namespace Message
 {
     public class Message : IMessage
     {
-        String title;
-        String body;
-        DateTime publishDate;
-        int publisherId;
-        //User publisher;
+        private int publisherID;
+        private string title;
+        private string body;
+        private DateTime publishDate;
+        
 
-        public Message()
+
+        public Message(int publisherID, string title, string body, DateTime publishDate)
         {
-
+            this.publisherID = publisherID;
+            this.title = title;
+            this.body = body;
+            this.publishDate = publishDate;
         }
 
         public String getContent()
@@ -25,7 +29,7 @@ namespace Message
             return body;
         }
 
-        public String getPublisherName()
+        public string getPublisherName()
         {
             return "";
         }
