@@ -29,12 +29,13 @@ namespace Message
 
         public void addComment(int firstMessageID, int publisherID, string title, string body, DateTime publishDate)
         {
-            Message first = findMessage(firstMessageID);
+            FirstMessage first = (FirstMessage)findMessage(firstMessageID);
             //checking if firstMessageID exists and really FirstMessage
             if ((first != null) && (first.isFirst()))
             {
                 int messageId = messages.Count;
                 ResponseMessage rm = new ResponseMessage((FirstMessage)first, messageId, publisherID, title, body, publishDate);
+                first.addResponse(rm);
                 messages.Add(rm);
             }
         }

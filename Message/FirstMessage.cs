@@ -32,7 +32,7 @@ namespace Message
         }
 
 
-        public void addComment(ResponseMessage responseMessage)
+        public void addResponse(ResponseMessage responseMessage)
         {
             responseMessages.Add(responseMessage);
         }
