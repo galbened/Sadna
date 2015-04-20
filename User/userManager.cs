@@ -7,7 +7,7 @@ using Interfaces;
 
 namespace User
 {
-    class UserManager : IUserManager
+    public class UserManager : IUserManager
     {
         List<Member> UsersList;
         int newestMemberID = 1;
