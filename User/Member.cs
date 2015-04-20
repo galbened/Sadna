@@ -40,6 +40,17 @@ namespace User
         String memberPassword;
         String memberEmail;
         Boolean loggerStatus = false;
+
+        public Boolean getLoggerStatus()
+        {
+            return loggerStatus;
+        }
+
+        public void setLoggerStatus(Boolean wantedStatus) //sets status false if logging out, true if logging in
+        {
+            loggerStatus = wantedStatus;
+        }
+
         Boolean accountStatus;
     }
 }
