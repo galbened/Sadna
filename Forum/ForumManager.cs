@@ -49,6 +49,18 @@ namespace Forum
             }
             return ans;
         }
+        public void removeForum(int forumId)
+        {
+            foreach (Forum frm in forums)
+                if (frm.getId() == forumId)
+                    forums.Remove(frm);
+        }
+        public void removSubForum(int forumId, int subForumId)
+        {
+            foreach (Forum frm in forums)
+                if (frm.getId() == forumId)
+                    frm.removeSubForum(subForumId);
+        }
         public void addAdmin(int userId, int forumId)
         {
             foreach (Forum frm in forums)

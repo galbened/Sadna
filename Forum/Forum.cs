@@ -148,5 +148,12 @@ namespace Forum
                     return sbfrm.getId();
             return -1;
         }
+
+        internal void removeSubForum(int subForumId)
+        {
+            foreach (SubForum sbfrm in subForums)
+                if (sbfrm.getId() == subForumId)
+                    subForums.Remove(sbfrm);
+        }
     }
 }

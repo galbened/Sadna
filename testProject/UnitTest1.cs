@@ -249,9 +249,13 @@ namespace testProject
         [TestMethod]
         public void addModeratorTest()
         {
+            Console.Write("im here");
             int forumId = fm.getForumId(titels[0]);
+            Console.WriteLine(forumId);
             int subForumId = fm.getSubForumId(forumId, subTitels[0]);
+            Console.WriteLine(subForumId);
             int userId = fm.register(user[0], user[1], user[2], forumId);
+            Console.WriteLine(subForumId);
             fm.addModerator(userId, forumId, subForumId);
             Assert.IsTrue(fm.isModerator(userId, forumId, subForumId));
             fm.removeModerator(userId, forumId, subForumId);
