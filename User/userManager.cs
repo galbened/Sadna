@@ -3,17 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Interfaces;
 
 namespace User
 {
-    interface UserManager : UserManager
+    class UserManager : IUserManager
     {
         String memberID;
         String memberUsername;
         private String memberPassword;
         Boolean loggerStatus = false;
 
-        public Boolean login(String inputID, String inputPassowd)
+         Boolean login(String inputID, String inputPassowd)
         {
             if ((inputID.CompareTo(memberID) == 1) && (inputPassowd.CompareTo(memberPassword) == 1))
             {
@@ -24,13 +25,13 @@ namespace User
         }
 
 
-        private void logout()
+         void logout()
         {
             if (loggerStatus == true)
                 loggerStatus = false;
         }
 
-        private Boolean changePassword(String oldPass, String newPass)
+         Boolean changePassword(String oldPass, String newPass)
         {
             if (oldPass.CompareTo(memberPassword) == 1)
             {
@@ -42,7 +43,7 @@ namespace User
             return false;
         }
 
-        private Boolean changeUserName(String newUserName)
+         Boolean changeUserName(String newUserName)
         {
             Boolean prevLoggerStatus = loggerStatus;
             loggerStatus = false;

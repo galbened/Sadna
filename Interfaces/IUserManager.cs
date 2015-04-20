@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace User
+namespace Interfaces
 {
-    interface userManager
+    public interface IUserManager
     {
         Boolean login(String username, String password);
+        Boolean logout(String username, String password);
         int register(String username, String password);
         Boolean enterForum(String forumName);// not sure that the right class for that
         Boolean changePassword(String username, String oldPassword, String newPassword);
@@ -16,7 +17,7 @@ namespace User
         Boolean addFriend(int userID ,int friendID);
         void removeFriend(int friendID);
         void approveRequest(int notificationID);
-        void complaint(notificationStatus complaint, int userID);
+        //void complaint(notificationStatus complaint, int userID);
         void deactivate();
         //for upload
     }
