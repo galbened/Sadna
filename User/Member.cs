@@ -80,10 +80,18 @@ namespace User
             loggerStatus = wantedStatus;
         }
 
-        public void setPassword(string oldPassword, string newPassword)
+
+        /*
+         * it does not check if the new password is legit
+         * */
+        public Boolean setPassword(string oldPassword, string newPassword)
         {
             if (oldPassword.Equals(memberPassword))
+            {
                 memberPassword = newPassword;
+                return true;
+            }
+            return false;
         }
 
 
