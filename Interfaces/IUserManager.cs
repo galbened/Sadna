@@ -34,7 +34,6 @@ namespace Interfaces
 
         //void complaint(notificationStatus complaint, int userID);// notificationStatus yet to be written
 
-        void deactivate();// deletes the user account, user must be logged in
       
     }
 }
