@@ -9,8 +9,12 @@ namespace User
 {
     class UserManager : IUserManager
     {
-        List<Member> UsersList = new List<Member>();
+        List<Member> UsersList;
         
+        public UserManager()
+        {
+            UsersList = new List<Member>();
+        }
 
         int IUserManager.login(string username, string password)
         {
