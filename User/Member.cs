@@ -80,6 +80,12 @@ namespace User
             loggerStatus = wantedStatus;
         }
 
+        public void setPassword(string oldPassword, string newPassword)
+        {
+            if (oldPassword.Equals(memberPassword))
+                memberPassword = newPassword;
+        }
+
 
     }
 }

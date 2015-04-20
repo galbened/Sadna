@@ -58,6 +58,7 @@ namespace User
 
         int IUserManager.changePassword(int userID, string oldPassword, string newPassword)
         {
+            getMemberByID(userID).setPassword(oldPassword, newPassword);
             throw new NotImplementedException();
         }
 
