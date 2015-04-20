@@ -8,7 +8,7 @@ using Interfaces;
 
 namespace Forum
 {
-    class ForumManager : IForumManager
+    public class ForumManager : IForumManager
     {
         private List<Forum> forums;
         private static ForumManager instance = null;
