@@ -13,7 +13,7 @@ namespace User
         //private String memberPassword;
         String memberPassword;
         String memberEmail;
-        Boolean loggerStatus = false;
+        Boolean loggerStatus;
         Boolean accountStatus;
         int confirmationCode;
         List<Member> FriendsList;
@@ -37,6 +37,11 @@ namespace User
             FriendsList.Add(friend);
         }
 
+        public void removeFriend(Member friend)
+        {
+            FriendsList.Remove(friend);
+        }
+
         private int creatingConfirmationCodeAndSending(String memberEmail)
         {
             Random rnd = new Random();
@@ -48,6 +53,16 @@ namespace User
         {
             //TODO
             return;
+        }
+
+        public Boolean checkConfirmationCodeFromUser(int code)
+        {
+            if(this.confirmationCode == code)
+            {
+                this.accountStatus = true; //activating the account
+                return true;
+            }
+            return false;
         }
 
         public int getMemberID()
@@ -104,6 +119,10 @@ namespace User
         public void setUsername(string  newusername)
         {
             memberUsername = newusername;
+        }
+        public String getPassword()
+        {
+            return memberPassword;
         }
 
 

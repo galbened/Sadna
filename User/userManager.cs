@@ -18,7 +18,8 @@ namespace User
             this.newestMemberID = 1;
         }
 
-       public int login(string username, string password)
+
+        public int login(string username, string password)
         {
             foreach (Member member in UsersList)
             {
@@ -86,32 +87,36 @@ namespace User
 
         public string getUsername(int userID)
         {
-            throw new NotImplementedException();
+            return getMemberByID(userID).getMemberUsername();
         }
 
         public string getPassword(int userID)
         {
-            throw new NotImplementedException();
+            return getMemberByID(userID).getPassword();
         }
 
         public void removeFriend(int userID, int friendID)
         {
-            throw new NotImplementedException();
+            Member mem = getMemberByID(userID);
+            Member friend = getMemberByID(friendID);
+            mem.removeFriend(friend);
         }
 
-        public void approveRequest(int notificationID)
+        public void approveRequest(int notificationID)//delayed for next buid
         {
             throw new NotImplementedException();
         }
 
         public void deactivate(int userID)
         {
-            throw new NotImplementedException();
+            Member mem = getMemberByID(userID);
+            UsersList.Remove(mem);
         }
 
         public bool getConfirmationCodeFromUser(int userID, int code)
         {
-            throw new NotImplementedException();
+            Member mem = getMemberByID(userID);
+            return mem.checkConfirmationCodeFromUser(code);
         }
 
         //Helper methods

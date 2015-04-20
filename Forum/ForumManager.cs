@@ -8,7 +8,7 @@ using Interfaces;
 
 namespace Forum
 {
-    class ForumManager : IForumManager
+    public class ForumManager : IForumManager
     {
         private List<Forum> forums;
         private static ForumManager instance = null;
@@ -49,6 +49,18 @@ namespace Forum
             }
             return ans;
         }
+        public void removeForum(int forumId)
+        {
+            foreach (Forum frm in forums)
+                if (frm.getId() == forumId)
+                    forums.Remove(frm);
+        }
+        public void removSubForum(int forumId, int subForumId)
+        {
+            foreach (Forum frm in forums)
+                if (frm.getId() == forumId)
+                    frm.removeSubForum(subForumId);
+        }
         public void addAdmin(int userId, int forumId)
         {
             foreach (Forum frm in forums)
@@ -83,7 +95,7 @@ namespace Forum
             }
             return -1;
         }
-        void unRegister(int userId, int forumId)
+        public void unRegister(int userId, int forumId)
         {
             foreach (Forum frm in forums)
             {
@@ -142,7 +154,7 @@ namespace Forum
                     frm.setSubTopic(topic, subForumId);
             }
         }
-        int getForumId(string name)
+        public int getForumId(string name)
         {
             foreach (Forum frm in forums)
             {
@@ -152,7 +164,7 @@ namespace Forum
             return -1;
         }
 
-        int getSubForumId(int forumId, string topic)
+        public int getSubForumId(int forumId, string topic)
         {
             foreach (Forum frm in forums)
                 if (frm.getId() == forumId)

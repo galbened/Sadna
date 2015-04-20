@@ -279,6 +279,7 @@ namespace testProject
             int forumId = fm.createForum(titels[0]);
             int subForumId = fm.createSubForum(subTitels[0],forumId);
             int userId = fm.register(user[0], user[1], user[2], forumId);
+            Console.WriteLine(subForumId);
             fm.addModerator(userId, forumId, subForumId);
             Assert.IsTrue(fm.isModerator(userId, forumId, subForumId));
             fm.removeModerator(userId, forumId, subForumId);
