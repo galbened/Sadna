@@ -8,17 +8,17 @@ namespace Interfaces
 {
     public interface IUserManager
     {
-        int login(String username, String password); // returns the user's ID number,0 if the user already logged in
+        int login(String username, String password); // returns the user's ID number,-1 if the user already logged in
 
         Boolean logout(int userID, String password); // returns false if the user is already offline, true otherwise
 
-        int register(String username, String password);// returns the user's ID number, 0 if the username is already taken
+        int register(String username, String password);// returns the user's ID number, -1 if the username is already taken
 
         Boolean enterForum(String forumName);// not sure that the right class for that
 
-        int changePassword(String username, String oldPassword, String newPassword);//returns the user's id, 0 if false
+        int changePassword(String username, String oldPassword, String newPassword);//returns the user's id, -1 if false
 
-        int changeUsername(String oldUsername, String newUsername, String password);// returns the user's id, 0 if false
+        int changeUsername(String oldUsername, String newUsername, String password);// returns the user's id, -1 if false
 
         Boolean addFriend(int userID ,int friendID);// returns true if the friend request was sent, false otherwise
 
