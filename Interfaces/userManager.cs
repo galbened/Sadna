@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace User
 {
-    interface userManagment
+    interface userManager
     {
         Boolean login(String username, String password);
         int register(String username, String password);
