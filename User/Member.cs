@@ -27,7 +27,7 @@ namespace User
          * */
         public Boolean login(String password)
         {
-            if (password.CompareTo(memberPassword == 1) && (loggerStatus == false))
+            if ((password.CompareTo(memberPassword) == 1) && (loggerStatus == false))
             {
                 loggerStatus = true;
                 return true;

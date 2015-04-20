@@ -7,7 +7,7 @@ using Interfaces;
 
 namespace User
 {
-    public class UserManager : IUserManager
+    class UserManager : IUserManager
     {
         List<Member> UsersList;
         
@@ -19,7 +19,7 @@ namespace User
                 if ((member.getMemberUsername().CompareTo(username) == 1))
                 {
                     if (member.login(password) == true)
-                        return member.getMemberID;
+                        return member.getMemberID();
 
                 }
                     
