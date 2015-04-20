@@ -102,14 +102,15 @@ namespace User
             mem.removeFriend(friend);
         }
 
-        public void approveRequest(int notificationID)
+        public void approveRequest(int notificationID)//delayed for next buid
         {
             throw new NotImplementedException();
         }
 
         public void deactivate(int userID)
         {
-            throw new NotImplementedException();
+            Member mem = getMemberByID(userID);
+            UsersList.Remove(mem);
         }
 
         public bool getConfirmationCodeFromUser(int userID, int code)
