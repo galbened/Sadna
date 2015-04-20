@@ -29,7 +29,11 @@ namespace User
 
         bool IUserManager.logout(int userID)
         {
-            throw new NotImplementedException();
+            Member mem = getMemberByID(userID);
+            if(mem.getLoggerStatus()==false)    //is user already logged out?
+                return false; 
+            mem.setLoggerStatus(false);         //logging the user out.
+            return true;
         }
 
         int IUserManager.register(string username, string password, string email)
