@@ -13,6 +13,7 @@ namespace Forum
         private int forumID;
         private List<SubForum> subForums;
         private Policy poli;
+        public static int subForumIdCounter;
 
         public Forum(string name, int id)
         {
@@ -23,11 +24,13 @@ namespace Forum
             logedUsersId = new List<int>();
             subForums = new List<SubForum>();
             poli = new Policy();
+            subForumIdCounter = 100;
         }
 
         public void createSubForum(string topic)
         {
-            subForums.Add(new SubForum(topic));
+            subForums.Add(new SubForum(topic, subForumIdCounter));
+            subForumIdCounter++;
         }
 
         public Policy getPolicy()
@@ -94,6 +97,7 @@ namespace Forum
             foreach (SubForum sbfrm in subForums)
                 if (sbfrm.getId() == subForumId)
                     return sbfrm.isModerator(userId);
+            return false;
         }
 
         internal void addModerator(int userId, int subForumId)

@@ -11,10 +11,10 @@ namespace Message
         FirstMessage firstMessage;
         int subForumId;
 
-        public Thread(int subForumId, int messageId, int publisherID, string title, string body, DateTime publishDate)
+        public Thread(int subForumId, int messageId, int publisherID, string title, string body)
         {
             this.subForumId = subForumId;
-            firstMessage = new FirstMessage(messageId, publisherID, title, body, publishDate);
+            firstMessage = new FirstMessage(messageId, publisherID, title, body);
         }
      
 

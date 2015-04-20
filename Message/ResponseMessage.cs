@@ -10,8 +10,8 @@ namespace Message
     {
         private FirstMessage firstMessage = null;
 
-        public ResponseMessage(FirstMessage firstMessage, int messageId, int publisherID, string title, string body, DateTime publishDate):
-            base(messageId, publisherID, title, body, publishDate)
+        public ResponseMessage(FirstMessage firstMessage, int messageId, int publisherID, string title, string body):
+            base(messageId, publisherID, title, body)
         {
             this.firstMessage = firstMessage;
         }
