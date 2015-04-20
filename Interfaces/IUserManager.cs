@@ -16,17 +16,17 @@ namespace Interfaces
 
         Boolean enterForum(String forumName);// not sure that the right class for that
 
-        int changePassword(String username, String oldPassword, String newPassword);//returns the user's id, -1 if false
+        int changePassword(int userID, String oldPassword, String newPassword);//returns the user's id, -1 if false
 
-        int changeUsername(String oldUsername, String newUsername, String password);// returns the user's id, -1 if false
+        int changeUsername(int userID, String newUsername, String password);// returns the user's id, -1 if false
 
-        Boolean addFriend(int userID ,int friendID);// returns true if the friend request was sent, false otherwise
+        int addFriend(int userID ,int friendID);// returns friend's notification ID, -1 if error
 
         String getUsername(int userID); // returns the user name, null if the user is not registered
 
         String getPassword(int userID); // returns the user's password, for tests only - not available in the user's side
  
-        void removeFriend(int friendID);
+        void removeFriend(int userID, int friendID);
 
         void approveRequest(int notificationID);
 
@@ -34,6 +34,7 @@ namespace Interfaces
 
         //void complaint(notificationStatus complaint, int userID);// notificationStatus yet to be written
 
+        void deactivate(int userID);// deletes the user account, user must be logged in
       
     }
 }
