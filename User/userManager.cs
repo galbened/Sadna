@@ -14,6 +14,8 @@ namespace User
         private String memberPassword;
         Boolean loggerStatus = false;
 
+
+
          Boolean login(String inputID, String inputPassowd)
         {
             if ((inputID.CompareTo(memberID) == 1) && (inputPassowd.CompareTo(memberPassword) == 1))
