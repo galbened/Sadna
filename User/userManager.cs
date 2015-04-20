@@ -18,11 +18,7 @@ namespace User
             this.newestMemberID = 1;
         }
 
-<<<<<<< HEAD
-        public int login(string username, string password)
-=======
        public int login(string username, string password)
->>>>>>> origin/master
         {
             foreach (Member member in UsersList)
             {
@@ -46,11 +42,7 @@ namespace User
             return true;
         }
 
-<<<<<<< HEAD
-        public int register(string username, string password, string email)
-=======
        public int register(string username, string password, string email)
->>>>>>> origin/master
         {
             if (!isNameAvilable(username))
                 return -1;
