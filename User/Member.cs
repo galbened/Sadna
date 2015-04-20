@@ -17,7 +17,7 @@ namespace User
         Boolean accountStatus;
         int confirmationCode;
 
-        void Member(int memberID, String memberUsername, String memberPassword, String memberEmail)
+        public Member(int memberID, String memberUsername, String memberPassword, String memberEmail)
         {
             this.memberID = memberID;
             this.memberUsername = memberUsername;

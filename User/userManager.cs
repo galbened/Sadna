@@ -38,8 +38,9 @@ namespace User
 
         int IUserManager.register(string username, string password, string email)
         {
-            UsersList.Add(new Member(username, password, email,newestMemberID));
+            UsersList.Add(new Member(newestMemberID, username, password, email));
             newestMemberID++;
+            return newestMemberID - 1;
         }
 
         bool IUserManager.enterForum(string forumName)
