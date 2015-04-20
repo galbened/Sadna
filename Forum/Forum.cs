@@ -68,9 +68,9 @@ namespace Forum
             return adminsID.Contains(userId);
         }
         
-        public int register(string username, string password)
+        public int register(string username, string password, string mail)
         {
-            int id = usrMngr.register(username, password);
+            int id = usrMngr.register(username, password, mail);
             if (!(registeredUsersID.Contains(id)))
                 registeredUsersID.Add(id);
             return id;
@@ -139,6 +139,14 @@ namespace Forum
         {
             logedUsersId.Remove(userId);
             registeredUsersID.Remove(userId);
+        }
+
+        internal int getSubForumId(string topic)
+        {
+            foreach (SubForum sbfrm in subForums)
+                if (sbfrm.getTopic().CompareTo(topic) == 0)
+                    return sbfrm.getId();
+            return -1;
         }
     }
 }
