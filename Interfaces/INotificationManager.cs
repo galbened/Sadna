@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Interfaces
 {
-    interface INotificationManager
+    public interface INotificationManager
     {
         /*
          * Send friend request from sender to reciever

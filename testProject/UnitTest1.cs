@@ -268,7 +268,7 @@ namespace testProject
             fm.addModerator(userId, forumId, subForumId);
             fm.removeModerator(userId, forumId, subForumId);
             Assert.IsFalse(fm.isModerator(userId, forumId, subForumId));
-            fm.unRegister(userId, id1);
+            fm.unRegister(userId, forumId);
         }
     }
 }
