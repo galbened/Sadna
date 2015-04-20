@@ -37,6 +37,11 @@ namespace User
             FriendsList.Add(friend);
         }
 
+        public void removeFriend(Member friend)
+        {
+            FriendsList.Remove(friend);
+        }
+
         private int creatingConfirmationCodeAndSending(String memberEmail)
         {
             Random rnd = new Random();
