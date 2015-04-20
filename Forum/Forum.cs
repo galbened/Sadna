@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using User;
 
 namespace Forum
 {
@@ -13,7 +14,8 @@ namespace Forum
         private int forumID;
         private List<SubForum> subForums;
         private Policy poli;
-        public static int subForumIdCounter;
+        private static int subForumIdCounter;
+        private UserManager usrMngr;
 
         public Forum(string name, int id)
         {
@@ -24,13 +26,15 @@ namespace Forum
             logedUsersId = new List<int>();
             subForums = new List<SubForum>();
             poli = new Policy();
+            usrMngr = new UserManager();
             subForumIdCounter = 100;
         }
 
-        public void createSubForum(string topic)
+        public int createSubForum(string topic)
         {
             subForums.Add(new SubForum(topic, subForumIdCounter));
             subForumIdCounter++;
+            return subForumIdCounter - 1;
         }
 
         public Policy getPolicy()
@@ -63,14 +67,14 @@ namespace Forum
 
         public void register(string username, string password)
         {
-            int id = User.getUserId(username, password);
+            int id = usrMngr.register(username, password);
             if (!(registeredUsersID.Contains(id)))
                 registeredUsersID.Add(id);
         }
 
         public void login(string username, string password)
         {
-            int id = User.getUserId(username, password);
+            int id = usrMngr.login(username, password);
             if (registeredUsersID.Contains(id))
                 if (!(logedUsersId.Contains(id)))
                     logedUsersId.Add(id);
@@ -78,6 +82,7 @@ namespace Forum
 
         public void logout(int userId)
         {
+            usrMngr.logout(userId);
             logedUsersId.Remove(userId);
         }
 
@@ -112,6 +117,13 @@ namespace Forum
             foreach (SubForum sbfrm in subForums)
                 if (sbfrm.getId() == subForumId)
                     sbfrm.removeModerator(userId);
+        }
+
+        internal void setSubTopic(string topic, int subForumId)
+        {
+            foreach (SubForum sbfrm in subForums)
+                if (sbfrm.getId() == subForumId)
+                    sbfrm.setTopic(topic);
         }
     }
 }
