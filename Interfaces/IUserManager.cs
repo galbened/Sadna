@@ -12,7 +12,7 @@ namespace Interfaces
 
         Boolean logout(int userID, String password); // returns false if the user is already offline, true otherwise
 
-        int register(String username, String password);// returns the user's ID number, -1 if the username is already taken
+        int register(String username, String password, String email);// returns the user's ID number, -1 if the username is already taken
 
         Boolean enterForum(String forumName);// not sure that the right class for that
 

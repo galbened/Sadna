@@ -17,13 +17,13 @@ namespace Message
         
 
 
-        public Message(int id, int publisherID, string title, string body, DateTime publishDate)
+        public Message(int id, int publisherID, string title, string body)
         {
             this.id = id;
             this.publisherID = publisherID;
             this.title = title;
             this.body = body;
-            this.publishDate = publishDate;
+            this.publishDate = DateTime.Now;
         }
 
         public abstract bool isFirst();

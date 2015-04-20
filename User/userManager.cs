@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+//using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Interfaces;
@@ -13,6 +13,8 @@ namespace User
         String memberUsername;
         private String memberPassword;
         Boolean loggerStatus = false;
+
+
 
          Boolean login(String inputID, String inputPassowd)
         {
@@ -30,6 +32,13 @@ namespace User
             if (loggerStatus == true)
                 loggerStatus = false;
         }
+
+        int register(String username, String password, String email)
+         {
+            //TODO
+             return 0;
+         }
+
 
          Boolean changePassword(String oldPass, String newPass)
         {
