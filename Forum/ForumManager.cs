@@ -74,12 +74,12 @@ namespace Forum
             }
             return false;
         }
-        public int register(string username, string password, int forumId)
+        public int register(string username, string password, string mail, int forumId)
         {
             foreach (Forum frm in forums)
             {
                 if (frm.getId() == forumId)
-                     return frm.register(username, password);
+                     return frm.register(username, password,mail);
             }
             return -1;
         }
@@ -149,6 +149,14 @@ namespace Forum
                 if (frm.compareName(name) == 0)
                     return frm.getId();
             }
+            return -1;
+        }
+
+        int getSubForumId(int forumId, string topic)
+        {
+            foreach (Forum frm in forums)
+                if (frm.getId() == forumId)
+                    return frm.getSubForumId(topic);
             return -1;
         }
     }

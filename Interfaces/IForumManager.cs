@@ -23,6 +23,7 @@ namespace Interfaces
         void removeModerator(int userId, int forumID, int subForumId);
         void setTopic(string topic, int forumID, int subForumId);
         int getForumId(string name);
+        int getSubForumId(int forumId, string topic);
     } 
 }
 
