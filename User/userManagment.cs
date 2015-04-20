@@ -16,7 +16,7 @@ namespace User
         Boolean addFriend(int userID ,int friendID);
         void removeFriend(int friendID);
         void approveRequest(int notificationID);
-        void complaint(NotificationStatus complaint, int userID);
+        void complaint(notificationStatus complaint, int userID);
         void deactivate();
         //for upload
     }
