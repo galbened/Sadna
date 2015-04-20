@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace User
 {
-    interface userManager
+    interface UserManager : UserManager
     {
         String memberID;
         String memberUsername;
