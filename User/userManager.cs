@@ -18,7 +18,8 @@ namespace User
             this.newestMemberID = 1;
         }
 
-       public int login(string username, string password)
+<<<<<<< HEAD
+        public int login(string username, string password)
         {
             foreach (Member member in UsersList)
             {
