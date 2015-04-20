@@ -27,21 +27,24 @@ namespace Forum
             return instance;
         }
 
-        void createForum(string name)
+        public int createForum(string name)
         {
             forums.Add(new Forum(name,forumIdCounter));
             forumIdCounter++;
+            return forumIdCounter - 1;
         }
 
-        void createSubForum(string topic, int forumId)
+        public int createSubForum(string topic, int forumId)
         {
+            int ans = -1;
             foreach (Forum frm in forums)
             {
                 if (frm.getId() == forumId)
-                    frm.createSubForum(topic);
+                   ans =  frm.createSubForum(topic);
             }
+            return ans;
         }
-        void addAdmin(int userId, int forumId)
+        public void addAdmin(int userId, int forumId)
         {
             foreach (Forum frm in forums)
             {
@@ -49,7 +52,7 @@ namespace Forum
                     frm.addAdmin(userId);
             }
         }
-        void removeAdmin(int userId, int forumId)
+        public void removeAdmin(int userId, int forumId)
         {
             foreach (Forum frm in forums)
             {
@@ -57,7 +60,7 @@ namespace Forum
                     frm.removeAdmin(userId);
             }
         }
-        Boolean isAdmin(int userId, int forumId)
+        public Boolean isAdmin(int userId, int forumId)
         {
             foreach (Forum frm in forums)
             {
@@ -66,7 +69,7 @@ namespace Forum
             }
             return false;
         }
-        void register(string username, string password, int forumId)
+        public void register(string username, string password, int forumId)
         {
             foreach (Forum frm in forums)
             {
@@ -74,7 +77,7 @@ namespace Forum
                     frm.register(username, password);
             }
         }
-        void login(string username, string password, int forumId)
+        public void login(string username, string password, int forumId)
         {
             foreach (Forum frm in forums)
             {
@@ -82,7 +85,7 @@ namespace Forum
                     frm.login(username, password);
             }
         }
-        void setPolicy(int numOfModerators, string degreeOfEnsuring, int forumId)
+        public void setPolicy(int numOfModerators, string degreeOfEnsuring, int forumId)
         {
             foreach (Forum frm in forums)
             {
@@ -90,7 +93,7 @@ namespace Forum
                     frm.setPolicy(numOfModerators, degreeOfEnsuring);
             }
         }
-        Boolean isModerator(int userId, int forumId, int subForumId)
+        public Boolean isModerator(int userId, int forumId, int subForumId)
         {
             foreach (Forum frm in forums)
             {
@@ -99,7 +102,7 @@ namespace Forum
             }
             return false;
         }
-        void addModerator(int userId,  int forumId, int subForumId)
+        public void addModerator(int userId, int forumId, int subForumId)
         {
             foreach (Forum frm in forums)
             {
@@ -109,7 +112,7 @@ namespace Forum
 
         }
 
-        void removeModerator(int userId, int forumId, int subForumId)
+        public void removeModerator(int userId, int forumId, int subForumId)
         {
             foreach (Forum frm in forums)
             {
@@ -117,6 +120,13 @@ namespace Forum
                     frm.removeModerator(userId, subForumId);
             }
         }
-        void setTopic(string topic, int subFrumId);
+        public void setTopic(string topic, int forumId, int subForumId)
+        {
+            foreach (Forum frm in forums)
+            {
+                if (frm.getId() == forumId)
+                    frm.setSubTopic(topic, subForumId);
+            }
+        }
     }
 }
