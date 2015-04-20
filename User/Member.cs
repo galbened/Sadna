@@ -24,7 +24,7 @@ namespace User
             this.memberPassword = memberPassword;
             this.memberEmail = memberEmail;
             this.loggerStatus = false;
-            this.accountStatus = true; //user that not yet confirmed is email should be false
+            this.accountStatus = true; //user that not yet confirmed is email should be false - TODO when sending to mail is done
 
             //creating confirmation code and sending it to user email
             this.confirmationCode = creatingConfirmationCodeAndSending(memberEmail);
