@@ -97,7 +97,9 @@ namespace User
 
         public void removeFriend(int userID, int friendID)
         {
-            throw new NotImplementedException();
+            Member mem = getMemberByID(userID);
+            Member friend = getMemberByID(friendID);
+            mem.removeFriend(friend);
         }
 
         public void approveRequest(int notificationID)
