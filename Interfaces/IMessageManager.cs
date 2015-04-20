@@ -25,17 +25,15 @@ namespace Interfaces
         /*
          * Edit Message (First\Response)
          * int messageId - ID of the message to edit
-         * int userId - the ID of the user who wants to edit the messsage,
          * the user permission to edit the message should be checked
          **/
-        void editMessage(int messageId, int userId, string title, string body);
+        void editMessage(int messageId, string title, string body);
 
         /*
          * Delete Message(First\Response)
          * int messageId - ID of the message to delete
-         * int userId - the ID of the user who wants to edit the messsage,
          * the user permission to delete the message should be checked 
          **/
-        void deleteMessage(int messageId, int userId);
+        void deleteMessage(int messageId);
     }
 }
