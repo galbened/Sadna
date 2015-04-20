@@ -16,15 +16,21 @@ namespace Interfaces
 
         Boolean enterForum(String forumName);// not sure that the right class for that
 
-        Boolean changePassword(String username, String oldPassword, String newPassword);//returns false if the password is not legal
+        int changePassword(String username, String oldPassword, String newPassword);//returns the user's id, 0 if false
 
-        Boolean changeUsername(String oldUsername, String newUsername, String password);// returns false if the user name is taken
+        int changeUsername(String oldUsername, String newUsername, String password);// returns the user's id, 0 if false
 
         Boolean addFriend(int userID ,int friendID);// returns true if the friend request was sent, false otherwise
+
+        String getUsername(int userID); // returns the user name, null if the user is not registered
+
+        String getPassword(int userID); // returns the user's password, for tests only - not available in the user's side
  
         void removeFriend(int friendID);
 
         void approveRequest(int notificationID);
+
+
 
         //void complaint(notificationStatus complaint, int userID);// notificationStatus yet to be written
 
