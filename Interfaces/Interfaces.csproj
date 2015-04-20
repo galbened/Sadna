@@ -40,6 +40,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IMessageManager.cs" />
+    <Compile Include="IForumManager.cs" />
+    <Compile Include="IPolicyManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="userManager.cs" />
   </ItemGroup>

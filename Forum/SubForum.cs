@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace ForumsSystem
+namespace Forum
 {
     public class SubForum
     {
@@ -16,18 +16,18 @@ namespace ForumsSystem
             this.topic = topic;
         }
 
-        public Boolean IsModerator(int userId)
+        public Boolean isModerator(int userId)
         {
             return moderatorsId.Contains(userId);
         }
         
-        public void AddModerator(int userId)
+        public void addModerator(int userId)
         {
             if (!(moderatorsId.Contains(userId)))
                 moderatorsId.Add(userId);
         }
 
-         public void RemoveModerator(int userId)
+         public void removeModerator(int userId)
         {
             moderatorsId.Remove(userId);
         }
@@ -37,7 +37,7 @@ namespace ForumsSystem
             return this.topic;
         }
 
-        public void changeTopic(string topic)
+        public void setTopic(string topic)
         {
             this.topic = topic;
         }

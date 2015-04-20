@@ -40,8 +40,23 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Forum.cs" />
+    <Compile Include="ForumManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SubForum.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Interfaces\Interfaces.csproj">
+      <Project>{d703d080-077b-47ad-9ddb-790e37803d59}</Project>
+      <Name>Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Policy\Policy.csproj">
+      <Project>{48ec2e07-3f5c-4321-bb29-ac854257403c}</Project>
+      <Name>Policy</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\User\User.csproj">
+      <Project>{f940fc06-776f-4c10-bcd2-065589b28704}</Project>
+      <Name>User</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
