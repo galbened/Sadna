@@ -9,7 +9,40 @@ namespace User
     class Member
     {
         int memberID;
-        
+        String memberUsername;
+        //private String memberPassword;
+        String memberPassword;
+        String memberEmail;
+        Boolean loggerStatus = false;
+        Boolean accountStatus;
+        int confirmationCode;
+
+        void Member(int memberID, String memberUsername, String memberPassword, String memberEmail)
+        {
+            this.memberID = memberID;
+            this.memberUsername = memberUsername;
+            this.memberPassword = memberPassword;
+            this.memberEmail = memberEmail;
+            this.loggerStatus = false;
+            this.accountStatus = true; //user that not yet confirmed is email should be false
+
+            //creating confirmation code and sending it to user email
+            this.confirmationCode = creatingConfirmationCodeAndSending(memberEmail);
+        }
+
+        private int creatingConfirmationCodeAndSending(String memberEmail)
+        {
+            Random rnd = new Random();
+            int newConfirmationCode=rnd.Next(1000000,9999999);
+            sendingConfirmationCodeToMail(newConfirmationCode);
+            return newConfirmationCode;
+        }
+        void sendingConfirmationCodeToMail(int code)
+        {
+            //TODO
+            return;
+        }
+
         public int getMemberID()
         {
             return memberID;
@@ -35,11 +68,7 @@ namespace User
             return false;
         }
 
-        String memberUsername;
-        //private String memberPassword;
-        String memberPassword;
-        String memberEmail;
-        Boolean loggerStatus = false;
+
 
         public Boolean getLoggerStatus()
         {
@@ -51,6 +80,6 @@ namespace User
             loggerStatus = wantedStatus;
         }
 
-        Boolean accountStatus;
+
     }
 }
