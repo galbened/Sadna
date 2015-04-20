@@ -10,56 +10,63 @@ namespace Message
     class MessageManager : IMessageManager
     {
         private HashSet<Message> messages;
+        private static MessageManager instance = null;
 
 
-        public MessageManager()
+        public IMessageManager Instance()
+        {
+            if (instance == null)
+                return new MessageManager();
+            return instance;
+        }
+
+        private MessageManager()
         {
             messages = new HashSet<Message>();
         }
 
 
-        public void addThread(int subForumId, int publisherId, string title, string body, DateTime publishDate)
+        public int addThread(int subForumId, int publisherId, string title, string body)
         {
             int messageId = messages.Count;
-            Thread thread = new Thread(subForumId, messageId, publisherId, title, body, publishDate);
+            Thread thread = new Thread(subForumId, messageId, publisherId, title, body);
             Message ms = thread.getMessage();
             messages.Add(ms);
+            return ms.getMessageID();
         }
 
 
-        public void addComment(int firstMessageID, int publisherID, string title, string body, DateTime publishDate)
+        public int addComment(int firstMessageID, int publisherID, string title, string body)
         {
             FirstMessage first = (FirstMessage)findMessage(firstMessageID);
             //checking if firstMessageID exists and really FirstMessage
             if ((first != null) && (first.isFirst()))
             {
                 int messageId = messages.Count;
-                ResponseMessage rm = new ResponseMessage((FirstMessage)first, messageId, publisherID, title, body, publishDate);
+                ResponseMessage rm = new ResponseMessage((FirstMessage)first, messageId, publisherID, title, body);
                 first.addResponse(rm);
                 messages.Add(rm);
+                return rm.getMessageID();
             }
+            return -1;
         }
 
 
-        public void editMessage(int messageId, int userId, string title, string body)
+        public bool editMessage(int messageId, string title, string body)
         {
-
-            //check if the user is able to edit specific message
-
-
             Message ms = findMessage(messageId);
             if (ms != null)
+            {
                 ms.editMessage(title, body);
+                return true;
+            }
+            return false;
         }
 
 
 
-        public void deleteMessage(int messageID, int userId)
+        public bool deleteMessage(int messageID)
         {
-
-            //check if the user is able to delete specific message
-
-
             Message ms = findMessage(messageID);
             if (ms != null)
             {
@@ -72,7 +79,9 @@ namespace Message
                 }
                 //remove the message anyway
                  messages.Remove(ms);
+                 return true;
             }
+            return false;
                 
 
         }
