@@ -9,28 +9,30 @@ namespace User
 {
     class UserManager : IUserManager
     {
-        String memberID;
-        String memberUsername;
-        private String memberPassword;
-        Boolean loggerStatus = false;
-
+        List<Member> UsersList = new List<Member>();
 
 
          Boolean login(String inputID, String inputPassowd)
         {
+             /*
             if ((inputID.CompareTo(memberID) == 1) && (inputPassowd.CompareTo(memberPassword) == 1))
             {
                 loggerStatus = false;
                 return true;
             }
             return false;
+              */
+            return false;
         }
 
 
          void logout()
         {
+             /*
             if (loggerStatus == true)
                 loggerStatus = false;
+              */
+            return;
         }
 
         int register(String username, String password, String email)
@@ -42,6 +44,7 @@ namespace User
 
          Boolean changePassword(String oldPass, String newPass)
         {
+             /*
             if (oldPass.CompareTo(memberPassword) == 1)
             {
                 if (newPass.Length < 8) // depends on the the passwords strength
@@ -50,10 +53,13 @@ namespace User
                 return true;
             }
             return false;
+              */
+            return false;
         }
 
          Boolean changeUserName(String newUserName)
         {
+             /*
             Boolean prevLoggerStatus = loggerStatus;
             loggerStatus = false;
             if (prevLoggerStatus == true)
@@ -64,6 +70,8 @@ namespace User
             }
 
             else return false;
+              * */
+            return false;
         }
 
 
