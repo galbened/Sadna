@@ -6,15 +6,19 @@ using System.Threading.Tasks;
 
 namespace Message
 {
-    class ResponseMessage
+    class ResponseMessage : Message
     {
-        private NewMessage firstMessage = null;
+        private FirstMessage firstMessage = null;
 
-        public ResponseMessage(NewMessage firstMessage): base()
+        public ResponseMessage(FirstMessage firstMessage, int messageId, int publisherID, string title, string body, DateTime publishDate):
+            base(messageId, publisherID, title, body, publishDate)
         {
             this.firstMessage = firstMessage;
         }
 
-
+        public override bool isFirst()
+        {
+            return false;
+        }
     }
 }

@@ -8,13 +8,19 @@ namespace Message
 {
     class Thread
     {
-        NewMessage newMessage;
+        FirstMessage firstMessage;
         int subForumId;
 
-        public Thread(int subForumId, int publisherID, string title, string body, DateTime publishDate)
+        public Thread(int subForumId, int messageId, int publisherID, string title, string body, DateTime publishDate)
         {
             this.subForumId = subForumId;
-            newMessage = new NewMessage(publisherID, title, body, publishDate);
+            firstMessage = new FirstMessage(messageId, publisherID, title, body, publishDate);
+        }
+     
+
+        public FirstMessage getMessage()
+        {
+            return firstMessage;
         }
     }
 }
