@@ -12,7 +12,7 @@ namespace Interfaces
          * Creating new Thread
          * int subForumId - ID of subForum the thread published in
          * int publisherID - ID of publisher (User)
-         * return value is the ID of the created Thread
+         * return value - ID of the created Thread
          **/
         int addThread(int subForumId, int publisherID, string title, string body);
 
@@ -20,7 +20,7 @@ namespace Interfaces
          * Add comment (ResponseMessage)
          * int firstMessageId - the head message of the thread
          * int publisherID - ID of publisher (User)
-         * return value is the ID of the created Comment
+         * return value - ID of the created Comment
          **/
         int addComment(int firstMessageId, int publisherID, string title, string body);
 
