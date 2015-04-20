@@ -12,7 +12,7 @@ namespace Interfaces
          * The implementation is singelton
          * return value - instance of IMessageManager
          **/
-        public IMessageManager Instance();
+        IMessageManager Instance();
 
         /*
          * Creating new Thread
