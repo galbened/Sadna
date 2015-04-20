@@ -18,7 +18,7 @@ namespace User
             this.newestMemberID = 1;
         }
 
-        int IUserManager.login(string username, string password)
+        public int login(string username, string password)
         {
             foreach (Member member in UsersList)
             {
@@ -33,7 +33,7 @@ namespace User
             return -1;
         }
 
-        bool IUserManager.logout(int userID)
+        public bool logout(int userID)
         {
             Member mem = getMemberByID(userID);
             if(mem.getLoggerStatus()==false)    //is user already logged out?
@@ -42,7 +42,7 @@ namespace User
             return true;
         }
 
-        int IUserManager.register(string username, string password, string email)
+        public int register(string username, string password, string email)
         {
             if (!isNameAvilable(username))
                 return -1;

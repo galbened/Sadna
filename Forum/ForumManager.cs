@@ -83,7 +83,7 @@ namespace Forum
             }
             return -1;
         }
-        void unRegister(int userId, int forumId)
+        public void unRegister(int userId, int forumId)
         {
             foreach (Forum frm in forums)
             {
@@ -142,7 +142,7 @@ namespace Forum
                     frm.setSubTopic(topic, subForumId);
             }
         }
-        int getForumId(string name)
+        public int getForumId(string name)
         {
             foreach (Forum frm in forums)
             {
@@ -152,7 +152,7 @@ namespace Forum
             return -1;
         }
 
-        int getSubForumId(int forumId, string topic)
+        public int getSubForumId(int forumId, string topic)
         {
             foreach (Forum frm in forums)
                 if (frm.getId() == forumId)
