@@ -110,6 +110,10 @@ namespace User
         {
             memberUsername = newusername;
         }
+        public String getPassword()
+        {
+            return memberPassword;
+        }
 
 
     }

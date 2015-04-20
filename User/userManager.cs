@@ -92,7 +92,7 @@ namespace User
 
         public string getPassword(int userID)
         {
-            return null;
+            return getMemberByID(userID).getPassword();
         }
 
         public void removeFriend(int userID, int friendID)
