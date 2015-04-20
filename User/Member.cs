@@ -16,6 +16,7 @@ namespace User
         Boolean loggerStatus = false;
         Boolean accountStatus;
         int confirmationCode;
+        List<Member> FriendsList;
 
         public Member(int memberID, String memberUsername, String memberPassword, String memberEmail)
         {
@@ -25,9 +26,15 @@ namespace User
             this.memberEmail = memberEmail;
             this.loggerStatus = false;
             this.accountStatus = true; //user that not yet confirmed is email should be false - TODO when sending to mail is done
+            this.FriendsList = new List<Member>();
 
             //creating confirmation code and sending it to user email
             this.confirmationCode = creatingConfirmationCodeAndSending(memberEmail);
+        }
+
+        public void addFriend(Member friend)
+        {
+            FriendsList.Add(friend);
         }
 
         private int creatingConfirmationCodeAndSending(String memberEmail)
