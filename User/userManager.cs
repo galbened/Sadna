@@ -31,6 +31,13 @@ namespace User
                 loggerStatus = false;
         }
 
+        int register(String username, String password, String email)
+         {
+            //TODO
+             return 0;
+         }
+
+
          Boolean changePassword(String oldPass, String newPass)
         {
             if (oldPass.CompareTo(memberPassword) == 1)
