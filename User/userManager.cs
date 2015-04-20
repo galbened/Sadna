@@ -94,12 +94,12 @@ namespace User
 
         public string getUsername(int userID)
         {
-            throw new NotImplementedException();
+            return getMemberByID(userID).getMemberUsername();
         }
 
         public string getPassword(int userID)
         {
-            throw new NotImplementedException();
+            return null;
         }
 
         public void removeFriend(int userID, int friendID)
