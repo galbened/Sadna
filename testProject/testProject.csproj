@@ -53,6 +53,24 @@
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Forum\Forum.csproj">
+      <Project>{3ec39945-a4a6-47f8-9d63-eaa50e3c8978}</Project>
+      <Name>Forum</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Interfaces\Interfaces.csproj">
+      <Project>{d703d080-077b-47ad-9ddb-790e37803d59}</Project>
+      <Name>Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Message\Message.csproj">
+      <Project>{bdc8348c-a0d3-4d98-a918-3a0ee96b7b14}</Project>
+      <Name>Message</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\User\User.csproj">
+      <Project>{f940fc06-776f-4c10-bcd2-065589b28704}</Project>
+      <Name>User</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>
