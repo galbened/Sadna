@@ -29,9 +29,14 @@ namespace Forum
 
         public int createForum(string name)
         {
-            forums.Add(new Forum(name,forumIdCounter));
-            forumIdCounter++;
-            return forumIdCounter - 1;
+            foreach (Forum frm in forums)
+                if (frm.compareName(name) == 0)
+                {
+                    forums.Add(new Forum(name, forumIdCounter));
+                    forumIdCounter++;
+                    return forumIdCounter - 1;
+                }
+            return -1;
         }
 
         public int createSubForum(string topic, int forumId)
@@ -40,7 +45,7 @@ namespace Forum
             foreach (Forum frm in forums)
             {
                 if (frm.getId() == forumId)
-                   ans =  frm.createSubForum(topic);
+                    ans = frm.createSubForum(topic);
             }
             return ans;
         }
@@ -127,6 +132,15 @@ namespace Forum
                 if (frm.getId() == forumId)
                     frm.setSubTopic(topic, subForumId);
             }
+        }
+        int getForumId(string name)
+        {
+            foreach (Forum frm in forums)
+            {
+                if (frm.compareName(name) == 0)
+                    return frm.getId();
+            }
+            return -1;
         }
     }
 }

@@ -32,6 +32,9 @@ namespace Forum
 
         public int createSubForum(string topic)
         {
+            foreach (SubForum sbfrm in subForums)
+                if (sbfrm.getTopic().CompareTo(topic) == 0)
+                    return -1;
             subForums.Add(new SubForum(topic, subForumIdCounter));
             subForumIdCounter++;
             return subForumIdCounter - 1;
@@ -124,6 +127,11 @@ namespace Forum
             foreach (SubForum sbfrm in subForums)
                 if (sbfrm.getId() == subForumId)
                     sbfrm.setTopic(topic);
+        }
+
+        internal int compareName(string name)
+        {
+            return this.forumName.CompareTo(name);
         }
     }
 }
