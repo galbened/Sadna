@@ -10,7 +10,7 @@ namespace Interfaces
     {
         int login(String username, String password); // returns the user's ID number,-1 if the user already logged in
 
-        Boolean logout(int userID, String password); // returns false if the user is already offline, true otherwise
+        Boolean logout(int userID); // returns false if the user is already offline, true otherwise
 
         int register(String username, String password, String email);// returns the user's ID number, -1 if the username is already taken
 
