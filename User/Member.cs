@@ -15,6 +15,11 @@ namespace User
             return memberID;
         }
 
+        public String getMemberUsername()
+        {
+            return memberUsername;
+        }
+
         String memberUsername;
         //private String memberPassword;
         String memberPassword;
