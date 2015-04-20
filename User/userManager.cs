@@ -10,7 +10,7 @@ namespace User
     class UserManager : IUserManager
     {
         List<Member> UsersList;
-        
+        int newestMemberID = 1;
 
         int IUserManager.login(string username, string password)
         {
@@ -38,7 +38,8 @@ namespace User
 
         int IUserManager.register(string username, string password, string email)
         {
-            throw new NotImplementedException();
+            UsersList.Add(new Member(username, password, email,newestMemberID));
+            newestMemberID++;
         }
 
         bool IUserManager.enterForum(string forumName)
