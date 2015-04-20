@@ -18,7 +18,7 @@ namespace User
             this.newestMemberID = 1;
         }
 
-        int IUserManager.login(string username, string password)
+       public int login(string username, string password)
         {
             foreach (Member member in UsersList)
             {
@@ -33,7 +33,7 @@ namespace User
             return -1;
         }
 
-        bool IUserManager.logout(int userID)
+        public bool logout(int userID)
         {
             Member mem = getMemberByID(userID);
             if(mem.getLoggerStatus()==false)    //is user already logged out?
@@ -42,7 +42,7 @@ namespace User
             return true;
         }
 
-        int IUserManager.register(string username, string password, string email)
+       public int register(string username, string password, string email)
         {
             if (!isNameAvilable(username))
                 return -1;
@@ -51,12 +51,12 @@ namespace User
             return newestMemberID - 1;
         }
 
-        bool IUserManager.enterForum(string forumName)
+        public bool enterForum(string forumName)
         {
             throw new NotImplementedException();
         }
 
-        int IUserManager.changePassword(int userID, string oldPassword, string newPassword)
+        public int changePassword(int userID, string oldPassword, string newPassword)
         {
             if (getMemberByID(userID).setPassword(oldPassword, newPassword))
                 return userID;
@@ -64,7 +64,7 @@ namespace User
            
         }
 
-        int IUserManager.changeUsername(int userID, string newUsername, string password)
+        public int changeUsername(int userID, string newUsername, string password)
         {
             if(getMemberByID(userID).setPassword(password,password)==true){ // checks if the password is correct
                 if (isNameAvilable(newUsername))
@@ -76,7 +76,7 @@ namespace User
             return -1;
         }
 
-        int IUserManager.addFriend(int userID, int friendID)
+        public int addFriend(int userID, int friendID)
         {
             Member mem = getMemberByID(userID);
             Member friend = getMemberByID(friendID);
@@ -84,32 +84,32 @@ namespace User
             return 1;
         }
 
-        string IUserManager.getUsername(int userID)
+        public string getUsername(int userID)
         {
             throw new NotImplementedException();
         }
 
-        string IUserManager.getPassword(int userID)
+        public string getPassword(int userID)
         {
             throw new NotImplementedException();
         }
 
-        void IUserManager.removeFriend(int userID, int friendID)
+        public void removeFriend(int userID, int friendID)
         {
             throw new NotImplementedException();
         }
 
-        void IUserManager.approveRequest(int notificationID)
+        public void approveRequest(int notificationID)
         {
             throw new NotImplementedException();
         }
 
-        void IUserManager.deactivate(int userID)
+        public void deactivate(int userID)
         {
             throw new NotImplementedException();
         }
 
-        bool IUserManager.getConfirmationCodeFromUser(int userID, int code)
+        public bool getConfirmationCodeFromUser(int userID, int code)
         {
             throw new NotImplementedException();
         }
