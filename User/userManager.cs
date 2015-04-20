@@ -14,6 +14,8 @@ namespace User
         private String memberPassword;
         Boolean loggerStatus = false;
 
+
+
          Boolean login(String inputID, String inputPassowd)
         {
             if ((inputID.CompareTo(memberID) == 1) && (inputPassowd.CompareTo(memberPassword) == 1))
@@ -30,6 +32,13 @@ namespace User
             if (loggerStatus == true)
                 loggerStatus = false;
         }
+
+        int register(String username, String password, String email)
+         {
+            //TODO
+             return 0;
+         }
+
 
          Boolean changePassword(String oldPass, String newPass)
         {
