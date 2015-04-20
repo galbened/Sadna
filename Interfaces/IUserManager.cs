@@ -35,6 +35,10 @@ namespace Interfaces
         //void complaint(notificationStatus complaint, int userID);// notificationStatus yet to be written
 
         void deactivate(int userID);// deletes the user account, user must be logged in
+
+        Boolean getConfirmationCodeFromUser(int userID, int code); // input: user enters the code he received by mail.
+                                                                   // compares the given code with the real one.
+                                                                   // if true, activates account and returns true, false, returns false 
       
     }
 }
