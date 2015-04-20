@@ -42,7 +42,6 @@
     <Compile Include="IMessageManager.cs" />
     <Compile Include="IForumManager.cs" />
     <Compile Include="INotificationManager.cs" />
-    <Compile Include="IPolicyManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="IUserManager.cs" />
   </ItemGroup>
