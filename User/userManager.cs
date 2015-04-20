@@ -115,7 +115,8 @@ namespace User
 
         public bool getConfirmationCodeFromUser(int userID, int code)
         {
-            throw new NotImplementedException();
+            Member mem = getMemberByID(userID);
+            return mem.checkConfirmationCodeFromUser(code);
         }
 
         //Helper methods

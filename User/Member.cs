@@ -13,7 +13,7 @@ namespace User
         //private String memberPassword;
         String memberPassword;
         String memberEmail;
-        Boolean loggerStatus = false;
+        Boolean loggerStatus;
         Boolean accountStatus;
         int confirmationCode;
         List<Member> FriendsList;
@@ -53,6 +53,16 @@ namespace User
         {
             //TODO
             return;
+        }
+
+        public Boolean checkConfirmationCodeFromUser(int code)
+        {
+            if(this.confirmationCode == code)
+            {
+                this.accountStatus = true; //activating the account
+                return true;
+            }
+            return false;
         }
 
         public int getMemberID()
