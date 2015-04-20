@@ -101,6 +101,11 @@ namespace User
             return false;
         }
 
+        public void setUsername(string  newusername)
+        {
+            memberUsername = newusername;
+        }
+
 
     }
 }

@@ -66,7 +66,14 @@ namespace User
 
         int IUserManager.changeUsername(int userID, string newUsername, string password)
         {
-            throw new NotImplementedException();
+            if(getMemberByID(userID).setPassword(password,password)==true){ // checks if the password is correct
+                if (isNameAvilable(newUsername))
+                {
+                    getMemberByID(userID).setUsername(newUsername);
+                    return userID;
+                }
+            }
+            return -1;
         }
 
         int IUserManager.addFriend(int userID, int friendID)
