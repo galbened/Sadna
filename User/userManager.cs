@@ -96,6 +96,11 @@ namespace User
             throw new NotImplementedException();
         }
 
+        bool IUserManager.getConfirmationCodeFromUser(int userID, int code)
+        {
+            throw new NotImplementedException();
+        }
+
         //Helper methods
 
         /*
