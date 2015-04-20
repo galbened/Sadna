@@ -3,23 +3,32 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace ForumsSystem
+namespace Policy
 {
     
     public class Policy
     {
         private int moderatorNum;
-        private string passwordStructure;
         private string passwordEnsuringDegree;
+        private int minLength;
+        private Boolean upperCase;
+        private Boolean lowerCase;
+        private Boolean numbers;
+        private Boolean symbols;
+
 
         public Policy()
         {
         }
-        public Policy(int moderN, string passStruct, string passEnsDeg)
+
+        public Policy(int moderN, string passEnsDeg, Boolean upper, Boolean lower, Boolean nums, Boolean symbs)
         {
             moderatorNum = moderN;
-            passwordStructure = passStruct;
             passwordEnsuringDegree = passEnsDeg;
+            upperCase = upper;
+            lowerCase = lower;
+            numbers = nums;
+            symbols = symbs;
         }
 
         public Boolean isValid(string password)
@@ -32,14 +41,12 @@ namespace ForumsSystem
             moderatorNum = numOfModerators;
         }
 
-        internal void setstructureOfPassword(string structureOfPassword)
-        {
-            passwordStructure = structureOfPassword;
-        }
-
+        
         internal void setdefreeOfEnsuring(string degreeOfEnsuring)
         {
             passwordEnsuringDegree = degreeOfEnsuring;
         }
+
+
     }
 }

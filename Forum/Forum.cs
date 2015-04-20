@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ForumsSystem.User;
+using Policy.Policy;
 
-namespace ForumsSystem
+namespace Forum
 {
     public class Forum
     {
@@ -26,7 +26,7 @@ namespace ForumsSystem
             poli = new Policy();
         }
 
-        public void CreateSubForum(string topic)
+        public void createSubForum(string topic)
         {
             subForums.Add(new SubForum(topic));
         }
@@ -36,17 +36,17 @@ namespace ForumsSystem
             return poli;
         }
 
-        public void AddAdmin(int userId)
+        public void addAdmin(int userId)
         {
             adminsID.Add(userId);
         }
 
-        public void RemoveAdmin(int userId)
+        public void removeAdmin(int userId)
         {
             adminsID.Remove(userId);
         }
 
-        public void ShowSubForums()
+        public void showSubForums()
         {
             foreach (SubForum sf in subForums)
             {
@@ -59,14 +59,14 @@ namespace ForumsSystem
             return adminsID.Contains(userId);
         }
 
-        public void Register(string username, string password)
+        public void register(string username, string password)
         {
             int id = User.getUserId(username, password);
             if (!(registeredUsersID.Contains(id)))
                 registeredUsersID.Add(id);
         }
 
-        public void Login(string username, string password)
+        public void login(string username, string password)
         {
             int id = User.getUserId(username, password);
             if (registeredUsersID.Contains(id))
@@ -74,7 +74,7 @@ namespace ForumsSystem
                     logedUsersId.Add(id);
         }
 
-        public void Logout(int userId)
+        public void logout(int userId)
         {
             logedUsersId.Remove(userId);
         }
