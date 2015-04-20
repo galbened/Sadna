@@ -38,6 +38,8 @@ namespace User
 
         int IUserManager.register(string username, string password, string email)
         {
+            if (!isNameAvilable(username))
+                return -1;
             UsersList.Add(new Member(newestMemberID, username, password, email));
             newestMemberID++;
             return newestMemberID - 1;
@@ -101,6 +103,16 @@ namespace User
                     return member; 
             }
             throw new System.InvalidOperationException("userID not found.");
+        }
+
+        private Boolean isNameAvilable(String userName){
+            foreach (Member member in UsersList)
+            {
+                if (member.getMemberUsername().Equals(userName))
+                    return false;
+            }
+            return true;
+
         }
     }
 }
