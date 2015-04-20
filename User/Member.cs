@@ -20,6 +20,21 @@ namespace User
             return memberUsername;
         }
 
+        
+        /*
+         * gets a pasword and compares it with the uesr's password,
+         * returns true if it match
+         * */
+        public Boolean login(String password)
+        {
+            if (password.CompareTo(memberPassword == 1) && (loggerStatus == false))
+            {
+                loggerStatus = true;
+                return true;
+            }
+            return false;
+        }
+
         String memberUsername;
         //private String memberPassword;
         String memberPassword;

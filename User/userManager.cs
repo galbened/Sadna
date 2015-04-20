@@ -14,7 +14,17 @@ namespace User
 
         int IUserManager.login(string username, string password)
         {
-            throw new NotImplementedException();
+            foreach (Member member in UsersList)
+            {
+                if ((member.getMemberUsername().CompareTo(username) == 1))
+                {
+                    if (member.login(password) == true)
+                        return member.getMemberID;
+
+                }
+                    
+            }
+            return -1;
         }
 
         bool IUserManager.logout(int userID)
