@@ -78,7 +78,10 @@ namespace User
 
         int IUserManager.addFriend(int userID, int friendID)
         {
-            throw new NotImplementedException();
+            Member mem = getMemberByID(userID);
+            Member friend = getMemberByID(friendID);
+            mem.addFriend(friend);
+            return 1;
         }
 
         string IUserManager.getUsername(int userID)
