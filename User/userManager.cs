@@ -10,7 +10,13 @@ namespace User
     public class UserManager : IUserManager
     {
         List<Member> UsersList;
-        int newestMemberID = 1;
+        int newestMemberID;
+
+        public UserManager()
+        {
+            this.UsersList = new List<Member>();
+            this.newestMemberID = 1;
+        }
 
         int IUserManager.login(string username, string password)
         {
