@@ -11,6 +11,7 @@ namespace Message
     {
         private HashSet<Message> messages;
         private static MessageManager instance = null;
+        private int lastMessageID;
 
 
         public IMessageManager Instance()
@@ -23,12 +24,14 @@ namespace Message
         private MessageManager()
         {
             messages = new HashSet<Message>();
+            lastMessageID = -1;
         }
 
 
         public int addThread(int subForumId, int publisherId, string title, string body)
         {
-            int messageId = messages.Count;
+            lastMessageID++;
+            int messageId = lastMessageID;
             Thread thread = new Thread(subForumId, messageId, publisherId, title, body);
             Message ms = thread.getMessage();
             messages.Add(ms);
@@ -42,7 +45,8 @@ namespace Message
             //checking if firstMessageID exists and really FirstMessage
             if ((first != null) && (first.isFirst()))
             {
-                int messageId = messages.Count;
+                lastMessageID++;
+                int messageId = lastMessageID;
                 ResponseMessage rm = new ResponseMessage((FirstMessage)first, messageId, publisherID, title, body);
                 first.addResponse(rm);
                 messages.Add(rm);
