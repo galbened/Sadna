@@ -74,12 +74,21 @@ namespace Forum
             }
             return false;
         }
-        public void register(string username, string password, int forumId)
+        public int register(string username, string password, int forumId)
         {
             foreach (Forum frm in forums)
             {
                 if (frm.getId() == forumId)
-                    frm.register(username, password);
+                     return frm.register(username, password);
+            }
+            return -1;
+        }
+        void unRegister(int userId, int forumId)
+        {
+            foreach (Forum frm in forums)
+            {
+                if (frm.getId() == forumId)
+                     frm.unRegister(userId);
             }
         }
         public void login(string username, string password, int forumId)

@@ -14,7 +14,8 @@ namespace Interfaces
         void addAdmin(int userId, int forumId);
         void removeAdmin(int userId, int forumId);
         Boolean isAdmin(int userId, int forumId);
-        void register(string username, string password, int forumId);
+        int register(string username, string password, string email, int forumId);
+        void unRegister(int userId, int forumId);
         void login(string username, string password, int forumId);
         void setPolicy(int numOfModerators, string degreeOfEnsuring, int forumId);
         Boolean isModerator(int userId, int forumId, int subForumId);

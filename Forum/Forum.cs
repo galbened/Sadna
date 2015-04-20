@@ -67,12 +67,13 @@ namespace Forum
         {
             return adminsID.Contains(userId);
         }
-
-        public void register(string username, string password)
+        
+        public int register(string username, string password)
         {
             int id = usrMngr.register(username, password);
             if (!(registeredUsersID.Contains(id)))
                 registeredUsersID.Add(id);
+            return id;
         }
 
         public void login(string username, string password)
@@ -132,6 +133,12 @@ namespace Forum
         internal int compareName(string name)
         {
             return this.forumName.CompareTo(name);
+        }
+
+        internal void unRegister(int userId)
+        {
+            logedUsersId.Remove(userId);
+            registeredUsersID.Remove(userId);
         }
     }
 }
