@@ -8,7 +8,13 @@ namespace User
 {
     class Member
     {
-        String memberID;
+        int memberID;
+        
+        public int getMemberID()
+        {
+            return memberID;
+        }
+
         String memberUsername;
         //private String memberPassword;
         String memberPassword;
