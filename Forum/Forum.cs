@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Policy.Policy;
 
 namespace Forum
 {
@@ -15,7 +14,7 @@ namespace Forum
         private List<SubForum> subForums;
         private Policy poli;
 
-        public Forum(int id, string name)
+        public Forum(string name, int id)
         {
             forumName = name;
             forumID = id;
@@ -79,14 +78,36 @@ namespace Forum
             logedUsersId.Remove(userId);
         }
 
-        public void setPolicy(int numOfModerators, string structureOfPassword, string degreeOfEnsuring)
+        public void setPolicy(int numOfModerators, string degreeOfEnsuring)
         {
             poli.setNumOfModerators(numOfModerators);
-            poli.setstructureOfPassword(structureOfPassword);
             poli.setdefreeOfEnsuring(degreeOfEnsuring);
         }
 
+        public int getId()
+        {
+            return forumID;
+        }
 
-  
+        internal bool isModerator(int userId, int subForumId)
+        {
+            foreach (SubForum sbfrm in subForums)
+                if (sbfrm.getId() == subForumId)
+                    return sbfrm.isModerator(userId);
+        }
+
+        internal void addModerator(int userId, int subForumId)
+        {
+            foreach (SubForum sbfrm in subForums)
+                if (sbfrm.getId() == subForumId)
+                    sbfrm.addModerator(userId);
+        }
+
+        internal void removeModerator(int userId, int subForumId)
+        {
+            foreach (SubForum sbfrm in subForums)
+                if (sbfrm.getId() == subForumId)
+                    sbfrm.removeModerator(userId);
+        }
     }
 }

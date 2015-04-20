@@ -9,11 +9,13 @@ namespace Forum
     {
         private string topic;
         private List<int> moderatorsId;
+        private int subForumId;
 
-        public SubForum(string topic)
+        public SubForum(string topic, int id)
         {
             moderatorsId = new List<int>();
             this.topic = topic;
+            subForumId = id;
         }
 
         public Boolean isModerator(int userId)
@@ -40,6 +42,11 @@ namespace Forum
         public void setTopic(string topic)
         {
             this.topic = topic;
+        }
+
+        internal int getId()
+        {
+            return subForumId;
         }
     }
 
