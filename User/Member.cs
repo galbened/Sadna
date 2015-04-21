@@ -110,7 +110,7 @@ namespace User
          * */
         public Boolean setPassword(string oldPassword, string newPassword)
         {
-            if (oldPassword.CompareTo(memberPassword)==0)
+            if (oldPassword == memberPassword)
             {
                 memberPassword = newPassword;
                 return true;
