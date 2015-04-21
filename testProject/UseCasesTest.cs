@@ -52,5 +52,13 @@ namespace testProject
             Assert.AreNotEqual(-1,fm.register(userNames[0], passwords[0], emails[0],id1));//password only lowercase
             fm.removeForum(id1);
         }
+        [TestMethod]
+        public void setPolicyIncorrectPasswordTest()
+        {
+            int id1 = fm.createForum(titels[0]);
+            fm.setPolicy(4, "", true, true, true, false, 3, id1);
+            Assert.AreEqual(-1, fm.register(userNames[0], passwords[1], emails[0], id1));//password only lowercase
+            fm.removeForum(id1);
+        }
     }
 }
