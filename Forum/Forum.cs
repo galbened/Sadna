@@ -47,7 +47,8 @@ namespace Forum
 
         public void addAdmin(int userId)
         {
-            adminsID.Add(userId);
+            if (registeredUsersID.Contains(userId))
+                adminsID.Add(userId);
         }
 
         public void removeAdmin(int userId)
@@ -123,9 +124,10 @@ namespace Forum
 
         internal void addModerator(int userId, int subForumId)
         {
-            foreach (SubForum sbfrm in subForums)
-                if (sbfrm.getId() == subForumId)
-                    sbfrm.addModerator(userId);
+            if (registeredUsersID.Contains(userId))
+                foreach (SubForum sbfrm in subForums)
+                    if (sbfrm.getId() == subForumId)
+                        sbfrm.addModerator(userId);
         }
 
         internal void removeModerator(int userId, int subForumId)
