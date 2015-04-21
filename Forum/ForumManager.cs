@@ -32,11 +32,11 @@ namespace Forum
             foreach (Forum frm in forums)
                 if (frm.compareName(name) == 0)
                 {
-                    forums.Add(new Forum(name, forumIdCounter));
-                    forumIdCounter++;
-                    return forumIdCounter - 1;
+                   return -1;
                 }
-            return -1;
+             forums.Add(new Forum(name, forumIdCounter));
+             forumIdCounter++;
+             return forumIdCounter - 1;
         }
 
         public int createSubForum(string topic, int forumId)
