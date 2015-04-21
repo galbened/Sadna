@@ -157,5 +157,10 @@ namespace Forum
                     tmp = sbfrm;
             subForums.Remove(tmp);
         }
+
+        internal bool isValidPassword(string password)
+        {
+            return poli.isValid(password);
+        }
     }
 }
