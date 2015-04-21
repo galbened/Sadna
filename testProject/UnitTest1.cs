@@ -143,7 +143,7 @@ namespace testProject
             Assert.AreEqual(id1, id2); //should return the same ID
             Assert.AreEqual(passwords[1].CompareTo(um.getPassword(id1)), 0);
             id1 = um.changePassword(id1, passwords[1], passwords[0]);
-            Assert.AreEqual(userNames[0].CompareTo(um.getPassword(id1)), 0);
+            Assert.AreEqual(passwords[0].CompareTo(um.getPassword(id1)), 0);
             um.deactivate(id1);
         }
 
@@ -334,6 +334,33 @@ namespace testProject
             int threadId1 = mm.addThread(forumId, subForumId, userId, topic[0], body[0]);
             int threadId2 = mm.addThread(forumId, subForumId, userId, topic[1], body[0]);
             Assert.AreNotEqual(threadId1, threadId2);
+            fm.removeForum(forumId);
+        }
+
+        [TestMethod]
+        public void addThreadTitleEmptyTest()
+        {
+            int forumId = fm.createForum(titels[0]);
+            int subForumId = fm.createSubForum(subTitels[0], forumId);
+            int userId = fm.register(userNames[0], passwords[0], emails[0], forumId);
+            int threadId1 = mm.addThread(forumId, subForumId, userId, "", body[0]);
+            Assert.AreNotEqual(threadId1, -1);
+            fm.removeForum(forumId);
+        }
+
+        /*testing add comment
+         * should succeed when title not empty
+         */
+        [TestMethod]
+        public void addCommentTest()
+        {
+            int forumId = fm.createForum(titels[0]);
+            int subForumId = fm.createSubForum(subTitels[0], forumId);
+            int userId = fm.register(userNames[0], passwords[0], emails[0], forumId);
+            int threadId = mm.addThread(forumId, subForumId, userId, topic[0], body[0]);
+            int commentID1 = mm.addComment(threadId, userId, topic[1], body[0]);
+            int commentID2 = mm.addComment(threadId, userId, topic[1], body[0]);
+            Assert.AreNotEqual(commentID1, commentID2);
             fm.removeForum(forumId);
         }
     }
