@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Message", "Message\Message.csproj", "{BDC8348C-A0D3-4D98-A918-3A0EE96B7B14}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Forum", "Forum\Forum.csproj", "{3EC39945-A4A6-47F8-9D63-EAA50E3C8978}"
@@ -12,8 +14,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfaces", "Interfaces\Interfaces.csproj", "{D703D080-077B-47AD-9DDB-790E37803D59}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "testProject", "testProject\testProject.csproj", "{A70F8676-8970-4CC8-AAE5-8A574B50F924}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Notification", "Notification\Notification.csproj", "{CD7BFCB0-9183-4222-8176-D42B80E991DE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,10 +41,6 @@ Global
 		{A70F8676-8970-4CC8-AAE5-8A574B50F924}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A70F8676-8970-4CC8-AAE5-8A574B50F924}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A70F8676-8970-4CC8-AAE5-8A574B50F924}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CD7BFCB0-9183-4222-8176-D42B80E991DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CD7BFCB0-9183-4222-8176-D42B80E991DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CD7BFCB0-9183-4222-8176-D42B80E991DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CD7BFCB0-9183-4222-8176-D42B80E991DE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

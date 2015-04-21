@@ -92,7 +92,7 @@ namespace testProject
         public void changeUsernameNotLogedinTest()
         {
             int id1 = um.register(userNames[0], passwords[0], emails[0]);
-            id1 = um.changeUsername(id1, userNames[0], userNames[1]);
+            id1 = um.changeUsername(id1, userNames[1], passwords[0]);
             Assert.AreEqual(id1, -1); //should be logedin
             id1 = um.login(userNames[0], passwords[0]);
             um.deactivate(id1);
@@ -103,10 +103,10 @@ namespace testProject
         {
             int id1 = um.register(userNames[0], passwords[0], emails[0]);
             id1 = um.login(userNames[0], passwords[0]);
-            int id2 = um.changeUsername(id1, userNames[0], userNames[1]);
+            int id2 = um.changeUsername(id1, userNames[1], passwords[0]);
             Assert.AreEqual(id1, id2); //should return the same ID
             Assert.AreEqual(userNames[1].CompareTo(um.getUsername(id1)), 0);
-            id1 = um.changeUsername(id1, userNames[1], userNames[0]);
+            id1 = um.changeUsername(id1, userNames[0], passwords[0]);
             Assert.AreEqual(userNames[0].CompareTo(um.getUsername(id1)), 0);
             um.deactivate(id1);
         }
@@ -116,7 +116,7 @@ namespace testProject
         {
             int id1 = um.register(userNames[0], passwords[0], emails[0]);
             id1 = um.login(userNames[0], passwords[0]);
-            Assert.AreEqual(um.changeUsername(id1, userNames[1], userNames[0]), -1);//user details incorrect
+            Assert.AreEqual(um.changeUsername(id1, userNames[1], passwords[1]), -1);//user details incorrect
             um.deactivate(id1);
         }
 
