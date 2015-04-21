@@ -11,10 +11,15 @@ namespace User
     {
         List<Member> UsersList;
         int newestMemberID;
+        List<String> userTypes;
 
         public UserManager()
         {
             this.UsersList = new List<Member>();
+            this.userTypes = new List<string>;
+            userTypes.Add("Normal");
+            userTypes.Add("Gold");
+            userTypes.Add("Silver");
             this.newestMemberID = 1;
         }
 
