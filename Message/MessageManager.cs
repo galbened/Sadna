@@ -7,7 +7,7 @@ using Interfaces;
 
 namespace Message
 {
-    class MessageManager : IMessageManager
+    public class MessageManager : IMessageManager
     {
         private HashSet<Message> messages;
         private static MessageManager instance = null;
