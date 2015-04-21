@@ -119,6 +119,7 @@ namespace Forum
             foreach (Forum frm in forums)
                 if (frm.getId() == forumId)
                     return frm.logout(userId);
+            return false;
         }
         public void setPolicy(int numOfModerators, string degreeOfEnsuring,
                        Boolean uppercase, Boolean lowercase, Boolean numbers,

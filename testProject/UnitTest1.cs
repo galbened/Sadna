@@ -228,8 +228,10 @@ namespace testProject
         public void creatingSubForumReturnsDiffIDTest()
         {
             int id1 = fm.createForum(titels[0]);
-            int id2 = fm.createSubForum(subTitels[1], id1);
-            int id3 = fm.createSubForum(subTitels[0], id1);
+            int userId = fm.register(user[0], user[1], user[2], id1);
+            fm.addAdmin(userId, id1);
+            int id2 = fm.createSubForum(subTitels[1], id1, userId);
+            int id3 = fm.createSubForum(subTitels[0], id1, userId);
             Assert.AreNotEqual(id1, id2);
             fm.removeForum(id1);
             fm.removeSubForum(id1,id2);
@@ -240,8 +242,10 @@ namespace testProject
         public void creatingSubForumWithExistTiltleFailTest()
         {
             int id1 = fm.createForum(titels[0]);
-            int id2 = fm.createSubForum(subTitels[0], id1);
-            int id3 = fm.createSubForum(subTitels[0], id1);
+            int userId = fm.register(user[0], user[1], user[2], id1);
+            fm.addAdmin(userId, id1);
+            int id2 = fm.createSubForum(subTitels[0], id1, userId);
+            int id3 = fm.createSubForum(subTitels[0], id1, userId);
             Assert.AreEqual(id3, -1);
             fm.removeForum(id1);
             fm.removeSubForum(id1, id2);
@@ -282,8 +286,9 @@ namespace testProject
         public void addModeratorTest()
         {
             int forumId = fm.createForum(titels[0]);
-            int subForumId = fm.createSubForum(subTitels[0],forumId);
             int userId = fm.register(user[0], user[1], user[2], forumId);
+            fm.addAdmin(userId, forumId);
+            int subForumId = fm.createSubForum(subTitels[0], forumId, userId);
             Console.WriteLine(subForumId);
             fm.addModerator(userId, forumId, subForumId);
             Assert.IsTrue(fm.isModerator(userId, forumId, subForumId));
@@ -297,8 +302,10 @@ namespace testProject
         public void removeModeratorTest()
         {
             int forumId = fm.createForum(titels[0]);
-            int subForumId = fm.createSubForum(subTitels[0], forumId);
             int userId = fm.register(user[0], user[1], user[2], forumId);
+            fm.addAdmin(userId, forumId);
+            int subForumId = fm.createSubForum(subTitels[0], forumId, userId);
+            
             Assert.IsFalse(fm.isModerator(userId, forumId, subForumId));
             fm.addModerator(userId, forumId, subForumId);
             fm.removeModerator(userId, forumId, subForumId);
@@ -329,8 +336,9 @@ namespace testProject
         public void addThreadTest()
         {
             int forumId = fm.createForum(titels[0]);
-            int subForumId = fm.createSubForum(subTitels[0], forumId);
             int userId = fm.register(userNames[0], passwords[0], emails[0], forumId);
+            fm.addAdmin(userId, forumId);
+            int subForumId = fm.createSubForum(subTitels[0], forumId, userId);
             int threadId1 = mm.addThread(forumId, subForumId, userId, topic[0], body[0]);
             int threadId2 = mm.addThread(forumId, subForumId, userId, topic[1], body[0]);
             Assert.AreNotEqual(threadId1, threadId2);
@@ -341,8 +349,9 @@ namespace testProject
         public void addThreadTitleEmptyTest()
         {
             int forumId = fm.createForum(titels[0]);
-            int subForumId = fm.createSubForum(subTitels[0], forumId);
             int userId = fm.register(userNames[0], passwords[0], emails[0], forumId);
+            fm.addAdmin(userId, forumId);
+            int subForumId = fm.createSubForum(subTitels[0], forumId, userId);         
             int threadId1 = mm.addThread(forumId, subForumId, userId, "", body[0]);
             Assert.AreEqual(threadId1, -1);
             fm.removeForum(forumId);
@@ -355,8 +364,9 @@ namespace testProject
         public void addCommentTest()
         {
             int forumId = fm.createForum(titels[0]);
-            int subForumId = fm.createSubForum(subTitels[0], forumId);
             int userId = fm.register(userNames[0], passwords[0], emails[0], forumId);
+            fm.addAdmin(userId, forumId);
+            int subForumId = fm.createSubForum(subTitels[0], forumId, userId);    
             int threadId = mm.addThread(forumId, subForumId, userId, topic[0], body[0]);
             int commentID1 = mm.addComment(threadId, userId, topic[1], body[0]);
             int commentID2 = mm.addComment(threadId, userId, topic[1], body[0]);
@@ -368,8 +378,9 @@ namespace testProject
         public void addCommentTitleEmptyTest()
         {
             int forumId = fm.createForum(titels[0]);
-            int subForumId = fm.createSubForum(subTitels[0], forumId);
             int userId = fm.register(userNames[0], passwords[0], emails[0], forumId);
+            fm.addAdmin(userId, forumId);
+            int subForumId = fm.createSubForum(subTitels[0], forumId, userId);
             int threadId = mm.addThread(forumId, subForumId, userId, topic[0], body[0]);
             int commentID1 = mm.addComment(threadId, userId, "", body[0]);
             Assert.AreEqual(commentID1, -1);
@@ -380,8 +391,9 @@ namespace testProject
         public void addCommentThreadNotExistsTest()
         {
             int forumId = fm.createForum(titels[0]);
-            int subForumId = fm.createSubForum(subTitels[0], forumId);
             int userId = fm.register(userNames[0], passwords[0], emails[0], forumId);
+            fm.addAdmin(userId, forumId);
+            int subForumId = fm.createSubForum(subTitels[0], forumId, userId);
             int commentID1 = mm.addComment(5, userId, topic[1], body[0]);
             Assert.AreEqual(commentID1, -2);
             fm.removeForum(forumId);
@@ -394,8 +406,9 @@ namespace testProject
         public void editMessageTest()
         {
             int forumId = fm.createForum(titels[0]);
-            int subForumId = fm.createSubForum(subTitels[0], forumId);
             int userId = fm.register(userNames[0], passwords[0], emails[0], forumId);
+            fm.addAdmin(userId, forumId);
+            int subForumId = fm.createSubForum(subTitels[0], forumId, userId);
             int threadId = mm.addThread(forumId, subForumId, userId, topic[0], body[0]);
             int commentID1 = mm.addComment(threadId, userId, topic[1], body[0]);
             Assert.IsTrue(mm.editMessage(commentID1,topic[0], body[0]));
@@ -406,8 +419,9 @@ namespace testProject
         public void editMessageTitleEmptyTest()
         {
             int forumId = fm.createForum(titels[0]);
-            int subForumId = fm.createSubForum(subTitels[0], forumId);
             int userId = fm.register(userNames[0], passwords[0], emails[0], forumId);
+            fm.addAdmin(userId, forumId);
+            int subForumId = fm.createSubForum(subTitels[0], forumId, userId);
             int threadId = mm.addThread(forumId, subForumId, userId, topic[0], body[0]);
             int commentID1 = mm.addComment(threadId, userId, topic[1], body[0]);
             Assert.IsFalse(mm.editMessage(commentID1, "", body[0]));
@@ -418,8 +432,9 @@ namespace testProject
         public void editCommentMessageNotExistsTest()
         {
             int forumId = fm.createForum(titels[0]);
-            int subForumId = fm.createSubForum(subTitels[0], forumId);
             int userId = fm.register(userNames[0], passwords[0], emails[0], forumId);
+            fm.addAdmin(userId, forumId);
+            int subForumId = fm.createSubForum(subTitels[0], forumId, userId);
             int threadId = mm.addThread(forumId, subForumId, userId, topic[0], body[0]);
             int commentID1 = mm.addComment(threadId, userId, topic[1], body[0]);
             Assert.IsFalse(mm.editMessage(-200, topic[0], body[0]));
@@ -433,8 +448,9 @@ namespace testProject
         public void deleteMessageTest()
         {
             int forumId = fm.createForum(titels[0]);
-            int subForumId = fm.createSubForum(subTitels[0], forumId);
             int userId = fm.register(userNames[0], passwords[0], emails[0], forumId);
+            fm.addAdmin(userId, forumId);
+            int subForumId = fm.createSubForum(subTitels[0], forumId, userId);
             int threadId = mm.addThread(forumId, subForumId, userId, topic[0], body[0]);
             int commentID1 = mm.addComment(threadId, userId, topic[1], body[0]);
             Assert.IsTrue(mm.deleteMessage(commentID1));
@@ -445,8 +461,9 @@ namespace testProject
         public void deleteCommentMessageNotExistsTest()
         {
             int forumId = fm.createForum(titels[0]);
-            int subForumId = fm.createSubForum(subTitels[0], forumId);
             int userId = fm.register(userNames[0], passwords[0], emails[0], forumId);
+            fm.addAdmin(userId, forumId);
+            int subForumId = fm.createSubForum(subTitels[0], forumId, userId);
             int threadId = mm.addThread(forumId, subForumId, userId, topic[0], body[0]);
             int commentID1 = mm.addComment(threadId, userId, topic[1], body[0]);
             Assert.IsFalse(mm.deleteMessage(-200));
