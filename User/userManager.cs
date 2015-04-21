@@ -142,7 +142,7 @@ namespace User
         private Boolean isNameAvilable(String userName){
             foreach (Member member in UsersList)
             {
-                if (member.getMemberUsername().Equals(userName))
+                if (member.getMemberUsername().CompareTo(userName)==0)
                     return false;
             }
             return true;
