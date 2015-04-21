@@ -69,7 +69,7 @@ namespace testProject
         [TestMethod]
         public void loginWithoutRegisterTest()
         {
-            Assert.AreEqual(um.login(userNames[4], passwords[4]), -1);
+            Assert.AreEqual(um.login(userNames[4], passwords[1]), -1);
         }
 
         [TestMethod]
@@ -91,9 +91,11 @@ namespace testProject
         [TestMethod]
         public void changeUsernameNotLogedinTest()
         {
-            int id1 = -1;
+            int id1 = um.register(userNames[0], passwords[0], emails[0]);
             id1 = um.changeUsername(id1, userNames[0], userNames[1]);
             Assert.AreEqual(id1, -1); //should be logedin
+            id1 = um.login(userNames[0], passwords[0]);
+            um.deactivate(id1);
         }
 
         [TestMethod]
@@ -125,9 +127,11 @@ namespace testProject
         [TestMethod]
         public void changePasswordNotLogedinTest()
         {
-            int id1 = -1;
+            int id1 = um.register(userNames[0], passwords[0], emails[0]);
             id1 = um.changePassword(id1, passwords[0], passwords[1]);
             Assert.AreEqual(id1, -1); //should be logedin
+            id1 = um.login(userNames[0], passwords[0]);
+            um.deactivate(id1);
         }
 
         [TestMethod]
@@ -146,9 +150,11 @@ namespace testProject
         [TestMethod]
         public void changePasswordIncorrectDetailsTest()
         {
-            int id1 = um.login(userNames[0], passwords[0]);
+            int id1 = um.register(userNames[0], passwords[0], emails[0]);
+            id1 = um.login(userNames[0], passwords[0]);
             Assert.AreEqual(um.changeUsername(id1, passwords[1], passwords[0]), -1);//user details incorrect
             Assert.IsTrue(um.logout(id1));
+            um.deactivate(id1);
         }
 
         /*
@@ -163,7 +169,6 @@ namespace testProject
             id1 = um.login(userNames[0], passwords[0]);
             int notID = um.addFriend(id1, id2);
             Assert.AreNotEqual(notID, -1); //notification should be sent
-            Assert.AreEqual(um.addFriend(id1,id2),-1);//notification shouldn't be sent
             um.deactivate(id1);
             um.deactivate(id2);
         }
@@ -308,12 +313,29 @@ namespace testProject
     public class messageTest
     {
         String[] titels = { "sport", "nature" };
-        String[] subTitels = { "football", "basketball", "animals", "plants" };   
+        String[] subTitels = { "football", "basketball", "animals", "plants" };
+        String[] topic = { "man u", "juve" };
+        String[] body = { "best team in the world" };
         String[] userNames = { "tomer.b", "tomer.s", "gal.b", "gal.p", "osher" };
         String[] emails = { "tomer.b@gmail.com", "tomer.s@gmail.com", "gal.b@gmail.com", "gal.p@gmail.com", "osher@gmail.com" };
         String[] passwords = { "123456", "abcdef" };
-        //IMessageManager mm = MessageManager.getInstance();
+        IMessageManager mm = MessageManager.Instance();
         IForumManager fm = ForumManager.getInstance();
+
+        /*testing add thread
+         * should succeed when title not empty
+         */
+        [TestMethod]
+        public void addThreadTest()
+        {
+            int forumId = fm.createForum(titels[0]);
+            int subForumId = fm.createSubForum(subTitels[0], forumId);
+            int userId = fm.register(userNames[0], passwords[0], emails[0], forumId);
+            int threadId1 = mm.addThread(forumId, subForumId, userId, topic[0], body[0]);
+            int threadId2 = mm.addThread(forumId, subForumId, userId, topic[1], body[0]);
+            Assert.AreNotEqual(threadId1, threadId2);
+            fm.removeForum(forumId);
+        }
     }
 
 }
