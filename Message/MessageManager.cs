@@ -14,7 +14,7 @@ namespace Message
         private int lastMessageID;
 
 
-        public IMessageManager Instance()
+        public static IMessageManager Instance()
         {
             if (instance == null)
                 return new MessageManager();

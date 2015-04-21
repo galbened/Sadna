@@ -9,12 +9,6 @@ namespace Interfaces
     public interface IMessageManager
     {
         /*
-         * The implementation is singelton
-         * return value - instance of IMessageManager
-         **/
-        IMessageManager Instance();
-
-        /*
          * Creating new Thread
          * int subForumId - ID of subForum the thread published in
          * int publisherID - ID of publisher (User)
