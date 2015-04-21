@@ -21,7 +21,7 @@ namespace Forum
         {
         }
 
-        public Policy(int moderN, string passEnsDeg, Boolean upper, Boolean lower, Boolean nums, Boolean symbs)
+        public Policy(int moderN, string passEnsDeg, Boolean upper, Boolean lower, Boolean nums, Boolean symbs, int mLen)
         {
             moderatorNum = moderN;
             passwordEnsuringDegree = passEnsDeg;
@@ -29,11 +29,44 @@ namespace Forum
             lowerCase = lower;
             numbers = nums;
             symbols = symbs;
+            minLength = mLen;
         }
 
         public Boolean isValid(string password)
         {
-            return true;
+            Boolean up = !upperCase;
+            Boolean low = !lowerCase;
+            Boolean nums = !numbers;
+            Boolean symbs = !symbols;
+            if (password.Length < minLength)
+                return false;
+            for (int i = 0; i < password.Length; i++)
+            {
+                if (!up && password[i] > 'A' && password[i] < 'Z')
+                {
+                    up = true;
+                    continue;
+                }
+                if (!low && password[i] > 'a' && password[i] < 'z')
+                {
+                    low = true;
+                    continue;
+                }
+                if (!nums && password[i] > '0' && password[i] < '9')
+                {
+                    nums = true;
+                    continue;
+                }
+                if (!symbs && ((password[i] > 32 && password[i] < 48)
+                    || (password[i] > 57 && password[i] < 65) ||
+                    (password[i] > 90 && password[i] < 97) ||
+                    (password[i] > 122 && password[i] < 127)))
+                {
+                    symbs = true;
+                    continue;
+                }
+            }
+            return (up & low & nums & symbs);
         }
 
         internal void setNumOfModerators(int numOfModerators)

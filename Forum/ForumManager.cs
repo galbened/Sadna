@@ -179,6 +179,7 @@ namespace Forum
             foreach (Forum frm in forums)
                 if (frm.getId() == forumId)
                     return frm.isValidPassword(password);
+            return false;
         }
     }
 }

@@ -70,7 +70,12 @@ namespace Forum
         
         public int register(string username, string password, string mail)
         {
+            if (!(poli.isValid(password)))
+                return -1;
+
             int id = usrMngr.register(username, password, mail);
+            if (id < 0)
+                return -2;
             if (!(registeredUsersID.Contains(id)))
                 registeredUsersID.Add(id);
             return id;
