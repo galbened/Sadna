@@ -20,7 +20,9 @@ namespace Interfaces
         int register(string username, string password, string email, int forumId);
         void unRegister(int userId, int forumId);
         void login(string username, string password, int forumId);
-        void setPolicy(int numOfModerators, string degreeOfEnsuring, int forumId);
+        void setPolicy(int numOfModerators, string degreeOfEnsuring,
+                       Boolean uppercase, Boolean lowercase, Boolean numbers,
+                       Boolean symbols, int minLength, int forumId);
         Boolean isModerator(int userId, int forumId, int subForumId);
         void addModerator(int userId, int forumID, int subForumId);
         void removeModerator(int userId, int forumID, int subForumId);

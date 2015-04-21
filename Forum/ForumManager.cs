@@ -113,12 +113,15 @@ namespace Forum
                     frm.login(username, password);
             }
         }
-        public void setPolicy(int numOfModerators, string degreeOfEnsuring, int forumId)
+        public void setPolicy(int numOfModerators, string degreeOfEnsuring,
+                       Boolean uppercase, Boolean lowercase, Boolean numbers,
+                       Boolean symbols, int minLength, int forumId)
         {
             foreach (Forum frm in forums)
             {
                 if (frm.getId() == forumId)
-                    frm.setPolicy(numOfModerators, degreeOfEnsuring);
+                    frm.setPolicy(numOfModerators, degreeOfEnsuring, uppercase,lowercase
+                        ,numbers,symbols,minLength);
             }
         }
         public Boolean isModerator(int userId, int forumId, int subForumId)

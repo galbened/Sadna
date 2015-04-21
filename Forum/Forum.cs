@@ -95,10 +95,17 @@ namespace Forum
             logedUsersId.Remove(userId);
         }
 
-        public void setPolicy(int numOfModerators, string degreeOfEnsuring)
+        public void setPolicy(int numOfModerators, string degreeOfEnsuring,
+                       Boolean uppercase, Boolean lowercase, Boolean numbers,
+                       Boolean symbols, int minLength)
         {
             poli.setNumOfModerators(numOfModerators);
             poli.setdefreeOfEnsuring(degreeOfEnsuring);
+            poli.setUpper(uppercase);
+            poli.setLower(lowercase);
+            poli.setNumbers(numbers);
+            poli.setSymbols(symbols);
+            poli.setMinLength(minLength);
         }
 
         public int getId()

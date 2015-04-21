@@ -80,6 +80,25 @@ namespace Forum
             passwordEnsuringDegree = degreeOfEnsuring;
         }
 
-
+        internal void setUpper(Boolean upper)
+        {
+            upperCase = upper;
+        }
+        internal void setLower(Boolean lower)
+        {
+            lowerCase = lower;
+        }
+        internal void setNumbers(Boolean nums)
+        {
+            numbers = nums;
+        }
+        internal void setSymbols(Boolean symbs)
+        {
+            symbs = symbs;
+        }
+        internal void setMinLength(int minLength)
+        {
+            this.minLength = minLength;
+        }
     }
 }
