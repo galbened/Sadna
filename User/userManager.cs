@@ -16,7 +16,7 @@ namespace User
         public UserManager()
         {
             this.UsersList = new List<Member>();
-            this.userTypes = new List<string>;
+            this.userTypes = new List<string>();
             userTypes.Add("Normal");
             userTypes.Add("Gold");
             userTypes.Add("Silver");
@@ -28,7 +28,7 @@ namespace User
         {
             foreach (Member member in UsersList)
             {
-                if ((member.getMemberUsername().Equals(username)))
+                if ((member.getMemberUsername().CompareTo(username)==0))
                 {
                     if (member.login(password) == true)
                         return member.getMemberID();
