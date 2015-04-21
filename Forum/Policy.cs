@@ -94,7 +94,7 @@ namespace Forum
         }
         internal void setSymbols(Boolean symbs)
         {
-            symbs = symbs;
+            symbols = symbs;
         }
         internal void setMinLength(int minLength)
         {
