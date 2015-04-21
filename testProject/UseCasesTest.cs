@@ -124,7 +124,64 @@ namespace testProject
         {
             int id1 = fm.createForum(titels[0]);
             int userId = fm.register(userNames[0], passwords[0], emails[0], id1);
-            Assert.AreEqual(-1, fm.createSubForum(subTitels[0], id1, userId));
+            Assert.AreEqual(-2, fm.createSubForum(subTitels[0], id1, userId));
+            fm.removeForum(id1);
+        }
+
+        /*
+         * use case - publish message in sub forum
+         */
+        [TestMethod]
+        public void publishMessageTest()
+        {
+            int forumId = fm.createForum(titels[0]);
+            int userId = fm.register(userNames[0], passwords[0], emails[0], forumId);
+            fm.addAdmin(userId, forumId);
+            int subForumId = fm.createSubForum(subTitels[0], forumId, userId);
+            int threadId1 = mm.addThread(forumId, subForumId, userId, topic[0], body[0]);
+            Assert.AreNotEqual(threadId1, -1);
+            fm.removeForum(forumId);
+        }
+
+        /*
+         * use case - publish response message in sub forum
+         */
+        [TestMethod]
+        public void publishResponseTest()
+        {
+            int forumId = fm.createForum(titels[0]);
+            int userId = fm.register(userNames[0], passwords[0], emails[0], forumId);
+            fm.addAdmin(userId, forumId);
+            int subForumId = fm.createSubForum(subTitels[0], forumId, userId);
+            int threadId1 = mm.addThread(forumId, subForumId, userId, topic[0], body[0]);
+            int commentID1 = mm.addComment(threadId1, userId, topic[1], body[0]);
+            Assert.AreNotEqual(commentID1, -1);
+            fm.removeForum(forumId);
+        }
+
+        /*
+         * use case - remove sub forum
+         */
+        [TestMethod]
+        public void removeSubForumTest()
+        {
+            int id1 = fm.createForum(titels[0]);
+            int userId = fm.register(userNames[0], passwords[0], emails[0], id1);
+            fm.addAdmin(userId, id1);
+            int id2 = fm.createSubForum(subTitels[1], id1, userId);
+            Assert.AreNotEqual(id1, id2);
+            Assert.IsTrue(fm.removeSubForum(id1, id2,userId));
+            fm.removeForum(id1);
+        }
+
+        [TestMethod]
+        public void removeSubForumNotAdminTest()
+        {
+            int id1 = fm.createForum(titels[0]);
+            int userId = fm.register(userNames[0], passwords[0], emails[0], id1);
+            int id2 = fm.createSubForum(subTitels[1], id1, userId);
+            Assert.AreNotEqual(id1, id2);
+            Assert.IsFalse(fm.removeSubForum(id1, id2, userId));
             fm.removeForum(id1);
         }
     }

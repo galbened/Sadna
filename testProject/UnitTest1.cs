@@ -234,8 +234,6 @@ namespace testProject
             int id3 = fm.createSubForum(subTitels[0], id1, userId);
             Assert.AreNotEqual(id1, id2);
             fm.removeForum(id1);
-            fm.removeSubForum(id1,id2);
-            fm.removeSubForum(id1,id3);
         }
 
         [TestMethod]
@@ -248,7 +246,6 @@ namespace testProject
             int id3 = fm.createSubForum(subTitels[0], id1, userId);
             Assert.AreEqual(id3, -1);
             fm.removeForum(id1);
-            fm.removeSubForum(id1, id2);
         }
 
         /*
@@ -294,7 +291,6 @@ namespace testProject
             Assert.IsTrue(fm.isModerator(userId, forumId, subForumId));
             fm.removeModerator(userId, forumId, subForumId);
             fm.unRegister(userId, forumId);
-            fm.removeSubForum(forumId, subForumId);
             fm.removeForum(forumId);
         }
 
@@ -311,7 +307,6 @@ namespace testProject
             fm.removeModerator(userId, forumId, subForumId);
             Assert.IsFalse(fm.isModerator(userId, forumId, subForumId));
             fm.unRegister(userId, forumId);
-            fm.removeSubForum(forumId, subForumId);
             fm.removeForum(forumId);
         }
     }
