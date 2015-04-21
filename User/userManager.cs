@@ -28,7 +28,7 @@ namespace User
         {
             foreach (Member member in UsersList)
             {
-                if ((member.getMemberUsername().CompareTo(username) ==0))
+                if ((member.getMemberUsername().Equals(username)))
                 {
                     if (member.login(password) == true)
                         return member.getMemberID();
