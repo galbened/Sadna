@@ -42,17 +42,17 @@ namespace Forum
                 return false;
             for (int i = 0; i < password.Length; i++)
             {
-                if (!up && password[i] > 'A' && password[i] < 'Z')
+                if (!up && password[i] >= 'A' && password[i] <= 'Z')
                 {
                     up = true;
                     continue;
                 }
-                if (!low && password[i] > 'a' && password[i] < 'z')
+                if (!low && password[i] >= 'a' && password[i] <= 'z')
                 {
                     low = true;
                     continue;
                 }
-                if (!nums && password[i] > '0' && password[i] < '9')
+                if (!nums && password[i] >= '0' && password[i] <= '9')
                 {
                     nums = true;
                     continue;
