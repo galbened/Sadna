@@ -76,7 +76,7 @@ namespace User
         public int changeUsername(int userID, string newUsername, string password)
         {
             if(getMemberByID(userID).getPassword().CompareTo(password)==0){ // checks if the password is correct
-                if (isNameAvilable(newUsername))
+                if (isNameAvilable(newUsername)==true)
                 {
                     getMemberByID(userID).setUsername(newUsername);
                     return userID;
