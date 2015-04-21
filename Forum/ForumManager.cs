@@ -173,5 +173,13 @@ namespace Forum
                     return frm.getSubForumId(topic);
             return -1;
         }
+
+        public Boolean isValid(string password, int forumId)
+        {
+            foreach (Forum frm in forums)
+                if (frm.getId() == forumId)
+                    return frm.isValidPassword(password);
+            return false;
+        }
     }
 }

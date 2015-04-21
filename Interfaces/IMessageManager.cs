@@ -13,7 +13,7 @@ namespace Interfaces
          * int forumId - ID of forum the subForum located in
          * int subForumId - ID of subForum the thread published in
          * int publisherID - ID of publisher (User)
-         * return value - ID of the created Thread
+         * return value - ID of the created Thread, -1 if title is empty
          **/
         int addThread(int forumId, int subForumId, int publisherID, string title, string body);
 
@@ -21,7 +21,8 @@ namespace Interfaces
          * Add comment (ResponseMessage)
          * int firstMessageId - the head message of the thread
          * int publisherID - ID of publisher (User)
-         * return value - ID of the created Comment. return -1 if firstMessageId doesn't exist
+         * return value - ID of the created Comment. return -1 if title is empty
+         *                                           return -2 if firstMessageId doesn't exist
          **/
         int addComment(int firstMessageId, int publisherID, string title, string body);
 

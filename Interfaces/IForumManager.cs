@@ -16,6 +16,7 @@ namespace Interfaces
         void addAdmin(int userId, int forumId);
         void removeAdmin(int userId, int forumId);
         Boolean isAdmin(int userId, int forumId);
+        // return -1 for invalid password and -2 for already exist username
         int register(string username, string password, string email, int forumId);
         void unRegister(int userId, int forumId);
         void login(string username, string password, int forumId);
@@ -26,6 +27,7 @@ namespace Interfaces
         void setTopic(string topic, int forumID, int subForumId);
         int getForumId(string name);
         int getSubForumId(int forumId, string topic);
+        Boolean isValid(string password, int forumId);
     } 
 }
 
