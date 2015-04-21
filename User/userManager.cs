@@ -64,8 +64,11 @@ namespace User
 
         public int changePassword(int userID, string oldPassword, string newPassword)
         {
-            if (getMemberByID(userID).setPassword(oldPassword, newPassword))
-                return userID;
+            if (getMemberByID(userID).getLoggerStatus() == true)
+            {
+                if (getMemberByID(userID).setPassword(oldPassword, newPassword))
+                    return userID;
+            }
             return -1;
            
         }
