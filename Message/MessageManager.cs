@@ -28,11 +28,11 @@ namespace Message
         }
 
 
-        public int addThread(int subForumId, int publisherId, string title, string body)
+        public int addThread(int forumId, int subForumId, int publisherId, string title, string body)
         {
             lastMessageID++;
             int messageId = lastMessageID;
-            Thread thread = new Thread(subForumId, messageId, publisherId, title, body);
+            Thread thread = new Thread(forumId, subForumId, messageId, publisherId, title, body);
             Message ms = thread.getMessage();
             messages.Add(ms);
             return ms.getMessageID();

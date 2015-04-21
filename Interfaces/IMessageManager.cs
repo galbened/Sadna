@@ -10,11 +10,12 @@ namespace Interfaces
     {
         /*
          * Creating new Thread
+         * int forumId - ID of forum the subForum located in
          * int subForumId - ID of subForum the thread published in
          * int publisherID - ID of publisher (User)
          * return value - ID of the created Thread
          **/
-        int addThread(int subForumId, int publisherID, string title, string body);
+        int addThread(int forumId, int subForumId, int publisherID, string title, string body);
 
         /*
          * Add comment (ResponseMessage)
