@@ -30,7 +30,7 @@ namespace Message
 
         public int addThread(int forumId, int subForumId, int publisherId, string title, string body)
         {
-            if ((title == null) || (title.CompareTo("") == 0))
+            if ((title == null) || (title.Equals("")))
                 return -1;
             lastMessageID++;
             int messageId = lastMessageID;
@@ -43,7 +43,7 @@ namespace Message
 
         public int addComment(int firstMessageID, int publisherID, string title, string body)
         {
-            if ((title == null) || (title.CompareTo("") == 0))
+            if ((title == null) || (title.Equals("")))
                 return -1;
             FirstMessage first = (FirstMessage)findMessage(firstMessageID);
             //checking if firstMessageID exists and really FirstMessage
@@ -62,7 +62,7 @@ namespace Message
 
         public bool editMessage(int messageId, string title, string body)
         {
-            if ((title == null) || (title.CompareTo("") == 0))
+            if ((title == null) || (title.Equals("")))
                 return false;
             Message ms = findMessage(messageId);
             if (ms != null)
