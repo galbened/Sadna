@@ -39,13 +39,13 @@ namespace Forum
              return forumIdCounter - 1;
         }
 
-        public int createSubForum(string topic, int forumId)
+        public int createSubForum(string topic, int forumId, int callerUserId)
         {
             int ans = -1;
             foreach (Forum frm in forums)
             {
                 if (frm.getId() == forumId)
-                    ans = frm.createSubForum(topic);
+                    ans = frm.createSubForum(topic, callerUserId);
             }
             return ans;
         }
@@ -105,13 +105,20 @@ namespace Forum
                      frm.unRegister(userId);
             }
         }
-        public void login(string username, string password, int forumId)
+        public int login(string username, string password, int forumId)
         {
             foreach (Forum frm in forums)
             {
                 if (frm.getId() == forumId)
-                    frm.login(username, password);
-            }
+                    return frm.login(username, password);
+            } return -1;
+
+        }
+        public Boolean logout(int userId, int forumId)
+        {
+            foreach (Forum frm in forums)
+                if (frm.getId() == forumId)
+                    return frm.logout(userId);
         }
         public void setPolicy(int numOfModerators, string degreeOfEnsuring,
                        Boolean uppercase, Boolean lowercase, Boolean numbers,

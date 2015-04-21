@@ -30,14 +30,18 @@ namespace Forum
             subForumIdCounter = 100;
         }
 
-        public int createSubForum(string topic)
+        public int createSubForum(string topic, int callerUserId)
         {
             foreach (SubForum sbfrm in subForums)
                 if (sbfrm.getTopic().CompareTo(topic) == 0)
                     return -1;
-            subForums.Add(new SubForum(topic, subForumIdCounter));
-            subForumIdCounter++;
-            return subForumIdCounter - 1;
+            if (adminsID.Contains(callerUserId))
+            {
+                subForums.Add(new SubForum(topic, subForumIdCounter));
+                subForumIdCounter++;
+                return subForumIdCounter - 1;
+            }
+            return -2;
         }
 
         public Policy getPolicy()
@@ -82,18 +86,24 @@ namespace Forum
             return id;
         }
 
-        public void login(string username, string password)
+        public int login(string username, string password)
         {
             int id = usrMngr.login(username, password);
             if (registeredUsersID.Contains(id))
                 if (!(logedUsersId.Contains(id)))
                     logedUsersId.Add(id);
+                else
+                    return -1;
+            return id;
         }
 
-        public void logout(int userId)
+        public Boolean logout(int userId)
         {
+            if (!(logedUsersId.Contains(userId)))
+                return false;
             usrMngr.logout(userId);
             logedUsersId.Remove(userId);
+            return true;
         }
 
         public void setPolicy(int numOfModerators, string degreeOfEnsuring,

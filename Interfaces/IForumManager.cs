@@ -12,14 +12,16 @@ namespace Interfaces
         int createForum(string name);
         void removeForum(int forumId);
         void removeSubForum(int forumId, int subForumId);
-        int createSubForum(string topic, int forumId);
+        //return -1 for already exist topic and -2 for not admin caller.
+        int createSubForum(string topic, int forumId, int callerUserId);
         void addAdmin(int userId, int forumId);
         void removeAdmin(int userId, int forumId);
         Boolean isAdmin(int userId, int forumId);
         // return -1 for invalid password and -2 for already exist username
         int register(string username, string password, string email, int forumId);
         void unRegister(int userId, int forumId);
-        void login(string username, string password, int forumId);
+        int login(string username, string password, int forumId);
+        Boolean logout(int userId, int forumId);
         void setPolicy(int numOfModerators, string degreeOfEnsuring,
                        Boolean uppercase, Boolean lowercase, Boolean numbers,
                        Boolean symbols, int minLength, int forumId);
