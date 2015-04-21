@@ -11,7 +11,7 @@ namespace Interfaces
     {
         int createForum(string name);
         void removeForum(int forumId);
-        void removSubForum(int forumId, int subForumId);
+        void removeSubForum(int forumId, int subForumId);
         int createSubForum(string topic, int forumId);
         void addAdmin(int userId, int forumId);
         void removeAdmin(int userId, int forumId);
