@@ -51,9 +51,11 @@ namespace Forum
         }
         public void removeForum(int forumId)
         {
+            Forum tmp = null;
             foreach (Forum frm in forums)
                 if (frm.getId() == forumId)
-                    forums.Remove(frm);
+                    tmp = frm;
+            forums.Remove(tmp);
         }
         public void removeSubForum(int forumId, int subForumId)
         {

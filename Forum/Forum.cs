@@ -101,7 +101,7 @@ namespace Forum
             return forumID;
         }
 
-        internal bool isModerator(int userId, int subForumId)
+        internal Boolean isModerator(int userId, int subForumId)
         {
             foreach (SubForum sbfrm in subForums)
                 if (sbfrm.getId() == subForumId)
@@ -151,9 +151,11 @@ namespace Forum
 
         internal void removeSubForum(int subForumId)
         {
+            SubForum tmp = null;
             foreach (SubForum sbfrm in subForums)
                 if (sbfrm.getId() == subForumId)
-                    subForums.Remove(sbfrm);
+                    tmp = sbfrm;
+            subForums.Remove(tmp);
         }
     }
 }

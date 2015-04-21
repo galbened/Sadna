@@ -312,7 +312,7 @@ namespace testProject
         String[] userNames = { "tomer.b", "tomer.s", "gal.b", "gal.p", "osher" };
         String[] emails = { "tomer.b@gmail.com", "tomer.s@gmail.com", "gal.b@gmail.com", "gal.p@gmail.com", "osher@gmail.com" };
         String[] passwords = { "123456", "abcdef" };
-        IMessageManager mm = MessageManager.getInstance();
+        //IMessageManager mm = MessageManager.getInstance();
         IForumManager fm = ForumManager.getInstance();
     }
 
