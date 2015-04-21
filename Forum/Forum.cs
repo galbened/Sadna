@@ -173,13 +173,18 @@ namespace Forum
             return -1;
         }
 
-        internal void removeSubForum(int subForumId)
+        internal Boolean removeSubForum(int subForumId, int callerUserId)
         {
             SubForum tmp = null;
             foreach (SubForum sbfrm in subForums)
                 if (sbfrm.getId() == subForumId)
                     tmp = sbfrm;
-            subForums.Remove(tmp);
+            if (adminsID.Contains(callerUserId))
+            {
+                subForums.Remove(tmp);
+                return true;
+            }
+            return false;
         }
 
         internal bool isValidPassword(string password)

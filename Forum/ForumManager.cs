@@ -57,11 +57,12 @@ namespace Forum
                     tmp = frm;
             forums.Remove(tmp);
         }
-        public void removeSubForum(int forumId, int subForumId)
+        public Boolean removeSubForum(int forumId, int subForumId, int callerUserId)
         {
             foreach (Forum frm in forums)
                 if (frm.getId() == forumId)
-                    frm.removeSubForum(subForumId);
+                    return frm.removeSubForum(subForumId, callerUserId);
+            return false;
         }
         public void addAdmin(int userId, int forumId)
         {
