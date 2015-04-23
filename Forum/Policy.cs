@@ -32,7 +32,7 @@ namespace Forum
             minLength = mLen;
         }
 
-        public Boolean isValid(string password)
+        public Boolean IsValid(string password)
         {
             Boolean up = !upperCase;
             Boolean low = !lowerCase;
@@ -69,36 +69,37 @@ namespace Forum
             return (up & low & nums & symbs);
         }
 
-        internal void setNumOfModerators(int numOfModerators)
+        internal int ModeratorNum
         {
-            moderatorNum = numOfModerators;
+            set { moderatorNum = value; }
         }
 
 
-        internal void setdefreeOfEnsuring(string degreeOfEnsuring)
+        internal string PasswordEnsuringDegree
         {
-            passwordEnsuringDegree = degreeOfEnsuring;
+            set { passwordEnsuringDegree = value; }
         }
 
-        internal void setUpper(Boolean upper)
+        internal Boolean UpperCase
         {
-            upperCase = upper;
+            set { upperCase = value; }
         }
-        internal void setLower(Boolean lower)
+
+        internal Boolean LowerCase
         {
-            lowerCase = lower;
+            set { lowerCase = value; }
         }
-        internal void setNumbers(Boolean nums)
+        internal Boolean Numbers
         {
-            numbers = nums;
+            set { numbers = value; }
         }
-        internal void setSymbols(Boolean symbs)
+        internal Boolean Symbols
         {
-            symbols = symbs;
+            set { symbols = value; }
         }
-        internal void setMinLength(int minLength)
+        internal int MinLength
         {
-            this.minLength = minLength;
+            set { minLength = value; }
         }
     }
 }

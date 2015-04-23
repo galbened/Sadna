@@ -30,10 +30,10 @@ namespace Forum
             subForumIdCounter = 100;
         }
 
-        public int createSubForum(string topic, int callerUserId)
+        public int CreateSubForum(string topic, int callerUserId)
         {
             foreach (SubForum sbfrm in subForums)
-                if (sbfrm.getTopic().CompareTo(topic) == 0)
+                if (sbfrm.Topic.CompareTo(topic) == 0)
                     return -1;
             if (adminsID.Contains(callerUserId))
             {
@@ -44,23 +44,23 @@ namespace Forum
             return -2;
         }
 
-        public Policy getPolicy()
+        public Policy Poli
         {
-            return poli;
+            get { return poli; }
         }
 
-        public void addAdmin(int userId)
+        public void AddAdmin(int userId)
         {
             if (registeredUsersID.Contains(userId))
                 adminsID.Add(userId);
         }
 
-        public void removeAdmin(int userId)
+        public void RemoveAdmin(int userId)
         {
             adminsID.Remove(userId);
         }
 
-        public void showSubForums()
+        public void ShowSubForums()
         {
             foreach (SubForum sf in subForums)
             {
@@ -68,14 +68,14 @@ namespace Forum
             }
         }
 
-        public Boolean isAdmin(int userId)
+        public Boolean IsAdmin(int userId)
         {
             return adminsID.Contains(userId);
         }
         
-        public int register(string username, string password, string mail)
+        public int Register(string username, string password, string mail)
         {
-            if (!(poli.isValid(password)))
+            if (!(poli.IsValid(password)))
                 return -1;
 
             int id = usrMngr.register(username, password, mail);
@@ -86,7 +86,7 @@ namespace Forum
             return id;
         }
 
-        public int login(string username, string password)
+        public int Login(string username, string password)
         {
             int id = usrMngr.login(username, password);
             if (registeredUsersID.Contains(id))
@@ -97,7 +97,7 @@ namespace Forum
             return id;
         }
 
-        public Boolean logout(int userId)
+        public Boolean Logout(int userId)
         {
             if (!(logedUsersId.Contains(userId)))
                 return false;
@@ -106,78 +106,78 @@ namespace Forum
             return true;
         }
 
-        public void setPolicy(int numOfModerators, string degreeOfEnsuring,
+        public void SetPolicy(int numOfModerators, string degreeOfEnsuring,
                        Boolean uppercase, Boolean lowercase, Boolean numbers,
                        Boolean symbols, int minLength)
         {
-            poli.setNumOfModerators(numOfModerators);
-            poli.setdefreeOfEnsuring(degreeOfEnsuring);
-            poli.setUpper(uppercase);
-            poli.setLower(lowercase);
-            poli.setNumbers(numbers);
-            poli.setSymbols(symbols);
-            poli.setMinLength(minLength);
+            poli.ModeratorNum=numOfModerators;
+            poli.PasswordEnsuringDegree=degreeOfEnsuring;
+            poli.UpperCase=uppercase;
+            poli.LowerCase=lowercase;
+            poli.Numbers=numbers;
+            poli.Symbols=symbols;
+            poli.MinLength=minLength;
         }
 
-        public int getId()
+        public int ForumID
         {
-            return forumID;
+            get { return forumID; }
         }
 
-        internal Boolean isModerator(int userId, int subForumId)
+        internal Boolean IsModerator(int userId, int subForumId)
         {
             foreach (SubForum sbfrm in subForums)
-                if (sbfrm.getId() == subForumId)
-                    return sbfrm.isModerator(userId);
+                if (sbfrm.SubForumId == subForumId)
+                    return sbfrm.IsModerator(userId);
             return false;
         }
 
-        internal void addModerator(int userId, int subForumId)
+        internal void AddModerator(int userId, int subForumId)
         {
             if (registeredUsersID.Contains(userId))
                 foreach (SubForum sbfrm in subForums)
-                    if (sbfrm.getId() == subForumId)
-                        sbfrm.addModerator(userId);
+                    if (sbfrm.SubForumId == subForumId)
+                        sbfrm.AddModerator(userId);
         }
 
-        internal void removeModerator(int userId, int subForumId)
+        internal void RemoveModerator(int userId, int subForumId)
         {
             foreach (SubForum sbfrm in subForums)
-                if (sbfrm.getId() == subForumId)
-                    sbfrm.removeModerator(userId);
+                if (sbfrm.SubForumId == subForumId)
+                    sbfrm.RemoveModerator(userId);
         }
 
-        internal void setSubTopic(string topic, int subForumId)
+        internal void SetSubTopic(string topic, int subForumId)
         {
             foreach (SubForum sbfrm in subForums)
-                if (sbfrm.getId() == subForumId)
-                    sbfrm.setTopic(topic);
+                if (sbfrm.SubForumId == subForumId)
+                    sbfrm.Topic = topic;
         }
 
-        internal int compareName(string name)
+        internal int CompareName(string name)
         {
             return this.forumName.CompareTo(name);
         }
 
-        internal void unRegister(int userId)
+        internal void UnRegister(int userId)
         {
             logedUsersId.Remove(userId);
             registeredUsersID.Remove(userId);
         }
 
-        internal int getSubForumId(string topic)
+        internal int GetSubForumId(string topic)
         {
             foreach (SubForum sbfrm in subForums)
-                if (sbfrm.getTopic().CompareTo(topic) == 0)
-                    return sbfrm.getId();
+                if (sbfrm.Topic.CompareTo(topic) == 0)
+                    return sbfrm.SubForumId;
             return -1;
         }
 
-        internal Boolean removeSubForum(int subForumId, int callerUserId)
+        internal Boolean RemoveSubForum(int subForumId, int callerUserId)
         {
             SubForum tmp = null;
             foreach (SubForum sbfrm in subForums)
-                if (sbfrm.getId() == subForumId)
+                if (sbfrm.SubForumId == subForumId)
                     tmp = sbfrm;
             if (adminsID.Contains(callerUserId))
             {
@@ -187,9 +187,9 @@ namespace Forum
             return false;
         }
 
-        internal bool isValidPassword(string password)
+        internal bool IsValidPassword(string password)
         {
-            return poli.isValid(password);
+            return poli.IsValid(password);
         }
     }
 }

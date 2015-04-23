@@ -27,10 +27,10 @@ namespace Forum
             return instance;
         }
 
-        public int createForum(string name)
+        public int CreateForum(string name)
         {
             foreach (Forum frm in forums)
-                if (frm.compareName(name) == 0)
+                if (frm.CompareName(name) == 0)
                 {
                    return -1;
                 }
@@ -39,158 +39,158 @@ namespace Forum
              return forumIdCounter - 1;
         }
 
-        public int createSubForum(string topic, int forumId, int callerUserId)
+        public int CreateSubForum(string topic, int forumId, int callerUserId)
         {
             int ans = -1;
             foreach (Forum frm in forums)
             {
-                if (frm.getId() == forumId)
-                    ans = frm.createSubForum(topic, callerUserId);
+                if (frm.ForumID == forumId)
+                    ans = frm.CreateSubForum(topic, callerUserId);
             }
             return ans;
         }
-        public void removeForum(int forumId)
+        public void RemoveForum(int forumId)
         {
             Forum tmp = null;
             foreach (Forum frm in forums)
-                if (frm.getId() == forumId)
+                if (frm.ForumID == forumId)
                     tmp = frm;
             forums.Remove(tmp);
         }
-        public Boolean removeSubForum(int forumId, int subForumId, int callerUserId)
+        public Boolean RemoveSubForum(int forumId, int subForumId, int callerUserId)
         {
             foreach (Forum frm in forums)
-                if (frm.getId() == forumId)
-                    return frm.removeSubForum(subForumId, callerUserId);
+                if (frm.ForumID == forumId)
+                    return frm.RemoveSubForum(subForumId, callerUserId);
             return false;
         }
-        public void addAdmin(int userId, int forumId)
+        public void AddAdmin(int userId, int forumId)
         {
             foreach (Forum frm in forums)
             {
-                if (frm.getId() == forumId)
-                    frm.addAdmin(userId);
+                if (frm.ForumID == forumId)
+                    frm.AddAdmin(userId);
             }
         }
-        public void removeAdmin(int userId, int forumId)
+        public void RemoveAdmin(int userId, int forumId)
         {
             foreach (Forum frm in forums)
             {
-                if (frm.getId() == forumId)
-                    frm.removeAdmin(userId);
+                if (frm.ForumID == forumId)
+                    frm.RemoveAdmin(userId);
             }
         }
-        public Boolean isAdmin(int userId, int forumId)
+        public Boolean IsAdmin(int userId, int forumId)
         {
             foreach (Forum frm in forums)
             {
-                if (frm.getId() == forumId)
-                    return frm.isAdmin(userId);
+                if (frm.ForumID == forumId)
+                    return frm.IsAdmin(userId);
             }
             return false;
         }
-        public int register(string username, string password, string mail, int forumId)
+        public int Register(string username, string password, string mail, int forumId)
         {
             foreach (Forum frm in forums)
             {
-                if (frm.getId() == forumId)
-                     return frm.register(username, password,mail);
+                if (frm.ForumID == forumId)
+                     return frm.Register(username, password,mail);
             }
             return -1;
         }
-        public void unRegister(int userId, int forumId)
+        public void UnRegister(int userId, int forumId)
         {
             foreach (Forum frm in forums)
             {
-                if (frm.getId() == forumId)
-                     frm.unRegister(userId);
+                if (frm.ForumID == forumId)
+                     frm.UnRegister(userId);
             }
         }
-        public int login(string username, string password, int forumId)
+        public int Login(string username, string password, int forumId)
         {
             foreach (Forum frm in forums)
             {
-                if (frm.getId() == forumId)
-                    return frm.login(username, password);
+                if (frm.ForumID == forumId)
+                    return frm.Login(username, password);
             } return -1;
 
         }
-        public Boolean logout(int userId, int forumId)
+        public Boolean Logout(int userId, int forumId)
         {
             foreach (Forum frm in forums)
-                if (frm.getId() == forumId)
-                    return frm.logout(userId);
+                if (frm.ForumID == forumId)
+                    return frm.Logout(userId);
             return false;
         }
-        public void setPolicy(int numOfModerators, string degreeOfEnsuring,
+        public void SetPolicy(int numOfModerators, string degreeOfEnsuring,
                        Boolean uppercase, Boolean lowercase, Boolean numbers,
                        Boolean symbols, int minLength, int forumId)
         {
             foreach (Forum frm in forums)
             {
-                if (frm.getId() == forumId)
-                    frm.setPolicy(numOfModerators, degreeOfEnsuring, uppercase,lowercase
+                if (frm.ForumID == forumId)
+                    frm.SetPolicy(numOfModerators, degreeOfEnsuring, uppercase,lowercase
                         ,numbers,symbols,minLength);
             }
         }
-        public Boolean isModerator(int userId, int forumId, int subForumId)
+        public Boolean IsModerator(int userId, int forumId, int subForumId)
         {
             foreach (Forum frm in forums)
             {
-                if (frm.getId() == forumId)
-                    return frm.isModerator(userId, subForumId);
+                if (frm.ForumID == forumId)
+                    return frm.IsModerator(userId, subForumId);
             }
             return false;
         }
-        public void addModerator(int userId, int forumId, int subForumId)
+        public void AddModerator(int userId, int forumId, int subForumId)
         {
             foreach (Forum frm in forums)
             {
-                if (frm.getId() == forumId)
-                    frm.addModerator(userId, subForumId);
+                if (frm.ForumID == forumId)
+                    frm.AddModerator(userId, subForumId);
             }
 
         }
 
-        public void removeModerator(int userId, int forumId, int subForumId)
+        public void RemoveModerator(int userId, int forumId, int subForumId)
         {
             foreach (Forum frm in forums)
             {
-                if (frm.getId() == forumId)
-                    frm.removeModerator(userId, subForumId);
+                if (frm.ForumID == forumId)
+                    frm.RemoveModerator(userId, subForumId);
             }
         }
-        public void setTopic(string topic, int forumId, int subForumId)
+        public void SetTopic(string topic, int forumId, int subForumId)
         {
             foreach (Forum frm in forums)
             {
-                if (frm.getId() == forumId)
-                    frm.setSubTopic(topic, subForumId);
+                if (frm.ForumID == forumId)
+                    frm.SetSubTopic(topic, subForumId);
             }
         }
-        public int getForumId(string name)
+        public int GetForumId(string name)
         {
             foreach (Forum frm in forums)
             {
-                if (frm.compareName(name) == 0)
-                    return frm.getId();
+                if (frm.CompareName(name) == 0)
+                    return frm.ForumID;
             }
             return -1;
         }
 
-        public int getSubForumId(int forumId, string topic)
+        public int GetSubForumId(int forumId, string topic)
         {
             foreach (Forum frm in forums)
-                if (frm.getId() == forumId)
-                    return frm.getSubForumId(topic);
+                if (frm.ForumID == forumId)
+                    return frm.GetSubForumId(topic);
             return -1;
         }
 
-        public Boolean isValid(string password, int forumId)
+        public Boolean IsValid(string password, int forumId)
         {
             foreach (Forum frm in forums)
-                if (frm.getId() == forumId)
-                    return frm.isValidPassword(password);
+                if (frm.ForumID == forumId)
+                    return frm.IsValidPassword(password);
             return false;
         }
     }
