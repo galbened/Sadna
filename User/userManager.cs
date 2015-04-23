@@ -36,7 +36,7 @@ namespace User
                 }
                     
             }
-            return -1;
+            throw new WrongUsernameOrPasswordException();
         }
 
         public bool logout(int userID)
@@ -51,7 +51,7 @@ namespace User
        public int register(string username, string password, string email)
         {
             if (!isNameAvilable(username))
-                return -1;
+                throw new UsernameIsTakenException();
             UsersList.Add(new Member(newestMemberID, username, password, email));
             newestMemberID++;
             return newestMemberID - 1;
@@ -69,8 +69,7 @@ namespace User
                 if (getMemberByID(userID).setPassword(oldPassword, newPassword))
                     return userID;
             }
-            return -1;
-           
+            throw new UserPasswordIllegalChangeException();       
         }
 
         public int changeUsername(int userID, string newUsername, string password)
@@ -86,7 +85,7 @@ namespace User
                     }
                 }
             }
-            return -1;
+            throw new UsernameIllegalChangeException();
         }
 
         public int addFriend(int userID, int friendID)

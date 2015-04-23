@@ -31,11 +31,12 @@ namespace testProject
         }
 
         [TestMethod]
+        [ExpectedException(typeof(UsernameIsTakenException),"Username entered is taken.")]
         public void registrationAgainFailTest()
         {
             int id1 = um.register(userNames[0], passwords[0], emails[0]);
             int id3 = um.register(userNames[0], passwords[0], emails[0]);
-            Assert.AreEqual(id3, -1);
+            //Assert.AreEqual(id3, -1);
             um.deactivate(id1);
         }
 
@@ -62,14 +63,14 @@ namespace testProject
         {
             int id1 = um.register(userNames[0], passwords[0], emails[0]);
             id1 = um.login(userNames[0], passwords[0]);
-            Assert.AreEqual(um.login(userNames[0], passwords[0]), -1);
+            //Assert.AreEqual(um.login(userNames[0], passwords[0]), -1);
             um.deactivate(id1);
         }
 
         [TestMethod]
         public void loginWithoutRegisterTest()
         {
-            Assert.AreEqual(um.login(userNames[4], passwords[1]), -1);
+            //Assert.AreEqual(um.login(userNames[4], passwords[1]), -1);
         }
 
         [TestMethod]
@@ -89,11 +90,12 @@ namespace testProject
          * checking that the username changes
          */
         [TestMethod]
+        [ExpectedException(typeof(UsernameIllegalChangeException), "User is not logged in - illegal change.")]
         public void changeUsernameNotLogedinTest()
         {
             int id1 = um.register(userNames[0], passwords[0], emails[0]);
             id1 = um.changeUsername(id1, userNames[1], passwords[0]);
-            Assert.AreEqual(id1, -1); //should be logedin
+            //Assert.AreEqual(id1, -1); //should be logedin
             id1 = um.login(userNames[0], passwords[0]);
             um.deactivate(id1);
         }
@@ -112,11 +114,13 @@ namespace testProject
         }
 
         [TestMethod]
+        [ExpectedException(typeof(UsernameIllegalChangeException), "Entered details are wrong - illegal change.")]
         public void changeUsernameIncorrectDetailsTest()
         {
             int id1 = um.register(userNames[0], passwords[0], emails[0]);
             id1 = um.login(userNames[0], passwords[0]);
-            Assert.AreEqual(um.changeUsername(id1, userNames[1], passwords[1]), -1);//user details incorrect
+            //Assert.AreEqual(um.changeUsername(id1, userNames[1], passwords[1]), -1);//user details incorrect
+            um.changeUsername(id1, userNames[1], passwords[1]);//user details incorrect
             um.deactivate(id1);
         }
 
@@ -125,11 +129,12 @@ namespace testProject
          * checking that the password changes
          */
         [TestMethod]
+        [ExpectedException(typeof(UserPasswordIllegalChangeException), "User is not logged in - illegal password change.")]
         public void changePasswordNotLogedinTest()
         {
             int id1 = um.register(userNames[0], passwords[0], emails[0]);
             id1 = um.changePassword(id1, passwords[0], passwords[1]);
-            Assert.AreEqual(id1, -1); //should be logedin
+            //Assert.AreEqual(id1, -1); //should be logedin
             id1 = um.login(userNames[0], passwords[0]);
             um.deactivate(id1);
         }
@@ -148,6 +153,7 @@ namespace testProject
         }
 
         [TestMethod]
+        [ExpectedException(typeof(UserPasswordIllegalChangeException), "Entered details are wrong - illegal password change.")]
         public void changePasswordIncorrectDetailsTest()
         {
             int id1 = um.register(userNames[0], passwords[0], emails[0]);
@@ -178,12 +184,14 @@ namespace testProject
          * checking that the user account was diactivated
          */
         [TestMethod]
+        [ExpectedException(typeof(WrongUsernameOrPasswordException), "Username does not exist.")]
         public void deactivateTest()
         {
             int id1 = um.register(userNames[0], passwords[0], emails[0]);
             id1 = um.login(userNames[0], passwords[0]);
             um.deactivate(id1);
-            Assert.AreEqual(um.login(userNames[0], passwords[0]), -1);//should fail - users not exists
+            //Assert.AreEqual(um.login(userNames[0], passwords[0]), -1);//should fail - users not exists
+            um.login(userNames[0], passwords[0]);//should fail - users not exists
         }
     }
 
