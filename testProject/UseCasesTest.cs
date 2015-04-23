@@ -27,18 +27,18 @@ namespace testProject
         [TestMethod]
         public void forumCreationTest()
         {
-            int id1 = fm.createForum(titels[0]);
+            int id1 = fm.CreateForum(titels[0]);
             Assert.AreNotEqual(id1, -1);
-            fm.removeForum(id1);
+            fm.RemoveForum(id1);
         }
 
         [TestMethod]
         public void forumCreationFailTest()
         {
-            int id1 = fm.createForum(titels[0]);
-            int id3 = fm.createForum(titels[0]);
+            int id1 = fm.CreateForum(titels[0]);
+            int id3 = fm.CreateForum(titels[0]);
             Assert.AreEqual(id3, -1);
-            fm.removeForum(id1);
+            fm.RemoveForum(id1);
         }
 
         /*
@@ -47,18 +47,18 @@ namespace testProject
         [TestMethod]
         public void setPolicyTest()
         {
-            int id1 = fm.createForum(titels[0]);
-            fm.setPolicy(4, "", true, true, true, false, 3, id1);
-            Assert.AreNotEqual(-1,fm.register(userNames[0], passwords[0], emails[0],id1));//password valid
-            fm.removeForum(id1);
+            int id1 = fm.CreateForum(titels[0]);
+            fm.SetPolicy(4, "", true, true, true, false, 3, id1);
+            Assert.AreNotEqual(-1,fm.Register(userNames[0], passwords[0], emails[0],id1));//password valid
+            fm.RemoveForum(id1);
         }
         [TestMethod]
         public void setPolicyIncorrectPasswordTest()
         {
-            int id1 = fm.createForum(titels[0]);
-            fm.setPolicy(4, "", true, true, true, false, 3, id1);
-            Assert.AreEqual(-1, fm.register(userNames[0], passwords[1], emails[0], id1));//password only lowercase
-            fm.removeForum(id1);
+            int id1 = fm.CreateForum(titels[0]);
+            fm.SetPolicy(4, "", true, true, true, false, 3, id1);
+            Assert.AreEqual(-1, fm.Register(userNames[0], passwords[1], emails[0], id1));//password only lowercase
+            fm.RemoveForum(id1);
         }
 
         /*
@@ -67,9 +67,9 @@ namespace testProject
         [TestMethod]
         public void userRegistrationToForumTest()
         {
-            int id1 = fm.createForum(titels[0]);
-            Assert.AreNotEqual(-1, fm.register(userNames[0], passwords[0], emails[0], id1));
-            fm.removeForum(id1);
+            int id1 = fm.CreateForum(titels[0]);
+            Assert.AreNotEqual(-1, fm.Register(userNames[0], passwords[0], emails[0], id1));
+            fm.RemoveForum(id1);
         }
 
         /*
@@ -78,10 +78,10 @@ namespace testProject
         [TestMethod]
         public void userLoginForumTest()
         {
-            int id1 = fm.createForum(titels[0]);
-            int userId = fm.register(userNames[0], passwords[0], emails[0], id1);
-            Assert.AreEqual(userId, fm.login(userNames[0], passwords[0], id1));
-            fm.removeForum(id1);
+            int id1 = fm.CreateForum(titels[0]);
+            int userId = fm.Register(userNames[0], passwords[0], emails[0], id1);
+            Assert.AreEqual(userId, fm.Login(userNames[0], passwords[0], id1));
+            fm.RemoveForum(id1);
         }
 
         /*
@@ -90,20 +90,20 @@ namespace testProject
         [TestMethod]
         public void userLogoutForumTest()
         {
-            int id1 = fm.createForum(titels[0]);
-            int userId = fm.register(userNames[0], passwords[0], emails[0], id1);
-            userId = fm.login(userNames[0], passwords[0], id1);
-            Assert.IsTrue(fm.logout(userId,id1));
-            fm.removeForum(id1);
+            int id1 = fm.CreateForum(titels[0]);
+            int userId = fm.Register(userNames[0], passwords[0], emails[0], id1);
+            userId = fm.Login(userNames[0], passwords[0], id1);
+            Assert.IsTrue(fm.Logout(userId,id1));
+            fm.RemoveForum(id1);
         }
 
         [TestMethod]
         public void userLogoutNotLogedInForumTest()
         {
-            int id1 = fm.createForum(titels[0]);
-            int userId = fm.register(userNames[0], passwords[0], emails[0], id1);
-            Assert.IsFalse(fm.logout(userId, id1));
-            fm.removeForum(id1);
+            int id1 = fm.CreateForum(titels[0]);
+            int userId = fm.Register(userNames[0], passwords[0], emails[0], id1);
+            Assert.IsFalse(fm.Logout(userId, id1));
+            fm.RemoveForum(id1);
         }
 
         /*
@@ -112,20 +112,20 @@ namespace testProject
         [TestMethod]
         public void subForumCreationTest()
         {
-            int id1 = fm.createForum(titels[0]);
-            int userId = fm.register(userNames[0], passwords[0], emails[0], id1);
-            fm.addAdmin(userId, id1);
-            Assert.AreNotEqual(-1, fm.createSubForum(subTitels[0], id1, userId));
-            fm.removeForum(id1);
+            int id1 = fm.CreateForum(titels[0]);
+            int userId = fm.Register(userNames[0], passwords[0], emails[0], id1);
+            fm.AddAdmin(userId, id1);
+            Assert.AreNotEqual(-1, fm.CreateSubForum(subTitels[0], id1, userId));
+            fm.RemoveForum(id1);
         }
 
         [TestMethod]
         public void subForumCreationUserNoAdminTest()
         {
-            int id1 = fm.createForum(titels[0]);
-            int userId = fm.register(userNames[0], passwords[0], emails[0], id1);
-            Assert.AreEqual(-2, fm.createSubForum(subTitels[0], id1, userId));
-            fm.removeForum(id1);
+            int id1 = fm.CreateForum(titels[0]);
+            int userId = fm.Register(userNames[0], passwords[0], emails[0], id1);
+            Assert.AreEqual(-2, fm.CreateSubForum(subTitels[0], id1, userId));
+            fm.RemoveForum(id1);
         }
 
         /*
@@ -134,13 +134,13 @@ namespace testProject
         [TestMethod]
         public void publishMessageTest()
         {
-            int forumId = fm.createForum(titels[0]);
-            int userId = fm.register(userNames[0], passwords[0], emails[0], forumId);
-            fm.addAdmin(userId, forumId);
-            int subForumId = fm.createSubForum(subTitels[0], forumId, userId);
+            int forumId = fm.CreateForum(titels[0]);
+            int userId = fm.Register(userNames[0], passwords[0], emails[0], forumId);
+            fm.AddAdmin(userId, forumId);
+            int subForumId = fm.CreateSubForum(subTitels[0], forumId, userId);
             int threadId1 = mm.addThread(forumId, subForumId, userId, topic[0], body[0]);
             Assert.AreNotEqual(threadId1, -1);
-            fm.removeForum(forumId);
+            fm.RemoveForum(forumId);
         }
 
         /*
@@ -149,14 +149,14 @@ namespace testProject
         [TestMethod]
         public void publishResponseTest()
         {
-            int forumId = fm.createForum(titels[0]);
-            int userId = fm.register(userNames[0], passwords[0], emails[0], forumId);
-            fm.addAdmin(userId, forumId);
-            int subForumId = fm.createSubForum(subTitels[0], forumId, userId);
+            int forumId = fm.CreateForum(titels[0]);
+            int userId = fm.Register(userNames[0], passwords[0], emails[0], forumId);
+            fm.AddAdmin(userId, forumId);
+            int subForumId = fm.CreateSubForum(subTitels[0], forumId, userId);
             int threadId1 = mm.addThread(forumId, subForumId, userId, topic[0], body[0]);
             int commentID1 = mm.addComment(threadId1, userId, topic[1], body[0]);
             Assert.AreNotEqual(commentID1, -1);
-            fm.removeForum(forumId);
+            fm.RemoveForum(forumId);
         }
 
         /*
@@ -165,24 +165,24 @@ namespace testProject
         [TestMethod]
         public void removeSubForumTest()
         {
-            int id1 = fm.createForum(titels[0]);
-            int userId = fm.register(userNames[0], passwords[0], emails[0], id1);
-            fm.addAdmin(userId, id1);
-            int id2 = fm.createSubForum(subTitels[1], id1, userId);
+            int id1 = fm.CreateForum(titels[0]);
+            int userId = fm.Register(userNames[0], passwords[0], emails[0], id1);
+            fm.AddAdmin(userId, id1);
+            int id2 = fm.CreateSubForum(subTitels[1], id1, userId);
             Assert.AreNotEqual(id1, id2);
-            Assert.IsTrue(fm.removeSubForum(id1, id2,userId));
-            fm.removeForum(id1);
+            Assert.IsTrue(fm.RemoveSubForum(id1, id2,userId));
+            fm.RemoveForum(id1);
         }
 
         [TestMethod]
         public void removeSubForumNotAdminTest()
         {
-            int id1 = fm.createForum(titels[0]);
-            int userId = fm.register(userNames[0], passwords[0], emails[0], id1);
-            int id2 = fm.createSubForum(subTitels[1], id1, userId);
+            int id1 = fm.CreateForum(titels[0]);
+            int userId = fm.Register(userNames[0], passwords[0], emails[0], id1);
+            int id2 = fm.CreateSubForum(subTitels[1], id1, userId);
             Assert.AreNotEqual(id1, id2);
-            Assert.IsFalse(fm.removeSubForum(id1, id2, userId));
-            fm.removeForum(id1);
+            Assert.IsFalse(fm.RemoveSubForum(id1, id2, userId));
+            fm.RemoveForum(id1);
         }
     }
 }
