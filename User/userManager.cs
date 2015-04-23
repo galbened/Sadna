@@ -28,10 +28,10 @@ namespace User
         {
             foreach (Member member in UsersList)
             {
-                if ((member.getMemberUsername().CompareTo(username)==0))
+                if ((member.MemberUsername.CompareTo(username)==0))
                 {
                     if (member.login(password) == true)
-                        return member.getMemberID();
+                        return member.MemberID;
 
                 }
                     
@@ -42,9 +42,9 @@ namespace User
         public bool logout(int userID)
         {
             Member mem = getMemberByID(userID);
-            if(mem.getLoggerStatus()==false)    //is user already logged out?
-                return false; 
-            mem.setLoggerStatus(false);         //logging the user out.
+            if(mem.LoggerStatus==false)    //is user already logged out?
+                return false;
+            mem.LoggerStatus = false;        //logging the user out.
             return true;
         }
 
@@ -64,7 +64,7 @@ namespace User
 
         public int changePassword(int userID, string oldPassword, string newPassword)
         {
-            if (getMemberByID(userID).getLoggerStatus() == true)
+            if (getMemberByID(userID).LoggerStatus == true)
             {
                 if (getMemberByID(userID).setPassword(oldPassword, newPassword))
                     return userID;
@@ -75,13 +75,13 @@ namespace User
 
         public int changeUsername(int userID, string newUsername, string password)
         {
-            if (getMemberByID(userID).getLoggerStatus() == true)
+            if (getMemberByID(userID).LoggerStatus == true)
             {
-                if (getMemberByID(userID).getPassword().CompareTo(password) == 0)
+                if (getMemberByID(userID).MemberPassword.CompareTo(password) == 0)
                 { // checks if the password is correct
                     if (isNameAvilable(newUsername) == true)
                     {
-                        getMemberByID(userID).setUsername(newUsername);
+                        getMemberByID(userID).MemberUsername = newUsername;
                         return userID;
                     }
                 }
@@ -99,12 +99,12 @@ namespace User
 
         public string getUsername(int userID)
         {
-            return getMemberByID(userID).getMemberUsername();
+            return getMemberByID(userID).MemberUsername;
         }
 
         public string getPassword(int userID)
         {
-            return getMemberByID(userID).getPassword();
+            return getMemberByID(userID).MemberPassword;
         }
 
         public void removeFriend(int userID, int friendID)
@@ -140,7 +140,7 @@ namespace User
         {
             foreach (Member member in UsersList)
             {
-                if (member.getMemberID() == userID)
+                if (member.MemberID == userID)
                     return member; 
             }
             throw new System.InvalidOperationException("userID not found.");
@@ -149,7 +149,7 @@ namespace User
         private Boolean isNameAvilable(String userName){
             foreach (Member member in UsersList)
             {
-                if (member.getMemberUsername().CompareTo(userName)==0)
+                if (member.MemberUsername.CompareTo(userName)==0)
                     return false;
             }
             return true;
