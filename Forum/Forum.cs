@@ -16,6 +16,9 @@ namespace Forum
         private Policy poli;
         private static int subForumIdCounter;
         private UserManager usrMngr;
+        private const string error_existTitle = "Cannot create subForum with already exit title";
+        private const string error_notAdmim = "Cannot create subForum with not admin caller ID";
+        private const string error_forumID = "No such subForum: ";
 
         public Forum(string name, int id)
         {
@@ -34,14 +37,15 @@ namespace Forum
         {
             foreach (SubForum sbfrm in subForums)
                 if (sbfrm.Topic.CompareTo(topic) == 0)
-                    return -1;
+                    throw new ArgumentException(error_existTitle);
             if (adminsID.Contains(callerUserId))
             {
                 subForums.Add(new SubForum(topic, subForumIdCounter));
                 subForumIdCounter++;
                 return subForumIdCounter - 1;
             }
-            return -2;
+            else
+                throw new ArgumentException(error_notAdmim);
         }
 
         public Policy Poli
@@ -129,7 +133,7 @@ namespace Forum
             foreach (SubForum sbfrm in subForums)
                 if (sbfrm.SubForumId == subForumId)
                     return sbfrm.IsModerator(userId);
-            return false;
+            throw new ArgumentException(error_forumID+subForumId);
         }
 
         internal void AddModerator(int userId, int subForumId)
@@ -170,7 +174,7 @@ namespace Forum
             foreach (SubForum sbfrm in subForums)
                 if (sbfrm.Topic.CompareTo(topic) == 0)
                     return sbfrm.SubForumId;
-            return -1;
+            throw new ArgumentException(error_forumID + topic); ;
         }
 
         internal Boolean RemoveSubForum(int subForumId, int callerUserId)
