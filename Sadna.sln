@@ -19,7 +19,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Driver", "Driver\Driver.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GUI", "GUI\GUI.csproj", "{10B87B0B-CC9A-4B97-B420-68368D2C389C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logger", "Logger\Logger.csproj", "{81C8E1B4-33DE-449E-9321-6C3D42392E6C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ForumLogger", "ForumLogger\ForumLogger.csproj", "{81C8E1B4-33DE-449E-9321-6C3D42392E6C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
