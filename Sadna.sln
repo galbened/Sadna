@@ -15,6 +15,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "testProject", "testProject\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Notification", "Notification\Notification.csproj", "{CD7BFCB0-9183-4222-8176-D42B80E991DE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Driver", "Driver\Driver.csproj", "{8D1C339D-6E47-439D-BCC0-9362F071559D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GUI", "GUI\GUI.csproj", "{10B87B0B-CC9A-4B97-B420-68368D2C389C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +49,14 @@ Global
 		{CD7BFCB0-9183-4222-8176-D42B80E991DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CD7BFCB0-9183-4222-8176-D42B80E991DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CD7BFCB0-9183-4222-8176-D42B80E991DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D1C339D-6E47-439D-BCC0-9362F071559D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D1C339D-6E47-439D-BCC0-9362F071559D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D1C339D-6E47-439D-BCC0-9362F071559D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D1C339D-6E47-439D-BCC0-9362F071559D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10B87B0B-CC9A-4B97-B420-68368D2C389C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10B87B0B-CC9A-4B97-B420-68368D2C389C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10B87B0B-CC9A-4B97-B420-68368D2C389C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10B87B0B-CC9A-4B97-B420-68368D2C389C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
