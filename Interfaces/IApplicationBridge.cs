@@ -9,7 +9,7 @@ namespace Interfaces
     public interface IApplicationBridge
     {
       
-        int CreateForum(int forumAdmin, string name, 
+        int CreateForum(/*int forumAdmin,*/ string name, 
                        int numOfModerators, string degreeOfEnsuring,
                        Boolean uppercase, Boolean lowercase, Boolean numbers,
                        Boolean symbols, int minLength);
@@ -20,7 +20,7 @@ namespace Interfaces
 
         //public void Entry(int forumId);
 
-        int Register(string username, string password, string email);
+        int Register(string username, string password, string email, int forumId);
 
         int Login(String username, String password, int forumId);
 

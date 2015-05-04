@@ -7,9 +7,9 @@ using Interfaces;
 
 namespace Driver
 {
-    class BridgeReal : IApplicationBridge
+    public class BridgeReal : IApplicationBridge
     {
-        public int CreateForum(int forumAdmin, string name, int numOfModerators, string degreeOfEnsuring, bool uppercase, bool lowercase, bool numbers, bool symbols, int minLength)
+        public int CreateForum(/*int forumAdmin,*/ string name, int numOfModerators, string degreeOfEnsuring, bool uppercase, bool lowercase, bool numbers, bool symbols, int minLength)
         {
             throw new NotImplementedException();
         }
@@ -19,7 +19,7 @@ namespace Driver
             throw new NotImplementedException();
         }
 
-        public int Register(string username, string password, string email)
+        public int Register(string username, string password, string email, int forumId)
         {
             throw new NotImplementedException();
         }

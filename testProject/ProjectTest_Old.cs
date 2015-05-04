@@ -7,8 +7,10 @@ using Forum;
 namespace testProject
 {
     [TestClass]
-    public class UseCasesTest
+    public class ProjectTest_Old
     {
+
+        // SetUp information
         String[] titels = { "sport", "nature" };
         String[] subTitels = { "football", "basketball", "animals", "plants" };
         String[] topic = { "man u", "juve" };
@@ -19,6 +21,8 @@ namespace testProject
         String[] superAdmin = { "admin", "admin" };
         IMessageManager mm = MessageManager.Instance();
         IForumManager fm = ForumManager.getInstance();
+
+         
 
         /*
          * use case - forum creation

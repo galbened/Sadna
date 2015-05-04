@@ -4,25 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Interfaces;
+using Driver;
 
-namespace Driver
+namespace testProject
 {
-    public class Driver
+    class Driver
     {
-        private static IApplicationBridge getBridge()
+        public static IApplicationBridge GetBridge()
         {
             BridgeProxy bridge = new BridgeProxy();
 
             bridge.SetRealBridge(new BridgeReal()); // add real bridge here
             return bridge;
         }
-
-        public static int Main(string[] args)
-        {
-            IApplicationBridge bridge = getBridge();
-            return 0;
-        }
-	
-
     }
 }
