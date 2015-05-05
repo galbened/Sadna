@@ -10,10 +10,11 @@ namespace User
     {
         int memberID;
         String memberUsername;
-        //private String memberPassword;
         String memberPassword;
+
         String memberEmail;
         Boolean loggerStatus;
+
         Boolean accountStatus;
         int confirmationCode;
         String memberType;
@@ -26,13 +27,35 @@ namespace User
             this.memberPassword = memberPassword;
             this.memberEmail = memberEmail;
             this.loggerStatus = false;
-            this.accountStatus = true; //user that not yet confirmed is email should be false - TODO when sending to mail is done
+            this.accountStatus = true; //user that not yet confirmed his email should be false - TODO when sending to mail is done
             this.FriendsList = new List<Member>();
             this.memberType = "Normal";
 
             //creating confirmation code and sending it to user email
             this.confirmationCode = creatingConfirmationCodeAndSending(memberEmail);
         }
+
+        public int MemberID
+        {
+            get { return memberID; }
+            set { memberID = value; }
+        }
+        public String MemberUsername
+        {
+            get { return memberUsername; }
+            set { memberUsername = value; }
+        }
+        public Boolean LoggerStatus
+        {
+            get { return loggerStatus; }
+            set { loggerStatus = value; }
+        }
+        public String MemberPassword
+        {
+            get { return memberPassword; }
+            //set { memberPassword = value; }
+        }
+
 
         public void addFriend(Member friend)
         {
@@ -51,6 +74,7 @@ namespace User
             sendingConfirmationCodeToMail(newConfirmationCode);
             return newConfirmationCode;
         }
+
         void sendingConfirmationCodeToMail(int code)
         {
             //TODO
@@ -66,17 +90,6 @@ namespace User
             }
             return false;
         }
-
-        public int getMemberID()
-        {
-            return memberID;
-        }
-
-        public String getMemberUsername()
-        {
-            return memberUsername;
-        }
-
         
         /*
          * gets a pasword and compares it with the uesr's password,
@@ -92,41 +105,17 @@ namespace User
             return false;
         }
 
-
-
-        public Boolean getLoggerStatus()
-        {
-            return loggerStatus;
-        }
-
-        public void setLoggerStatus(Boolean wantedStatus) //sets status false if logging out, true if logging in
-        {
-            loggerStatus = wantedStatus;
-        }
-
-
         /*
          * it does not check if the new password is legit
          * */
         public Boolean setPassword(string oldPassword, string newPassword)
         {
-            if (oldPassword.CompareTo(memberPassword)==0)
+            if (oldPassword == memberPassword)
             {
                 memberPassword = newPassword;
                 return true;
             }
             return false;
         }
-
-        public void setUsername(string  newusername)
-        {
-            memberUsername = newusername;
-        }
-        public String getPassword()
-        {
-            return memberPassword;
-        }
-
-
     }
 }

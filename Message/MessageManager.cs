@@ -12,6 +12,8 @@ namespace Message
         private HashSet<Message> messages;
         private static MessageManager instance = null;
         private int lastMessageID;
+        private const string error_emptyTitle = "Cannot add thread without title";
+        private const string error_messageIdNotFound = "Message ID doesn't exist";
 
 
         public static IMessageManager Instance()
@@ -30,6 +32,8 @@ namespace Message
 
         public int addThread(int forumId, int subForumId, int publisherId, string title, string body)
         {
+            if ((title == null) || (title.Equals("")))
+                throw new ArgumentException(error_emptyTitle);
             lastMessageID++;
             int messageId = lastMessageID;
             Thread thread = new Thread(forumId, subForumId, messageId, publisherId, title, body);
@@ -41,6 +45,8 @@ namespace Message
 
         public int addComment(int firstMessageID, int publisherID, string title, string body)
         {
+            if ((title == null) || (title.Equals("")))
+                throw new ArgumentException(error_emptyTitle);
             FirstMessage first = (FirstMessage)findMessage(firstMessageID);
             //checking if firstMessageID exists and really FirstMessage
             if ((first != null) && (first.isFirst()))
@@ -52,19 +58,21 @@ namespace Message
                 messages.Add(rm);
                 return rm.getMessageID();
             }
-            return -1;
+            throw new InvalidOperationException(error_messageIdNotFound);
         }
 
 
         public bool editMessage(int messageId, string title, string body)
         {
+            if ((title == null) || (title.Equals("")))
+                throw new ArgumentException(error_emptyTitle);
             Message ms = findMessage(messageId);
             if (ms != null)
             {
                 ms.editMessage(title, body);
                 return true;
             }
-            return false;
+            throw new InvalidOperationException(error_messageIdNotFound);
         }
 
 
@@ -85,7 +93,7 @@ namespace Message
                  messages.Remove(ms);
                  return true;
             }
-            return false;
+            throw new InvalidOperationException(error_messageIdNotFound);
                 
 
         }

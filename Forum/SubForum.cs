@@ -18,35 +18,32 @@ namespace Forum
             subForumId = id;
         }
 
-        public Boolean isModerator(int userId)
+        public Boolean IsModerator(int userId)
         {
             return moderatorsId.Contains(userId);
         }
         
-        public void addModerator(int userId)
+        public void AddModerator(int userId)
         {
             if (!(moderatorsId.Contains(userId)))
                 moderatorsId.Add(userId);
         }
 
-         public void removeModerator(int userId)
+         public void RemoveModerator(int userId)
         {
             moderatorsId.Remove(userId);
         }
 
-        public string getTopic()
+        public string Topic
         {
-            return this.topic;
+            get { return topic; }
+            set { topic = value; }
         }
 
-        public void setTopic(string topic)
-        {
-            this.topic = topic;
-        }
 
-        internal int getId()
+        internal int SubForumId
         {
-            return subForumId;
+            get { return subForumId; }
         }
     }
 
