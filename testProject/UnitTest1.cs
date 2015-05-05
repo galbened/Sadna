@@ -69,7 +69,7 @@ namespace testProject
         [TestMethod]
         public void loginWithoutRegisterTest()
         {
-            Assert.AreEqual(um.login(userNames[4], passwords[4]), -1);
+            Assert.AreEqual(um.login(userNames[4], passwords[1]), -1);
         }
 
         [TestMethod]
