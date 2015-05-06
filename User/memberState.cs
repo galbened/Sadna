@@ -8,8 +8,6 @@ namespace User
 {
     interface memberState
     {
-        private String currentType;
-
         public bool isAllowedToBeAdmin();   //  for later methods
         public String getType();            //  for nextState() and previousState() that are implemented in the Context Class
 
