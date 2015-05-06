@@ -158,12 +158,12 @@ namespace Forum
             }
             throw new ArgumentException(error_forumID + forumId); ;
         }
-        public void AddModerator(int userId, int forumId, int subForumId)
+        public void AddModerator(int userId, int forumId, int subForumId, int callerId)
         {
             foreach (Forum frm in forums)
             {
                 if (frm.ForumID == forumId)
-                    frm.AddModerator(userId, subForumId);
+                    frm.AddModerator(userId, subForumId, callerId);
             }
         }
 

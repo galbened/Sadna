@@ -28,24 +28,24 @@ namespace Message
 
         public abstract bool isFirst();
 
-        public int getMessageID()
+        public int MessageID
         {
-            return id;
+            get { return id; }
         }
 
-        public String getContent()
+        public String Content
         {
-            return body;
+            get { return body; }
         }
 
-        public string getPublisherName()
+        public int PublisherID
         {
-            return "";
+            get { return publisherID; }
         }
 
-        public DateTime getPublishDate()
+        public DateTime PublishDate
         {
-            return publishDate;
+            get { return publishDate; }
         }
 
         public void editMessage(string title, string body)

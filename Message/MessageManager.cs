@@ -14,6 +14,7 @@ namespace Message
         private int lastMessageID;
         private const string error_emptyTitle = "Cannot add thread without title";
         private const string error_messageIdNotFound = "Message ID doesn't exist";
+        private const string error_callerIDnotMatch = "Only publisher can edit message";
 
 
         public static IMessageManager Instance()
@@ -39,7 +40,7 @@ namespace Message
             Thread thread = new Thread(forumId, subForumId, messageId, publisherId, title, body);
             Message ms = thread.getMessage();
             messages.Add(ms);
-            return ms.getMessageID();
+            return ms.MessageID;
         }
 
 
@@ -56,21 +57,25 @@ namespace Message
                 ResponseMessage rm = new ResponseMessage((FirstMessage)first, messageId, publisherID, title, body);
                 first.addResponse(rm);
                 messages.Add(rm);
-                return rm.getMessageID();
+                return rm.MessageID;
             }
             throw new InvalidOperationException(error_messageIdNotFound);
         }
 
 
-        public bool editMessage(int messageId, string title, string body)
+        public bool editMessage(int messageId, string title, string body, int callerID)
         {
             if ((title == null) || (title.Equals("")))
                 throw new ArgumentException(error_emptyTitle);
             Message ms = findMessage(messageId);
             if (ms != null)
             {
-                ms.editMessage(title, body);
-                return true;
+                if (ms.PublisherID == callerID)
+                {
+                    ms.editMessage(title, body);
+                    return true;
+                }
+                else throw new ArgumentException(error_callerIDnotMatch);
             }
             throw new InvalidOperationException(error_messageIdNotFound);
         }
@@ -105,7 +110,7 @@ namespace Message
             while ((!found) && (messagesSearched < messages.Count))
             {
                 Message cur = messages.ElementAt<Message>(messagesSearched);
-                if (cur.getMessageID() == messageID)
+                if (cur.MessageID == messageID)
                 {
                     found = true;
                     return cur;

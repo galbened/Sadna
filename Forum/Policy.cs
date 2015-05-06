@@ -72,6 +72,7 @@ namespace Forum
         internal int ModeratorNum
         {
             set { moderatorNum = value; }
+            get { return moderatorNum; }
         }
 
 

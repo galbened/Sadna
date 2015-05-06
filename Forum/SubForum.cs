@@ -8,31 +8,53 @@ namespace Forum
     public class SubForum
     {
         private string topic;
-        private List<int> moderatorsId;
+        private List<Moderator> moderators;
         private int subForumId;
 
         public SubForum(string topic, int id)
         {
-            moderatorsId = new List<int>();
+            moderators = new List<Moderator>();
+            moderators.Add(new Moderator(1, 1));
             this.topic = topic;
             subForumId = id;
+        }
+        internal Boolean Contains(int id)
+        {
+            foreach (Moderator mod in moderators)
+            {
+                if (mod.compareId(id))
+                    return true;
+            }
+            return false;
         }
 
         public Boolean IsModerator(int userId)
         {
-            return moderatorsId.Contains(userId);
+            return Contains(userId);
         }
         
-        public void AddModerator(int userId)
+        public void AddModerator(int userId, int callerId)
         {
-            if (!(moderatorsId.Contains(userId)))
-                moderatorsId.Add(userId);
+            if (!(Contains(userId)))
+                moderators.Add(new Moderator(userId, callerId));
         }
 
          public void RemoveModerator(int userId)
         {
-            moderatorsId.Remove(userId);
+            Remove(userId);
         }
+
+         internal void Remove(int userId)
+         {
+             foreach (Moderator mod in moderators)
+             {
+                 if (mod.compareId(userId))
+                 {
+                     moderators.Remove(mod);
+                     break;
+                 }
+             }
+         }
 
         public string Topic
         {
@@ -44,6 +66,11 @@ namespace Forum
         internal int SubForumId
         {
             get { return subForumId; }
+        }
+
+        public int NumOfModerators()
+        {
+            return moderators.Count;
         }
     }
 

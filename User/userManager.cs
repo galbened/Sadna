@@ -20,7 +20,7 @@ namespace User
             userTypes.Add("Normal");
             userTypes.Add("Gold");
             userTypes.Add("Silver");
-            this.newestMemberID = 1;
+            this.newestMemberID = 10;
         }
 
 

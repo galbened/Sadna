@@ -33,9 +33,10 @@ namespace Interfaces
          * int messageId - ID of the message to edit
          * return value - true if message edited successfully
          * Throws ArgumentException if title is empty 
+         * Throws ArgumentException if callerID not match callerID 
          * Throws InvalidOperationException if messageId doesn't exist
          **/
-        bool editMessage(int messageId, string title, string body);
+        bool editMessage(int messageId, string title, string body, int callerID);
 
         /*
          * Delete Message(First\Response)

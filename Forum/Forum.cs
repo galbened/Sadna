@@ -25,8 +25,11 @@ namespace Forum
             forumName = name;
             forumID = id;
             registeredUsersID = new List<int>();
+            registeredUsersID.Add(1);
             adminsID = new List<int>();
+            adminsID.Add(1);
             logedUsersId = new List<int>();
+            logedUsersId.Add(1);
             subForums = new List<SubForum>();
             poli = new Policy();
             usrMngr = new UserManager();
@@ -136,12 +139,12 @@ namespace Forum
             throw new ArgumentException(error_forumID+subForumId);
         }
 
-        internal void AddModerator(int userId, int subForumId)
+        internal void AddModerator(int userId, int subForumId, int callerId)
         {
             if (registeredUsersID.Contains(userId))
                 foreach (SubForum sbfrm in subForums)
-                    if (sbfrm.SubForumId == subForumId)
-                        sbfrm.AddModerator(userId);
+                    if ((sbfrm.SubForumId == subForumId)&&(sbfrm.NumOfModerators()<poli.ModeratorNum))
+                        sbfrm.AddModerator(userId, callerId);
         }
 
         internal void RemoveModerator(int userId, int subForumId)
