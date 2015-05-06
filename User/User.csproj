@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="Member.cs" />
     <Compile Include="Class1.cs" />
+    <Compile Include="memberType.cs" />
     <Compile Include="UserManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="User_Exceptions.cs" />
