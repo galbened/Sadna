@@ -154,5 +154,13 @@ namespace User
             return true;
 
         }
+
+        public bool IsPasswordValid(string username, int expectancy)
+        {
+            foreach (Member mem in UsersList)
+                if (username.CompareTo(mem.MemberUsername) == 0)
+                    return mem.PasswordLastChanged.AddDays(expectancy) > DateTime.Now;
+            return false;
+        }
     }
 }

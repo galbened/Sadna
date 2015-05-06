@@ -10,6 +10,7 @@ namespace Message
     public class MessageManager : IMessageManager
     {
         private HashSet<Message> messages;
+        private HashSet<Thread> threads;
         private static MessageManager instance = null;
         private int lastMessageID;
         private const string error_emptyTitle = "Cannot add thread without title";
@@ -27,6 +28,7 @@ namespace Message
         private MessageManager()
         {
             messages = new HashSet<Message>();
+            threads = new HashSet<Thread>();
             lastMessageID = -1;
         }
 
@@ -38,6 +40,7 @@ namespace Message
             lastMessageID++;
             int messageId = lastMessageID;
             Thread thread = new Thread(forumId, subForumId, messageId, publisherId, title, body);
+            threads.Add(thread);
             Message ms = thread.getMessage();
             messages.Add(ms);
             return ms.MessageID;
@@ -90,7 +93,7 @@ namespace Message
                 // if firstMessage, it should be deleted with all its comments
                 if (ms.isFirst())
                 {
-                    HashSet<ResponseMessage> messagesForDeletion = ((FirstMessage)ms).getResponseMessages();
+                    HashSet<ResponseMessage> messagesForDeletion = ((FirstMessage)ms).ResponseMessages;
                     foreach (ResponseMessage rm in messagesForDeletion)
                         messages.Remove(rm);
                 }
@@ -120,6 +123,26 @@ namespace Message
 
             //if messageID is wrong
             return null;
+        }
+
+        public int NumOfMessages(int forumId, int subForumId)
+        {
+            int ans = 0;
+            foreach (Thread thread in threads)
+            {
+                ans += thread.NumOfMessages(forumId, subForumId);
+            }
+            return ans;
+        }
+
+        public int NumOfMessages(int forumId, int subForumId, int userId)
+        {
+            int ans = 0;
+            foreach (Thread thread in threads)
+            {
+                ans += thread.NumOfMessages(forumId, subForumId, userId);
+            }
+            return ans;
         }
 
         

@@ -42,7 +42,7 @@
     <Compile Include="IMessage.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="MessageManager.cs" />
-    <Compile Include="Properties\FirstMessage.cs" />
+    <Compile Include="FirstMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResponseMessage.cs" />
     <Compile Include="Thread.cs" />

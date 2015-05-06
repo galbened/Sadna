@@ -45,5 +45,17 @@ namespace Interfaces
          * Throws InvalidOperationException if messageId doesn't exist
          **/
         bool deleteMessage(int messageId);
+
+        /*
+         * return the number of messages writen in specific subforum
+         * get the forumId and subForumId 
+         * */
+        public int NumOfMessages(int forumId, int subForumId);
+        /*
+        * return the number of messages writen in specific subforum by specific user
+        * get the forumId, subForumId and userID
+        **/
+        public int NumOfMessages(int forumId, int subForumId, int userId);
+
     }
 }

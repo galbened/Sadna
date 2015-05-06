@@ -38,12 +38,20 @@ namespace Message
         }
 
 
-        public HashSet<ResponseMessage> getResponseMessages()
+        public HashSet<ResponseMessage> ResponseMessages
         {
-            return responseMessages;
+            get { return responseMessages; }
         }
 
-
-
+        internal int NumOfMessagesByUserId(int userId)
+        {
+            int ans = 0;
+            if (PublisherID == userId)
+                ans++;
+            foreach (ResponseMessage respMsg in responseMessages)
+                if (respMsg.PublisherID == userId)
+                    ans++;
+            return ans;
+        }
     }
 }

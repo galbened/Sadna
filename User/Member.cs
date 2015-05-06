@@ -11,33 +11,42 @@ namespace User
         int memberID;
         String memberUsername;
         String memberPassword;
-
+        String identifyQuestion;
+        String identifyAnswer;
+        DateTime passwordLastChanged;
         String memberEmail;
         Boolean loggerStatus;
         memberState currentState;
         Boolean accountStatus;
         int confirmationCode;
         List<Member> FriendsList;
+        List<string> pastPasswords;
+        private const string error_passwordAlreadyUsed = "Password already used in past"; 
 
         public Member(int memberID, String memberUsername, String memberPassword, String memberEmail)
         {
             this.memberID = memberID;
             this.memberUsername = memberUsername;
             this.memberPassword = memberPassword;
+            passwordLastChanged = DateTime.Now;
             this.memberEmail = memberEmail;
             this.loggerStatus = false;
             this.accountStatus = true; //user that not yet confirmed his email should be false - TODO when sending to mail is done
             this.FriendsList = new List<Member>();
             currentState = new stateNormal();       // new user begins as a Normal user
-
+            pastPasswords = new List<string>();
             //creating confirmation code and sending it to user email
             this.confirmationCode = creatingConfirmationCodeAndSending(memberEmail);
         }
 
+        public DateTime PasswordLastChanged
+        {
+            get { return passwordLastChanged; }
+        }
         public int MemberID
         {
             get { return memberID; }
-            set { memberID = value; }
+            //set { memberID = value; }
         }
         public String MemberUsername
         {
@@ -64,6 +73,18 @@ namespace User
         public void removeFriend(Member friend)
         {
             FriendsList.Remove(friend);
+        }
+
+        public String IdentifyQuestion
+        {
+            set { identifyQuestion = value; }
+            get { return identifyQuestion; }
+        }
+
+        public String IdentifyAnswer
+        {
+            set { identifyAnswer = value; }
+            get { return identifyAnswer; }
         }
 
         private int creatingConfirmationCodeAndSending(String memberEmail)
@@ -109,9 +130,12 @@ namespace User
          * */
         public Boolean setPassword(string oldPassword, string newPassword)
         {
-            if (oldPassword == memberPassword)
+            if (oldPassword.CompareTo(memberPassword) == 0)
             {
+                if ((pastPasswords.Contains(newPassword))||(oldPassword.CompareTo(newPassword) == 0))
+                    throw new ArgumentException(error_passwordAlreadyUsed);
                 memberPassword = newPassword;
+                pastPasswords.Add(oldPassword);
                 return true;
             }
             return false;

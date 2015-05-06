@@ -208,5 +208,10 @@ namespace Forum
                     return frm.IsValidPassword(password);
             return false;
         }
+
+        public int NumOfForums()
+        {
+            return forums.Count;
+        }
     }
 }

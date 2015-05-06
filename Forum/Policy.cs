@@ -15,13 +15,15 @@ namespace Forum
         private Boolean lowerCase;
         private Boolean numbers;
         private Boolean symbols;
-
+        private Boolean canModeratorDeleteMessage;
+        private int passwordExpectancy;  //in days
+     
 
         public Policy()
         {
         }
 
-        public Policy(int moderN, string passEnsDeg, Boolean upper, Boolean lower, Boolean nums, Boolean symbs, int mLen)
+        public Policy(int moderN, string passEnsDeg, Boolean upper, Boolean lower, Boolean nums, Boolean symbs, int mLen, int passExp)
         {
             moderatorNum = moderN;
             passwordEnsuringDegree = passEnsDeg;
@@ -30,6 +32,8 @@ namespace Forum
             numbers = nums;
             symbols = symbs;
             minLength = mLen;
+            passwordExpectancy = passExp;
+            canModeratorDeleteMessage = false;
         }
 
         public Boolean IsValid(string password)
@@ -69,12 +73,22 @@ namespace Forum
             return (up & low & nums & symbs);
         }
 
+        internal Boolean CanModeratorDeleteMessage
+        {
+            get { return canModeratorDeleteMessage; }
+            set { canModeratorDeleteMessage = value; }
+        }
+
         internal int ModeratorNum
         {
             set { moderatorNum = value; }
             get { return moderatorNum; }
         }
 
+        internal int PasswordExpectancy
+        {
+            get { return passwordExpectancy; }
+        }
 
         internal string PasswordEnsuringDegree
         {

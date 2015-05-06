@@ -19,6 +19,7 @@ namespace Forum
         private const string error_existTitle = "Cannot create subForum with already exit title";
         private const string error_notAdmim = "Cannot create subForum with not admin caller ID";
         private const string error_forumID = "No such subForum: ";
+        private const string error_expiredPassword = "Password expired need to change";
 
         public Forum(string name, int id)
         {
@@ -95,6 +96,9 @@ namespace Forum
 
         public int Login(string username, string password)
         {
+            Boolean canLogin = usrMngr.IsPasswordValid(username, poli.PasswordExpectancy);
+            if (!canLogin)
+                throw new ArgumentException(error_expiredPassword);
             int id = usrMngr.login(username, password);
             if (registeredUsersID.Contains(id))
                 if (!(logedUsersId.Contains(id)))
