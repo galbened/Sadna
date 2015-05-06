@@ -14,10 +14,9 @@ namespace User
 
         String memberEmail;
         Boolean loggerStatus;
-
+        memberState currentState;
         Boolean accountStatus;
         int confirmationCode;
-        String memberType;
         List<Member> FriendsList;
 
         public Member(int memberID, String memberUsername, String memberPassword, String memberEmail)
@@ -29,7 +28,7 @@ namespace User
             this.loggerStatus = false;
             this.accountStatus = true; //user that not yet confirmed his email should be false - TODO when sending to mail is done
             this.FriendsList = new List<Member>();
-            this.memberType = "Normal";
+            currentState = new stateNormal();       // new user begins as a Normal user
 
             //creating confirmation code and sending it to user email
             this.confirmationCode = creatingConfirmationCodeAndSending(memberEmail);

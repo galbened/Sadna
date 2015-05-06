@@ -6,18 +6,16 @@ using System.Threading.Tasks;
 
 namespace User
 {
-    class stateGold : memberState
+    class stateNormal : memberState
     {
-
         public bool isAllowedToBeAdmin()
         {
-            return true;
+            return false;
         }
 
         public string getType()
         {
-            return "Gold";
+            return "Normal";
         }
-
     }
 }
