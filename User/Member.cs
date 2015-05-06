@@ -116,5 +116,32 @@ namespace User
             }
             return false;
         }
+        
+        /*
+         * this method changes the state of the current member to the next state
+         * */
+        public void nextState()
+        {
+            if (currentState.getType().CompareTo("Gold") == 0)
+                return;
+            else if (currentState.getType().CompareTo("Gold") == 0)
+                currentState = new stateGold();
+            else if (currentState.getType().CompareTo("Gold") == 0)
+                currentState = new stateSilver();
+        }
+
+        /*
+         * this method changes the state of the current member to the previous state
+         * */
+            public void prevState()
+            {
+                if (currentState.getType().CompareTo("Gold") == 0)
+                    currentState = new stateSilver();
+                else if (currentState.getType().CompareTo("Gold") == 0)
+                    currentState = new stateNormal();
+                else if (currentState.getType().CompareTo("Gold") == 0)
+                    return;
+            }
+
     }
 }
