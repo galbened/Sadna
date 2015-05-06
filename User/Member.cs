@@ -124,9 +124,9 @@ namespace User
         {
             if (currentState.getType().CompareTo("Gold") == 0)
                 return;
-            else if (currentState.getType().CompareTo("Gold") == 0)
+            else if (currentState.getType().CompareTo("Silver") == 0)
                 currentState = new stateGold();
-            else if (currentState.getType().CompareTo("Gold") == 0)
+            else if (currentState.getType().CompareTo("Normal") == 0)
                 currentState = new stateSilver();
         }
 
@@ -137,9 +137,9 @@ namespace User
             {
                 if (currentState.getType().CompareTo("Gold") == 0)
                     currentState = new stateSilver();
-                else if (currentState.getType().CompareTo("Gold") == 0)
+                else if (currentState.getType().CompareTo("Silver") == 0)
                     currentState = new stateNormal();
-                else if (currentState.getType().CompareTo("Gold") == 0)
+                else if (currentState.getType().CompareTo("Normal") == 0)
                     return;
             }
 
