@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace User
 {
-    class memberType
+    interface memberState
     {
+        String currentType=null;
     }
 }
