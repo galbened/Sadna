@@ -28,10 +28,10 @@ namespace testProject
             throw new NullReferenceException("_real in null");
         }
 
-        public void SetPolicy(int numOfModerators, string degreeOfEnsuring, bool uppercase, bool lowercase, bool numbers, bool symbols, int minLength, int forumId)
+        public void SetPolicy(int forumId, int numOfModerators, string degreeOfEnsuring, bool uppercase, bool lowercase, bool numbers, bool symbols, int minLength)
         {
             if (_real != null)
-                _real.SetPolicy(numOfModerators, degreeOfEnsuring, uppercase, lowercase, numbers, symbols, minLength, forumId);
+                _real.SetPolicy(forumId, numOfModerators, degreeOfEnsuring, uppercase, lowercase, numbers, symbols, minLength);
             throw new NullReferenceException("_real in null");
         }
 
@@ -56,17 +56,17 @@ namespace testProject
             throw new NullReferenceException("_real in null");
         }
 
-        public int CreateSubForum(string topic, int forumId, int callerUserId)
+        public int CreateSubForum(int forumId, string topic)
         {
             if (_real != null)
-                return _real.CreateSubForum(topic, forumId, callerUserId);
+                return _real.CreateSubForum(forumId, topic);
             throw new NullReferenceException("_real in null");
         }
 
-        public void View(int forumId, int subForumId, out string[] subForumNames, out int[] subForumIds)
+        public void View(int forumId, out List<string> subForumNames, out List<int> subForumIds)
         {
             if (_real != null)
-                _real.View(forumId, subForumId, out subForumNames, out subForumIds);
+                _real.View(forumId, out subForumNames, out subForumIds);
             throw new NullReferenceException("_real in null");
         }
 

@@ -14,7 +14,7 @@ namespace Driver
             throw new NotImplementedException();
         }
 
-        public void SetPolicy(int numOfModerators, string degreeOfEnsuring, bool uppercase, bool lowercase, bool numbers, bool symbols, int minLength, int forumId)
+        public void SetPolicy(int forumId, int numOfModerators, string degreeOfEnsuring, bool uppercase, bool lowercase, bool numbers, bool symbols, int minLength)
         {
             throw new NotImplementedException();
         }
@@ -34,12 +34,12 @@ namespace Driver
             throw new NotImplementedException();
         }
 
-        public int CreateSubForum(string topic, int forumId, int callerUserId)
+        public int CreateSubForum(int forumId, string topic)
         {
             throw new NotImplementedException();
         }
 
-        public void View(int forumId, int subForumId, out string[] subForumNames, out int[] subForumIds)
+        public void View(int forumId, out List<string> subForumNames, out List<int> subForumIds)
         {
             throw new NotImplementedException();
         }

@@ -8,15 +8,15 @@ namespace Interfaces
 {
     public interface IApplicationBridge
     {
-      
+        
         int CreateForum(/*int forumAdmin,*/ string name, 
                        int numOfModerators, string degreeOfEnsuring,
                        Boolean uppercase, Boolean lowercase, Boolean numbers,
                        Boolean symbols, int minLength);
 
-        void SetPolicy(int numOfModerators, string degreeOfEnsuring,
+        void SetPolicy(int forumId, int numOfModerators, string degreeOfEnsuring,
                        Boolean uppercase, Boolean lowercase, Boolean numbers,
-                       Boolean symbols, int minLength, int forumId);
+                       Boolean symbols, int minLength);
 
         //public void Entry(int forumId);
 
@@ -26,9 +26,9 @@ namespace Interfaces
 
         bool Logout(int userId, int forumId);
 
-        int CreateSubForum(string topic, int forumId, int callerUserId);
+        int CreateSubForum(int forumId, string topic);
 
-        void View(int forumId, int subForumId, out string[] subForumNames, out int[] subForumIds);
+        void View(int forumId, out List<string> subForumNames, out List<int> subForumIds);
 
         int Publish(int forumId, int subForumId, int publisherID, string title, string body);
 

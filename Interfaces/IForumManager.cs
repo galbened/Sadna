@@ -31,7 +31,7 @@ namespace Interfaces
         void SetTopic(string topic, int forumID, int subForumId);
         int GetForumId(string name);
         int GetSubForumId(int forumId, string topic);
-        public int NumOfForums();
+        int NumOfForums();
       
     } 
 }
