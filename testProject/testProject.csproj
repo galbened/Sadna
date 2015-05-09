@@ -56,7 +56,7 @@
   <ItemGroup>
     <Compile Include="BridgeProxy.cs" />
     <Compile Include="Driver.cs" />
-    <Compile Include="ProjectTest.cs" />
+    <Compile Include="AcceptanceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

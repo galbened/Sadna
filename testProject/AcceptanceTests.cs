@@ -6,7 +6,7 @@ using Interfaces;
 namespace testProject
 {
     [TestClass]
-    public class ProjectTest
+    public class AcceptanceTests
     {
         private static IApplicationBridge bridge=Driver.GetBridge();
 
@@ -75,9 +75,10 @@ namespace testProject
 
 
 
-        /*
-        * CreateForum Test - should succeed and get normal forumId
-        */
+             
+        /// <CreateForumTest>
+        /// should succeed and get normal forumId
+        /// </CreateForumTest>
         [TestMethod]
         public void CreateForumTest()
         {
@@ -89,9 +90,10 @@ namespace testProject
             forumsIds.Add(forumId);
         }
 
-        /*
-      * Registration Test - should succeedd and get normal userId
-      */
+
+        /// <RegisterTestSuccess>
+        /// should succeedd and get normal userId
+        /// </RegisterTestSuccess>
         [TestMethod]
         public void RegisterTestSuccess()
         {
@@ -101,9 +103,10 @@ namespace testProject
         }
 
 
-        /*
-         * Registration Test - should fail due to user multiple username
-         */
+        
+        /// <RegisterTestFailure>
+        /// should fail due to user multiple username
+        /// </RegisterTestFailure>
         [TestMethod]
         public void RegisterTestFailure()
         {
@@ -122,9 +125,11 @@ namespace testProject
 
 
 
-      
 
 
+        /// <SetPolicyTest>
+        /// should change policy and fail when trying to register user with invalid password
+        /// </SetPolicyTest>
         [TestMethod]
         public void SetPolicyTest()
         {
@@ -144,12 +149,13 @@ namespace testProject
             }
         }
 
-        
 
 
-        /*
-        * Login Test - should succeed and get the same userId
-        */
+
+
+        /// <LoginTest>
+        /// should succeed and get the same userId
+        /// </LoginTest>
         [TestMethod]
         public void LoginTest()
         {
@@ -160,10 +166,10 @@ namespace testProject
             Assert.Equals(userId, loggedUser);
         }
 
-        /*
-         * LogoutTest - test if connected user can logout
-         *       if exception thrown when disconnected user try to logout
-         */
+
+        /// <LogoutTest>
+        /// test if connected user can logout 
+        /// </LogoutTest>
         [TestMethod]
         public void LogoutTest()
         {
@@ -175,7 +181,10 @@ namespace testProject
         }
 
 
-        //LogoutTestFail - test if exception thrown when disconnected user try to logout
+
+        /// <LogoutTestFail>
+        /// test if exception thrown when disconnected user try to logout
+        /// </LogoutTestFail>
         [TestMethod]
         public void LogoutTestFail()
         {
@@ -193,6 +202,9 @@ namespace testProject
             }
         }
 
+        /// <CreateSubForumTest>
+        /// test if subForum created
+        /// </CreateSubForumTest>
         [TestMethod]
         public void CreateSubForumTest()
         {
@@ -202,7 +214,10 @@ namespace testProject
         }
 
 
-        //CreateSubForumTestFail - should fail due to empty\null topic
+
+        /// <CreateSubForumTestFail>
+        /// should fail due to empty\null topic
+        /// </CreateSubForumTestFail>
         [TestMethod]
         public void CreateSubForumTestFail()
         {
@@ -227,9 +242,11 @@ namespace testProject
              }
         }
 
-
+        /// <ViewTest>
+        /// test if getting the correct sub-forum Ids & names
+        /// </ViewTest>
         [TestMethod]
-        public void View()
+        public void ViewTest()
         {
             int forumId = CreateForum();
             int subForumId1 = bridge.CreateSubForum(forumId, topic[0]);

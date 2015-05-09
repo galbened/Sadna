@@ -8,43 +8,52 @@ namespace Interfaces
 {
     public interface IMessageManager
     {
-        /*
-         * Creating new Thread
-         * int forumId - ID of forum the subForum located in
-         * int subForumId - ID of subForum the thread published in
-         * int publisherID - ID of publisher (User)
-         * return value - ID of the created Thread
-         * Throws ArgumentException if title is empty
-         **/
+
+        /// <addThread>
+        /// Creating new Thread
+        /// </addThread>
+        /// <param name="forumId">ID of forum the subForum located in</param>
+        /// <param name="subForumId">ID of subForum the thread published in</param>
+        /// <param name="publisherID">ID of publisher (User)</param>
+        /// <returns>ID of the created Thread</returns>
+        /// <throws>ArgumentException if title is empty</throws>
         int addThread(int forumId, int subForumId, int publisherID, string title, string body);
 
-        /*
-         * Add comment (ResponseMessage)
-         * int firstMessageId - the head message of the thread
-         * int publisherID - ID of publisher (User)
-         * return value - ID of the created Comment.
-         * Throws ArgumentException if title is empty
-         * Throws InvalidOperationException if firstMessageId doesn't exist
-         **/
+  
+        /// <addComment>
+        /// Add comment (ResponseMessage)
+        /// </addComment>
+        /// <param name="firstMessageId">the head message of the thread</param>
+        /// <param name="publisherID">ID of publisher (User)</param>
+        /// <returns>ID of the created Comment</returns>
+        /// <throws>
+        /// ArgumentException if title is empty
+        /// InvalidOperationException if firstMessageId doesn't exist
+        /// </throws>
         int addComment(int firstMessageId, int publisherID, string title, string body);
 
-        /*
-         * Edit Message (First\Response)
-         * int messageId - ID of the message to edit
-         * return value - true if message edited successfully
-         * Throws ArgumentException if title is empty 
-         * Throws ArgumentException if callerID not match callerID 
-         * Throws InvalidOperationException if messageId doesn't exist
-         **/
+    
+        /// <editMessage>
+        /// Edit Message (First\Response)
+        /// </editMessage>
+        /// <param name="messageId">ID of the message to edit</param>
+        /// <param name="callerID">ID of requesting user</param>
+        /// <returns>true if message edited successfully</returns>
+        /// <throws>
+        /// ArgumentException if title is empty
+        /// InvalidOperationException if messageId doesn't exist
+        /// </throws>
         bool editMessage(int messageId, string title, string body, int callerID);
 
-        /*
-         * Delete Message(First\Response)
-         * int messageId - ID of the message to delete
-         * return value - true if message deleted successfully
-         * Throws InvalidOperationException if messageId doesn't exist
-         **/
+
+        /// <deleteMessage>
+        /// Delete Message(First\Response)
+        /// </deleteMessage>
+        /// <param name="messageId">ID of the message to delete</param>
+        /// <returns>true if message deleted successfully</returns>
+        /// <throws>InvalidOperationException if messageId doesn't exist</throws>
         bool deleteMessage(int messageId);
+
 
         /*
          * return the number of messages writen in specific subforum
