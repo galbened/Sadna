@@ -27,8 +27,6 @@ namespace testProject
         private static List<int> messagesIds;
 
 
-
-
         [ClassInitialize]
         public static void SetUp(TestContext testContext)
         {
@@ -64,19 +62,10 @@ namespace testProject
             return ans;
         }
 
-        /*private int RegisterUser(int forumId)
-        {
-            int userId = bridge.Register(userNames[0], passwords[0], emails[0], forumId);
-            return userId;
-        }*/
-
-
         #endregion
 
-
-
-             
         /// <CreateForumTest>
+        /// TestId: 10.1
         /// should succeed and get normal forumId
         /// </CreateForumTest>
         [TestMethod]
@@ -93,6 +82,7 @@ namespace testProject
 
 
         /// <RegisterTestSuccess>
+        /// TestId: 10.2
         /// should succeedd and get normal userId
         /// </RegisterTestSuccess>
         [TestMethod]
@@ -106,6 +96,7 @@ namespace testProject
 
         
         /// <RegisterTestFailure>
+        /// TestId: 10.3
         /// should fail due to user multiple username
         /// </RegisterTestFailure>
         [TestMethod]
@@ -129,6 +120,7 @@ namespace testProject
 
 
         /// <SetPolicyTest>
+        /// TestId: 10.4
         /// should change policy and fail when trying to register user with invalid password
         /// </SetPolicyTest>
         [TestMethod]
@@ -155,6 +147,7 @@ namespace testProject
 
 
         /// <LoginTest>
+        /// TestId: 10.5
         /// should succeed and get the same userId
         /// </LoginTest>
         [TestMethod]
@@ -169,6 +162,7 @@ namespace testProject
 
 
         /// <LogoutTest>
+        /// TestId: 10.6
         /// test if connected user can logout 
         /// </LogoutTest>
         [TestMethod]
@@ -184,6 +178,7 @@ namespace testProject
 
 
         /// <LogoutTestFail>
+        /// TestId: 10.7
         /// test if exception thrown when disconnected user try to logout
         /// </LogoutTestFail>
         [TestMethod]
@@ -204,6 +199,7 @@ namespace testProject
         }
 
         /// <CreateSubForumTest>
+        /// TestId: 10.8
         /// test if subForum created
         /// </CreateSubForumTest>
         [TestMethod]
@@ -217,6 +213,7 @@ namespace testProject
 
 
         /// <CreateSubForumTestFail>
+        /// TestId: 10.9
         /// should fail due to empty\null topic
         /// </CreateSubForumTestFail>
         [TestMethod]
@@ -244,6 +241,7 @@ namespace testProject
         }
 
         /// <ViewTest>
+        /// TestId: 10.10
         /// test if getting the correct sub-forum Ids & names
         /// </ViewTest>
         [TestMethod]
@@ -265,6 +263,7 @@ namespace testProject
 
 
         /// <RemoveForumTest>
+        /// TestId: 10.11
         /// should catch an exception when trying to view non-existed forum
         /// </RemoveForumTest>
         [TestMethod]
@@ -287,6 +286,7 @@ namespace testProject
 
 
         /// <PublishTestSuccess>
+        /// TestId: 10.12
         /// test if message published
         /// </PublishTestSuccess>
         [TestMethod]
@@ -301,6 +301,7 @@ namespace testProject
 
 
         /// <PublishTestWrongTitle>
+        /// TestId: 10.13
         /// test if published message with empty\null title gets exception
         /// </PublishTestWrongTitle>
         [TestMethod]
@@ -332,6 +333,7 @@ namespace testProject
 
 
         /// <CommentTestSuccess>
+        /// TestId: 10.14
         /// test if comment message published
         /// </CommentTestSuccess>
         [TestMethod]
@@ -347,6 +349,7 @@ namespace testProject
 
 
         /// <DeleteOnlyThreadTest>
+        /// TestId: 10.15
         /// delete thread which doesn't have response messages
         /// </DeleteOnlyThreadTest>
         [TestMethod]
@@ -370,6 +373,7 @@ namespace testProject
 
 
         /// <DeleteCommentTest>
+        /// TestId: 10.16
         /// delete response message 
         /// </DeleteCommentTest>
         [TestMethod]
@@ -394,6 +398,7 @@ namespace testProject
 
 
         /// <DeleteThreadWithCommentsTest>
+        /// TestId: 10.17
         /// delete thread with all of its comments 
         /// </DeleteThreadWithCommentsTest>
         [TestMethod]
@@ -420,6 +425,7 @@ namespace testProject
         
 
         /// <AddModeratorTest>
+        /// TestId: 10.18
         /// test if moderator added to subForum
         /// </AddModeratorTest>
         [TestMethod]
@@ -442,6 +448,7 @@ namespace testProject
 
 
         /// <RemoveModeratorTest>
+        /// TestId: 10.19
         /// test if moderator removed from subForum
         /// </RemoveModeratorTest>
         [TestMethod]
