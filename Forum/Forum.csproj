@@ -46,6 +46,10 @@
     <Compile Include="SubForum.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ForumLogger\ForumLogger.csproj">
+      <Project>{81c8e1b4-33de-449e-9321-6c3d42392e6c}</Project>
+      <Name>ForumLogger</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Interfaces\Interfaces.csproj">
       <Project>{d703d080-077b-47ad-9ddb-790e37803d59}</Project>
       <Name>Interfaces</Name>
