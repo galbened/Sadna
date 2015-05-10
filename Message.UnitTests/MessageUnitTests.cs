@@ -101,7 +101,7 @@ namespace Message.UnitTests
             int subForumId = fm.CreateSubForum(subTitels[0], forumId, userId);
             int threadId = mm.addThread(forumId, subForumId, userId, topic[0], body[0]);
             int commentID1 = mm.addComment(threadId, userId, topic[1], body[0]);
-            Assert.IsTrue(mm.editMessage(commentID1, topic[0], body[0]));
+            Assert.IsTrue(mm.editMessage(commentID1, topic[0], body[0], 1));
             fm.RemoveForum(forumId);
         }
 
@@ -114,7 +114,7 @@ namespace Message.UnitTests
             int subForumId = fm.CreateSubForum(subTitels[0], forumId, userId);
             int threadId = mm.addThread(forumId, subForumId, userId, topic[0], body[0]);
             int commentID1 = mm.addComment(threadId, userId, topic[1], body[0]);
-            Assert.IsFalse(mm.editMessage(commentID1, "", body[0]));
+            Assert.IsFalse(mm.editMessage(commentID1, "", body[0], 1));
             fm.RemoveForum(forumId);
         }
 
@@ -127,7 +127,7 @@ namespace Message.UnitTests
             int subForumId = fm.CreateSubForum(subTitels[0], forumId, userId);
             int threadId = mm.addThread(forumId, subForumId, userId, topic[0], body[0]);
             int commentID1 = mm.addComment(threadId, userId, topic[1], body[0]);
-            Assert.IsFalse(mm.editMessage(-200, topic[0], body[0]));
+            Assert.IsFalse(mm.editMessage(-200, topic[0], body[0], 1));
             fm.RemoveForum(forumId);
         }
 
