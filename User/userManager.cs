@@ -28,10 +28,10 @@ namespace User
         {
             foreach (Member member in UsersList)
             {
-                if ((member.MemberUsername.CompareTo(username)==0))
+                if ((member.memberUsername.CompareTo(username)==0))
                 {
                     if (member.login(password) == true)
-                        return member.MemberID;
+                        return member.memberID;
 
                 }
                     
@@ -76,11 +76,11 @@ namespace User
         {
             if (getMemberByID(userID).LoggerStatus == true)
             {
-                if (getMemberByID(userID).MemberPassword.CompareTo(password) == 0)
+                if (getMemberByID(userID).memberPassword.CompareTo(password) == 0)
                 { // checks if the password is correct
                     if (isNameAvilable(newUsername) == true)
                     {
-                        getMemberByID(userID).MemberUsername = newUsername;
+                        getMemberByID(userID).memberUsername = newUsername;
                         return userID;
                     }
                 }
@@ -98,12 +98,12 @@ namespace User
 
         public string getUsername(int userID)
         {
-            return getMemberByID(userID).MemberUsername;
+            return getMemberByID(userID).memberUsername;
         }
 
         public string getPassword(int userID)
         {
-            return getMemberByID(userID).MemberPassword;
+            return getMemberByID(userID).memberPassword;
         }
 
         public void removeFriend(int userID, int friendID)
@@ -139,7 +139,7 @@ namespace User
         {
             foreach (Member member in UsersList)
             {
-                if (member.MemberID == userID)
+                if (member.memberID == userID)
                     return member; 
             }
             throw new System.InvalidOperationException("userID not found.");
@@ -148,7 +148,7 @@ namespace User
         private Boolean isNameAvilable(String userName){
             foreach (Member member in UsersList)
             {
-                if (member.MemberUsername.CompareTo(userName)==0)
+                if (member.memberUsername.CompareTo(userName)==0)
                     return false;
             }
             return true;
@@ -158,7 +158,7 @@ namespace User
         public bool IsPasswordValid(string username, int expectancy)
         {
             foreach (Member mem in UsersList)
-                if (username.CompareTo(mem.MemberUsername) == 0)
+                if (username.CompareTo(mem.memberUsername) == 0)
                     return mem.PasswordLastChanged.AddDays(expectancy) > DateTime.Now;
             return false;
         }

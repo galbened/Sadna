@@ -8,11 +8,15 @@ namespace User
 {
     class Member
     {
-        int memberID;
-        String memberUsername;
-        String memberPassword;
-        String identifyQuestion;
-        String identifyAnswer;
+        public int memberID { get; set; }
+        public String memberUsername { get; set; }
+
+        public String memberPassword { get; set; }
+
+        public String identifyQuestion { get; set; }
+
+        public String identifyAnswer { get; set; }
+
         DateTime passwordLastChanged;
         String memberEmail;
         Boolean loggerStatus;
@@ -43,27 +47,12 @@ namespace User
         {
             get { return passwordLastChanged; }
         }
-        public int MemberID
-        {
-            get { return memberID; }
-            //set { memberID = value; }
-        }
-        public String MemberUsername
-        {
-            get { return memberUsername; }
-            set { memberUsername = value; }
-        }
+
         public Boolean LoggerStatus
         {
             get { return loggerStatus; }
             set { loggerStatus = value; }
         }
-        public String MemberPassword
-        {
-            get { return memberPassword; }
-            //set { memberPassword = value; }
-        }
-
 
         public void addFriend(Member friend)
         {
@@ -75,11 +64,6 @@ namespace User
             FriendsList.Remove(friend);
         }
 
-        public String IdentifyQuestion
-        {
-            set { identifyQuestion = value; }
-            get { return identifyQuestion; }
-        }
 
         public String IdentifyAnswer
         {
