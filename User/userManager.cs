@@ -42,9 +42,9 @@ namespace User
         public bool logout(int userID)
         {
             Member mem = getMemberByID(userID);
-            if(mem.LoggerStatus==false)    //is user already logged out?
+            if(mem.loginStatus==false)    //is user already logged out?
                 return false;
-            mem.LoggerStatus = false;        //logging the user out.
+            mem.loginStatus = false;        //logging the user out.
             return true;
         }
 
@@ -64,7 +64,7 @@ namespace User
 
         public int changePassword(int userID, string oldPassword, string newPassword)
         {
-            if (getMemberByID(userID).LoggerStatus == true)
+            if (getMemberByID(userID).loginStatus == true)
             {
                 if (getMemberByID(userID).setPassword(oldPassword, newPassword))
                     return userID;
@@ -74,7 +74,7 @@ namespace User
 
         public int changeUsername(int userID, string newUsername, string password)
         {
-            if (getMemberByID(userID).LoggerStatus == true)
+            if (getMemberByID(userID).loginStatus == true)
             {
                 if (getMemberByID(userID).memberPassword.CompareTo(password) == 0)
                 { // checks if the password is correct

@@ -10,21 +10,18 @@ namespace User
     {
         public int memberID { get; set; }
         public String memberUsername { get; set; }
-
         public String memberPassword { get; set; }
-
         public String identifyQuestion { get; set; }
-
         public String identifyAnswer { get; set; }
+        public DateTime passwordLastChanged { get; set; }
+        public String memberEmail { get; set; }
+        public Boolean loginStatus { get; set; }
+        public memberState currentState { get; set; }
+        public Boolean accountStatus { get; set; }
+        public int confirmationCode { get; set; }
+        public virtual List<Member> FriendsList { get; set; }
+        public List<String> pastPasswords { get; set; }
 
-        DateTime passwordLastChanged;
-        String memberEmail;
-        Boolean loggerStatus;
-        memberState currentState;
-        Boolean accountStatus;
-        int confirmationCode;
-        List<Member> FriendsList;
-        List<string> pastPasswords;
         private const string error_passwordAlreadyUsed = "Password already used in past"; 
 
         public Member(int memberID, String memberUsername, String memberPassword, String memberEmail)
@@ -34,7 +31,7 @@ namespace User
             this.memberPassword = memberPassword;
             passwordLastChanged = DateTime.Now;
             this.memberEmail = memberEmail;
-            this.loggerStatus = false;
+            this.loginStatus = false;
             this.accountStatus = true; //user that not yet confirmed his email should be false - TODO when sending to mail is done
             this.FriendsList = new List<Member>();
             currentState = new stateNormal();       // new user begins as a Normal user
@@ -48,12 +45,6 @@ namespace User
             get { return passwordLastChanged; }
         }
 
-        public Boolean LoggerStatus
-        {
-            get { return loggerStatus; }
-            set { loggerStatus = value; }
-        }
-
         public void addFriend(Member friend)
         {
             FriendsList.Add(friend);
@@ -62,13 +53,6 @@ namespace User
         public void removeFriend(Member friend)
         {
             FriendsList.Remove(friend);
-        }
-
-
-        public String IdentifyAnswer
-        {
-            set { identifyAnswer = value; }
-            get { return identifyAnswer; }
         }
 
         private int creatingConfirmationCodeAndSending(String memberEmail)
@@ -101,9 +85,9 @@ namespace User
          * */
         public Boolean login(String password)
         {
-            if ((password.CompareTo(memberPassword) == 0) && (loggerStatus == false))
+            if ((password.CompareTo(memberPassword) == 0) && (loginStatus == false))
             {
-                loggerStatus = true;
+                loginStatus = true;
                 return true;
             }
             return false;
