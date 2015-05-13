@@ -18,13 +18,13 @@ namespace Forum
         private const string error_emptyTitleSub = "Cannot create subForum without topic";
         private const string error_existTitle = "Cannot create forum with already exit title";
         private const string error_forumID = "No such forum: ";
-        private ForumLogger loggerIns;
+        //private ForumLogger loggerIns;
 
         private ForumManager()
         {
             forums = new List<Forum>();
             forumIdCounter = 1000;
-            loggerIns = ForumLogger.GetInstance();
+            //loggerIns = ForumLogger.GetInstance();
         }
 
         public static ForumManager getInstance()
@@ -36,8 +36,8 @@ namespace Forum
 
         public int CreateForum(string name)
         {
-            loggerIns.Write(ForumLogger.TYPE_INFO, "Creating Forum with name: " + name);
-            loggerIns.Shutdown();
+            //loggerIns.Write(ForumLogger.TYPE_INFO, "Creating Forum with name: " + name);
+            //loggerIns.Shutdown();
 
             if ((name == null) || (name == ""))
                 throw new ArgumentException(error_emptyTitle);
