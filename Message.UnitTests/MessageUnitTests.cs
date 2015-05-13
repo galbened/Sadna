@@ -23,7 +23,7 @@ namespace Message.UnitTests
          * should succeed when title not empty
          */
         [TestMethod]
-        public void addThreadTest()
+        public void AddThreadTest()
         {
             int forumId = fm.CreateForum(titels[0]);
             int userId = fm.Register(userNames[0], passwords[0], emails[0], forumId);
@@ -35,15 +35,23 @@ namespace Message.UnitTests
             fm.RemoveForum(forumId);
         }
 
+
         [TestMethod]
-        public void addThreadTitleEmptyTest()
+        public void AddThreadTitleEmptyTest()
         {
             int forumId = fm.CreateForum(titels[0]);
             int userId = fm.Register(userNames[0], passwords[0], emails[0], forumId);
             fm.AddAdmin(userId, forumId);
             int subForumId = fm.CreateSubForum(subTitels[0], forumId, userId);
-            int threadId1 = mm.addThread(forumId, subForumId, userId, "", body[0]);
-            Assert.AreEqual(threadId1, -1);
+            try
+            {
+                int threadId1 = mm.addThread(forumId, subForumId, userId, null, body[0]);
+                Assert.Fail("Exception was expected but not thrown. Cannot add thread with null title");
+            }
+            catch (ArgumentException)
+            {
+                Assert.IsTrue(true);
+            }
             fm.RemoveForum(forumId);
         }
 
@@ -51,7 +59,7 @@ namespace Message.UnitTests
          * should succeed when title not empty
          */
         [TestMethod]
-        public void addCommentTest()
+        public void AddCommentTest()
         {
             int forumId = fm.CreateForum(titels[0]);
             int userId = fm.Register(userNames[0], passwords[0], emails[0], forumId);
@@ -65,27 +73,44 @@ namespace Message.UnitTests
         }
 
         [TestMethod]
-        public void addCommentTitleEmptyTest()
+        public void AddCommentTitleEmptyTest()
         {
             int forumId = fm.CreateForum(titels[0]);
             int userId = fm.Register(userNames[0], passwords[0], emails[0], forumId);
             fm.AddAdmin(userId, forumId);
             int subForumId = fm.CreateSubForum(subTitels[0], forumId, userId);
             int threadId = mm.addThread(forumId, subForumId, userId, topic[0], body[0]);
-            int commentID1 = mm.addComment(threadId, userId, "", body[0]);
-            Assert.AreEqual(commentID1, -1);
+            try
+            {
+                 int commentID1 = mm.addComment(threadId, userId, "", body[0]);
+                 Assert.Fail("Exception was expected but not thrown. Cannot add comment with empty title");
+            }
+            catch (ArgumentException)
+            {
+                Assert.IsTrue(true);
+            }
             fm.RemoveForum(forumId);
+
+            
         }
 
         [TestMethod]
-        public void addCommentThreadNotExistsTest()
+        public void AddCommentThreadNotExistsTest()
         {
             int forumId = fm.CreateForum(titels[0]);
             int userId = fm.Register(userNames[0], passwords[0], emails[0], forumId);
             fm.AddAdmin(userId, forumId);
             int subForumId = fm.CreateSubForum(subTitels[0], forumId, userId);
-            int commentID1 = mm.addComment(5, userId, topic[1], body[0]);
-            Assert.AreEqual(commentID1, -2);
+            try
+            {
+                int commentID1 = mm.addComment(5, userId, topic[1], body[0]);
+                Assert.Fail("Exception was expected but not thrown. Cannot add comment to non-existing thread");
+            }
+            catch (InvalidOperationException)
+            {
+                Assert.IsTrue(true);
+            }
+            
             fm.RemoveForum(forumId);
         }
 
@@ -93,7 +118,7 @@ namespace Message.UnitTests
          * should succeed when title not empty and message ID exists
          */
         [TestMethod]
-        public void editMessageTest()
+        public void EditMessageTest()
         {
             int forumId = fm.CreateForum(titels[0]);
             int userId = fm.Register(userNames[0], passwords[0], emails[0], forumId);
@@ -106,20 +131,27 @@ namespace Message.UnitTests
         }
 
         [TestMethod]
-        public void editMessageTitleEmptyTest()
+        public void EditMessageTitleEmptyTest()
         {
             int forumId = fm.CreateForum(titels[0]);
             int userId = fm.Register(userNames[0], passwords[0], emails[0], forumId);
             fm.AddAdmin(userId, forumId);
             int subForumId = fm.CreateSubForum(subTitels[0], forumId, userId);
             int threadId = mm.addThread(forumId, subForumId, userId, topic[0], body[0]);
-            int commentID1 = mm.addComment(threadId, userId, topic[1], body[0]);
-            Assert.IsFalse(mm.editMessage(commentID1, "", body[0], 1));
+            try
+            {
+                int commentID1 = mm.addComment(threadId, userId, /*topic[1]*/"", body[0]);
+                Assert.Fail("Exception was expected but not thrown. Cannot add comment to non-existing thread");
+            }
+            catch (ArgumentException)
+            {
+                Assert.IsTrue(true);
+            }
             fm.RemoveForum(forumId);
         }
 
         [TestMethod]
-        public void editCommentMessageNotExistsTest()
+        public void EditCommentMessageNotExistsTest()
         {
             int forumId = fm.CreateForum(titels[0]);
             int userId = fm.Register(userNames[0], passwords[0], emails[0], forumId);
@@ -127,15 +159,23 @@ namespace Message.UnitTests
             int subForumId = fm.CreateSubForum(subTitels[0], forumId, userId);
             int threadId = mm.addThread(forumId, subForumId, userId, topic[0], body[0]);
             int commentID1 = mm.addComment(threadId, userId, topic[1], body[0]);
-            Assert.IsFalse(mm.editMessage(-200, topic[0], body[0], 1));
-            fm.RemoveForum(forumId);
+            try
+            {
+                Assert.IsFalse(mm.editMessage(-200, topic[0], body[0], 1));
+                Assert.Fail();
+            }
+            catch (InvalidOperationException)
+            {
+                Assert.IsTrue(true);
+            }
+            fm.RemoveForum(forumId);           
         }
 
         /*testing delete message
          * should succeed when message ID exists
          */
         [TestMethod]
-        public void deleteMessageTest()
+        public void DeleteMessageTest()
         {
             int forumId = fm.CreateForum(titels[0]);
             int userId = fm.Register(userNames[0], passwords[0], emails[0], forumId);
@@ -148,15 +188,22 @@ namespace Message.UnitTests
         }
 
         [TestMethod]
-        public void deleteCommentMessageNotExistsTest()
+        public void DeleteCommentMessageNotExistsTest()
         {
             int forumId = fm.CreateForum(titels[0]);
             int userId = fm.Register(userNames[0], passwords[0], emails[0], forumId);
             fm.AddAdmin(userId, forumId);
             int subForumId = fm.CreateSubForum(subTitels[0], forumId, userId);
             int threadId = mm.addThread(forumId, subForumId, userId, topic[0], body[0]);
-            int commentID1 = mm.addComment(threadId, userId, topic[1], body[0]);
-            Assert.IsFalse(mm.deleteMessage(-200));
+            try
+            {
+                int commentID1 = mm.addComment(-5, userId, topic[1], body[0]);
+                Assert.Fail("Exception was expected but not thrown. Cannot delete comment to non-existing thread");
+            }
+            catch (InvalidOperationException)
+            {
+                Assert.IsTrue(true);
+            }          
             fm.RemoveForum(forumId);
         }
     }
