@@ -11,7 +11,7 @@ namespace Forum.UnitTests
         String[] titels = { "sport", "nature" };
         String[] subTitels = { "football", "basketball", "animals", "plants" };
         IForumManager fm = ForumManager.getInstance();
-        String[] user = { "tomer", "tomer@gmail.com", "123456" };
+        String[] user = { "tomer", "123456", "tomer@gmail.com"};
 
         /*
          * Testing creating forum:
@@ -32,8 +32,14 @@ namespace Forum.UnitTests
         public void creatingForumWithExistTiltleFailTest()
         {
             int id1 = fm.CreateForum(titels[0]);
-            int id3 = fm.CreateForum(titels[0]);
-            Assert.AreEqual(id3, -1);
+            try
+            {
+                int id3 = fm.CreateForum(titels[0]);
+                Assert.Fail("succeed to create Forum with already exist title");
+            }
+            catch(ArgumentException){
+            Assert.IsTrue(true);
+            }
             fm.RemoveForum(id1);
         }
 
@@ -59,8 +65,15 @@ namespace Forum.UnitTests
         {
             int id1 = fm.CreateForum(titels[0]);
             int id2 = fm.CreateSubForum(subTitels[0], id1, 1);
-            int id3 = fm.CreateSubForum(subTitels[0], id1, 1);
-            Assert.AreEqual(id3, -1);
+            try
+            {
+                int id3 = fm.CreateSubForum(subTitels[0], id1, 1);
+                Assert.Fail("succeed to create SubForum with already exist title");
+            }
+            catch (ArgumentException)
+            {
+                Assert.IsTrue(true);
+            }
             fm.RemoveForum(id1);
             fm.RemoveSubForum(id1, id2, 1);
         }
