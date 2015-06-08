@@ -29,7 +29,7 @@ namespace User
 
             db = new Context();
 
-            db.Database.ExecuteSqlCommand("TRUNCATE TABLE Members");
+            db.Database.ExecuteSqlCommand("TRUNCATE TABLE Members"); //cleaning table
 
             db.SaveChanges();
         }
