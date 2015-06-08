@@ -14,8 +14,19 @@ namespace User
         int newestMemberID;
         List<String> userTypes;
         Context db; //----------------DB
+        private IUserManager UM;
 
-        public UserManager()
+
+
+        public IUserManager Instance()
+        {
+            if (UM == null)
+                return new UserManager();
+            return UM;
+
+        }
+
+        private UserManager()
         {
             this.UsersList = new List<Member>();
             this.userTypes = new List<string>();
