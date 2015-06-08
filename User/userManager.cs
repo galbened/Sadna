@@ -14,7 +14,7 @@ namespace User
         int newestMemberID;
         List<String> userTypes;
         Context db; //----------------DB
-        private IUserManager UM;
+        private static IUserManager UM;
 
 
 
