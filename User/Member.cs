@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -66,35 +68,28 @@ namespace User
         void sendingConfirmationCodeToMail(int code)
         {
 
-            /*
-            try
-            {
-                MailMessage mail = new MailMessage();
-                SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
+             MailMessage mail = new MailMessage();
+             SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
 
-                mail.From = new MailAddress("drpcbgu@gmail.com");
-                mail.Subject = "DrPc newsletter";
-                mail.To.Add("yuvalla@post.bgu.ac.il");
-                mail.Body = Msg.Text.ToString();
-                DataTable emails = DataAccessLayer.GetAllCustomersEmails();
+             mail.From = new MailAddress("drpcbgu@gmail.com");
+             mail.Subject = "Forum confirmation code";
+             mail.To.Add(memberEmail);
+             mail.Body = "Your confirmation code is : " + code.ToString();
+                //DataTable emails = DataAccessLayer.GetAllCustomersEmails();
+                /*
                 for (int i = 0; i < emails.Rows.Count; i++)
                 {
                     Console.WriteLine(emails.Rows[i]["email"].ToString());
                     mail.To.Add(emails.Rows[i]["email"].ToString());
                 }
-                SmtpServer.Port = 587;
-                SmtpServer.Credentials = new System.Net.NetworkCredential("drpcbgu", "123drpc123");
-                SmtpServer.EnableSsl = true;
+                */
+             SmtpServer.Port = 587;
+             SmtpServer.Credentials = new System.Net.NetworkCredential("drpcbgu", "123drpc123");
+             SmtpServer.EnableSsl = true;
 
-                SmtpServer.Send(mail);
-                MessageBox.Show("emails Send succesfully");
-                this.Dispose();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
-            */
+             SmtpServer.Send(mail);
+
+            
             //TODO
             return;
         }
