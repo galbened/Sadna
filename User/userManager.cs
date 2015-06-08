@@ -9,9 +9,11 @@ namespace User
 {
     public class UserManager : IUserManager
     {
+
         List<Member> UsersList;
         int newestMemberID;
         List<String> userTypes;
+        Context db; //----------------DB
 
         public UserManager()
         {
@@ -21,6 +23,15 @@ namespace User
             userTypes.Add("Gold");
             userTypes.Add("Silver");
             this.newestMemberID = 10;
+
+
+            //---------------------Entity------------------------
+
+            db = new Context();
+
+            db.Database.ExecuteSqlCommand("TRUNCATE TABLE Members");
+
+            db.SaveChanges();
         }
 
 
@@ -31,7 +42,10 @@ namespace User
                 if ((member.memberUsername.CompareTo(username)==0))
                 {
                     if (member.login(password) == true)
+                    {
+                        db.SaveChanges();
                         return member.memberID;
+                    }
 
                 }
                     
@@ -45,6 +59,7 @@ namespace User
             if(mem.loginStatus==false)    //is user already logged out?
                 return false;
             mem.loginStatus = false;        //logging the user out.
+            db.SaveChanges();
             return true;
         }
 
@@ -54,6 +69,7 @@ namespace User
                 throw new UsernameIsTakenException();
             UsersList.Add(new Member(newestMemberID, username, password, email));
             newestMemberID++;
+            db.SaveChanges();
             return newestMemberID - 1;
         }
 
@@ -67,7 +83,10 @@ namespace User
             if (getMemberByID(userID).loginStatus == true)
             {
                 if (getMemberByID(userID).setPassword(oldPassword, newPassword))
+                {
+                    db.SaveChanges();
                     return userID;
+                }
             }
             throw new UserPasswordIllegalChangeException();       
         }
@@ -80,6 +99,7 @@ namespace User
                 { // checks if the password is correct
                     if (isNameAvilable(newUsername) == true)
                     {
+                        db.SaveChanges();
                         getMemberByID(userID).memberUsername = newUsername;
                         return userID;
                     }
@@ -93,6 +113,7 @@ namespace User
             Member mem = getMemberByID(userID);
             Member friend = getMemberByID(friendID);
             mem.addFriend(friend);
+            db.SaveChanges();
             return 1;
         }
 
@@ -111,6 +132,7 @@ namespace User
             Member mem = getMemberByID(userID);
             Member friend = getMemberByID(friendID);
             mem.removeFriend(friend);
+            db.SaveChanges();
         }
 
         public void approveRequest(int notificationID)//delayed for next buid
@@ -122,6 +144,7 @@ namespace User
         {
             Member mem = getMemberByID(userID);
             UsersList.Remove(mem);
+            db.SaveChanges();
         }
 
         public bool getConfirmationCodeFromUser(int userID, int code)
