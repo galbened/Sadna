@@ -46,6 +46,10 @@ namespace Interfaces
 
         void RemoveModerator(int forumId, int subForumId, int moderatorId);
 
+        List<int> GetForumIds();
+
+        List<string> GetForumTopics();
+
 
 
 

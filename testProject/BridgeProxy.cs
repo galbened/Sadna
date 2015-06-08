@@ -125,5 +125,19 @@ namespace testProject
                 _real.RemoveModerator(forumId, subForumId, moderatorId);
             throw new NullReferenceException("_real in null");
         }
+
+        public List<int> GetForumIds()
+        {
+            if (_real != null)
+                _real.GetForumIds();
+            throw new NullReferenceException("_real in null");
+        }
+
+        public List<string> GetForumTopics()
+        {
+            if (_real != null)
+                _real.GetForumTopics();
+            throw new NullReferenceException("_real in null");
+        }
     }
 }
