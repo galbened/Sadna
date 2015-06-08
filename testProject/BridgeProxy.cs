@@ -139,5 +139,40 @@ namespace testProject
                 _real.GetForumTopics();
             throw new NullReferenceException("_real in null");
         }
+
+        public List<int> getRegisteredUsers(int forumId)
+        {
+            if (_real != null)
+                _real.getRegisteredUsers(forumId);
+            throw new NullReferenceException("_real in null");
+        }
+
+        public List<int> getSubForums(int forumId)
+        {
+            if (_real != null)
+                _real.getSubForums(forumId);
+            throw new NullReferenceException("_real in null");
+        }
+
+        public List<int> getAllThreads(int forumId)
+        {
+            if (_real != null)
+                _real.getAllThreads(forumId);
+            throw new NullReferenceException("_real in null");
+        }
+
+        public List<int> getAllComments(int forumId, int messageId)
+        {
+            if (_real != null)
+                _real.getAllComments(forumId, messageId);
+            throw new NullReferenceException("_real in null");
+        }
+
+        public List<int> getModerators(int forumId)
+        {
+            if (_real != null)
+                _real.getModerators(forumId);
+            throw new NullReferenceException("_real in null");
+        }
     }
 }

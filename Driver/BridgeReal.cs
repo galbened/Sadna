@@ -129,5 +129,30 @@ namespace Driver
             List<string> ans = FM.GetForumTopics();
             return ans;
         }
+
+        public List<int> getRegisteredUsers(int forumId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<int> getSubForums(int forumId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<int> getAllThreads(int forumId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<int> getAllComments(int forumId, int messageId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<int> getModerators(int forumId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
