@@ -104,8 +104,19 @@ namespace testProject
         public void RegisterTestSuccess()
         {
             int forumId = CreateForum();
-            int userId = bridge.Register(userNames[0], passwords[0], emails[0], forumId);
-            Assert.IsTrue(userId > -1);
+            List<int> registeredUsersBefore = bridge.getRegisteredUsers(forumId);
+            try
+            {
+                int userId = bridge.Register(userNames[0], passwords[0], emails[0], forumId);
+                List<int> registeredUsersAfter = bridge.getRegisteredUsers(forumId);
+                Assert.IsFalse(registeredUsersBefore.Contains(userId);
+                Assert.IsTrue(registeredUsersAfter.Contains(userId));
+                Assert.IsTrue(userId > -1);
+            }
+            catch 
+            {
+                Assert.IsTrue(true);
+            }
         }
 
 
