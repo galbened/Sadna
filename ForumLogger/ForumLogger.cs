@@ -16,7 +16,7 @@ namespace ForumLoggers
      * use ForumLogger.GetInstance() to get the instance if the logger
      * use ForumLogger.GetInstance().Write(string type, string line) to write messages to logger
      * the type argument is 3 option field: ForumLogger.TYPE_INFO, ForumLogger.TYPE_ERROR, ForumLogger.TYPE_WARNING
-     * the last yo use the logger (the Driver class probably) should call ForumLogger.GetInstance().Shutdown();
+     * the last to use the logger (the Driver class probably) should call ForumLogger.GetInstance().Shutdown();
      **/
     public class ForumLogger : Logger
     {
