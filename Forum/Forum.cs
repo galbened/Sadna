@@ -11,7 +11,6 @@ namespace Forum
     public class Forum
     {
         private List<int> registeredUsersID,logedUsersId, adminsID;
-        private string forumName;
         private int forumID;
         private List<SubForum> subForums;
         private Policy poli;
@@ -21,6 +20,9 @@ namespace Forum
         private const string error_notAdmim = "Cannot create subForum with not admin caller ID";
         private const string error_forumID = "No such subForum: ";
         private const string error_expiredPassword = "Password expired need to change";
+
+
+        public string forumName { get; set; }
 
         public Forum(string name, int id)
         {

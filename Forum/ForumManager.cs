@@ -219,5 +219,22 @@ namespace Forum
         {
             return forums.Count;
         }
+
+        public List<int> GetForumIds()
+        {
+            List<int> ans = new List<int>();
+            foreach (Forum fr in forums)
+                ans.Add(fr.ForumID);
+            return ans;
+
+        }
+
+        public List<string> GetForumTopics()
+        {
+            List<string> ans = new List<string>();
+            foreach (Forum fr in forums)
+                ans.Add(fr.forumName);
+            return ans;
+        }
     }
 }

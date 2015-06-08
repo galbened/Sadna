@@ -115,17 +115,19 @@ namespace Driver
 
         public void RemoveModerator(int forumId, int subForumId, int moderatorId)
         {
-            throw new NotImplementedException();
+            FM.RemoveModerator(moderatorId, forumId, subForumId);
         }
 
         public List<int> GetForumIds()
         {
-            throw new NotImplementedException();
+            List<int> ans = FM.GetForumIds();
+            return ans;
         }
 
         public List<string> GetForumTopics()
         {
-            throw new NotImplementedException();
+            List<string> ans = FM.GetForumTopics();
+            return ans;
         }
     }
 }
