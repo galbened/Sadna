@@ -18,7 +18,7 @@ namespace User
 
 
 
-        public IUserManager Instance()
+        public static IUserManager Instance()
         {
             if (UM == null)
                 return new UserManager();
