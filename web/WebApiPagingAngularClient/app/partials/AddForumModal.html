@@ -1,0 +1,53 @@
+﻿<div ng-if="notAdmin">
+    <div class="panel-heading text-center">Super Admin</div>
+    <hr />
+    <div class="panel-body">
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="Username" data-ng-model="username">
+        </div>
+        <div class="form-group">
+            <input type="password" class="form-control" placeholder="Password" data-ng-model="password">
+        </div>
+        <div class="alert alert-danger" ng-if="incorrectPaswword">incorrect pasword or username</div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-lg btn-success btn-block"
+                    ng-click="superAdminLogin(username,password)">
+                i'm super admin
+            </button>
+        </div>
+    </div>
+</div>
+<div ng-if="!notAdmin">
+    <div class="panel-heading text-center">Create a forum</div>
+    <hr />
+    <div class="panel-body">
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="Title" data-ng-model="title">
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="Number of admins" data-ng-model="numOfAdmins">
+        </div>
+        <div>
+            <input icheck type="checkbox" model="uppercase" /><span>Passwors with uppercase</span>
+        </div>
+        <div>
+            <input icheck type="checkbox" model="lowercase" /><span>Passwors with lowercase</span>
+        </div>
+        <div>
+            <input icheck type="checkbox" model="numbers" /><span>Passwors with numbers</span>
+        </div>
+        <div>
+            <input icheck type="checkbox" model="symbols" /><span>Passwors with symbols</span>
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="minimum password length" data-ng-model="length">
+        </div>
+        <br/>
+        <div class="form-group">
+            <button type="submit" class="btn btn-lg btn-success btn-block"
+                    ng-click="">
+                create forum
+            </button>
+        </div>
+    </div>
+</div>

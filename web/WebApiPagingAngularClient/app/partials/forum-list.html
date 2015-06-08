@@ -1,0 +1,46 @@
+﻿<div class="row">
+    <div class="col-sm-7">
+        <h3 style="margin: 13px 11px;color: black;"><a href="#/">Forums</a></h3>
+    </div>
+</div>
+<hr />
+<div class="toolbar button-toolbar row" style="margin-left: 115px;margin-bottom: 20px">
+    <span class="form-group">
+        <button class="btn btn-default " data-ng-click="addNewForum()">Add new forum</button>
+        <button class="btn btn-danger" data-ng-click="removeForums()">Remove forum</button>
+    </span>
+</div>
+<div class="clearfix"></div>
+<div class="container">
+    <div class="row col-lg-10">
+        <panel panel-class="panel-primary">
+            <table class="table table-bordered table-condensed table-striped">
+                <thead>
+                    <tr style="font-weight: bold">
+
+                        <td class="center" style="width:2%">
+                            <label>
+                                <input icheck type="checkbox" />
+                                <span class="lbl"></span>
+                            </label>
+                        </td>
+                        <td>Topic</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="forum in forums">
+                        <td class="center">
+                            <label>
+                                <input icheck type="checkbox" />
+                                <span class="icheck-helper"></span>
+                            </label>
+                        </td>
+                        <td style="max-width: 200px;overflow: auto;cursor: pointer">
+                            <a href="#/forums/{{forum.id}}"><span style="text-align: left;">{{forum.title}}</span></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </panel>
+    </div>
+</div>

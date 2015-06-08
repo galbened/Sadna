@@ -1,0 +1,22 @@
+<div class="panel panel-default" style="margin-bottom: 0;">
+    <div class="panel-heading text-center">Create your account</div>
+    <div class="panel-body">
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="Username" data-ng-model="username"
+                   ng-click="">
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="Email" data-ng-model="email"
+                   ng-click="invalidMessage = false">
+        </div>
+        <div class="form-group" ng-hide="resetPasswordToggle">
+            <input type="password" class="form-control" placeholder="Password" data-ng-model="password"
+                   ng-click="">
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-lg btn-success btn-block" ng-hide="resetPasswordToggle"
+                    ng-click="signup(username, email, password)">signup
+            </button>
+        </div>
+    </div>
+</div>
