@@ -50,9 +50,15 @@ namespace Interfaces
 
         List<string> GetForumTopics();
 
+        List<int> getRegisteredUsers(int forumId);
 
+        List<int> getSubForums(int forumId);
 
+        List<int> getAllThreads(int forumId);
 
+        List<int> getAllComments(int forumId, int messageId);
+
+        List<int> getModerators(int forumId);
 
     }
 }

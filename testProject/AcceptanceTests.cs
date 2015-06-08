@@ -67,16 +67,31 @@ namespace testProject
         /// <CreateForumTest>
         /// TestId: 10.1
         /// should succeed and get normal forumId
+        /// catch any exception in case of reuse of forum topic
         /// </CreateForumTest>
         [TestMethod]
         public void CreateForumTest()
         {
-            int forumId = bridge.CreateForum(topic[0],
-                                        1, "",
-                                        true, false, true,
-                                        true, 3);
-            Assert.IsTrue(forumId > -1);
-            forumsIds.Add(forumId);
+            List<int> forumIdsBefore = bridge.GetForumIds();
+            List<string> forumTopicsBefore = bridge.GetForumTopics();
+            string currentTopic = topic[0];
+            try
+            {
+                int forumId = bridge.CreateForum(currentTopic,
+                                            1, "",
+                                            true, false, true,
+                                            true, 3);
+
+                List<int> forumIdsAfter = bridge.GetForumIds();
+                List<string> forumTopicsAfter = bridge.GetForumTopics();
+                Assert.IsTrue(!forumTopicsBefore.Contains(currentTopic));
+                Assert.IsTrue((forumId > -1) && (!forumIdsBefore.Contains(forumId)) && (forumIdsAfter.Contains(forumId)));
+                forumsIds.Add(forumId);
+            }
+            catch (Exception)
+            {
+                Assert.IsTrue(true);
+            }
         }
 
 
@@ -135,6 +150,8 @@ namespace testProject
             {
                 bridge.Register("SetPolicy", "ab", emails[0], forumId);
                 Assert.Fail("Exception was expected but not thrown. Password is invalid by new policy");
+                bridge.Register("SetPolicy", "ABCDE", emails[0], forumId);
+                Assert.Fail("Exception was expected but not thrown. lowercase letters are required");
             }
             catch (Exception)
             {
