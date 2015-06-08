@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Interfaces;
+using ForumLoggers;
+
 
 namespace Message
 {
@@ -16,7 +18,7 @@ namespace Message
         private const string error_emptyTitle = "Cannot add thread without title";
         private const string error_messageIdNotFound = "Message ID doesn't exist";
         private const string error_callerIDnotMatch = "Only publisher can edit message";
-
+        private ForumLogger _logger;
 
         public static IMessageManager Instance()
         {
@@ -30,19 +32,24 @@ namespace Message
             messages = new HashSet<Message>();
             threads = new HashSet<Thread>();
             lastMessageID = -1;
+            _logger = ForumLogger.GetInstance();
         }
 
 
         public int addThread(int forumId, int subForumId, int publisherId, string title, string body)
         {
             if ((title == null) || (title.Equals("")))
+            {
+                _logger.Write(ForumLogger.TYPE_ERROR, "Failed adding new thread " + error_emptyTitle);
                 throw new ArgumentException(error_emptyTitle);
+            }
             lastMessageID++;
             int messageId = lastMessageID;
             Thread thread = new Thread(forumId, subForumId, messageId, publisherId, title, body);
             threads.Add(thread);
             Message ms = thread.getMessage();
             messages.Add(ms);
+            _logger.Write(ForumLogger.TYPE_INFO, "New thread was added " + ms.MessageID);
             return ms.MessageID;
         }
 
@@ -50,7 +57,10 @@ namespace Message
         public int addComment(int firstMessageID, int publisherID, string title, string body)
         {
             if ((title == null) || (title.Equals("")))
+            {
+                _logger.Write(ForumLogger.TYPE_ERROR, "Failed adding new comment " + error_emptyTitle);
                 throw new ArgumentException(error_emptyTitle);
+            }
             FirstMessage first = (FirstMessage)findMessage(firstMessageID);
             //checking if firstMessageID exists and really FirstMessage
             if ((first != null) && (first.isFirst()))
@@ -60,8 +70,10 @@ namespace Message
                 ResponseMessage rm = new ResponseMessage((FirstMessage)first, messageId, publisherID, title, body);
                 first.addResponse(rm);
                 messages.Add(rm);
+                _logger.Write(ForumLogger.TYPE_INFO, "New comment was added " + rm.MessageID);
                 return rm.MessageID;
             }
+            _logger.Write(ForumLogger.TYPE_ERROR, "Failed adding new comment " + error_messageIdNotFound);
             throw new InvalidOperationException(error_messageIdNotFound);
         }
 
@@ -69,17 +81,26 @@ namespace Message
         public bool editMessage(int messageId, string title, string body, int callerID)
         {
             if ((title == null) || (title.Equals("")))
+            {
+                _logger.Write(ForumLogger.TYPE_ERROR, "Failed editing message " + messageId + ": " +error_emptyTitle);
                 throw new ArgumentException(error_emptyTitle);
+            }
             Message ms = findMessage(messageId);
             if (ms != null)
             {
                 if (ms.PublisherID == callerID)
                 {
                     ms.editMessage(title, body);
+                    _logger.Write(ForumLogger.TYPE_INFO, "Message was edited " + messageId);
                     return true;
                 }
-                else throw new ArgumentException(error_callerIDnotMatch);
+                else
+                {
+                    _logger.Write(ForumLogger.TYPE_ERROR, "Failed editing message " + messageId + ": " + error_callerIDnotMatch + ". callerID is " + callerID);
+                    throw new ArgumentException(error_callerIDnotMatch);
+                }
             }
+            _logger.Write(ForumLogger.TYPE_ERROR, "Failed editing message " + messageId + ": " + error_messageIdNotFound);
             throw new InvalidOperationException(error_messageIdNotFound);
         }
 
@@ -99,8 +120,10 @@ namespace Message
                 }
                 //remove the message anyway
                  messages.Remove(ms);
+                 _logger.Write(ForumLogger.TYPE_INFO, "Message was deleted " + messageID);
                  return true;
             }
+            _logger.Write(ForumLogger.TYPE_ERROR, "Failed deleting message " + messageID + ": " + error_messageIdNotFound);
             throw new InvalidOperationException(error_messageIdNotFound);
                 
 
