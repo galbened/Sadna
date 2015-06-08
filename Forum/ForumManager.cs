@@ -51,7 +51,7 @@ namespace Forum
              return forumIdCounter - 1;
         }
 
-        public int CreateSubForum(string topic, int forumId, int callerUserId)
+        public int CreateSubForum(string topic, int forumId)
         {
             if ((topic == null) || (topic == ""))
                 throw new ArgumentException(error_emptyTitleSub);
@@ -59,7 +59,7 @@ namespace Forum
             foreach (Forum frm in forums)
             {
                 if (frm.ForumID == forumId)
-                    ans = frm.CreateSubForum(topic, callerUserId);
+                    ans = frm.CreateSubForum(topic);
             }
             return ans;
         }

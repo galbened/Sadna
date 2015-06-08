@@ -52,8 +52,8 @@ namespace Forum.UnitTests
         public void creatingSubForumReturnsDiffIDTest()
         {
             int id1 = fm.CreateForum(titels[0]);
-            int id2 = fm.CreateSubForum(subTitels[1], id1, 1);
-            int id3 = fm.CreateSubForum(subTitels[0], id1, 1);
+            int id2 = fm.CreateSubForum(subTitels[1], id1);
+            int id3 = fm.CreateSubForum(subTitels[0], id1);
             Assert.AreNotEqual(id1, id2);
             fm.RemoveForum(id1);
             fm.RemoveSubForum(id1, id2, 1);
@@ -64,10 +64,10 @@ namespace Forum.UnitTests
         public void creatingSubForumWithExistTiltleFailTest()
         {
             int id1 = fm.CreateForum(titels[0]);
-            int id2 = fm.CreateSubForum(subTitels[0], id1, 1);
+            int id2 = fm.CreateSubForum(subTitels[0], id1);
             try
             {
-                int id3 = fm.CreateSubForum(subTitels[0], id1, 1);
+                int id3 = fm.CreateSubForum(subTitels[0], id1);
                 Assert.Fail("succeed to create SubForum with already exist title");
             }
             catch (ArgumentException)
@@ -113,7 +113,7 @@ namespace Forum.UnitTests
         public void addModeratorTest()
         {
             int forumId = fm.CreateForum(titels[0]);
-            int subForumId = fm.CreateSubForum(subTitels[0], forumId, 1);
+            int subForumId = fm.CreateSubForum(subTitels[0], forumId);
             int userId = fm.Register(user[0], user[1], user[2], forumId);
             Console.WriteLine(subForumId);
             fm.AddModerator(userId, forumId, subForumId, 1);
@@ -128,7 +128,7 @@ namespace Forum.UnitTests
         public void removeModeratorTest()
         {
             int forumId = fm.CreateForum(titels[0]);
-            int subForumId = fm.CreateSubForum(subTitels[0], forumId, 1);
+            int subForumId = fm.CreateSubForum(subTitels[0], forumId);
             int userId = fm.Register(user[0], user[1], user[2], forumId);
             Assert.IsFalse(fm.IsModerator(userId, forumId, subForumId));
             fm.AddModerator(userId, forumId, subForumId, 1);

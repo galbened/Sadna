@@ -30,6 +30,8 @@ namespace Interfaces
 
         void approveRequest(int notificationID);
 
+        bool IsPasswordValid(string username, int expectancy);
+
 
 
         //void complaint(notificationStatus complaint, int userID);// notificationStatus yet to be written

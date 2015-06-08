@@ -13,7 +13,7 @@ namespace Interfaces
         void RemoveForum(int forumId);
         Boolean RemoveSubForum(int forumId, int subForumId, int callerUserId);
         //return -1 for already exist topic and -2 for not admin caller.
-        int CreateSubForum(string topic, int forumId, int callerUserId);
+        int CreateSubForum(string topic, int forumId);
         void AddAdmin(int userId, int forumId);
         void RemoveAdmin(int userId, int forumId);
         Boolean IsAdmin(int userId, int forumId);

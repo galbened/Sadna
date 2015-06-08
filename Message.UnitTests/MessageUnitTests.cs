@@ -28,7 +28,7 @@ namespace Message.UnitTests
             int forumId = fm.CreateForum(titels[0]);
             int userId = fm.Register(userNames[0], passwords[0], emails[0], forumId);
             fm.AddAdmin(userId, forumId);
-            int subForumId = fm.CreateSubForum(subTitels[0], forumId, userId);
+            int subForumId = fm.CreateSubForum(subTitels[0], forumId);
             int threadId1 = mm.addThread(forumId, subForumId, userId, topic[0], body[0]);
             int threadId2 = mm.addThread(forumId, subForumId, userId, topic[1], body[0]);
             Assert.AreNotEqual(threadId1, threadId2);
@@ -42,7 +42,7 @@ namespace Message.UnitTests
             int forumId = fm.CreateForum(titels[0]);
             int userId = fm.Register(userNames[0], passwords[0], emails[0], forumId);
             fm.AddAdmin(userId, forumId);
-            int subForumId = fm.CreateSubForum(subTitels[0], forumId, userId);
+            int subForumId = fm.CreateSubForum(subTitels[0], forumId);
             try
             {
                 int threadId1 = mm.addThread(forumId, subForumId, userId, null, body[0]);
@@ -64,7 +64,7 @@ namespace Message.UnitTests
             int forumId = fm.CreateForum(titels[0]);
             int userId = fm.Register(userNames[0], passwords[0], emails[0], forumId);
             fm.AddAdmin(userId, forumId);
-            int subForumId = fm.CreateSubForum(subTitels[0], forumId, userId);
+            int subForumId = fm.CreateSubForum(subTitels[0], forumId);
             int threadId = mm.addThread(forumId, subForumId, userId, topic[0], body[0]);
             int commentID1 = mm.addComment(threadId, userId, topic[1], body[0]);
             int commentID2 = mm.addComment(threadId, userId, topic[1], body[0]);
@@ -78,7 +78,7 @@ namespace Message.UnitTests
             int forumId = fm.CreateForum(titels[0]);
             int userId = fm.Register(userNames[0], passwords[0], emails[0], forumId);
             fm.AddAdmin(userId, forumId);
-            int subForumId = fm.CreateSubForum(subTitels[0], forumId, userId);
+            int subForumId = fm.CreateSubForum(subTitels[0], forumId);
             int threadId = mm.addThread(forumId, subForumId, userId, topic[0], body[0]);
             try
             {
@@ -100,7 +100,7 @@ namespace Message.UnitTests
             int forumId = fm.CreateForum(titels[0]);
             int userId = fm.Register(userNames[0], passwords[0], emails[0], forumId);
             fm.AddAdmin(userId, forumId);
-            int subForumId = fm.CreateSubForum(subTitels[0], forumId, userId);
+            int subForumId = fm.CreateSubForum(subTitels[0], forumId);
             try
             {
                 int commentID1 = mm.addComment(5, userId, topic[1], body[0]);
@@ -123,7 +123,7 @@ namespace Message.UnitTests
             int forumId = fm.CreateForum(titels[0]);
             int userId = fm.Register(userNames[0], passwords[0], emails[0], forumId);
             fm.AddAdmin(userId, forumId);
-            int subForumId = fm.CreateSubForum(subTitels[0], forumId, userId);
+            int subForumId = fm.CreateSubForum(subTitels[0], forumId);
             int threadId = mm.addThread(forumId, subForumId, userId, topic[0], body[0]);
             int commentID1 = mm.addComment(threadId, userId, topic[1], body[0]);
             Assert.IsTrue(mm.editMessage(commentID1, topic[0], body[0], 1));
@@ -136,7 +136,7 @@ namespace Message.UnitTests
             int forumId = fm.CreateForum(titels[0]);
             int userId = fm.Register(userNames[0], passwords[0], emails[0], forumId);
             fm.AddAdmin(userId, forumId);
-            int subForumId = fm.CreateSubForum(subTitels[0], forumId, userId);
+            int subForumId = fm.CreateSubForum(subTitels[0], forumId);
             int threadId = mm.addThread(forumId, subForumId, userId, topic[0], body[0]);
             try
             {
@@ -156,7 +156,7 @@ namespace Message.UnitTests
             int forumId = fm.CreateForum(titels[0]);
             int userId = fm.Register(userNames[0], passwords[0], emails[0], forumId);
             fm.AddAdmin(userId, forumId);
-            int subForumId = fm.CreateSubForum(subTitels[0], forumId, userId);
+            int subForumId = fm.CreateSubForum(subTitels[0], forumId);
             int threadId = mm.addThread(forumId, subForumId, userId, topic[0], body[0]);
             int commentID1 = mm.addComment(threadId, userId, topic[1], body[0]);
             try
@@ -180,7 +180,7 @@ namespace Message.UnitTests
             int forumId = fm.CreateForum(titels[0]);
             int userId = fm.Register(userNames[0], passwords[0], emails[0], forumId);
             fm.AddAdmin(userId, forumId);
-            int subForumId = fm.CreateSubForum(subTitels[0], forumId, userId);
+            int subForumId = fm.CreateSubForum(subTitels[0], forumId);
             int threadId = mm.addThread(forumId, subForumId, userId, topic[0], body[0]);
             int commentID1 = mm.addComment(threadId, userId, topic[1], body[0]);
             Assert.IsTrue(mm.deleteMessage(commentID1));
@@ -193,7 +193,7 @@ namespace Message.UnitTests
             int forumId = fm.CreateForum(titels[0]);
             int userId = fm.Register(userNames[0], passwords[0], emails[0], forumId);
             fm.AddAdmin(userId, forumId);
-            int subForumId = fm.CreateSubForum(subTitels[0], forumId, userId);
+            int subForumId = fm.CreateSubForum(subTitels[0], forumId);
             int threadId = mm.addThread(forumId, subForumId, userId, topic[0], body[0]);
             try
             {

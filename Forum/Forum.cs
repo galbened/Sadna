@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using User;
+using Interfaces;
 
 namespace Forum
 {
@@ -15,7 +16,7 @@ namespace Forum
         private List<SubForum> subForums;
         private Policy poli;
         private static int subForumIdCounter;
-        private UserManager usrMngr;
+        private IUserManager usrMngr;
         private const string error_existTitle = "Cannot create subForum with already exit title";
         private const string error_notAdmim = "Cannot create subForum with not admin caller ID";
         private const string error_forumID = "No such subForum: ";
@@ -33,23 +34,26 @@ namespace Forum
             logedUsersId.Add(1);
             subForums = new List<SubForum>();
             poli = new Policy();
-            usrMngr = new UserManager();
+            usrMngr = UserManager.Instance();
             subForumIdCounter = 100;
         }
 
-        public int CreateSubForum(string topic, int callerUserId)
+        public int CreateSubForum(string topic)
         {
             foreach (SubForum sbfrm in subForums)
                 if (sbfrm.Topic.CompareTo(topic) == 0)
                     throw new ArgumentException(error_existTitle);
-            if (adminsID.Contains(callerUserId))
+            subForums.Add(new SubForum(topic, subForumIdCounter));
+            subForumIdCounter++;
+            return subForumIdCounter - 1;
+            /*if (adminsID.Contains(callerUserId))
             {
                 subForums.Add(new SubForum(topic, subForumIdCounter));
                 subForumIdCounter++;
                 return subForumIdCounter - 1;
             }
             else
-                throw new ArgumentException(error_notAdmim);
+                throw new ArgumentException(error_notAdmim);*/
         }
 
         public Policy Poli
