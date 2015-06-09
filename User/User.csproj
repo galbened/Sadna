@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Context.cs" />
+    <Compile Include="DBmanager.cs" />
     <Compile Include="Member.cs" />
     <Compile Include="memberState.cs" />
     <Compile Include="stateGold.cs" />
