@@ -52,8 +52,6 @@ namespace Interfaces
 
         Boolean isRegisteredUser(int forumId, int userId);
 
-        List<int> getSubForums(int forumId);
-
         List<int> getAllThreads(int forumId, int subForumId);
 
         List<int> getAllComments(int forumId,int subForumId, int messageId);// should throw exception in case of missing messageId

@@ -147,13 +147,6 @@ namespace testProject
             throw new NullReferenceException("_real in null");
         }
 
-        public List<int> getSubForums(int forumId)
-        {
-            if (_real != null)
-                return _real.getSubForums(forumId);
-            throw new NullReferenceException("_real in null");
-        }
-
         public List<int> getAllThreads(int forumId, int subForumId)
         {
             if (_real != null)
