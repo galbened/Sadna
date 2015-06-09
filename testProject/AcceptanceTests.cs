@@ -251,7 +251,7 @@ namespace testProject
             int forumId = CreateForum();
             int subForumId = bridge.CreateSubForum(forumId, topic[0]);
             Assert.IsTrue(subForumId > 0);
-            Assert.IsTrue((bridge.getSubForums(forumId)).Contains(subForumId));     
+            Assert.IsTrue((bridge.GetSubForumsIds(forumId)).Contains(subForumId));     
         }
 
 
