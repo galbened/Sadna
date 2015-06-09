@@ -5,9 +5,9 @@
         .module('app')
         .controller('SignupModalCtrl', SignupModalCtrl);
 
-    SignupModalCtrl.$inject = ['$scope','Users'];
+    SignupModalCtrl.$inject = ['$scope', 'Users', '$rootScope'];
 
-    function SignupModalCtrl($scope, Users) {
+    function SignupModalCtrl($scope, Users, $rootScope) {
         activate();
 
         function activate() {
@@ -15,7 +15,7 @@
 
         $scope.signup = function (username, email, password) {
             var queryArgs = {
-                forumId: 1000
+                forumId: $rootScope.forumId
             };
 
             console.log($scope.forum);

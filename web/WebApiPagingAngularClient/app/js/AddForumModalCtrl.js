@@ -5,9 +5,9 @@
         .module('app')
         .controller('AddForumModalCtrl', AddForumModalCtrl);
 
-    AddForumModalCtrl.$inject = ['$scope'];
+    AddForumModalCtrl.$inject = ['$scope', 'Forums', '$modalInstance'];
 
-    function AddForumModalCtrl($scope) {
+    function AddForumModalCtrl($scope, Forums, $modalInstance) {
         activate();
 
         function activate() {
@@ -23,5 +23,26 @@
                 $scope.incorrectPaswword = true;
             }
         };
+
+        $scope.createForum = function (name, numOfModerators, uppercase, lowercase, numbers, symbols, minLength) {
+            var newForumParams = {
+                'name' : name, 
+                'numOfModerators': numOfModerators,
+                'degreeOfEnsuring':'',
+                'uppercase' :uppercase,
+                'lowercase':lowercase,
+                'numbers':numbers,
+                'symbols':symbols,
+                'minLength': minLength
+            };
+
+            return Forums.createForum({}, newForumParams).$promise.then(
+                function (result) {
+                    $modalInstance.dismiss('cancel');
+                    return result.$promise;
+                }, function (result) {
+                    return $q.reject(result);
+                });
+        }
     }
 })();

@@ -17,7 +17,7 @@ namespace User.UnitTests
         String[] userNames = { "tomer.b", "tomer.s", "gal.b", "gal.p", "osher" };
         String[] emails = { "tomer.b@gmail.com", "tomer.s@gmail.com", "gal.b@gmail.com", "gal.p@gmail.com", "osher@gmail.com" };
         String[] passwords = { "123456", "abcdef" };
-        IUserManager um = UserManager.Instance();
+        IUserManager um = new UserManager();
 
         /*
  * Testing regestration:

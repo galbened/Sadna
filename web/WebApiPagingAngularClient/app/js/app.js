@@ -3,7 +3,7 @@
 
     var app = angular.module('app', ['ngResource', 'ngRoute','ui.bootstrap']);
 
-    app.config(['$routeProvider', function ($routeProvider) {
+    app.config(['$routeProvider',function ($routeProvider) {
 
         $routeProvider.when('/forums', {
             templateUrl: 'app/partials/forum-list.html',
@@ -23,6 +23,6 @@
         });
     }]);
 
-    app.run([function () {
+    app.run([function ($rootScope) {
     }]);
 })();

@@ -21,6 +21,11 @@
                         method: 'GET',
                         url: '/api/forums/getSubForum/:forumId/:subForumId',
                         params: { forumId: '@forumId',subForumId:'@subForumId' }
+                    },                    
+                    'createForum': {
+                        method: 'POST',
+                        url: '/api/forums/createForum',
+                        params: {}
                     },
                 });
         }).factory('Users', function ($resource) {

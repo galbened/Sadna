@@ -6,27 +6,27 @@ using System.Net.Http;
 using System.Web.Http;
 using WebApiPagingAngularClient.Models;
 using WebApiPagingAngularClient.Utility;
+using Interfaces;
+using Driver;
 
 namespace WebApiPagingAngularClient.Controllers
 {
     [RoutePrefix("api/forums")]
     public class ForumsController : ApiController
     {
+        private static IApplicationBridge driver = new BridgeReal();
 
         // GET: api/forums/getForums
         [Route("getForums")]
         public IHttpActionResult Get()
             {
-                var data =  new List<Forum>()
+                var ids = driver.GetForumIds();
+                var names = driver.GetForumTopics();
+
+                var data =  new
                 {
-                    new Forum{
-                        Id = 1000,
-                        title = "sport",
-                        },
-                    new Forum{
-                        Id= 1001,
-                        title= "nature",
-                        }
+                    ids = ids,
+                    names = names
                 };
             
                 var result = new
@@ -36,6 +36,32 @@ namespace WebApiPagingAngularClient.Controllers
 
                 return Ok(result);
         }
+
+        // GET: api/forums/createForum
+        [Route("createForum")]
+        public IHttpActionResult Post(newForumParams forum)
+        {
+            try
+            {
+                int forumId = driver.CreateForum(forum.name, forum.numOfModerators, forum.degreeOfEnsuring,
+                    forum.uppercase, forum.lowercase, forum.numbers, forum.symbols, forum.minLength);
+                var data = new
+                {
+                    Id = forumId,
+                    title = forum.name,
+                };
+                var result = new
+                {
+                    data = data
+                };
+                return Ok(result);
+            }
+            catch
+            {
+                return NotFound();
+            }
+        }
+
         // GET: api/forums/getForum/forumId
         [Route("getForum/{forumId:int}")]
         public IHttpActionResult Get(int forumId)

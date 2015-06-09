@@ -5,15 +5,17 @@
         .module('app')
         .controller('SubForumListCtrl', SubForumListCtrl);
 
-    SubForumListCtrl.$inject = ['$scope', '$routeParams', '$modal', 'Forums','Users', '$http', '$q'];
+    SubForumListCtrl.$inject = ['$scope', '$routeParams', '$modal', 'Forums','Users', '$http', '$q','$rootScope'];
 
-    function SubForumListCtrl($scope, $routeParams, $modal, Forums, Users, $http, $q) {
+    function SubForumListCtrl($scope, $routeParams, $modal, Forums, Users, $http, $q, $rootScope) {
         activate();
 
         function activate() {
             var queryArgs = {
                 forumId: $routeParams.forumId,
             };
+
+            $rootScope.forumId = $routeParams.forumId;
 
             return Forums.getForum(queryArgs).$promise.then(
                 function (result) {
