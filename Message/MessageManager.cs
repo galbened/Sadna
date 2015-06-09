@@ -104,7 +104,7 @@ namespace Message
                     throw new ArgumentException(error_callerIDnotMatch);
                 }
             }
-            _logger.Write(ForumLogger.TYPE_ERROR, "Failed editing message " + messageId + ": " + error_messageIdNotFound);
+            //_logger.Write(ForumLogger.TYPE_ERROR, "Failed editing message " + messageId + ": " + error_messageIdNotFound);
             throw new InvalidOperationException(error_messageIdNotFound);
         }
 
