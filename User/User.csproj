@@ -50,7 +50,6 @@
   <ItemGroup>
     <Compile Include="Context.cs" />
     <Compile Include="Member.cs" />
-    <Compile Include="Class1.cs" />
     <Compile Include="memberState.cs" />
     <Compile Include="stateGold.cs" />
     <Compile Include="stateNormal.cs" />
