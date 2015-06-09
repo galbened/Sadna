@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-//using System.Linq;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Interfaces;
@@ -40,9 +40,9 @@ namespace User
 
             db = new Context();
 
-            db.Database.ExecuteSqlCommand("TRUNCATE TABLE Members"); //cleaning table
+            //db.Database.ExecuteSqlCommand("TRUNCATE TABLE Members"); //cleaning table
 
-            db.SaveChanges();
+            //db.SaveChanges();
         }
 
 
