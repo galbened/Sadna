@@ -64,6 +64,10 @@
       <Project>{d703d080-077b-47ad-9ddb-790e37803d59}</Project>
       <Name>Interfaces</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Notification\Notification.csproj">
+      <Project>{cd7bfcb0-9183-4222-8176-d42b80e991de}</Project>
+      <Name>Notification</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
