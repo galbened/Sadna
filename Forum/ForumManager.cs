@@ -236,5 +236,49 @@ namespace Forum
                 ans.Add(fr.forumName);
             return ans;
         }
+
+        public string GetForumName(int forumId)
+        {
+            int forumIndex = GetForumIndex(forumId);
+            return forums.ElementAt(forumIndex).forumName;                
+        }
+
+        public List<int> GetSubForumsIds(int forumId)
+        {
+            List<int> ans = new List<int>();
+            int forumIndex = GetForumIndex(forumId);
+            Forum cur = forums.ElementAt(forumIndex);
+            List<SubForum> subForums = cur.subForums;
+            foreach (SubForum sf in subForums)
+            {
+                ans.Add(sf.SubForumId);
+            }
+            return ans;
+
+        }
+
+        public List<string> GetSubForumsTopics(int forumId)
+        {
+            List<string> ans = new List<string>();
+            int forumIndex = GetForumIndex(forumId);
+            Forum cur = forums.ElementAt(forumIndex);
+            List<SubForum> subForums = cur.subForums;
+            foreach (SubForum sf in subForums)
+            {
+                ans.Add(sf.Topic);
+            }
+            return ans;
+        }
+
+        private int GetForumIndex(int forumId)
+        {
+            for (int i = 0; i < forums.Count; i++)
+            {
+                if (forums.ElementAt(i).ForumID == forumId)
+                    return i;
+            }
+            throw new ArgumentException(error_forumID + forumId);
+        }
+
     }
 }

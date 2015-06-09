@@ -34,6 +34,9 @@ namespace Interfaces
         int NumOfForums();
         List<int> GetForumIds();
         List<string> GetForumTopics();
+        string GetForumName(int forumId);
+        List<int> GetSubForumsIds(int forumId);
+        List<string> GetSubForumsTopics(int forumId);
 
       
     } 

@@ -154,5 +154,20 @@ namespace Driver
         {
             throw new NotImplementedException();
         }
+
+        public string GetForumName(int forumId)
+        {
+            return FM.GetForumName(forumId);
+        }
+
+        public List<int> GetSubForumsIds(int forumId)
+        {
+            return FM.GetSubForumsIds(forumId);
+        }
+
+        public List<string> GetSubForumsTopics(int forumId)
+        {
+            return FM.GetSubForumsTopics(forumId);
+        }
     }
 }

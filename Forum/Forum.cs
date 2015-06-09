@@ -12,7 +12,6 @@ namespace Forum
     {
         private List<int> registeredUsersID,logedUsersId, adminsID;
         private int forumID;
-        private List<SubForum> subForums;
         private Policy poli;
         private static int subForumIdCounter;
         private IUserManager usrMngr;
@@ -23,6 +22,7 @@ namespace Forum
 
 
         public string forumName { get; set; }
+        public List<SubForum> subForums { get; private set; }
 
         public Forum(string name, int id)
         {

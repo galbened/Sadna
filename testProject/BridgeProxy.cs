@@ -73,14 +73,14 @@ namespace testProject
         public int Publish(int forumId, int subForumId, int publisherID, string title, string body)
         {
             if (_real != null)
-                _real.Publish(forumId, subForumId, publisherID, title, body);
+                return _real.Publish(forumId, subForumId, publisherID, title, body);
             throw new NullReferenceException("_real in null");
         }
 
         public int Comment(int firstMessageId, int publisherID, string title, string body)
         {
             if (_real != null)
-                _real.Comment(firstMessageId, publisherID, title, body);
+                return _real.Comment(firstMessageId, publisherID, title, body);
             throw new NullReferenceException("_real in null");
         }
 
@@ -101,7 +101,7 @@ namespace testProject
         public bool DeleteMessage(int messageId)
         {
             if (_real != null)
-                _real.DeleteMessage(messageId);
+                return _real.DeleteMessage(messageId);
             throw new NullReferenceException("_real in null");
         }
 
@@ -129,49 +129,70 @@ namespace testProject
         public List<int> GetForumIds()
         {
             if (_real != null)
-                _real.GetForumIds();
+                return _real.GetForumIds();
             throw new NullReferenceException("_real in null");
         }
 
         public List<string> GetForumTopics()
         {
             if (_real != null)
-                _real.GetForumTopics();
+                return _real.GetForumTopics();
             throw new NullReferenceException("_real in null");
         }
 
         public List<int> getRegisteredUsers(int forumId)
         {
             if (_real != null)
-                _real.getRegisteredUsers(forumId);
+                return _real.getRegisteredUsers(forumId);
             throw new NullReferenceException("_real in null");
         }
 
         public List<int> getSubForums(int forumId)
         {
             if (_real != null)
-                _real.getSubForums(forumId);
+                return _real.getSubForums(forumId);
             throw new NullReferenceException("_real in null");
         }
 
         public List<int> getAllThreads(int forumId, int subForumId)
         {
             if (_real != null)
-                _real.getAllThreads(forumId, subForumId);
+                return _real.getAllThreads(forumId, subForumId);
             throw new NullReferenceException("_real in null");
         }
 
         public List<int> getAllComments(int forumId,int subForumId, int messageId)
         {
             if (_real != null)
-                _real.getAllComments(forumId,subForumId, messageId);
+                return _real.getAllComments(forumId,subForumId, messageId);
             throw new NullReferenceException("_real in null");
         }
 
         public List<int> getModerators(int forumId, int subForumId)
         {
             if (_real != null)
-                _real.getModerators(forumId, subForumId);
+                return _real.getModerators(forumId, subForumId);
+            throw new NullReferenceException("_real in null");
+        }
+
+        public string GetForumName(int forumId)
+        {
+            if (_real != null)
+                return _real.GetForumName(forumId);
+            throw new NullReferenceException("_real in null");
+        }
+
+        public List<string> GetSubForumsTopics(int forumId)
+        {
+            if (_real != null)
+                return _real.GetSubForumsTopics(forumId);
+            throw new NullReferenceException("_real in null");
+        }
+
+        public List<int> GetSubForumsIds(int forumId)
+        {
+            if (_real != null)
+                return _real.GetSubForumsIds(forumId);
             throw new NullReferenceException("_real in null");
         }
     }

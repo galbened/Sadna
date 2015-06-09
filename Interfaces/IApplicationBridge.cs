@@ -60,5 +60,11 @@ namespace Interfaces
 
         List<int> getModerators(int forumId, int subForumId);
 
+        string GetForumName(int forumId);
+
+        List<int> GetSubForumsIds(int forumId);
+
+        List<string> GetSubForumsTopics(int forumId);
+
     }
 }
