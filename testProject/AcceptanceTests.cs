@@ -183,9 +183,20 @@ namespace testProject
         {
             if (forumsIds.Count == 0)
                 CreateForumTest();
+            List<int> forumMembers = bridge.getRegisteredUsers(forumsIds[forumsIds.Count - 1]);
             int userId = bridge.Register(userNames[0], passwords[0], emails[0], forumsIds[forumsIds.Count-1]);
+            int falseId = userId + 1;
             int loggedUser = bridge.Login(userNames[0], passwords[0], forumsIds[forumsIds.Count - 1]);
             Assert.Equals(userId, loggedUser);
+            try
+            {
+                int loggedFalseUser = bridge.Login(userNames[0], passwords[0], forumsIds[forumsIds.Count - 1]);
+                Assert.Fail("Unregistered user should not be able to login");
+            }
+            catch
+            {
+                Assert.IsTrue(true);
+            }
         }
 
 
@@ -198,9 +209,13 @@ namespace testProject
         {
             int forumId = CreateForum();
             int userId = bridge.Register(userNames[0], passwords[0], emails[0], forumId);
+            int falseUserId = userId + 1;
             int loggedUser = bridge.Login(userNames[0], passwords[0], forumId);
             bool disconnected = bridge.Logout(loggedUser, forumId);
             Assert.IsTrue(disconnected);
+            Boolean falseUserLogout = bridge.Logout(falseUserId, forumId);
+            Assert.IsFalse(falseUserLogout);
+            
         }
 
 
