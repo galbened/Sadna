@@ -84,7 +84,6 @@
             this.dataGridView1.Size = new System.Drawing.Size(222, 90);
             this.dataGridView1.TabIndex = 3;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
-            // 
             // ForumName
             // 
             this.ForumName.HeaderText = "Forum name";

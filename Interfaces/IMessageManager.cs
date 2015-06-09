@@ -15,9 +15,10 @@ namespace Interfaces
         /// <param name="forumId">ID of forum the subForum located in</param>
         /// <param name="subForumId">ID of subForum the thread published in</param>
         /// <param name="publisherID">ID of publisher (User)</param>
+        /// <param name="publisherName">Name of publisher (User)</param>
         /// <returns>ID of the created Thread</returns>
         /// <throws>ArgumentException if title is empty</throws>
-        int addThread(int forumId, int subForumId, int publisherID, string title, string body);
+        int addThread(int forumId, int subForumId, int publisherID, string publisherName, string title, string body);
 
   
         /// <addComment>
@@ -25,12 +26,13 @@ namespace Interfaces
         /// </addComment>
         /// <param name="firstMessageId">the head message of the thread</param>
         /// <param name="publisherID">ID of publisher (User)</param>
+        /// <param name="publisherName">Name of publisher (User)</param>
         /// <returns>ID of the created Comment</returns>
         /// <throws>
         /// ArgumentException if title is empty
         /// InvalidOperationException if firstMessageId doesn't exist
         /// </throws>
-        int addComment(int firstMessageId, int publisherID, string title, string body);
+        int addComment(int firstMessageId, int publisherID, string publisherName, string title, string body);
 
     
         /// <editMessage>
@@ -65,6 +67,9 @@ namespace Interfaces
         * get the forumId, subForumId and userID
         **/
         int NumOfMessages(int forumId, int subForumId, int userId);
+
+
+        List<ThreadInfo> GetAllThreads(int forumId, int subForumId);
 
     }
 }

@@ -26,7 +26,7 @@ namespace Driver
                 System.Console.WriteLine("server is ");
 
             }
-            ForumLogger.GetInstance().Shutdown();
+            //ForumLogger.GetInstance().Shutdown();
         }
     }
 }

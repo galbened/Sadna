@@ -190,6 +190,14 @@ namespace Forum
             throw new ArgumentException(error_forumID + topic); ;
         }
 
+        internal SubForum GetSubForum(int subForumId)
+        {
+            foreach (SubForum sbfrm in subForums)
+                if (sbfrm.SubForumId == subForumId)
+                    return sbfrm;
+            throw new ArgumentException(error_forumID + subForumId); ;
+        }
+
         internal Boolean RemoveSubForum(int subForumId, int callerUserId)
         {
             SubForum tmp = null;
@@ -207,6 +215,12 @@ namespace Forum
         internal bool IsValidPassword(string password)
         {
             return poli.IsValid(password);
+        }
+
+        internal Boolean isUserRegistered(int userId)
+        {
+            return registeredUsersID.Contains(userId);
+
         }
     }
 }

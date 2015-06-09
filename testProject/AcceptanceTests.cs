@@ -104,13 +104,13 @@ namespace testProject
         public void RegisterTestSuccess()
         {
             int forumId = CreateForum();
-            List<int> registeredUsersBefore = bridge.getRegisteredUsers(forumId);
+            // deleted check of before user addition
+            //List<int> registeredUsersBefore = bridge.GetRegisteredUsers(forumId);
+            //Assert.IsFalse(bridge.isRegisteredUser(forumId, userId));
             try
             {
                 int userId = bridge.Register(userNames[0], passwords[0], emails[0], forumId);
-                List<int> registeredUsersAfter = bridge.getRegisteredUsers(forumId);
-                Assert.IsFalse(registeredUsersBefore.Contains(userId));
-                Assert.IsTrue(registeredUsersAfter.Contains(userId));
+                Assert.IsTrue(bridge.isRegisteredUser(forumId, userId));
                 Assert.IsTrue(userId > -1);
             }
             catch 
@@ -183,7 +183,7 @@ namespace testProject
         {
             if (forumsIds.Count == 0)
                 CreateForumTest();
-            List<int> forumMembers = bridge.getRegisteredUsers(forumsIds[forumsIds.Count - 1]);
+           // List<int> forumMembers = bridge.GetRegisteredUsers(forumsIds[forumsIds.Count - 1]);
             int userId = bridge.Register(userNames[0], passwords[0], emails[0], forumsIds[forumsIds.Count-1]);
             int falseId = userId + 1;
             int loggedUser = bridge.Login(userNames[0], passwords[0], forumsIds[forumsIds.Count - 1]);
@@ -251,7 +251,7 @@ namespace testProject
             int forumId = CreateForum();
             int subForumId = bridge.CreateSubForum(forumId, topic[0]);
             Assert.IsTrue(subForumId > 0);
-            Assert.IsTrue((bridge.getSubForums(forumId)).Contains(subForumId));     
+            Assert.IsTrue((bridge.GetSubForumsIds(forumId)).Contains(subForumId));     
         }
 
 

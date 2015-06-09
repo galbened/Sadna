@@ -20,7 +20,9 @@ namespace Message
         private const string error_emptyTitle = "Cannot add thread without title";
         private const string error_messageIdNotFound = "Message ID doesn't exist";
         private const string error_callerIDnotMatch = "Only publisher can edit message";
+        private const string error_wrongForumOrSubForumId = "ForumId or SubForumId not found in all Threads";
         private ForumLogger _logger;
+
 
         public static IMessageManager Instance()
         {
@@ -38,7 +40,7 @@ namespace Message
         }
 
 
-        public int addThread(int forumId, int subForumId, int publisherId, string title, string body)
+        public int addThread(int forumId, int subForumId, int publisherId, string publisherName, string title, string body)
         {
             if ((title == null) || (title.Equals("")))
             {
@@ -47,16 +49,16 @@ namespace Message
             }
             lastMessageID++;
             int messageId = lastMessageID;
-            Thread thread = new Thread(forumId, subForumId, messageId, publisherId, title, body);
+            Thread thread = new Thread(forumId, subForumId, messageId, publisherId,publisherName, title, body);
             threads.Add(thread);
-            Message ms = thread.getMessage();
+            Message ms = thread.GetMessage();
             messages.Add(ms);
             _logger.Write(ForumLogger.TYPE_INFO, "New thread was added " + ms.MessageID);
             return ms.MessageID;
         }
 
 
-        public int addComment(int firstMessageID, int publisherID, string title, string body)
+        public int addComment(int firstMessageID, int publisherID, string publisherName, string title, string body)
         {
             if ((title == null) || (title.Equals("")))
             {
@@ -69,7 +71,7 @@ namespace Message
             {
                 lastMessageID++;
                 int messageId = lastMessageID;
-                ResponseMessage rm = new ResponseMessage((FirstMessage)first, messageId, publisherID, title, body);
+                ResponseMessage rm = new ResponseMessage((FirstMessage)first, messageId, publisherID, publisherName, title, body);
                 first.addResponse(rm);
                 messages.Add(rm);
                 _logger.Write(ForumLogger.TYPE_INFO, "New comment was added " + rm.MessageID);
@@ -102,7 +104,7 @@ namespace Message
                     throw new ArgumentException(error_callerIDnotMatch);
                 }
             }
-            _logger.Write(ForumLogger.TYPE_ERROR, "Failed editing message " + messageId + ": " + error_messageIdNotFound);
+            //_logger.Write(ForumLogger.TYPE_ERROR, "Failed editing message " + messageId + ": " + error_messageIdNotFound);
             throw new InvalidOperationException(error_messageIdNotFound);
         }
 
@@ -166,6 +168,50 @@ namespace Message
             foreach (Thread thread in threads)
             {
                 ans += thread.NumOfMessages(forumId, subForumId, userId);
+            }
+            return ans;
+        }
+
+        public List<ThreadInfo> GetAllThreads(int forumId, int subForumId)
+        {
+            List<ThreadInfo> ans = new List<ThreadInfo>();
+            Thread thread = null;
+            for (int i=0; i < threads.Count; i++)
+            {
+                thread = threads.ElementAt(i);
+                if (thread.ForumId == forumId && thread.SubForumId == subForumId)
+                {
+                    ThreadInfo cur = new ThreadInfo();
+                    cur.id = thread.FirstMessage.MessageID;
+                    cur.topic = thread.FirstMessage.Title;
+                    cur.content = thread.FirstMessage.Content;
+                    cur.date = thread.FirstMessage.PublishDate;
+                    cur.publisher = thread.FirstMessage.PublisherName;
+                    cur.comments = GetAllThreadComments(cur.id);
+                    ans.Add(cur);
+                }
+                                   
+            }
+            return ans;
+                
+        }
+
+        private List<CommentInfo> GetAllThreadComments(int firstMessageId)
+        {
+            List<CommentInfo> ans = new List<CommentInfo>();
+            CommentInfo cur = new CommentInfo();
+            foreach (ResponseMessage ms in messages)
+            {
+                if (!ms.isFirst())
+                    if (ms.FirstMessage.MessageID == firstMessageId)
+                    {
+                        cur.Id = ms.MessageID;
+                        cur.topic = ms.Title;
+                        cur.content = ms.Content;
+                        cur.date = ms.PublishDate;
+                        cur.publisher = ms.PublisherName;
+                        ans.Add(cur);
+                    }
             }
             return ans;
         }

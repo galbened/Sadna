@@ -10,8 +10,8 @@ namespace Message
     {
         private FirstMessage firstMessage = null;
 
-        public ResponseMessage(FirstMessage firstMessage, int messageId, int publisherID, string title, string body):
-            base(messageId, publisherID, title, body)
+        public ResponseMessage(FirstMessage firstMessage, int messageId, int publisherID,string publisherName, string title, string body):
+            base(messageId, publisherID, publisherName, title, body)
         {
             this.firstMessage = firstMessage;
         }
@@ -19,6 +19,11 @@ namespace Message
         public override bool isFirst()
         {
             return false;
+        }
+
+        public FirstMessage FirstMessage
+        {
+            get { return firstMessage; }
         }
     }
 }

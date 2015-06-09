@@ -30,9 +30,9 @@ namespace Interfaces
 
         void View(int forumId, out List<string> subForumNames, out List<int> subForumIds);
 
-        int Publish(int forumId, int subForumId, int publisherID, string title, string body);
+        int Publish(int forumId, int subForumId, int publisherID, string publisherName, string title, string body);
 
-        int Comment(int firstMessageId, int publisherID, string title, string body);
+        int Comment(int firstMessageId, int publisherID, string publisherName, string title, string body);
 
         void SendFriendRequest();
 
@@ -50,11 +50,9 @@ namespace Interfaces
 
         List<string> GetForumTopics();
 
-        List<int> getRegisteredUsers(int forumId);
+        Boolean isRegisteredUser(int forumId, int userId);
 
-        List<int> getSubForums(int forumId);
-
-        List<int> getAllThreads(int forumId, int subForumId);
+        List<ThreadInfo> GetAllThreads(int forumId, int subForumId);
 
         List<int> getAllComments(int forumId,int subForumId, int messageId);// should throw exception in case of missing messageId
 

@@ -8,22 +8,39 @@ namespace Message
 {
     class Thread
     {
-        FirstMessage firstMessage;
-        int forumId;
-        int subForumId;
+        private int forumId;
+        private int subForumId;
+        private FirstMessage firstMessage;
 
-        public Thread(int forumId, int subForumId, int messageId, int publisherID, string title, string body)
+
+        public Thread(int forumId, int subForumId, int messageId, int publisherID, string publisherName, string title, string body)
         {
             this.forumId = forumId;
             this.subForumId = subForumId;
-            firstMessage = new FirstMessage(messageId, publisherID, title, body);
+            firstMessage = new FirstMessage(messageId, publisherID, publisherName, title, body);
         }
-     
 
-        public FirstMessage getMessage()
+        public int ForumId
+        {
+            get { return forumId; }
+        }
+
+        public int SubForumId
+        {
+            get { return subForumId; }
+        }
+
+        public FirstMessage FirstMessage
+        {
+            get { return firstMessage; }
+
+        }
+
+        public Message GetMessage()
         {
             return firstMessage;
         }
+     
 
         internal int NumOfMessages(int forumId, int subForumId)
         {

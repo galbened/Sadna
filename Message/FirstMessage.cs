@@ -11,8 +11,8 @@ namespace Message
 
         private HashSet<ResponseMessage> responseMessages = new HashSet<ResponseMessage>();
 
-        public FirstMessage(int messageId, int publisherID, string title, string body)
-            : base(messageId, publisherID, title, body) { }
+        public FirstMessage(int messageId, int publisherID,string publisherName, string title, string body)
+            : base(messageId, publisherID, publisherName, title, body) { }
 
         public override bool isFirst()
         {
