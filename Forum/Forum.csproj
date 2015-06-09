@@ -58,6 +58,10 @@
       <Project>{d703d080-077b-47ad-9ddb-790e37803d59}</Project>
       <Name>Interfaces</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Message\Message.csproj">
+      <Project>{bdc8348c-a0d3-4d98-a918-3a0ee96b7b14}</Project>
+      <Name>Message</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Notification\Notification.csproj">
       <Project>{cd7bfcb0-9183-4222-8176-d42b80e991de}</Project>
       <Name>Notification</Name>

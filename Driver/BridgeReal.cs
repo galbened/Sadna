@@ -75,15 +75,15 @@ namespace Driver
             throw new NotImplementedException();
         }
 
-        public int Publish(int forumId, int subForumId, int publisherID, string title, string body)
+        public int Publish(int forumId, int subForumId, int publisherID, string publisherName, string title, string body)
         {
-            int messageId = MM.addThread(forumId, subForumId, publisherID, title, body);
+            int messageId = MM.addThread(forumId, subForumId, publisherID, publisherName, title, body);
             return messageId;
         }
 
-        public int Comment(int firstMessageId, int publisherID, string title, string body)
+        public int Comment(int firstMessageId, int publisherID, string publisherName, string title, string body)
         {
-            int messageId = MM.addComment(firstMessageId, publisherID, title, body);
+            int messageId = MM.addComment(firstMessageId, publisherID,  publisherName, title, body);
             return messageId;
         }
 
@@ -140,9 +140,9 @@ namespace Driver
             throw new NotImplementedException();
         }
 
-        public List<int> getAllThreads(int forumId, int subForumId)
+        public List<ThreadInfo> GetAllThreads(int forumId, int subForumId)
         {
-            throw new NotImplementedException();
+            return MM.GetAllThreads(forumId, subForumId);
         }
 
         public List<int> getAllComments(int forumId, int subForumId, int messageId)

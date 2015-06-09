@@ -11,16 +11,18 @@ namespace Message
     {
         private int id;
         private int publisherID;
+        private string publisherName;
         private string title;
         private string body;
         private DateTime publishDate;
         
 
 
-        public Message(int id, int publisherID, string title, string body)
+        public Message(int id, int publisherID, string publisherName, string title, string body)
         {
             this.id = id;
             this.publisherID = publisherID;
+            this.publisherName = publisherName;
             this.title = title;
             this.body = body;
             this.publishDate = DateTime.Now;
@@ -41,6 +43,16 @@ namespace Message
         public int PublisherID
         {
             get { return publisherID; }
+        }
+
+        public string PublisherName
+        {
+            get { return publisherName; }
+        }
+
+        public string Title
+        {
+            get { return title; }
         }
 
         public DateTime PublishDate

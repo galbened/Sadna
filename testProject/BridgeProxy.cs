@@ -70,17 +70,17 @@ namespace testProject
             throw new NullReferenceException("_real in null");
         }
 
-        public int Publish(int forumId, int subForumId, int publisherID, string title, string body)
+        public int Publish(int forumId, int subForumId, int publisherID, string publisherName, string title, string body)
         {
             if (_real != null)
-                return _real.Publish(forumId, subForumId, publisherID, title, body);
+                return _real.Publish(forumId, subForumId, publisherID, publisherName, title, body);
             throw new NullReferenceException("_real in null");
         }
 
-        public int Comment(int firstMessageId, int publisherID, string title, string body)
+        public int Comment(int firstMessageId, int publisherID, string publisherName, string title, string body)
         {
             if (_real != null)
-                return _real.Comment(firstMessageId, publisherID, title, body);
+                return _real.Comment(firstMessageId, publisherID, publisherName, title, body);
             throw new NullReferenceException("_real in null");
         }
 
@@ -147,10 +147,10 @@ namespace testProject
             throw new NullReferenceException("_real in null");
         }
 
-        public List<int> getAllThreads(int forumId, int subForumId)
+        public List<ThreadInfo> GetAllThreads(int forumId, int subForumId)
         {
             if (_real != null)
-                return _real.getAllThreads(forumId, subForumId);
+                return _real.GetAllThreads(forumId, subForumId);
             throw new NullReferenceException("_real in null");
         }
 

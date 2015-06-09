@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Interfaces;
 using ForumLoggers;
+using Message;
 
 
 namespace Forum
@@ -14,6 +15,7 @@ namespace Forum
         private List<Forum> forums;
         private static ForumManager instance = null;
         private static int forumIdCounter;
+        private IMessageManager MM;
         private const string error_emptyTitle = "Cannot create forum without title";
         private const string error_emptyTitleSub = "Cannot create subForum without topic";
         private const string error_existTitle = "Cannot create forum with already exit title";
@@ -24,6 +26,7 @@ namespace Forum
         {
             forums = new List<Forum>();
             forumIdCounter = 1000;
+            MM = MessageManager.Instance();
             //loggerIns = ForumLogger.GetInstance();
         }
 
@@ -270,6 +273,28 @@ namespace Forum
             return ans;
         }
 
+
+        public Boolean isRegisteredUser(int forumId , int userId)
+        {
+            List<int> ans = new List<int>();
+            int forumIndex = GetForumIndex(forumId);
+            Forum cur = forums.ElementAt(forumIndex);
+            return cur.isUserRegistered(userId);
+        }
+        /*
+        public List<ThreadInfo> GetAllThreads(int forumId, int subForumId)
+        {
+            List<ThreadInfo> ans = new List<ThreadInfo>();
+            int forumIndex = GetForumIndex(forumId);
+            Forum fr = forums.ElementAt(forumIndex);
+            SubForum sf = fr.GetSubForum(subForumId);
+            ThreadInfo = MM.FindThread(forumId, subForumId);
+
+        }
+        */
+
+
+
         private int GetForumIndex(int forumId)
         {
             for (int i = 0; i < forums.Count; i++)
@@ -278,14 +303,6 @@ namespace Forum
                     return i;
             }
             throw new ArgumentException(error_forumID + forumId);
-        }
-        public Boolean isRegisteredUser(int forumId , int userId)
-        {
-            List<int> ans = new List<int>();
-            int forumIndex = GetForumIndex(forumId);
-            Forum cur = forums.ElementAt(forumIndex);
-            return cur.isUserRegistered(userId);
-
         }
 
     }
