@@ -34,16 +34,13 @@ namespace User
             Member newMember3 = new Member(3, "tomer", "bl3a", "tom@ga.com");
             System.Threading.Thread.Sleep(50);
             Member newMember4 = new Member(4, "achya", "bla4", "achya@ga.com");
-            System.Threading.Thread.Sleep(50);
-            Member newMember5 = new Member(5, "lior", "tester", "fiz@ga.com");
             UsersList.Add(newMember1);
 
             UsersList.Add(newMember2);
             UsersList.Add(newMember3);
             UsersList.Add(newMember4);
-            UsersList.Add(newMember5);
 
-           // db.SaveChanges();
+            //db.SaveChanges();
         }
 
 

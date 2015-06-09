@@ -14,7 +14,7 @@ namespace User
         public DBmanager()
         {
             db = new Context();
-            db.Database.ExecuteSqlCommand("TRUNCATE TABLE Members");
+           // db.Database.ExecuteSqlCommand("TRUNCATE TABLE Members");
         }
 
         public void updateDB(List<Member> MembersNew)
