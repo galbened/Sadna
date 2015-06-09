@@ -140,17 +140,17 @@ namespace Driver
             throw new NotImplementedException();
         }
 
-        public List<int> getAllThreads(int forumId)
+        public List<int> getAllThreads(int forumId, int subForumId)
         {
             throw new NotImplementedException();
         }
 
-        public List<int> getAllComments(int forumId, int messageId)
+        public List<int> getAllComments(int forumId, int subForumId, int messageId)
         {
             throw new NotImplementedException();
         }
 
-        public List<int> getModerators(int forumId)
+        public List<int> getModerators(int forumId, int subForumId)
         {
             throw new NotImplementedException();
         }
