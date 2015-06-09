@@ -13,36 +13,34 @@ namespace User
         List<Member> UsersList;
         int newestMemberID;
         List<String> userTypes;
-        Context db; //----------------DB
-        private static IUserManager UM;
+        DBmanager DBman;
 
-
-
-        public static IUserManager Instance()
+        public UserManager()
         {
-            if (UM == null)
-                return new UserManager();
-            return UM;
-
-        }
-
-        private UserManager()
-        {
-            this.UsersList = new List<Member>();
             this.userTypes = new List<string>();
             userTypes.Add("Normal");
             userTypes.Add("Gold");
             userTypes.Add("Silver");
             this.newestMemberID = 10;
 
+            DBman = new DBmanager();
+            this.UsersList = DBman.getMembersFromDb();
 
-            //---------------------Entity------------------------
+            //stuff
+            Member newMember1 = new Member(1, "osher", "bl1a", "ossher@ga.com");
+            System.Threading.Thread.Sleep(50);
+            Member newMember2 = new Member(2, "gal", "bla2", "gal@ga.com");
+            System.Threading.Thread.Sleep(50);
+            Member newMember3 = new Member(3, "tomer", "bl3a", "tom@ga.com");
+            System.Threading.Thread.Sleep(50);
+            Member newMember4 = new Member(4, "achya", "bla4", "achya@ga.com");
+            UsersList.Add(newMember1);
 
-            db = new Context();
+            UsersList.Add(newMember2);
+            UsersList.Add(newMember3);
+            UsersList.Add(newMember4);
 
-            db.Database.ExecuteSqlCommand("TRUNCATE TABLE Members"); //cleaning table
-
-            db.SaveChanges();
+            saveMembersDB();
         }
 
 
@@ -54,7 +52,7 @@ namespace User
                 {
                     if (member.login(password) == true)
                     {
-                        db.SaveChanges();
+                        saveMembersDB();
                         return member.memberID;
                     }
 
@@ -70,7 +68,7 @@ namespace User
             if(mem.loginStatus==false)    //is user already logged out?
                 return false;
             mem.loginStatus = false;        //logging the user out.
-            db.SaveChanges();
+            saveMembersDB();
             return true;
         }
 
@@ -80,7 +78,7 @@ namespace User
                 throw new UsernameIsTakenException();
             UsersList.Add(new Member(newestMemberID, username, password, email));
             newestMemberID++;
-            db.SaveChanges();
+            saveMembersDB();
             return newestMemberID - 1;
         }
 
@@ -95,7 +93,7 @@ namespace User
             {
                 if (getMemberByID(userID).setPassword(oldPassword, newPassword))
                 {
-                    db.SaveChanges();
+                    saveMembersDB();
                     return userID;
                 }
             }
@@ -110,7 +108,7 @@ namespace User
                 { // checks if the password is correct
                     if (isNameAvilable(newUsername) == true)
                     {
-                        db.SaveChanges();
+                        saveMembersDB();
                         getMemberByID(userID).memberUsername = newUsername;
                         return userID;
                     }
@@ -124,7 +122,7 @@ namespace User
             Member mem = getMemberByID(userID);
             Member friend = getMemberByID(friendID);
             mem.addFriend(friend);
-            db.SaveChanges();
+            saveMembersDB();
             return 1;
         }
 
@@ -143,7 +141,7 @@ namespace User
             Member mem = getMemberByID(userID);
             Member friend = getMemberByID(friendID);
             mem.removeFriend(friend);
-            db.SaveChanges();
+            saveMembersDB();
         }
 
         public void approveRequest(int notificationID)//delayed for next buid
@@ -155,7 +153,7 @@ namespace User
         {
             Member mem = getMemberByID(userID);
             UsersList.Remove(mem);
-            db.SaveChanges();
+            saveMembersDB();
         }
 
         public bool getConfirmationCodeFromUser(int userID, int code)
@@ -195,6 +193,11 @@ namespace User
                 if (username.CompareTo(mem.memberUsername) == 0)
                     return mem.PasswordLastChanged.AddDays(expectancy) > DateTime.Now;
             return false;
+        }
+
+        public void saveMembersDB()
+        {
+            DBman.updateDB(UsersList);
         }
     }
 }

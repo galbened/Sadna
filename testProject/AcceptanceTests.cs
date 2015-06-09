@@ -104,8 +104,19 @@ namespace testProject
         public void RegisterTestSuccess()
         {
             int forumId = CreateForum();
-            int userId = bridge.Register(userNames[0], passwords[0], emails[0], forumId);
-            Assert.IsTrue(userId > -1);
+            List<int> registeredUsersBefore = bridge.getRegisteredUsers(forumId);
+            try
+            {
+                int userId = bridge.Register(userNames[0], passwords[0], emails[0], forumId);
+                List<int> registeredUsersAfter = bridge.getRegisteredUsers(forumId);
+                Assert.IsFalse(registeredUsersBefore.Contains(userId));
+                Assert.IsTrue(registeredUsersAfter.Contains(userId));
+                Assert.IsTrue(userId > -1);
+            }
+            catch 
+            {
+                Assert.IsTrue(true);
+            }
         }
 
 
@@ -172,9 +183,20 @@ namespace testProject
         {
             if (forumsIds.Count == 0)
                 CreateForumTest();
+            List<int> forumMembers = bridge.getRegisteredUsers(forumsIds[forumsIds.Count - 1]);
             int userId = bridge.Register(userNames[0], passwords[0], emails[0], forumsIds[forumsIds.Count-1]);
+            int falseId = userId + 1;
             int loggedUser = bridge.Login(userNames[0], passwords[0], forumsIds[forumsIds.Count - 1]);
             Assert.Equals(userId, loggedUser);
+            try
+            {
+                int loggedFalseUser = bridge.Login(userNames[0], passwords[0], forumsIds[forumsIds.Count - 1]);
+                Assert.Fail("Unregistered user should not be able to login");
+            }
+            catch
+            {
+                Assert.IsTrue(true);
+            }
         }
 
 
@@ -187,9 +209,13 @@ namespace testProject
         {
             int forumId = CreateForum();
             int userId = bridge.Register(userNames[0], passwords[0], emails[0], forumId);
+            int falseUserId = userId + 1;
             int loggedUser = bridge.Login(userNames[0], passwords[0], forumId);
             bool disconnected = bridge.Logout(loggedUser, forumId);
             Assert.IsTrue(disconnected);
+            Boolean falseUserLogout = bridge.Logout(falseUserId, forumId);
+            Assert.IsFalse(falseUserLogout);
+            
         }
 
 
@@ -225,6 +251,7 @@ namespace testProject
             int forumId = CreateForum();
             int subForumId = bridge.CreateSubForum(forumId, topic[0]);
             Assert.IsTrue(subForumId > 0);
+            Assert.IsTrue((bridge.getSubForums(forumId)).Contains(subForumId));     
         }
 
 
@@ -251,10 +278,19 @@ namespace testProject
                 bridge.CreateSubForum(forumId, null);
                 Assert.Fail("Exception was expected but not thrown. Cannot create subForum with null topic");
             }
-             catch (Exception)
-             {
-                 Assert.IsTrue(true);
-             }
+            catch (Exception)
+            {
+                Assert.IsTrue(true);
+            }
+            try
+            {
+                bridge.CreateSubForum(forumId + 1, topic[0]);
+                Assert.Fail("Exception was expected but not thrown. Cannot create subForum with null topic");
+            }
+            catch (Exception)
+            {
+                Assert.IsTrue(true);
+            }
         }
 
         /// <ViewTest>
@@ -313,7 +349,9 @@ namespace testProject
             int subForumId = bridge.CreateSubForum(forumId, topic[0]);
             int publisherID = bridge.Register(userNames[0], passwords[0], emails[0], forumId);
             int messageId = bridge.Publish(forumId, subForumId, publisherID, titles[0], body[0]);
+            List<int> allThreads = bridge.getAllThreads(forumId, subForumId);
             Assert.IsTrue(messageId > 0);
+            Assert.IsTrue(allThreads.Contains(messageId));
         }
 
 
@@ -361,7 +399,9 @@ namespace testProject
             int publisherID = bridge.Register(userNames[0], passwords[0], emails[0], forumId);
             int firstMessageId = bridge.Publish(forumId, subForumId, publisherID, titles[0], body[0]);
             int responseMessageId = bridge.Comment(firstMessageId, publisherID, titles[1], body[1]);
+            List<int> allComments = bridge.getAllComments(forumId, subForumId, firstMessageId);
             Assert.IsTrue(responseMessageId > 0);
+            Assert.IsTrue(allComments.Contains(responseMessageId));
         }
 
 
@@ -377,6 +417,8 @@ namespace testProject
             int publisherID = bridge.Register(userNames[0], passwords[0], emails[0], forumId);
             int threadId = bridge.Publish(forumId, subForumId, publisherID, titles[0], body[0]);
             bridge.DeleteMessage(threadId);
+            List<int> allThreads = bridge.getAllThreads(forumId, subForumId);
+            Assert.IsFalse(allThreads.Contains(threadId));
             try
             {
                 int responseMessageId = bridge.Comment(threadId, publisherID, titles[1], body[1]);
@@ -402,8 +444,10 @@ namespace testProject
             int firstMessageId = bridge.Publish(forumId, subForumId, publisherID, titles[0], body[0]);
             int responseMessageId = bridge.Comment(firstMessageId, publisherID, titles[1], body[1]);
             bridge.DeleteMessage(responseMessageId);
+            List<int> allComments = bridge.getAllComments(forumId,subForumId,firstMessageId);
             try
             {
+                Assert.IsFalse(allComments.Contains(responseMessageId));
                 bridge.DeleteMessage(responseMessageId);
                 Assert.Fail("Exception was expected but not thrown. Cannot delete on non-existing response message");
             }
@@ -427,8 +471,19 @@ namespace testProject
             int firstMessageId = bridge.Publish(forumId, subForumId, publisherID, titles[0], body[0]);
             int responseMessageId = bridge.Comment(firstMessageId, publisherID, titles[1], body[1]);
             bridge.DeleteMessage(firstMessageId);
+            List<int> allMessages = bridge.getAllThreads(forumId, subForumId);
             try
             {
+                List<int> allComments = bridge.getAllComments(forumId, subForumId, firstMessageId);
+                Assert.Fail("Exception was expected but not thrown. Cannot get comments of deleted message");
+            }
+            catch
+            {
+                Assert.IsTrue(true);
+            }
+            try
+            {
+                Assert.IsFalse(allMessages.Contains(firstMessageId));
                 bridge.DeleteMessage(responseMessageId);
                 Assert.Fail("Exception was expected but not thrown. First message should be deleted with all of its comments");
             }
@@ -452,6 +507,8 @@ namespace testProject
             int subForumId = bridge.CreateSubForum(forumId, topic[0]);
             int moderatorId = bridge.Register(userNames[0], passwords[0], emails[0], forumId);
             bridge.AddModerator(forumId, subForumId, moderatorId);
+            List<int> allModerators = bridge.getModerators(forumId, subForumId);
+            Assert.IsTrue(allModerators.Contains(moderatorId));
             try
             {
                 bridge.AddModerator(forumId, subForumId, moderatorId);
@@ -476,6 +533,8 @@ namespace testProject
             int moderatorId = bridge.Register(userNames[0], passwords[0], emails[0], forumId);
             bridge.AddModerator(forumId, subForumId, moderatorId);
             bridge.RemoveModerator(forumId, subForumId, moderatorId);
+            List<int> allModerators = bridge.getModerators(forumId, subForumId);
+            Assert.IsFalse(allModerators.Contains(moderatorId));
             try
             {
                 bridge.RemoveModerator(forumId, subForumId, moderatorId);

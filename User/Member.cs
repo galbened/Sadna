@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
+using Notification;
 
 namespace User
 {
@@ -39,7 +40,7 @@ namespace User
             currentState = new stateNormal();       // new user begins as a Normal user
             pastPasswords = new List<string>();
             //creating confirmation code and sending it to user email
-            this.confirmationCode = creatingConfirmationCodeAndSending(memberEmail);
+            this.confirmationCode = creatingConfirmationCodeAndSending(memberUsername, memberEmail);
         }
 
         public DateTime PasswordLastChanged
@@ -57,41 +58,12 @@ namespace User
             FriendsList.Remove(friend);
         }
 
-        private int creatingConfirmationCodeAndSending(String memberEmail)
+        private int creatingConfirmationCodeAndSending(String userName, String memberEmail)
         {
             Random rnd = new Random();
             int newConfirmationCode=rnd.Next(1000000,9999999);
-            sendingConfirmationCodeToMail(newConfirmationCode);
+            Notification.Notification.SendConfirmationMail(userName, memberEmail, newConfirmationCode);
             return newConfirmationCode;
-        }
-
-        void sendingConfirmationCodeToMail(int code)
-        {
-
-             MailMessage mail = new MailMessage();
-             SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
-
-             mail.From = new MailAddress("drpcbgu@gmail.com");
-             mail.Subject = "Forum confirmation code";
-             mail.To.Add(memberEmail);
-             mail.Body = "Your confirmation code is : " + code.ToString();
-                //DataTable emails = DataAccessLayer.GetAllCustomersEmails();
-                /*
-                for (int i = 0; i < emails.Rows.Count; i++)
-                {
-                    Console.WriteLine(emails.Rows[i]["email"].ToString());
-                    mail.To.Add(emails.Rows[i]["email"].ToString());
-                }
-                */
-             SmtpServer.Port = 587;
-             SmtpServer.Credentials = new System.Net.NetworkCredential("drpcbgu", "123drpc123");
-             SmtpServer.EnableSsl = true;
-
-             SmtpServer.Send(mail);
-
-            
-            //TODO
-            return;
         }
 
         public Boolean checkConfirmationCodeFromUser(int code)

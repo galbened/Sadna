@@ -54,11 +54,11 @@ namespace Interfaces
 
         List<int> getSubForums(int forumId);
 
-        List<int> getAllThreads(int forumId);
+        List<int> getAllThreads(int forumId, int subForumId);
 
-        List<int> getAllComments(int forumId, int messageId);
+        List<int> getAllComments(int forumId,int subForumId, int messageId);// should throw exception in case of missing messageId
 
-        List<int> getModerators(int forumId);
+        List<int> getModerators(int forumId, int subForumId);
 
     }
 }
