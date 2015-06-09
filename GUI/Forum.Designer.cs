@@ -26,105 +26,120 @@
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent(string forumName)
+        private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
+            this.addSubForumButton = new System.Windows.Forms.Button();
+            this.settingButton = new System.Windows.Forms.Button();
+            this.removeButton = new System.Windows.Forms.Button();
+            this.loginButton = new System.Windows.Forms.Button();
+            this.signUpButton = new System.Windows.Forms.Button();
+            this.HeadlineLabel = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.Topic = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
-            // button1
+            // addSubForumButton
             // 
-            this.button1.Location = new System.Drawing.Point(34, 62);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(121, 31);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Add new sub-forum";
-            this.button1.UseVisualStyleBackColor = true;
+            this.addSubForumButton.Location = new System.Drawing.Point(12, 78);
+            this.addSubForumButton.Name = "addSubForumButton";
+            this.addSubForumButton.Size = new System.Drawing.Size(125, 23);
+            this.addSubForumButton.TabIndex = 0;
+            this.addSubForumButton.Text = "Add  new sub-forum";
+            this.addSubForumButton.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // settingButton
             // 
-            this.button2.BackColor = System.Drawing.Color.Red;
-            this.button2.Location = new System.Drawing.Point(327, 62);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(123, 31);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "Remove sub-forum";
-            this.button2.UseVisualStyleBackColor = false;
+            this.settingButton.Location = new System.Drawing.Point(183, 78);
+            this.settingButton.Name = "settingButton";
+            this.settingButton.Size = new System.Drawing.Size(99, 23);
+            this.settingButton.TabIndex = 1;
+            this.settingButton.Text = "Forum setting";
+            this.settingButton.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // removeButton
             // 
-            this.button3.Location = new System.Drawing.Point(181, 62);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(113, 31);
-            this.button3.TabIndex = 2;
-            this.button3.Text = "Forum setting";
-            this.button3.UseVisualStyleBackColor = true;
+            this.removeButton.BackColor = System.Drawing.Color.Red;
+            this.removeButton.Location = new System.Drawing.Point(337, 78);
+            this.removeButton.Name = "removeButton";
+            this.removeButton.Size = new System.Drawing.Size(123, 23);
+            this.removeButton.TabIndex = 2;
+            this.removeButton.Text = "Remove sub-forum";
+            this.removeButton.UseVisualStyleBackColor = false;
             // 
-            // button4
+            // loginButton
             // 
-            this.button4.BackColor = System.Drawing.Color.LimeGreen;
-            this.button4.Location = new System.Drawing.Point(539, 12);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(76, 29);
-            this.button4.TabIndex = 3;
-            this.button4.Text = "login";
-            this.button4.UseVisualStyleBackColor = false;
+            this.loginButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.loginButton.Location = new System.Drawing.Point(357, 12);
+            this.loginButton.Name = "loginButton";
+            this.loginButton.Size = new System.Drawing.Size(75, 23);
+            this.loginButton.TabIndex = 3;
+            this.loginButton.Text = "Login";
+            this.loginButton.UseVisualStyleBackColor = false;
             // 
-            // button5
+            // signUpButton
             // 
-            this.button5.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.button5.Location = new System.Drawing.Point(444, 12);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(72, 29);
-            this.button5.TabIndex = 4;
-            this.button5.Text = "sugnup";
-            this.button5.UseVisualStyleBackColor = false;
+            this.signUpButton.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.signUpButton.Location = new System.Drawing.Point(483, 12);
+            this.signUpButton.Name = "signUpButton";
+            this.signUpButton.Size = new System.Drawing.Size(75, 23);
+            this.signUpButton.TabIndex = 4;
+            this.signUpButton.Text = "SignUp";
+            this.signUpButton.UseVisualStyleBackColor = false;
+            // 
+            // HeadlineLabel
+            // 
+            this.HeadlineLabel.AutoSize = true;
+            this.HeadlineLabel.Location = new System.Drawing.Point(22, 17);
+            this.HeadlineLabel.Name = "HeadlineLabel";
+            this.HeadlineLabel.Size = new System.Drawing.Size(35, 13);
+            this.HeadlineLabel.TabIndex = 5;
+            this.HeadlineLabel.Text = "";
             // 
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Topic});
-            this.dataGridView1.Location = new System.Drawing.Point(19, 134);
+            this.name});
+            this.dataGridView1.Location = new System.Drawing.Point(12, 135);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(488, 116);
-            this.dataGridView1.TabIndex = 5;
+            this.dataGridView1.Size = new System.Drawing.Size(447, 109);
+            this.dataGridView1.TabIndex = 6;
             // 
-            // Topic
+            // name
             // 
-            this.Topic.HeaderText = "Topic";
-            this.Topic.Name = "Topic";
+            this.name.HeaderText = "ForumName";
+            this.name.Name = "name";
             // 
             // Forum
             // 
-            this.ClientSize = new System.Drawing.Size(664, 262);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(570, 262);
             this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.button5);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.HeadlineLabel);
+            this.Controls.Add(this.signUpButton);
+            this.Controls.Add(this.loginButton);
+            this.Controls.Add(this.removeButton);
+            this.Controls.Add(this.settingButton);
+            this.Controls.Add(this.addSubForumButton);
             this.Name = "Forum";
+            this.Text = "Forum";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
+        private System.Windows.Forms.Button addSubForumButton;
+        private System.Windows.Forms.Button settingButton;
+        private System.Windows.Forms.Button removeButton;
+        private System.Windows.Forms.Button loginButton;
+        private System.Windows.Forms.Button signUpButton;
         private System.Windows.Forms.Label HeadlineLabel;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button5;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Topic;
+        private System.Windows.Forms.DataGridViewTextBoxColumn name;
     }
 }

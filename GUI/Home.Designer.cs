@@ -85,10 +85,6 @@
             this.dataGridView1.TabIndex = 3;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
-            // userManagerBindingSource
-            // 
-            this.userManagerBindingSource.DataSource = typeof(User.UserManager);
-            // 
             // ForumName
             // 
             this.ForumName.HeaderText = "Forum name";
