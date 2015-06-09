@@ -87,7 +87,7 @@
             // 
             // userManagerBindingSource
             // 
-            this.userManagerBindingSource.DataSource = typeof(User.UserManager);
+           // this.userManagerBindingSource.DataSource = typeof(User.UserManager);
             // 
             // ForumName
             // 
