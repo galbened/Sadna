@@ -26,7 +26,9 @@ namespace User
             DBman = new DBmanager();
             this.UsersList = DBman.getMembersFromDb();
 
+            
             //stuff
+            /*
             Member newMember1 = new Member(1, "osher", "bl1a", "ossher@ga.com");
             System.Threading.Thread.Sleep(50);
             Member newMember2 = new Member(2, "gal", "bla2", "gal@ga.com");
@@ -42,7 +44,7 @@ namespace User
             UsersList.Add(newMember3);
             UsersList.Add(newMember4);
             UsersList.Add(newMember5);
-
+            */
            // db.SaveChanges();
         }
 
