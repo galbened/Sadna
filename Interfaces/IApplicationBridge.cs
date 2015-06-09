@@ -50,7 +50,7 @@ namespace Interfaces
 
         List<string> GetForumTopics();
 
-        List<int> getRegisteredUsers(int forumId);
+        Boolean isRegisteredUser(int forumId, int userId);
 
         List<int> getSubForums(int forumId);
 

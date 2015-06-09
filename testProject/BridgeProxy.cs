@@ -140,10 +140,10 @@ namespace testProject
             throw new NullReferenceException("_real in null");
         }
 
-        public List<int> getRegisteredUsers(int forumId)
+        public Boolean isRegisteredUser(int forumId,int userId)
         {
             if (_real != null)
-                return _real.getRegisteredUsers(forumId);
+                return _real.isRegisteredUser(forumId, userId);
             throw new NullReferenceException("_real in null");
         }
 

@@ -208,5 +208,11 @@ namespace Forum
         {
             return poli.IsValid(password);
         }
+
+        internal Boolean isUserRegistered(int userId)
+        {
+            return registeredUsersID.Contains(userId);
+
+        }
     }
 }

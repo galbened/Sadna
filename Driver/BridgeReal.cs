@@ -130,9 +130,9 @@ namespace Driver
             return ans;
         }
 
-        public List<int> getRegisteredUsers(int forumId)
+        public Boolean isRegisteredUser(int forumId, int userId)
         {
-            throw new NotImplementedException();
+            return FM.isRegisteredUser(forumId, userId);
         }
 
         public List<int> getSubForums(int forumId)

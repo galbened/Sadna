@@ -279,6 +279,14 @@ namespace Forum
             }
             throw new ArgumentException(error_forumID + forumId);
         }
+        public Boolean isRegisteredUser(int forumId , int userId)
+        {
+            List<int> ans = new List<int>();
+            int forumIndex = GetForumIndex(forumId);
+            Forum cur = forums.ElementAt(forumIndex);
+            return cur.isUserRegistered(userId);
+
+        }
 
     }
 }
