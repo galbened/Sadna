@@ -27,6 +27,10 @@ namespace User
 
         private const string error_passwordAlreadyUsed = "Password already used in past"; 
 
+        public Member()
+        {
+
+        }
         public Member(int memberID, String memberUsername, String memberPassword, String memberEmail)
         {
             this.memberID = memberID;
