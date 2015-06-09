@@ -70,4 +70,16 @@ namespace WebApiPagingAngularClient.Models
         public string email { get; set; }
         public string password { get; set; }
     }
+
+    public class newForumParams
+    {
+        public string name { get; set; }
+        public int numOfModerators { get; set; }
+        public string degreeOfEnsuring { get; set; }
+        public Boolean uppercase { get; set; }
+        public Boolean lowercase { get; set; }
+        public Boolean numbers { get; set; }
+        public Boolean symbols { get; set; }
+        public int minLength { get; set; }
+    }
 }
