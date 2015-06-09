@@ -24,6 +24,21 @@ namespace GUI
 
         private void button1_Click(object sender, EventArgs e)
         {
+            //this.Hide();
+            new SuperAdminLogin().Show();
+        }
+
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            //this.Hide();
+            new SuperAdminLogin().Show();
+        }
+
+
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
 
         }
 
