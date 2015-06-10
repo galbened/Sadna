@@ -281,17 +281,15 @@ namespace Forum
             Forum cur = forums.ElementAt(forumIndex);
             return cur.isUserRegistered(userId);
         }
-        /*
-        public List<ThreadInfo> GetAllThreads(int forumId, int subForumId)
+
+        string GetSubForumTopic(int forumId, int subForumId)
         {
-            List<ThreadInfo> ans = new List<ThreadInfo>();
+            string ans = null;
             int forumIndex = GetForumIndex(forumId);
             Forum fr = forums.ElementAt(forumIndex);
-            SubForum sf = fr.GetSubForum(subForumId);
-            ThreadInfo = MM.FindThread(forumId, subForumId);
-
+            ans = fr.GetSubForumTopic(subForumId);
+            return ans;
         }
-        */
 
 
 

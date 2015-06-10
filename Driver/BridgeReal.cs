@@ -169,5 +169,10 @@ namespace Driver
         {
             return FM.GetSubForumsTopics(forumId);
         }
+
+        public string GetSubForumTopic(int forumId, int subForumId)
+        {
+            return FM.GetSubForumTopic(forumId, subForumId);
+        }
     }
 }

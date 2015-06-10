@@ -64,5 +64,7 @@ namespace Interfaces
 
         List<string> GetSubForumsTopics(int forumId);
 
+        string GetSubForumTopic(int forumId, int subForumId);
+
     }
 }

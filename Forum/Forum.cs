@@ -17,8 +17,9 @@ namespace Forum
         private IUserManager usrMngr;
         private const string error_existTitle = "Cannot create subForum with already exit title";
         private const string error_notAdmim = "Cannot create subForum with not admin caller ID";
-        private const string error_forumID = "No such subForum: ";
+        private const string error_forumID = "No such Forum: ";
         private const string error_expiredPassword = "Password expired need to change";
+        private const string error_subForumID = "No such SubForum: ";
 
 
         public string forumName { get; set; }
@@ -221,6 +222,16 @@ namespace Forum
         {
             return registeredUsersID.Contains(userId);
 
+        }
+
+        internal string GetSubForumTopic(int subForumId)
+        {
+            for (int i=0 ; i < subForums.Count; i++)
+            {
+                if (subForums.ElementAt(i).SubForumId == subForumId)
+                    return subForums.ElementAt(i).Topic;
+            }
+            throw new ArgumentException(error_subForumID + " SubForumId= " + subForumId);
         }
     }
 }

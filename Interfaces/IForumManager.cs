@@ -38,6 +38,7 @@ namespace Interfaces
         List<int> GetSubForumsIds(int forumId);
         List<string> GetSubForumsTopics(int forumId);
         Boolean isRegisteredUser(int forumId, int userId);
+        string GetSubForumTopic(int forumId, int subForumId); 
     } 
 }
 

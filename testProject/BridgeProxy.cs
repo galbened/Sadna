@@ -188,5 +188,12 @@ namespace testProject
                 return _real.GetSubForumsIds(forumId);
             throw new NullReferenceException("_real in null");
         }
+
+        public string GetSubForumTopic(int forumId, int subForumId)
+        {
+            if (_real != null)
+                return _real.GetSubForumTopic(forumId, subForumId);
+            throw new NullReferenceException("_real in null");
+        }
     }
 }
