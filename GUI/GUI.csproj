@@ -86,6 +86,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Interfaces\Interfaces.csproj">
+      <Project>{d703d080-077b-47ad-9ddb-790e37803d59}</Project>
+      <Name>Interfaces</Name>
+    </ProjectReference>
     <ProjectReference Include="..\User\User.csproj">
       <Project>{f940fc06-776f-4c10-bcd2-065589b28704}</Project>
       <Name>User</Name>

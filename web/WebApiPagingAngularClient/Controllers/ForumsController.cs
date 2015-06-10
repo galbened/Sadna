@@ -62,28 +62,71 @@ namespace WebApiPagingAngularClient.Controllers
             }
         }
 
+        // GET: api/forums/createSubForum/forumId/topic
+        [Route("createSubForum/{forumId:int}")]
+        public IHttpActionResult Post(int forumId, newSubForumParams topic)
+        {
+            try
+            {
+                int subForumId = driver.CreateSubForum(forumId, topic.topic);
+                var data = new
+                {
+                    id = subForumId,
+                    topic = topic,
+                    forumId = forumId
+                };
+
+                var result = new
+                {
+                    data = data
+                };
+
+                return Ok(result);
+            }
+            catch
+            {
+                return NotFound();
+            }
+        }
+
         // GET: api/forums/getForum/forumId
         [Route("getForum/{forumId:int}")]
         public IHttpActionResult Get(int forumId)
         {
-            if (forumId == 1000)
+            var name = driver.GetForumName(forumId);
+            var subForumIds = driver.GetSubForumsIds(forumId);
+            var subForumTopics = driver.GetSubForumsTopics(forumId);
+
+            var data = new
             {
-                var data = new Forum
+                id = forumId,
+                title = name,
+                subForumIds = subForumIds,
+                subForumTopics = subForumTopics
+            };
+
+            var result = new
+            {
+                data = data
+            };
+
+            return Ok(result);
+        }
+
+        // GET: api/forums/signup
+        [Route("signup/{forumId}")]
+        public IHttpActionResult Post(int forumId, signupParams sign)
+        {
+            try
+            {
+                var userId = driver.Register(sign.username, sign.password, sign.email, forumId);
+                var data = new
                 {
-                    Id = 1000,
-                    title = "sport",
-                    SubForums = new List<SubForum>()
-                            {
-                            new SubForum{
-                                Id = 100,
-                                title = "football",
-                                },
-                            new SubForum{
-                                Id =  101,
-                                title = "basketball",
-                                }
-                            }
+                    id = userId,
+                    username = sign.username,
+                    type = "member"
                 };
+
                 var result = new
                 {
                     data = data
@@ -91,26 +134,25 @@ namespace WebApiPagingAngularClient.Controllers
 
                 return Ok(result);
             }
-            else
+            catch
             {
-                var data = new Forum
-                {
-                    Id = 1001,
-                    title = "nature",
-                    SubForums = new List<SubForum>()
-                                    {
-                                        new SubForum{
-                                            Id= 100,
-                                            title= "animals",
-                                        },
-                          
-                                        new SubForum{
-                                            Id= 101,
-                                            title= "plants",
-                                        }
-                                }
+                return NotFound();
+            }
 
+        }
+
+        // GET: api/forums/addThread
+        [Route("addThread")]
+        public IHttpActionResult Post(newThreadParams th)
+        {
+            try
+            {
+                var threadId = driver.Publish(th.forumId, th.subForumId, th.publisherID, th.publisherName, th.title,th.body);
+                var data = new
+                {
+                    threadId = threadId
                 };
+
                 var result = new
                 {
                     data = data
@@ -118,151 +160,29 @@ namespace WebApiPagingAngularClient.Controllers
 
                 return Ok(result);
             }
+            catch
+            {
+                return NotFound();
+            }
+
         }
 
         // GET: api/forums/getSubForum/forumId/subForumId
         [Route("getSubForum/{forumId:int}/{subForumId:int}")]
         public IHttpActionResult Get(int forumId,int subForumId)
         {
-            var data =  new List<Forum>()
-                {
-                    new Forum{
-                        Id = 1000,
-                        title = "sport",
-                        SubForums = new List<SubForum>()
-                            {
-                            new SubForum{
-                                Id = 100,
-                                title = "football",
-                                Threads = new List<Thread>()
-                                    {
-                                        new Thread{
-                                            Id = 1,
-                                            topic = "juventus",
-                                            content = "the best team in the world",
-                                            Comments = new List<Comment>() 
-                                                {
-                                                    new Comment{
-                                                        Id = 1,
-                                                        topic =  "you're wrong",
-                                                        content =  "man u is the best team",
-                                                        date = "20/01/2015",
-                                                        publisher = "osherda"
-                                                    }
-                                                },
-                                            date =  "19/01/2015",
-                                            publisher = "tomerse"
-                                        }
-                                    }
-                                },
-                            new SubForum{
-                                Id =  101,
-                                title = "basketball",
-                                Threads = new List<Thread>()
-                                    {
-                                        new Thread{
-                                            Id = 1,
-                                            topic = "david blat",
-                                            content = "the best coach",
-                                            Comments = new List<Comment>()
-                                                {
-                                                    new Comment{
-                                                        Id= 1,
-                                                        topic= "you're wrong",
-                                                        content= "he has the best players",
-                                                        date= "19/01/2015",
-                                                        publisher= "amit romem"
-                                                    }
-                                                },
-                                            date="19/01/2015",
-                                            publisher= "galbend"
-                                        },
-                                        new Thread{
-                                            Id= 2,
-                                            topic= "juventus",
-                                            content= "the best team in the world",
-                                            Comments = new List<Comment>()
-                                                {
-                                                new Comment{
-                                                    Id= 1,
-                                                    topic= "you're wrong",
-                                                    content= "man u is the best team",
-                                                    date= "19/01/2015",
-                                                    publisher= "beri chakala"
-                                                },
-                                                new Comment{
-                                                    Id= 2,
-                                                    topic= "you're wrong",
-                                                    content= "he has the best players",
-                                                    date= "19/01/2015",
-                                                    publisher= "ish im auto"
-                                                }
-                                           
-                                            },
-                                            date= "19/01/2015",
-                                            publisher= "asaf loch"
-                                        }
-                                    }
-                                }
-                            }
-                        },
-                            new Forum{
-                                Id= 1001,
-                                title= "nature",
-                                SubForums = new List<SubForum>()
-                                    {
-                                        new SubForum{
-                                            Id= 100,
-                                            title= "animals",
-                                            Threads = new List<Thread>()
-                                                {
-                                                    new Thread{
-                                                        Id= 1,
-                                                        topic= "turtles",
-                                                        content= "i like turtles",
-                                                        Comments = new List<Comment>()
-                                                            {
-                                                                new Comment{
-                                                                    Id =1,
-                                                                    topic= "me tooooooooo",
-                                                                    content= "",
-                                                                    date= "19/01/2015",
-                                                                    publisher= "tiki poor"
-                                                                }
-                                                            },
-                                                        date= "19/01/2015",
-                                                        publisher= "simha rif"
-                                                    }
-                                                }
-                                        },
-                          
-                                    new SubForum{
-                                        Id= 101,
-                                        title= "plants",
-                                        Threads = new List<Thread>()
-                                            {
-                                                new Thread{
-                                                    Id= 1,
-                                                    topic= "canabis",
-                                                    content= "best plant",
-                                                    Comments = new List<Comment>()
-                                                        {
-                                                            new Comment{
-                                                                Id= 1,
-                                                                topic= "opium too",
-                                                                content= "opium is also one of the best",
-                                                                date= "19/01/2015",
-                                                                publisher= "galpo"
-                                                            }
-                                                        },
-                                                    date= "19/01/2015",
-                                                    publisher= "galpo"
-                                                }
-                                            }
-                                        }
-                                    }
-                            }
-                };
+            var threads = driver.GetAllThreads(forumId, subForumId);
+            var subForum = new {
+                subForumId = subForumId,
+                title = "kashkasha",
+                threads = threads
+            };
+            var data = new
+            {
+                forumId = forumId,
+                title = driver.GetForumName(forumId),
+                subForum = subForum
+            };
             var result = new
             {
                 data = data

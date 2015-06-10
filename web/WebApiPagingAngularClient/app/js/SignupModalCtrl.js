@@ -5,9 +5,9 @@
         .module('app')
         .controller('SignupModalCtrl', SignupModalCtrl);
 
-    SignupModalCtrl.$inject = ['$scope', 'Users', '$rootScope'];
+    SignupModalCtrl.$inject = ['$scope', 'Forums', '$rootScope','$modalInstance'];
 
-    function SignupModalCtrl($scope, Users, $rootScope) {
+    function SignupModalCtrl($scope, Forums, $rootScope, $modalInstance) {
         activate();
 
         function activate() {
@@ -26,12 +26,13 @@
                 password: password
             };
 
-            return Users.signup(queryArgs,signup).$promise.then(
+            return Forums.signup(queryArgs, signup).$promise.then(
                 function (result) {
-                    $scope.kash = result.data;
+                    $rootScope.user = result.data;
+                    $modalInstance.dismiss('cancel');
                     return result.$promise;
                 }, function (result) {
-                    $scope.kash = { username: "kashkasha" };
+                    $modalInstance.dismiss('cancel');
                     return $q.reject(result);
                 });
 

@@ -6,12 +6,16 @@ using System.Net.Http;
 using System.Web.Http;
 using WebApiPagingAngularClient.Models;
 using WebApiPagingAngularClient.Utility;
+using Interfaces;
+using Driver;
 
 namespace WebApiPagingAngularClient.Controllers
 {
     [RoutePrefix("api/users")]
     public class UsersController : ApiController
     {
+        private static IApplicationBridge driver = new BridgeReal();
+
         // GET: api/users/getUser
         [Route("getUser")]
         public IHttpActionResult Get()
@@ -70,21 +74,28 @@ namespace WebApiPagingAngularClient.Controllers
         [Route("signup/{forumId}")]
         public IHttpActionResult Post(int forumId, signupParams sign)
         {
-            var data = new
+            try
             {
-                username = sign.username,
-                email = sign.email,
-                password = sign.password,
-                forumId = forumId,
-                id = 5
-            };
+                var userId = driver.Register(sign.username, sign.password, sign.email, forumId);
+                var data = new
+                {
+                    id = userId,
+                    username = sign.username,
+                    type = "member"
+                };
 
-            var result = new
+                var result = new
+                {
+                    data = data
+                };
+
+                return Ok(result);
+            }
+            catch
             {
-                data = data
-            };
+                return NotFound();
+            }
 
-            return Ok(result);
         }
     }
 

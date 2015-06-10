@@ -27,6 +27,21 @@
                         url: '/api/forums/createForum',
                         params: {}
                     },
+                    'createSubForum': {
+                        method: 'POST',
+                        url: '/api/forums/createSubForum/:forumId',
+                        params: { forumId: '@forumId' }
+                    },
+                    'signup': {
+                        method: 'POST',
+                        url: '/api/forums/signup/:forumId',
+                        params: { forumId: '@forumId' }
+                    },
+                    'addThread': {
+                        method: 'POST',
+                        url: '/api/forums/addThread',
+                        params: {}
+                    }
                 });
         }).factory('Users', function ($resource) {
                 return $resource("api/users/",
@@ -36,12 +51,7 @@
                             method: 'GET',
                             url: '/api/users/getUser',
                             params: {}
-                        },
-                        'signup': {
-                            method: 'POST',
-                            url: '/api/users/signup/:forumId',
-                            params: { forumId: '@forumId' }
-                        },
+                        } 
                     });
             });
 })();
