@@ -60,10 +60,6 @@
     <Compile Include="User_Exceptions.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DB\DB.csproj">
-      <Project>{c6a81786-ed31-4b03-ba5c-253e4da09aa3}</Project>
-      <Name>DB</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Interfaces\Interfaces.csproj">
       <Project>{d703d080-077b-47ad-9ddb-790e37803d59}</Project>
       <Name>Interfaces</Name>
