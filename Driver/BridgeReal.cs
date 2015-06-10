@@ -140,9 +140,9 @@ namespace Driver
             throw new NotImplementedException();
         }
 
-        public List<ThreadInfo> GetAllThreads(int forumId, int subForumId)
+        public List<ThreadInfo> GetAllThreads(int forumId, int subForumId, int messageId)
         {
-            return MM.GetAllThreads(forumId, subForumId);
+            return MM.GetAllThreads(forumId, subForumId, messageId);
         }
 
         public List<int> getAllComments(int forumId, int subForumId, int messageId)

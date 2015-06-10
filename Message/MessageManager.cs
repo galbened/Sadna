@@ -172,7 +172,7 @@ namespace Message
             return ans;
         }
 
-        public List<ThreadInfo> GetAllThreads(int forumId, int subForumId)
+        public List<ThreadInfo> GetAllThreads(int forumId, int subForumId, int messageId)
         {
             List<ThreadInfo> ans = new List<ThreadInfo>();
             Thread thread = null;
