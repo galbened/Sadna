@@ -69,7 +69,7 @@ namespace Interfaces
         int NumOfMessages(int forumId, int subForumId, int userId);
 
 
-        List<ThreadInfo> GetAllThreads(int forumId, int subForumId, int messageId);
+        List<ThreadInfo> GetAllThreads(int forumId, int subForumId);
 
     }
 }

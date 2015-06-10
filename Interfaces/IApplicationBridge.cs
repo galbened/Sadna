@@ -52,7 +52,7 @@ namespace Interfaces
 
         Boolean isRegisteredUser(int forumId, int userId);
 
-        List<ThreadInfo> GetAllThreads(int forumId, int subForumId, int messageId);
+        List<ThreadInfo> GetAllThreads(int forumId, int subForumId);
 
         List<int> getAllComments(int forumId,int subForumId, int messageId);// should throw exception in case of missing messageId
 

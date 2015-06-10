@@ -282,7 +282,7 @@ namespace Forum
             return cur.isUserRegistered(userId);
         }
 
-        string GetSubForumTopic(int forumId, int subForumId)
+        public string GetSubForumTopic(int forumId, int subForumId)
         {
             string ans = null;
             int forumIndex = GetForumIndex(forumId);
