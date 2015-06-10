@@ -13,10 +13,24 @@ namespace DB
     {
         Context db;
 
-        public DBmanager()
+        
+        private static DBmanager instance=null;
+
+        private DBmanager()
         {
             db = new Context();
             db.Database.ExecuteSqlCommand("TRUNCATE TABLE Members");
+        }
+
+
+        public static DBmanager Instance
+        {
+            get
+            {
+                if (instance==null)
+                    instance = new DBmanager();
+                return instance;
+            }
         }
 
         public void updateDB(List<Member> MembersNew)
