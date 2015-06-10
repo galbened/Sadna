@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Interfaces;
+using DB;
 
 namespace User
 {
@@ -13,7 +14,7 @@ namespace User
         List<Member> UsersList;
         int newestMemberID;
         List<String> userTypes;
-        DBmanager DBman;
+        DB.DBmanager DBman;
 
         public UserManager()
         {
@@ -23,7 +24,7 @@ namespace User
             userTypes.Add("Silver");
             this.newestMemberID = 10;
 
-            DBman = new DBmanager();
+            DBman = DB.DBmanager.Instance;
             this.UsersList = DBman.getMembersFromDb();
 
             

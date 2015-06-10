@@ -48,6 +48,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Forum\Forum.cs">
+      <Link>Forum.cs</Link>
+    </Compile>
+    <Compile Include="..\Forum\SubForum.cs">
+      <Link>SubForum.cs</Link>
+    </Compile>
+    <Compile Include="..\Message\Message.cs">
+      <Link>Message.cs</Link>
+    </Compile>
+    <Compile Include="..\Message\Thread.cs">
+      <Link>Thread.cs</Link>
+    </Compile>
+    <Compile Include="..\User\Member.cs">
+      <Link>Member.cs</Link>
+    </Compile>
     <Compile Include="DBmanager.cs" />
     <Compile Include="Context.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -55,20 +70,6 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Forum\Forum.csproj">
-      <Project>{3ec39945-a4a6-47f8-9d63-eaa50e3c8978}</Project>
-      <Name>Forum</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Message\Message.csproj">
-      <Project>{bdc8348c-a0d3-4d98-a918-3a0ee96b7b14}</Project>
-      <Name>Message</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\User\User.csproj">
-      <Project>{f940fc06-776f-4c10-bcd2-065589b28704}</Project>
-      <Name>User</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
