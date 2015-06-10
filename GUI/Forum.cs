@@ -14,12 +14,8 @@ namespace GUI
     {
         public Forum(string forumName)
         {
-            InitializeComponent(forumName);
-        }
-
-        private void HeadlineLabel_Click(object sender, EventArgs e)
-        {
-
+            InitializeComponent();
+            HeadlineLabel.Text = "Forum/"+forumName;
         }
     }
 }
