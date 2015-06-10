@@ -54,9 +54,9 @@ namespace Interfaces
 
         List<ThreadInfo> GetAllThreads(int forumId, int subForumId);
 
-        List<int> getAllComments(int forumId,int subForumId, int messageId);// should throw exception in case of missing messageId
+        List<int> GetAllComments(int forumId,int subForumId, int messageId);// should throw exception in case of missing messageId
 
-        List<int> getModerators(int forumId, int subForumId);
+        List<int> GetModerators(int forumId, int subForumId);
 
         string GetForumName(int forumId);
 

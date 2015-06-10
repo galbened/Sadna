@@ -145,12 +145,12 @@ namespace Driver
             return MM.GetAllThreads(forumId, subForumId);
         }
 
-        public List<int> getAllComments(int forumId, int subForumId, int messageId)
+        public List<int> GetAllComments(int forumId, int subForumId)
         {
             throw new NotImplementedException();
         }
 
-        public List<int> getModerators(int forumId, int subForumId)
+        public List<int> GetModerators(int forumId, int subForumId)
         {
             throw new NotImplementedException();
         }

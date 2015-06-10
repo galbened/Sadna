@@ -224,7 +224,7 @@ namespace Forum
 
         }
 
-        internal string GetSubForumTopic(int subForumId)
+        internal string GetSubForumTopic(int forumId,int subForumId)
         {
             for (int i=0 ; i < subForums.Count; i++)
             {

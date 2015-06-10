@@ -154,17 +154,17 @@ namespace testProject
             throw new NullReferenceException("_real in null");
         }
 
-        public List<int> getAllComments(int forumId,int subForumId, int messageId)
+        public List<int> GetAllComments(int forumId, int subForumId, int firstMessageId)
         {
             if (_real != null)
-                return _real.getAllComments(forumId,subForumId, messageId);
+                return _real.GetAllComments(forumId, subForumId, firstMessageId);
             throw new NullReferenceException("_real in null");
         }
 
-        public List<int> getModerators(int forumId, int subForumId)
+        public List<int> GetModerators(int forumId, int subForumId)
         {
             if (_real != null)
-                return _real.getModerators(forumId, subForumId);
+                return _real.GetModerators(forumId, subForumId);
             throw new NullReferenceException("_real in null");
         }
 

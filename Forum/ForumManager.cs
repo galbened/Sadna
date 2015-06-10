@@ -287,7 +287,7 @@ namespace Forum
             string ans = null;
             int forumIndex = GetForumIndex(forumId);
             Forum fr = forums.ElementAt(forumIndex);
-            ans = fr.GetSubForumTopic(subForumId);
+            ans = fr.GetSubForumTopic(forumId,subForumId);
             return ans;
         }
 
