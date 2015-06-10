@@ -145,9 +145,9 @@ namespace Driver
             return MM.GetAllThreads(forumId, subForumId);
         }
 
-        public List<int> GetAllComments(int forumId, int subForumId)
+        public List<int> GetAllComments(int forumId, int subForumId, int messageId)
         {
-            throw new NotImplementedException();
+            return FM.GetAllComments(forumId, subForumId,messageId);
         }
 
         public List<int> GetModerators(int forumId, int subForumId)

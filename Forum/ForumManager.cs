@@ -290,6 +290,14 @@ namespace Forum
             ans = fr.GetSubForumTopic(forumId,subForumId);
             return ans;
         }
+        public List<int> GetAllComments(int forumId, int subForumId,int firstMessageId)
+        {
+            List<int> ans = new List<int>();
+            int forumIndex = GetForumIndex(forumId);
+            Forum cur = forums.ElementAt(forumIndex);
+
+            return ans;
+        }
 
 
 
