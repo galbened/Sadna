@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Message
 {
-    class FirstMessage : Message
+    public class FirstMessage : Message
     {
 
         private HashSet<ResponseMessage> responseMessages = new HashSet<ResponseMessage>();

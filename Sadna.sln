@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Message", "Message\Message.csproj", "{BDC8348C-A0D3-4D98-A918-3A0EE96B7B14}"
 EndProject
@@ -37,6 +37,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{B231D4
 		web\.nuget\NuGet.exe = web\.nuget\NuGet.exe
 		web\.nuget\NuGet.targets = web\.nuget\NuGet.targets
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DB", "DB\DB.csproj", "{C6A81786-ED31-4B03-BA5C-253E4DA09AA3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -96,18 +98,19 @@ Global
 		{CB85E376-5207-4D6A-A71B-BE0DD3FAF8FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CB85E376-5207-4D6A-A71B-BE0DD3FAF8FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CB85E376-5207-4D6A-A71B-BE0DD3FAF8FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6A81786-ED31-4B03-BA5C-253E4DA09AA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6A81786-ED31-4B03-BA5C-253E4DA09AA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6A81786-ED31-4B03-BA5C-253E4DA09AA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6A81786-ED31-4B03-BA5C-253E4DA09AA3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-<<<<<<< HEAD
-		{A70F8676-8970-4CC8-AAE5-8A574B50F924} = {CC13E08C-F46A-4316-B45C-9AC2C4240CD6}
 		{81C8E1B4-33DE-449E-9321-6C3D42392E6C} = {CC13E08C-F46A-4316-B45C-9AC2C4240CD6}
-=======
->>>>>>> 5adbde8515acaee2f0561aed28695167630feede
 		{FE7B315D-4B05-4596-9588-FC17C3CE50D4} = {CC13E08C-F46A-4316-B45C-9AC2C4240CD6}
 		{6ABAA268-8A6D-40EF-9FE2-7F2CDB42ABAE} = {CC13E08C-F46A-4316-B45C-9AC2C4240CD6}
 		{EF9723C4-89DA-4F91-AC6D-011EE9E1697D} = {CC13E08C-F46A-4316-B45C-9AC2C4240CD6}
+		{A70F8676-8970-4CC8-AAE5-8A574B50F924} = {CC13E08C-F46A-4316-B45C-9AC2C4240CD6}
 	EndGlobalSection
 EndGlobal

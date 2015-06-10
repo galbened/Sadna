@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Message
 {
-    class ResponseMessage : Message
+    public class ResponseMessage : Message
     {
         private FirstMessage firstMessage = null;
 

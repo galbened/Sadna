@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Message
 {
-    class Thread
+    public class Thread
     {
         private int forumId;
         private int subForumId;

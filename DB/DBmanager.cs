@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using User;
+using Forum;
+using Message;
 
-namespace User
+namespace DB
 {
-    class DBmanager
+    public class DBmanager
     {
         Context db;
 
@@ -43,4 +45,3 @@ namespace User
         }
     }
 }
-
