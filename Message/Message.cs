@@ -9,7 +9,8 @@ namespace Message
 {
     public abstract class Message : IMessage
     {
-        private int id;
+        public int id { get; set; }
+        //private int id;
         private int publisherID;
         private string publisherName;
         private string title;

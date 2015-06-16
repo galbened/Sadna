@@ -8,7 +8,6 @@ using Microsoft.Build.Utilities;
 using Microsoft.Build.Framework;
 using ForumLoggers;
 
-
 namespace Message
 {
     public class MessageManager : IMessageManager
@@ -23,6 +22,7 @@ namespace Message
         private const string error_wrongForumOrSubForumId = "ForumId or SubForumId not found in all Threads";
         private ForumLogger _logger;
 
+        IDBManager<Message> DBman;
 
         public static IMessageManager Instance()
         {
@@ -37,6 +37,8 @@ namespace Message
             threads = new HashSet<Thread>();
             lastMessageID = -1;
             _logger = ForumLogger.GetInstance();
+
+            DBman = new DBmessageManager();
         }
 
 
