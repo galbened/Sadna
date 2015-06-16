@@ -37,7 +37,7 @@ namespace Forum
             logedUsersId.Add(1);
             subForums = new List<SubForum>();
             poli = new Policy();
-            usrMngr = new UserManager();
+            usrMngr = UserManager.Instance;
             subForumIdCounter = 100;
         }
 

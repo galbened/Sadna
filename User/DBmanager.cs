@@ -4,10 +4,11 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Interfaces;
 
 namespace User
 {
-    class DBmanager
+    class DBmanager : IDBManager<Member>
     {
         Context db;
 
@@ -16,30 +17,32 @@ namespace User
             db = new Context();
             db.Database.ExecuteSqlCommand("TRUNCATE TABLE Members");
         }
-
-        public void updateDB(List<Member> MembersNew)
+        
+        public Member getObj(int ID)
         {
-            var Members = db.Members;
-            List<Member> ans = new List<Member>();
+            return db.Members.Find(ID);
+        }
 
-            foreach (Member mem in MembersNew)
-            {
-                db.Members.Add(mem);
-            }
+        public List<Member> getAll()
+        {
+            return db.Members.ToList();
+        }
 
+        public void update()
+        {
             db.SaveChanges();
         }
 
-        public List<Member> getMembersFromDb()
-        {
-            var Members = db.Members;
-            List<Member> ans = new List<Member>();
 
-            foreach (Member mem in Members ?? null)
-            {
-                ans.Add(mem);
-            }
-            return ans;
+        public void add(Member obj)
+        {
+            db.Members.Add(obj);
+        }
+
+
+        public void remove(Member obj)
+        {
+            db.Members.Remove(obj);
         }
     }
 }

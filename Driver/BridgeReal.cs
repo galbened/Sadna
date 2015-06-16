@@ -28,7 +28,7 @@ namespace Driver
             forumsIds = new List<int>();
             subForumsIds = new List<int>();
             messagesIds = new List<int>();
-            UM = new UserManager();
+            UM = UserManager.Instance;
             FM = ForumManager.getInstance();
             MM = MessageManager.Instance();
         }

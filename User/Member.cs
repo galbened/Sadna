@@ -101,10 +101,10 @@ namespace User
         {
             if (oldPassword.CompareTo(memberPassword) == 0)
             {
-                if ((pastPasswords.Contains(newPassword))||(oldPassword.CompareTo(newPassword) == 0))
-                    throw new ArgumentException(error_passwordAlreadyUsed);
+                //if ((pastPasswords.Contains(newPassword))||(oldPassword.CompareTo(newPassword) == 0))
+                //    throw new ArgumentException(error_passwordAlreadyUsed);
                 memberPassword = newPassword;
-                pastPasswords.Add(oldPassword);
+                //pastPasswords.Add(oldPassword);
                 return true;
             }
             return false;
