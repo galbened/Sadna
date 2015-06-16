@@ -76,6 +76,7 @@
             this.loginButton.TabIndex = 3;
             this.loginButton.Text = "Login";
             this.loginButton.UseVisualStyleBackColor = false;
+            this.loginButton.Click += new System.EventHandler(this.loginButton_Click);
             // 
             // signUpButton
             // 
@@ -86,15 +87,15 @@
             this.signUpButton.TabIndex = 4;
             this.signUpButton.Text = "SignUp";
             this.signUpButton.UseVisualStyleBackColor = false;
+            this.signUpButton.Click += new System.EventHandler(this.signUpButton_Click);
             // 
             // HeadlineLabel
             // 
             this.HeadlineLabel.AutoSize = true;
             this.HeadlineLabel.Location = new System.Drawing.Point(22, 17);
             this.HeadlineLabel.Name = "HeadlineLabel";
-            this.HeadlineLabel.Size = new System.Drawing.Size(35, 13);
+            this.HeadlineLabel.Size = new System.Drawing.Size(0, 13);
             this.HeadlineLabel.TabIndex = 5;
-            this.HeadlineLabel.Text = "";
             // 
             // dataGridView1
             // 
@@ -108,7 +109,7 @@
             // 
             // name
             // 
-            this.name.HeaderText = "ForumName";
+            this.name.HeaderText = "Sub Forum Topic";
             this.name.Name = "name";
             // 
             // Forum
