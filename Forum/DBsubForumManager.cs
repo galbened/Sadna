@@ -6,26 +6,26 @@ using System.Text;
 using System.Threading.Tasks;
 using Interfaces;
 
-namespace User
+namespace Forum
 {
-    class DBmanager : IDBManager<Member>
+    class DBsubForumManager : IDBManager<SubForum>
     {
         Context db;
 
-        public DBmanager()
+        public DBsubForumManager()
         {
             db = new Context();
             //db.Database.ExecuteSqlCommand("TRUNCATE TABLE Members");
         }
-        
-        public Member getObj(int ID)
+
+        public SubForum getObj(int ID)
         {
-            return db.Members.Find(ID);
+            return db.SubForums.Find(ID);
         }
 
-        public List<Member> getAll()
+        public List<SubForum> getAll()
         {
-            return db.Members.ToList();
+            return db.SubForums.ToList();
         }
 
         public void update()
@@ -34,15 +34,15 @@ namespace User
         }
 
 
-        public void add(Member obj)
+        public void add(SubForum obj)
         {
-            db.Members.Add(obj);
+            db.SubForums.Add(obj);
         }
 
 
-        public void remove(Member obj)
+        public void remove(SubForum obj)
         {
-            db.Members.Remove(obj);
+            db.SubForums.Remove(obj);
         }
     }
 }

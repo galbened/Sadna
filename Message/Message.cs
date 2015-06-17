@@ -10,14 +10,23 @@ namespace Message
     public abstract class Message : IMessage
     {
         public int id { get; set; }
-        //private int id;
-        private int publisherID;
-        private string publisherName;
-        private string title;
-        private string body;
-        private DateTime publishDate;
-        
+        public int publisherID { get; set; }
+        public string publisherName { get; set; }
+        public string title { get; set; }
+        public string body { get; set; }
+        public DateTime publishDate { get; set; }
 
+        //private int id;
+        //private int publisherID;
+        //private string publisherName;
+        //private string title;
+        //private string body;
+        //private DateTime publishDate;
+        
+        public Message()
+        {
+
+        }
 
         public Message(int id, int publisherID, string publisherName, string title, string body)
         {

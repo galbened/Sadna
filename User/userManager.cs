@@ -40,19 +40,23 @@ namespace User
             Member newMember4 = new Member(4, "achya", "bla4", "achya@ga.com");
             System.Threading.Thread.Sleep(50);
             Member newMember5 = new Member(5, "lior", "tester", "fiz@ga.com");
-            UsersList.Add(newMember1);
+            //UsersList.Add(newMember1);
 
             DBman.add(newMember2);
             DBman.add(newMember3);
             DBman.add(newMember4);
             DBman.add(newMember5);
 
+
+
             //this.deactivate(3);
-            login("gal", "bla2");
-            this.changePassword(2, "bla2", "yokuku");
+            //login("gal", "bla2");
+            //this.changePassword(2, "bla2", "yokuku");
 
             DBman.update();
            // db.SaveChanges();
+
+            string bla = this.getUsername(12);
 
             */
         }

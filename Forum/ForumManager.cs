@@ -22,12 +22,34 @@ namespace Forum
         private const string error_forumID = "No such forum: ";
         //private ForumLogger loggerIns;
 
+        IDBManager<Forum> DBforumMan;
+
         private ForumManager()
         {
             forums = new List<Forum>();
             forumIdCounter = 1000;
             MM = MessageManager.Instance();
             //loggerIns = ForumLogger.GetInstance();
+
+            
+            DBforumMan = new DBforumManager();
+            /* 
+            DBforumMan.add(new Forum("Sports3", 1));
+            DBforumMan.add(new Forum("News3", 2));
+            DBforumMan.add(new Forum("Science3", 3));
+
+            var obj = DBforumMan.getObj(4);
+            obj.CreateSubForum("Politic");
+            obj.CreateSubForum("Economy");
+            obj.CreateSubForum("Weather");
+
+            var obj2 = DBforumMan.getObj(1);
+            obj2.CreateSubForum("Soccer");
+            obj2.CreateSubForum("Basketball");
+            obj2.CreateSubForum("Weather");
+
+            DBforumMan.update();
+             */
         }
 
         public static ForumManager getInstance()

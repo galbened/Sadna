@@ -22,7 +22,7 @@ namespace Message
         private const string error_wrongForumOrSubForumId = "ForumId or SubForumId not found in all Threads";
         private ForumLogger _logger;
 
-        IDBManager<Message> DBman;
+        IDBManager<Message> DBmessageMan;
 
         public static IMessageManager Instance()
         {
@@ -38,7 +38,16 @@ namespace Message
             lastMessageID = -1;
             _logger = ForumLogger.GetInstance();
 
-            DBman = new DBmessageManager();
+            DBmessageMan = new DBmessageManager();
+
+            DBmessageMan.add(new FirstMessage(1, 1, "Gal", "Test", "Checking messages DB!"));
+            var bla = new FirstMessage(1, 1, "Gal", "Test2", "Checking messages DB! 2");
+            DBmessageMan.add(bla);
+            DBmessageMan.add(new ResponseMessage(bla,1,1,"Tomer","Very important title","bla bla bla bla"));
+
+            DBmessageMan.update();
+
+            var obj = DBmessageMan.getObj(11);
         }
 
 
