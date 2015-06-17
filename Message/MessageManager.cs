@@ -40,6 +40,7 @@ namespace Message
 
             DBmessageMan = new DBmessageManager();
 
+            /*
             DBmessageMan.add(new FirstMessage(1, 1, "Gal", "Test", "Checking messages DB!"));
             var bla = new FirstMessage(1, 1, "Gal", "Test2", "Checking messages DB! 2");
             DBmessageMan.add(bla);
@@ -48,6 +49,8 @@ namespace Message
             DBmessageMan.update();
 
             var obj = DBmessageMan.getObj(11);
+
+             */
         }
 
 
