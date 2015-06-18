@@ -23,7 +23,7 @@ namespace User
         public Boolean accountStatus { get; set; }
         public int confirmationCode { get; set; }
         //public virtual List<Member> FriendsList { get; set; }
-        public virtual List<Member> FriendsList { get; set; }
+        public List<Member> FriendsList { get; set; }
         
         public List<Password> pastPasswords { get; set; }
 
@@ -42,10 +42,10 @@ namespace User
             this.memberEmail = memberEmail;
             this.loginStatus = false;
             this.accountStatus = true; //user that not yet confirmed his email should be false - TODO when sending to mail is done
-            this.FriendsList = new List<Member>();
+            //this.FriendsList = new List<Friendship>();
             currentState = new stateNormal();       // new user begins as a Normal user
             pastPasswords = new List<Password>();
-            //FriendsList = new List<Member>();
+            FriendsList = new List<Member>();
             //creating confirmation code and sending it to user email
             this.confirmationCode = creatingConfirmationCodeAndSending(memberUsername, memberEmail);
         }
@@ -58,11 +58,21 @@ namespace User
         public void addFriend(Member friend)
         {
             FriendsList.Add(friend);
+           //FriendsList.Add(new Friendship(friend));
         }
 
         public void removeFriend(Member friend)
         {
             FriendsList.Remove(friend);
+            /*
+            Friendship del = null;
+            foreach(Friendship f in FriendsList)
+            {
+                if (f.friend == newFriend)
+                    del = f;
+            }
+            FriendsList.Remove(del);
+             */
         }
 
         private int creatingConfirmationCodeAndSending(String userName, String memberEmail)

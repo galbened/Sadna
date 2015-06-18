@@ -62,8 +62,8 @@ namespace User
             //string bla5 = this.getUsername(43);
 
             newMember2.addFriend(newMember3);
-            //newMember2.addFriend(newMember4);
-            newMember3.addFriend(newMember2);
+            newMember2.addFriend(newMember4);
+            //newMember3.addFriend(newMember2);
 
             //this.deactivate(3);
             //login("gal", "bla2");

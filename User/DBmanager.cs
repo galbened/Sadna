@@ -15,7 +15,7 @@ namespace User
         public DBmanager()
         {
             db = new Context();
-            db.Database.ExecuteSqlCommand("DELETE FROM Members DBCC CHECKIDENT ('Members',RESEED, 0)");
+            //db.Database.ExecuteSqlCommand("DELETE FROM Members DBCC CHECKIDENT ('Members',RESEED, 0)");
             //db.Database.ExecuteSqlCommand("TRUNCATE TABLE Members");
         }
         
