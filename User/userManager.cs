@@ -27,7 +27,7 @@ namespace User
 
             
             //stuff
-            /*
+            
             Member newMember1 = new Member(1, "osher", "bl1a", "ossher@ga.com");
             System.Threading.Thread.Sleep(50);
             DBman.add(newMember1);
@@ -47,7 +47,23 @@ namespace User
             DBman.add(newMember4);
             DBman.add(newMember5);
 
+            //DBman.update();
 
+            //changePassword(29, "bla4", "new1");
+            newMember5.setPassword("fsd", "new1");
+            newMember5.setPassword("fsd", "new2");
+            newMember4.setPassword("fsd", "new3");
+            newMember4.setPassword("fsd", "new4");
+
+            //string bla1 = this.getUsername(1);
+            //string bla2 = this.getUsername(4);
+            //string bla3 = this.getUsername(5);
+            //string bla4 = this.getUsername(18);
+            //string bla5 = this.getUsername(43);
+
+            newMember2.addFriend(newMember3);
+            //newMember2.addFriend(newMember4);
+            newMember3.addFriend(newMember2);
 
             //this.deactivate(3);
             //login("gal", "bla2");
@@ -56,9 +72,9 @@ namespace User
             DBman.update();
            // db.SaveChanges();
 
-            string bla = this.getUsername(12);
-
-            */
+            //string bla = this.getUsername(12);
+            
+            
         }
 
         public static UserManager Instance

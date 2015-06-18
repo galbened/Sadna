@@ -22,8 +22,10 @@ namespace User
         public memberState currentState { get; set; }
         public Boolean accountStatus { get; set; }
         public int confirmationCode { get; set; }
+        //public virtual List<Member> FriendsList { get; set; }
         public virtual List<Member> FriendsList { get; set; }
-        public List<String> pastPasswords { get; set; }
+        
+        public List<Password> pastPasswords { get; set; }
 
         private const string error_passwordAlreadyUsed = "Password already used in past"; 
 
@@ -33,7 +35,7 @@ namespace User
         }
         public Member(int memberID, String memberUsername, String memberPassword, String memberEmail)
         {
-            this.memberID = memberID;
+            //this.memberID = memberID;
             this.memberUsername = memberUsername;
             this.memberPassword = memberPassword;
             passwordLastChanged = DateTime.Now;
@@ -42,7 +44,8 @@ namespace User
             this.accountStatus = true; //user that not yet confirmed his email should be false - TODO when sending to mail is done
             this.FriendsList = new List<Member>();
             currentState = new stateNormal();       // new user begins as a Normal user
-            pastPasswords = new List<string>();
+            pastPasswords = new List<Password>();
+            //FriendsList = new List<Member>();
             //creating confirmation code and sending it to user email
             this.confirmationCode = creatingConfirmationCodeAndSending(memberUsername, memberEmail);
         }
@@ -99,15 +102,24 @@ namespace User
          * */
         public Boolean setPassword(string oldPassword, string newPassword)
         {
+            //TODO - for a list
+            /*
             if (oldPassword.CompareTo(memberPassword) == 0)
             {
-                //if ((pastPasswords.Contains(newPassword))||(oldPassword.CompareTo(newPassword) == 0))
-                //    throw new ArgumentException(error_passwordAlreadyUsed);
+                if ((pastPasswords.Contains(newPassword))||(oldPassword.CompareTo(newPassword) == 0))
+                    throw new ArgumentException(error_passwordAlreadyUsed);
                 memberPassword = newPassword;
-                //pastPasswords.Add(oldPassword);
+                pastPasswords.Add(oldPassword);
                 return true;
             }
             return false;
+            */
+
+            pastPasswords.Add(new Password(memberPassword));
+
+            memberPassword = newPassword;
+            //pastPasswords.Add(oldPassword);
+            return true;
         }
         
         /*

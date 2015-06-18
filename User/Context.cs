@@ -10,5 +10,6 @@ namespace User
     class Context : DbContext
     {
         public DbSet<Member> Members { get; set; }
+        //public DbSet<Password> Passwords { get; set; }
     }
 }
