@@ -30,9 +30,9 @@
                 </div>
             </div>
             <div class="form-group" style="margin-left: 70px">
-                <textarea class="form-control" rows="1" placeholder="title"></textarea>
-                <textarea class="form-control" rows="3" placeholder="content"></textarea>
-                <button class="btn btn-default btn-info" data-ng-click="">Add comment</button>
+                <textarea ng-model="title{{theard.id}}" class="form-control" rows="1" placeholder="title"></textarea>
+                <textarea ng-model="content{{theard.id}}" class="form-control" rows="3" placeholder="content"></textarea>
+                <button class="btn btn-default btn-info" data-ng-click="addComment(theard.id)">Add comment</button>
             </div>
 
         </div>

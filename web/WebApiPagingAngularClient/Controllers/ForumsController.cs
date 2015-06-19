@@ -56,9 +56,18 @@ namespace WebApiPagingAngularClient.Controllers
                 };
                 return Ok(result);
             }
-            catch
+            catch(Exception e)
             {
-                return NotFound();
+                var data = new
+                {
+                    message = e.ToString()
+                };
+                var result = new
+                {
+                    data = data
+                };
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, result);
+                return (IHttpActionResult)response;
             }
         }
 
@@ -167,6 +176,32 @@ namespace WebApiPagingAngularClient.Controllers
 
         }
 
+        // GET: api/forums/addComment
+        [Route("addComment")]
+        public IHttpActionResult Post(newCommentParams cm)
+        {
+            try
+            {
+                var commentId = driver.Comment(cm.firstMessageId, cm.publisherID, cm.publisherName, cm.title, cm.body);
+                var data = new
+                {
+                    commentId = commentId
+                };
+
+                var result = new
+                {
+                    data = data
+                };
+
+                return Ok(result);
+            }
+            catch
+            {
+                return NotFound();
+            }
+
+        }
+
         // GET: api/forums/getSubForum/forumId/subForumId
         [Route("getSubForum/{forumId:int}/{subForumId:int}")]
         public IHttpActionResult Get(int forumId,int subForumId)
@@ -174,7 +209,7 @@ namespace WebApiPagingAngularClient.Controllers
             var threads = driver.GetAllThreads(forumId, subForumId);
             var subForum = new {
                 subForumId = subForumId,
-                title = "kashkasha",
+                title = driver.GetSubForumTopic(forumId, subForumId),
                 threads = threads
             };
             var data = new

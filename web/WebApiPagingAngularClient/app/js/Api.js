@@ -41,6 +41,11 @@
                         method: 'POST',
                         url: '/api/forums/addThread',
                         params: {}
+                    },
+                    'addComment': {
+                        method: 'POST',
+                        url: '/api/forums/addComment',
+                        params: {}
                     }
                 });
         }).factory('Users', function ($resource) {
