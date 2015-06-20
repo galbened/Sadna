@@ -174,5 +174,25 @@ namespace Driver
         {
             return FM.GetSubForumTopic(forumId, subForumId);
         }
+
+        public string GetUsername(int userID)
+        {
+            return UM.getUsername(userID);
+        }
+
+        public int ChangePassword(int userID, string oldPassword, string newPassword)
+        {
+            return UM.changePassword( userID,  oldPassword,  newPassword);
+        }
+
+        public int ChangeUsername(int userID, string newUsername, string password)
+        {
+            return UM.changeUsername(userID, newUsername, password);
+        }
+
+        public bool isLoggedin(int userId)
+        {
+            return UM.isLoggedin(userId);
+        }
     }
 }

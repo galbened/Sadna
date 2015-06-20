@@ -251,5 +251,11 @@ namespace User
         {
             DBman.update();
         }
+
+        public bool isLoggedin(int userId)
+        {
+            Member mem = DBman.getObj(userId);
+            return mem.loginStatus;
+        }
     }
 }

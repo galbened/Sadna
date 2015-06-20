@@ -63,6 +63,19 @@ namespace testProject
             throw new NullReferenceException("_real in null");
         }
 
+        public int ChangePassword(int userID, string oldPassword, string newPassword)
+        {
+            if (_real != null)
+                return _real.ChangePassword( userID,  oldPassword,  newPassword);
+            throw new NullReferenceException("_real in null");
+        }
+
+        public int ChangeUsername(int userID, string newUsername, string password)
+        {
+            if (_real != null)
+                return _real.ChangeUsername(userID, newUsername, password);
+            throw new NullReferenceException("_real in null");
+        }
         public void View(int forumId, out List<string> subForumNames, out List<int> subForumIds)
         {
             if (_real != null)
@@ -140,6 +153,14 @@ namespace testProject
             throw new NullReferenceException("_real in null");
         }
 
+
+        public string GetUsername(int userId)
+        {
+            if (_real != null)
+                return _real.GetUsername( userId);
+            throw new NullReferenceException("_real in null");
+        }
+
         public Boolean isRegisteredUser(int forumId,int userId)
         {
             if (_real != null)
@@ -193,6 +214,13 @@ namespace testProject
         {
             if (_real != null)
                 return _real.GetSubForumTopic(forumId, subForumId);
+            throw new NullReferenceException("_real in null");
+        }
+
+        public bool isLoggedin(int userId)
+        {
+            if (_real != null)
+                return _real.isLoggedin(userId);
             throw new NullReferenceException("_real in null");
         }
     }

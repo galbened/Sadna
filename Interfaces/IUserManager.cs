@@ -32,6 +32,7 @@ namespace Interfaces
 
         bool IsPasswordValid(string username, int expectancy);
 
+        bool isLoggedin(int userId);
 
 
         //void complaint(notificationStatus complaint, int userID);// notificationStatus yet to be written

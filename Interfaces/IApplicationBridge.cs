@@ -64,7 +64,14 @@ namespace Interfaces
 
         List<string> GetSubForumsTopics(int forumId);
 
+        string GetUsername(int userId);
+
         string GetSubForumTopic(int forumId, int subForumId);
 
+        int ChangePassword(int userID, string oldPassword, string newPassword);
+
+        int ChangeUsername(int userID, string newUsername, string password);
+
+        bool isLoggedin(int userId);
     }
 }
