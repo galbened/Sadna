@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
 using System.Windows.Forms;
+using System.Net;
+using System.Net.Sockets;
 
 
 namespace GUI
@@ -13,9 +15,7 @@ namespace GUI
     {
         public static void Main(string[] args)
         {
-            Console.Write("blat\n\n\n");
-             Application.Run(new Home());
- 
+            Application.Run(new Home());
         }
     }
 }

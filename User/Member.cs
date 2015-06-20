@@ -9,7 +9,7 @@ using Notification;
 
 namespace User
 {
-    class Member
+    public class Member
     {
         public int memberID { get; set; }
         public String memberUsername { get; set; }

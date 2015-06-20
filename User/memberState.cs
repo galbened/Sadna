@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace User
 {
-    interface memberState
+    public interface memberState
     {
          bool isAllowedToBeAdmin();   //  for later methods
          String getType();            //  for nextState() and previousState() that are implemented in the Context Class

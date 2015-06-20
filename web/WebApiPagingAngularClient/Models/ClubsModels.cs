@@ -50,9 +50,9 @@ namespace WebApiPagingAngularClient.Models
         public int Id { get; set; }
         public string topic { get; set; }
         public string content { get; set; }
-        public List<Comment> Comments;
         public string date { get; set; }
         public string publisher { get; set; }
+        public List<Comment> Comments;
     }
 
     public class Comment
@@ -81,5 +81,20 @@ namespace WebApiPagingAngularClient.Models
         public Boolean numbers { get; set; }
         public Boolean symbols { get; set; }
         public int minLength { get; set; }
+    }
+
+    public class newSubForumParams
+    {
+        public string topic { get; set; }
+    }
+
+    public class newThreadParams
+    {
+        public int  forumId { get; set; }
+        public int  subForumId { get; set; }
+        public int  publisherID { get; set; }
+        public string publisherName { get; set; }
+        public string title { get; set; }
+        public string body { get; set; }
     }
 }

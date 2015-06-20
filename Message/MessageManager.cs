@@ -200,18 +200,21 @@ namespace Message
         {
             List<CommentInfo> ans = new List<CommentInfo>();
             CommentInfo cur = new CommentInfo();
-            foreach (ResponseMessage ms in messages)
+            foreach (Message ms in messages)
             {
                 if (!ms.isFirst())
-                    if (ms.FirstMessage.MessageID == firstMessageId)
+                {
+                    ResponseMessage rm = (ResponseMessage)ms;
+                    if (rm.FirstMessage.MessageID == firstMessageId)
                     {
-                        cur.Id = ms.MessageID;
-                        cur.topic = ms.Title;
-                        cur.content = ms.Content;
-                        cur.date = ms.PublishDate;
-                        cur.publisher = ms.PublisherName;
+                        cur.Id = rm.MessageID;
+                        cur.topic = rm.Title;
+                        cur.content = rm.Content;
+                        cur.date = rm.PublishDate;
+                        cur.publisher = rm.PublisherName;
                         ans.Add(cur);
                     }
+                }
             }
             return ans;
         }

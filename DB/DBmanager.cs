@@ -1,20 +1,36 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using User;
+using Forum;
+using Message;
 
-namespace User
+namespace DB
 {
-    class DBmanager
+    public class DBmanager
     {
         Context db;
 
-        public DBmanager()
+        
+        private static DBmanager instance=null;
+
+        private DBmanager()
         {
             db = new Context();
             db.Database.ExecuteSqlCommand("TRUNCATE TABLE Members");
+        }
+
+
+        public static DBmanager Instance
+        {
+            get
+            {
+                if (instance==null)
+                    instance = new DBmanager();
+                return instance;
+            }
         }
 
         public void updateDB(List<Member> MembersNew)
@@ -43,4 +59,3 @@ namespace User
         }
     }
 }
-

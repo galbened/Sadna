@@ -145,12 +145,12 @@ namespace Driver
             return MM.GetAllThreads(forumId, subForumId);
         }
 
-        public List<int> getAllComments(int forumId, int subForumId, int messageId)
+        public List<int> GetAllComments(int forumId, int subForumId, int messageId)
         {
-            throw new NotImplementedException();
+            return FM.GetAllComments(forumId, subForumId,messageId);
         }
 
-        public List<int> getModerators(int forumId, int subForumId)
+        public List<int> GetModerators(int forumId, int subForumId)
         {
             throw new NotImplementedException();
         }
@@ -168,6 +168,11 @@ namespace Driver
         public List<string> GetSubForumsTopics(int forumId)
         {
             return FM.GetSubForumsTopics(forumId);
+        }
+
+        public string GetSubForumTopic(int forumId, int subForumId)
+        {
+            return FM.GetSubForumTopic(forumId, subForumId);
         }
     }
 }

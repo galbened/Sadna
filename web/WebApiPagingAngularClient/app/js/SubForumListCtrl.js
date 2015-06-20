@@ -10,6 +10,23 @@
     function SubForumListCtrl($scope, $routeParams, $modal, Forums, Users, $http, $q, $rootScope) {
         activate();
 
+        var parseForum = function (data) {
+            var subForums = [];
+            for (var i = 0; i < data.subForumIds.length; i++) {
+                var subForum = {
+                    'title': data.subForumTopics[i],
+                    'id': data.subForumIds[i]
+                }
+                subForums.push(subForum);
+            }
+            var forum = {
+                'id': data.id,
+                'title': data.title,
+                'subForums': subForums
+            };
+            return forum;
+        }
+
         function activate() {
             var queryArgs = {
                 forumId: $routeParams.forumId,
@@ -17,9 +34,15 @@
 
             $rootScope.forumId = $routeParams.forumId;
 
+            if ($rootScope.user) {
+                $scope.user = $rootScope.user;
+            }
+
             return Forums.getForum(queryArgs).$promise.then(
                 function (result) {
-                    $scope.forum = result.data;
+                    console.log(result.data);
+                    $scope.forum = parseForum(result.data);
+                    console.log($scope.forum);
                     return result.$promise;
                 }, function (result) {
                     return $q.reject(result);

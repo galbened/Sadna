@@ -43,7 +43,6 @@
             });
 
             modalInstance.result.then(function () {
-                console.log('sackjbscjaskjcsa');
                 return Forums.getForums().$promise.then(
                     function (result) {
                         $scope.forums = parseForums(result.data);
