@@ -10,8 +10,9 @@ namespace Forum
 {
     public class Forum
     {
+        public int forumID { get; set; }
         private List<int> registeredUsersID,logedUsersId, adminsID;
-        private int forumID;
+        //private int forumID;
         private Policy poli;
         private static int subForumIdCounter;
         private IUserManager usrMngr;
@@ -25,10 +26,15 @@ namespace Forum
         public string forumName { get; set; }
         public List<SubForum> subForums { get; private set; }
 
+        public Forum() 
+        {
+            forumName = "bla";
+        }
+
         public Forum(string name, int id)
         {
             forumName = name;
-            forumID = id;
+            //forumID = id;
             registeredUsersID = new List<int>();
             registeredUsersID.Add(1);
             adminsID = new List<int>();
@@ -37,7 +43,7 @@ namespace Forum
             logedUsersId.Add(1);
             subForums = new List<SubForum>();
             poli = new Policy();
-            usrMngr = new UserManager();
+            usrMngr = UserManager.Instance;
             subForumIdCounter = 100;
         }
 

@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IApplicationBridge.cs" />
+    <Compile Include="IDBManager.cs" />
     <Compile Include="IMessageManager.cs" />
     <Compile Include="IForumManager.cs" />
     <Compile Include="Models.cs" />

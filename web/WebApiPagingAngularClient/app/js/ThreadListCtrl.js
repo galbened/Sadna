@@ -58,5 +58,32 @@
                     return $q.reject(result);
                 });
         }
+
+        $scope.addComment = function (threadId) {
+            if ($scope.user) {
+                var queryArgs = {
+                    firstMessageId: threadId,
+                    publisherID: $scope.user.id,
+                    publisherName: $scope.user.username,
+                    title: 'snsacksc',
+                    body: 'sacijbsacjksa sakcbskjac asskacnsak'
+                };
+            } else {
+                var queryArgs = {
+                    firstMessageId: threadId,
+                    publisherID: 0,
+                    publisherName: 'amit romem',
+                    title: 'sjicbsjcbsajck',
+                    body: 'sacjibscjajcsnac sldkvklsac'
+                };
+            }
+
+            return Forums.addComment({}, queryArgs).$promise.then(
+                function (result) {
+                    return result.$promise;
+                }, function (result) {
+                    return $q.reject(result);
+                });
+        }
     }
 })();

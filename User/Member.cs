@@ -22,8 +22,10 @@ namespace User
         public memberState currentState { get; set; }
         public Boolean accountStatus { get; set; }
         public int confirmationCode { get; set; }
-        public virtual List<Member> FriendsList { get; set; }
-        public List<String> pastPasswords { get; set; }
+        //public virtual List<Member> FriendsList { get; set; }
+        public List<Member> FriendsList { get; set; }
+        
+        public List<Password> pastPasswords { get; set; }
 
         private const string error_passwordAlreadyUsed = "Password already used in past"; 
 
@@ -33,16 +35,17 @@ namespace User
         }
         public Member(int memberID, String memberUsername, String memberPassword, String memberEmail)
         {
-            this.memberID = memberID;
+            //this.memberID = memberID;
             this.memberUsername = memberUsername;
             this.memberPassword = memberPassword;
             passwordLastChanged = DateTime.Now;
             this.memberEmail = memberEmail;
             this.loginStatus = false;
             this.accountStatus = true; //user that not yet confirmed his email should be false - TODO when sending to mail is done
-            this.FriendsList = new List<Member>();
+            //this.FriendsList = new List<Friendship>();
             currentState = new stateNormal();       // new user begins as a Normal user
-            pastPasswords = new List<string>();
+            pastPasswords = new List<Password>();
+            FriendsList = new List<Member>();
             //creating confirmation code and sending it to user email
             this.confirmationCode = creatingConfirmationCodeAndSending(memberUsername, memberEmail);
         }
@@ -55,11 +58,21 @@ namespace User
         public void addFriend(Member friend)
         {
             FriendsList.Add(friend);
+           //FriendsList.Add(new Friendship(friend));
         }
 
         public void removeFriend(Member friend)
         {
             FriendsList.Remove(friend);
+            /*
+            Friendship del = null;
+            foreach(Friendship f in FriendsList)
+            {
+                if (f.friend == newFriend)
+                    del = f;
+            }
+            FriendsList.Remove(del);
+             */
         }
 
         private int creatingConfirmationCodeAndSending(String userName, String memberEmail)
@@ -99,6 +112,8 @@ namespace User
          * */
         public Boolean setPassword(string oldPassword, string newPassword)
         {
+            //TODO - for a list
+            /*
             if (oldPassword.CompareTo(memberPassword) == 0)
             {
                 if ((pastPasswords.Contains(newPassword))||(oldPassword.CompareTo(newPassword) == 0))
@@ -108,6 +123,13 @@ namespace User
                 return true;
             }
             return false;
+            */
+
+            pastPasswords.Add(new Password(memberPassword));
+
+            memberPassword = newPassword;
+            //pastPasswords.Add(oldPassword);
+            return true;
         }
         
         /*

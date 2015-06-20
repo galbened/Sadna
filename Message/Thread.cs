@@ -8,6 +8,7 @@ namespace Message
 {
     public class Thread
     {
+        public int id { get; set; }
         private int forumId;
         private int subForumId;
         private FirstMessage firstMessage;

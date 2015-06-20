@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace User
+namespace Message
 {
     class Context : DbContext
     {
-        public DbSet<Member> Members { get; set; }
-        //public DbSet<Password> Passwords { get; set; }
+        public DbSet<Message> Messages { get; set; }
+        public DbSet<Thread> Threads { get; set; }
     }
 }

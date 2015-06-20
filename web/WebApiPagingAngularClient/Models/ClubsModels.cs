@@ -97,4 +97,13 @@ namespace WebApiPagingAngularClient.Models
         public string title { get; set; }
         public string body { get; set; }
     }
+
+    public class newCommentParams
+    {
+        public int firstMessageId { get; set; }
+        public int publisherID { get; set; }
+        public string publisherName { get; set; }
+        public string title { get; set; }
+        public string body { get; set; }
+    }
 }
