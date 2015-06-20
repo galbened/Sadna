@@ -27,7 +27,7 @@ namespace User
 
             
             //stuff
-            
+            /*
             Member newMember1 = new Member(1, "osher", "bl1a", "ossher@ga.com");
             System.Threading.Thread.Sleep(50);
             DBman.add(newMember1);
@@ -73,7 +73,7 @@ namespace User
            // db.SaveChanges();
 
             //string bla = this.getUsername(12);
-            
+            */
             
         }
 
