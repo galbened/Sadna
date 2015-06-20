@@ -321,7 +321,35 @@ namespace Forum
             return ans;
         }
 
+        public string GetUserType(int forumId, int userId)
+        {
+            if (IsAdmin(userId, forumId))
+                return "admin";
+            if (isRegisteredUser(forumId, userId))
+                return "member";
+            return "";
+        }
 
+        public string GetUsername(int forumId, int userId)
+        {
+            Forum fr = GetForum(forumId);
+            string ans = fr.GetUserName(userId);
+            return ans;
+        }
+
+
+
+
+
+        private Forum GetForum(int forumId)
+        {
+            for (int i = 0; i < forums.Count; i++)
+            {
+                if (forums.ElementAt(i).ForumID == forumId)
+                    return forums.ElementAt(i);
+            }
+            throw new ArgumentException(error_forumID + forumId);
+        }
 
         private int GetForumIndex(int forumId)
         {
@@ -332,6 +360,7 @@ namespace Forum
             }
             throw new ArgumentException(error_forumID + forumId);
         }
+
 
     }
 }

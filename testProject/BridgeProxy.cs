@@ -223,5 +223,19 @@ namespace testProject
                 return _real.isLoggedin(userId);
             throw new NullReferenceException("_real in null");
         }
+
+        public string GetUserType(int forumId, int userId)
+        {
+            if (_real != null)
+                return _real.GetUserType(forumId, userId);
+            throw new NullReferenceException("_real in null");
+        }
+
+        public string GetUsername(int forumId, int userId)
+        {
+            if (_real != null)
+                return _real.GetUsername(forumId, userId);
+            throw new NullReferenceException("_real in null");
+        }
     }
 }

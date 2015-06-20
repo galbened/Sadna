@@ -194,5 +194,15 @@ namespace Driver
         {
             return UM.isLoggedin(userId);
         }
+
+        public string GetUserType(int forumId, int userId)
+        {
+            return FM.GetUserType(forumId, userId);
+        }
+
+        public string GetUsername(int forumId, int userId)
+        {
+            return FM.GetUsername(forumId, userId);
+        }
     }
 }

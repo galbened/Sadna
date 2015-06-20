@@ -239,5 +239,10 @@ namespace Forum
             }
             throw new ArgumentException(error_subForumID + " SubForumId= " + subForumId);
         }
+
+        internal string GetUserName(int userId)
+        {
+            return usrMngr.getUsername(userId);
+        }
     }
 }

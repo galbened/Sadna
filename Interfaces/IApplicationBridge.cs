@@ -73,5 +73,11 @@ namespace Interfaces
         int ChangeUsername(int userID, string newUsername, string password);
 
         bool isLoggedin(int userId);
+
+        //return "admin" if admin, "member" if member, otherwise ""
+        string GetUserType(int forumId, int userId);
+
+        //return username, otherwise throw ArgumentException 
+        string GetUsername(int forumId, int userId);
     }
 }
