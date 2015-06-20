@@ -85,7 +85,7 @@ namespace Message
             {
                 lastMessageID++;
                 int messageId = lastMessageID;
-                ResponseMessage rm = new ResponseMessage((FirstMessage)first, messageId, publisherID, publisherName, title, body);
+                ResponseMessage rm = new ResponseMessage(messageId, publisherID, publisherName, title, body);
                 first.addResponse(rm);
                 messages.Add(rm);
                 _logger.Write(ForumLogger.TYPE_INFO, "New comment was added " + rm.MessageID);
@@ -147,24 +147,7 @@ namespace Message
 
         }
 
-        private Message findMessage(int messageID)
-        {
-            bool found = false;
-            int messagesSearched = 0;
-            while ((!found) && (messagesSearched < messages.Count))
-            {
-                Message cur = messages.ElementAt<Message>(messagesSearched);
-                if (cur.MessageID == messageID)
-                {
-                    found = true;
-                    return cur;
-                }
-                messagesSearched++;
-            }
-
-            //if messageID is wrong
-            return null;
-        }
+    
 
         public int NumOfMessages(int forumId, int subForumId)
         {
@@ -210,24 +193,55 @@ namespace Message
                 
         }
 
+       
+
+
+        /**
+         * Useful Private Functions 
+         * 
+         * 
+         * 
+         */
+
+        private Message findMessage(int messageID)
+        {
+            bool found = false;
+            int messagesSearched = 0;
+            while ((!found) && (messagesSearched < messages.Count))
+            {
+                Message cur = messages.ElementAt<Message>(messagesSearched);
+                if (cur.MessageID == messageID)
+                {
+                    found = true;
+                    return cur;
+                }
+                messagesSearched++;
+            }
+
+            //if messageID is wrong
+            return null;
+        }
+
+
+
         private List<CommentInfo> GetAllThreadComments(int firstMessageId)
         {
             List<CommentInfo> ans = new List<CommentInfo>();
             CommentInfo cur = new CommentInfo();
-            foreach (Message ms in messages)
+            Message firstMessage = findMessage(firstMessageId);
+            if (firstMessage == null)
+                return null;
+            FirstMessage fm = (FirstMessage)firstMessage;
+            if (fm.isFirst())
             {
-                if (!ms.isFirst())
+                foreach (ResponseMessage rm in fm.ResponseMessages)
                 {
-                    ResponseMessage rm = (ResponseMessage)ms;
-                    if (rm.FirstMessage.MessageID == firstMessageId)
-                    {
-                        cur.Id = rm.MessageID;
-                        cur.topic = rm.Title;
-                        cur.content = rm.Content;
-                        cur.date = rm.PublishDate;
-                        cur.publisher = rm.PublisherName;
-                        ans.Add(cur);
-                    }
+                    cur.Id = rm.MessageID;
+                    cur.topic = rm.Title;
+                    cur.content = rm.Content;
+                    cur.date = rm.PublishDate;
+                    cur.publisher = rm.PublisherName;
+                    ans.Add(cur);                                      
                 }
             }
             return ans;
