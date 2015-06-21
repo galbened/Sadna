@@ -42,6 +42,7 @@ namespace Interfaces
         List<int> GetAllComments(int forumId, int subForumId,int messageId);
         string GetUserType(int forumId, int userId);
         string GetUsername(int forumId, int userId);
+        List<string> GetSessionHistory(int requesterId, int forumId, int userIdSession);
     } 
 }
 

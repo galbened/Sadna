@@ -21,6 +21,7 @@ namespace Forum
         private const string error_emptyTitleSub = "Cannot create subForum without topic";
         private const string error_existTitle = "Cannot create forum with already exit title";
         private const string error_forumID = "No such forum: ";
+        private const string error_accessDenied = "You have no permissions to perform this operation";
         //private ForumLogger loggerIns;
 
         IDBManager<Forum> DBforumMan;
@@ -339,6 +340,18 @@ namespace Forum
             return ans;
         }
 
+        public List<string> GetSessionHistory(int requesterId, int forumId, int userIdSession)
+        {          
+            if (IsAdmin(requesterId, forumId))
+            {
+                Forum fr = GetForum(forumId);
+                List<string> ans = fr.GetSessionHistory(userIdSession);
+                return ans;
+            }
+            else
+                throw new UnauthorizedAccessException(error_accessDenied);
+
+        }
 
 
 

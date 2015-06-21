@@ -196,5 +196,10 @@ namespace Driver
         {
             return FM.GetUsername(forumId, userId);
         }
+
+        public List<string> GetSessionHistory(int requesterId, int forumId, int userIdSession)
+        {
+            return FM.GetSessionHistory(requesterId, forumId, userIdSession);
+        }
     }
 }

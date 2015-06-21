@@ -79,5 +79,7 @@ namespace Interfaces
 
         //return username, otherwise throw ArgumentException 
         string GetUsername(int forumId, int userId);
+
+        List<string> GetSessionHistory(int requesterId, int forumId, int userIdSession);
     }
 }

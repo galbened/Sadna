@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using User;
 using Interfaces;
+using ForumLoggers;
 
 namespace Forum
 {
@@ -21,10 +22,12 @@ namespace Forum
         private const string error_forumID = "No such Forum: ";
         private const string error_expiredPassword = "Password expired need to change";
         private const string error_subForumID = "No such SubForum: ";
+        private const string error_invalidPassword = "Password is not valid according to policy";
 
 
         public string forumName { get; set; }
         public List<SubForum> subForums { get; private set; }
+        private Dictionary<int, Session> sessions;
 
         public Forum() 
         {
@@ -45,6 +48,7 @@ namespace Forum
             poli = new Policy();
             usrMngr = UserManager.Instance;
             subForumIdCounter = 100;
+            sessions = new Dictionary<int, Session>();
         }
 
         public int CreateSubForum(string topic)
@@ -96,15 +100,30 @@ namespace Forum
         
         public int Register(string username, string password, string mail)
         {
+            Session guestSession = new Session(username, forumID, forumName);
             if (!(poli.IsValid(password)))
-                return -1;
-
-            int id = usrMngr.register(username, password, mail);
-            if (id < 0)
-                return -2;
-            if (!(registeredUsersID.Contains(id)))
-                registeredUsersID.Add(id);
-            return id;
+            {
+                guestSession.AddAction(ForumLogger.TYPE_ERROR, username + " registration failed " + error_invalidPassword);
+                guestSession.EndSession();
+                throw new ArgumentException(error_invalidPassword);
+            }
+            int userId = -1;
+            try
+            {
+                userId = usrMngr.register(username, password, mail);
+            }
+            catch(Exception ex)
+            {
+                guestSession.AddAction(ForumLogger.TYPE_ERROR, username + " registration failed " + ex.Message);
+                guestSession.EndSession();
+            }
+            if (userId > -1)
+                if (!(registeredUsersID.Contains(userId)))
+                    registeredUsersID.Add(userId);
+            guestSession.EndSession();
+            Session se = new Session(userId, username, forumID, forumName, SessionReason.registration);
+            sessions.Add(userId, se);
+            return userId;
         }
 
         public int Login(string username, string password)
@@ -112,13 +131,15 @@ namespace Forum
             Boolean canLogin = usrMngr.IsPasswordValid(username, poli.PasswordExpectancy);
             if (!canLogin)
                 throw new ArgumentException(error_expiredPassword);
-            int id = usrMngr.login(username, password);
-            if (registeredUsersID.Contains(id))
-                if (!(logedUsersId.Contains(id)))
-                    logedUsersId.Add(id);
+            int userId = usrMngr.login(username, password);
+            if (registeredUsersID.Contains(userId))
+                if (!(logedUsersId.Contains(userId)))
+                    logedUsersId.Add(userId);
                 else
                     return -1;
-            return id;
+            Session se = new Session(userId, username, forumID, forumName, SessionReason.loggin);
+            sessions.Add(userId, se);
+            return userId;
         }
 
         public Boolean Logout(int userId)
@@ -127,6 +148,9 @@ namespace Forum
                 return false;
             usrMngr.logout(userId);
             logedUsersId.Remove(userId);
+            Session se = GetSession(userId);
+            se.EndSession();
+            sessions.Remove(userId);
             return true;
         }
 
@@ -243,6 +267,26 @@ namespace Forum
         internal string GetUserName(int userId)
         {
             return usrMngr.getUsername(userId);
+        }
+
+        public List<string> GetSessionHistory(int userIdSession)
+        {
+            Session se = sessions[userIdSession];
+            List<string> ans = new List<string>();
+            foreach (ActionInfo ai in se.Actions)
+            {
+                ans.Add(ai.line);
+            }
+            return ans;
+        }
+
+
+        private Session GetSession(int userId)
+        {
+            Session ans = sessions[userId];
+            if (ans != null)
+                return ans;
+            throw new ArgumentException("User " + userId + " has no open session!");
         }
     }
 }
