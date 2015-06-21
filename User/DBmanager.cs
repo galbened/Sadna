@@ -12,7 +12,8 @@ namespace User
     class DBmanager : IDBManager<Member>
     {
         Context db;
-        private int mode; 
+        private int mode;
+        private readonly object _locker = new object();
 
         public DBmanager()
         {
@@ -44,7 +45,10 @@ namespace User
         public Member getObj(int ID)
         {
             if (UseDB())
-                return db.Members.Find(ID);
+                lock (_locker)
+                {
+                    return db.Members.Find(ID);
+                }
             else
                 return null;
         }
@@ -52,7 +56,10 @@ namespace User
         public List<Member> getAll()
         {
             if (UseDB())
-                return db.Members.ToList();
+                lock (_locker)
+                {
+                    return db.Members.ToList();
+                }
             else
                 return new List<Member>();
         }
@@ -60,21 +67,30 @@ namespace User
         public void update()
         {
             if (UseDB())
-                 db.SaveChanges();
+                lock (_locker)
+                {
+                    db.SaveChanges();
+                }
         }
 
 
         public void add(Member obj)
         {
             if (UseDB())
-                 db.Members.Add(obj);
+                lock (_locker)
+                {
+                    db.Members.Add(obj);
+                }
         }
 
 
         public void remove(Member obj)
         {
             if (UseDB())
-                 db.Members.Remove(obj);
+                lock (_locker)
+                {
+                    db.Members.Remove(obj);
+                }
         }
     }
 }

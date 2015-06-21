@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 
 
 namespace User.UnitTests
@@ -243,5 +244,56 @@ namespace User.UnitTests
             //Assert.AreEqual(um.login(userNames[0], passwords[0]), -1);//should fail - users not exists
             um.login(userNames[0], passwords[0]);//should fail - users not exists
         }
+
+        /* stress tests */
+
+        bool wasExceptionThrown;
+
+        public void registerAndDeactivateMethod(int i)
+        {
+            try
+            {
+                string userName = "user" + i.ToString();
+                string email = userName + "@post.bgu.ac.il";
+                int id1 = um.register(userName, "password", email);
+                um.deactivate(id1);
+            }
+            catch (Exception)
+            {
+                wasExceptionThrown = true;
+            }
+        }
+
+        /*
+         * Testing registration of large number of users simultaneously into the system, deactivating them right after.
+         */
+        [TestMethod]
+        public void registerStressTest()
+        {
+            const int NUMBER =100;
+            wasExceptionThrown = false;
+            var threads = new Thread[NUMBER];
+
+            int i;
+
+            for (i = 0; i < NUMBER; i++)
+            {
+                threads[i] =
+                    new Thread(() => registerAndDeactivateMethod(i));
+            }
+
+            for (i = 0; i < NUMBER; i++)
+            {
+                threads[i].Start();
+            }
+            for (i = 0; i < NUMBER; i++)
+            {
+                threads[i].Join();
+            }
+
+            Assert.AreNotEqual(wasExceptionThrown, true);
+        }
+
+
     }
 }
