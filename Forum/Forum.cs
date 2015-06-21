@@ -34,7 +34,7 @@ namespace Forum
         public Forum(string name, int id)
         {
             forumName = name;
-            //forumID = id;
+            forumID = id;
             registeredUsersID = new List<int>();
             registeredUsersID.Add(1);
             adminsID = new List<int>();

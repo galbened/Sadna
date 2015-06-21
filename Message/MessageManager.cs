@@ -7,6 +7,7 @@ using Interfaces;
 using Microsoft.Build.Utilities;
 using Microsoft.Build.Framework;
 using ForumLoggers;
+using System.Configuration;
 
 namespace Message
 {
@@ -23,6 +24,7 @@ namespace Message
         private ForumLogger _logger;
 
         IDBManager<Message> DBmessageMan;
+        private static int mode;
 
         public static IMessageManager Instance()
         {
@@ -33,6 +35,7 @@ namespace Message
 
         private MessageManager()
         {
+            InitMode();
             messages = new HashSet<Message>();
             threads = new HashSet<Thread>();
             lastMessageID = -1;
@@ -53,6 +56,22 @@ namespace Message
              */
         }
 
+        private void InitMode()
+        {
+            string modeTxt = ConfigurationManager.AppSettings["mode"];
+            if (modeTxt.CompareTo("NoDB") == 0)
+                mode = 0;
+            else
+                mode = 1;
+        }
+
+        private bool UseDB()
+        {
+            if (mode == 0)
+                return false;
+            else
+                return true;
+        }
 
         public int addThread(int forumId, int subForumId, int publisherId, string publisherName, string title, string body)
         {

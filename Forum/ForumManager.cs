@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Interfaces;
 using ForumLoggers;
 using Message;
+using System.Configuration;
 
 
 namespace Forum
@@ -23,9 +24,11 @@ namespace Forum
         //private ForumLogger loggerIns;
 
         IDBManager<Forum> DBforumMan;
+        private static int mode;
 
         private ForumManager()
         {
+            InitMode();
             forums = new List<Forum>();
             forumIdCounter = 1000;
             MM = MessageManager.Instance();
@@ -57,6 +60,23 @@ namespace Forum
             if (instance == null)
                 return new ForumManager();
             return instance;
+        }
+
+        private void InitMode()
+        {
+            string modeTxt = ConfigurationManager.AppSettings["mode"];
+            if (modeTxt.CompareTo("NoDB") == 0)
+                mode = 0;
+            else
+                mode = 1;
+        }
+
+        private bool UseDB()
+        {
+            if (mode == 0)
+                return false;
+            else
+                return true;
         }
 
         public int CreateForum(string name)
