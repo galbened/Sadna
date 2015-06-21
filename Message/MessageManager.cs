@@ -20,6 +20,7 @@ namespace Message
         private const string error_messageIdNotFound = "Message ID doesn't exist";
         private const string error_callerIDnotMatch = "Only publisher can edit message";
         private const string error_wrongForumOrSubForumId = "ForumId or SubForumId not found in all Threads";
+        private const string error_responseNotThread = "ThreadId expected but got comment message Id";
         private ForumLogger _logger;
 
         IDBManager<Message> DBmessageMan;
@@ -194,6 +195,18 @@ namespace Message
                 
         }
 
+        public int GetNumOfComments(int threadId)
+        {
+            Message message = findMessage(threadId);
+            FirstMessage fm;
+            if (message.isFirst())
+                fm = (FirstMessage)message;
+            else
+                throw new ArgumentException(error_responseNotThread);
+            return fm.getNumofComments();
+
+        }
+
        
 
 
@@ -225,7 +238,7 @@ namespace Message
 
 
 
-        private List<CommentInfo> GetAllThreadComments(int firstMessageId)
+        public List<CommentInfo> GetAllThreadComments(int firstMessageId)
         {
             List<CommentInfo> ans = new List<CommentInfo>();
             CommentInfo cur = new CommentInfo();
