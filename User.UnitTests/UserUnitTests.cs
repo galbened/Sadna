@@ -16,7 +16,7 @@ namespace User.UnitTests
     {
         String[] userNames = { "tomer.b", "tomer.s", "gal.b", "gal.p", "osher" };
         String[] emails = { "tomer.b@gmail.com", "tomer.s@gmail.com", "gal.b@gmail.com", "gal.p@gmail.com", "osher@gmail.com" };
-        String[] passwords = { "123456", "abcdef" };
+        String[] passwords = { "123456", "abcdef","aaaaa","bbbbb" };
         IUserManager um = UserManager.Instance;
 
         /*
@@ -35,14 +35,24 @@ namespace User.UnitTests
         }
 
         [TestMethod]
-        //[ExpectedException(typeof(UsernameIsTakenException), "Username entered is taken.")]
+        [ExpectedException(typeof(UsernameIsTakenException), "Username entered is taken.")]
         public void registrationAgainFailTest()
         {
+            int id1 = um.register(userNames[0], passwords[0], emails[0]);
+            int id2;
 
-            //int id1 = um.register(userNames[0], passwords[0], emails[0]);
-            //int id3 = um.register(userNames[0], passwords[0], emails[0]);
-            //Assert.AreEqual(id3, -1);
-            //um.deactivate(id1);
+            try
+            {
+                id2 = um.register(userNames[0], passwords[0], emails[0]);
+            }
+            catch(UsernameIsTakenException)
+            {
+                um.deactivate(id1);
+                throw new UsernameIsTakenException();
+            }
+
+            um.deactivate(id1);
+            um.deactivate(id2);
         }
 
         /*
@@ -130,9 +140,16 @@ namespace User.UnitTests
         public void changeUsernameIncorrectDetailsTest()
         {
             int id1 = um.register(userNames[0], passwords[0], emails[0]);
-            id1 = um.login(userNames[0], passwords[0]);
-            //Assert.AreEqual(um.changeUsername(id1, userNames[1], passwords[1]), -1);//user details incorrect
-            um.changeUsername(id1, userNames[1], passwords[1]);//user details incorrect
+            try
+            {
+                id1 = um.login(userNames[0], passwords[0]);
+                um.changeUsername(id1, userNames[1], passwords[1]);//user details incorrect
+            }
+            catch (UsernameIllegalChangeException)
+            {
+                um.deactivate(id1);
+                throw new UsernameIllegalChangeException();
+            }
             um.deactivate(id1);
         }
 
@@ -145,33 +162,54 @@ namespace User.UnitTests
         public void changePasswordNotLogedinTest()
         {
             int id1 = um.register(userNames[0], passwords[0], emails[0]);
-            id1 = um.changePassword(id1, passwords[0], passwords[1]);
-            //Assert.AreEqual(id1, -1); //should be logedin
-            id1 = um.login(userNames[0], passwords[0]);
+            try
+            {
+                id1 = um.changePassword(id1, passwords[0], passwords[1]);
+            }
+            catch (UserPasswordIllegalChangeException)
+            {
+                um.deactivate(id1);
+                throw new UserPasswordIllegalChangeException();
+            }
             um.deactivate(id1);
         }
-        /*
+        
         [TestMethod]
-        public void changePasswordTest()
+        [ExpectedException(typeof(UserPasswordIllegalChangeException), "Password already used in past.")]
+        public void changingToPasswordAlreadyUsedInPast()
         {
             int id1 = um.register(userNames[0], passwords[0], emails[0]);
-            id1 = um.login(userNames[0], passwords[0]);
-            int id2 = um.changePassword(id1, passwords[0], passwords[1]);
-            Assert.AreEqual(id1, id2); //should return the same ID
-            Assert.AreEqual(passwords[1].CompareTo(um.getPassword(id1)), 0);
-            id1 = um.changePassword(id1, passwords[1], passwords[0]);
-            Assert.AreEqual(passwords[0].CompareTo(um.getPassword(id1)), 0);
+            try
+            {
+                id1 = um.login(userNames[0], passwords[0]);
+                um.changePassword(id1, passwords[0], passwords[1]);
+                um.changePassword(id1, passwords[1], passwords[2]);
+                um.changePassword(id1, passwords[2], passwords[3]);
+                um.changePassword(id1, passwords[3], passwords[1]);
+            }
+            catch(UserPasswordIllegalChangeException)
+            {
+                um.deactivate(id1);
+                throw new UserPasswordIllegalChangeException();
+            }
             um.deactivate(id1);
-        }*/
+        }
 
         [TestMethod]
         [ExpectedException(typeof(UserPasswordIllegalChangeException), "Entered details are wrong - illegal password change.")]
         public void changePasswordIncorrectDetailsTest()
         {
             int id1 = um.register(userNames[0], passwords[0], emails[0]);
-            id1 = um.login(userNames[0], passwords[0]);
-            Assert.AreEqual(um.changePassword(id1, passwords[1], passwords[0]), -1);//user details incorrect
-            Assert.IsTrue(um.logout(id1));
+            try
+            {
+                id1 = um.login(userNames[0], passwords[0]);
+                um.changePassword(id1, passwords[1], passwords[0]);
+            }
+            catch (UserPasswordIllegalChangeException)
+            {
+                um.deactivate(id1);
+                throw new UserPasswordIllegalChangeException();
+            }
             um.deactivate(id1);
         }
 

@@ -123,14 +123,16 @@ namespace User
             }
 
             //Checking if old password matches the active one
-            if(memberPassword != oldPassword)
-                throw new ArgumentException(error_oldPasswordDoesNotMatch);
+            if (memberPassword != oldPassword)
+                //throw new ArgumentException(error_oldPasswordDoesNotMatch);
+                return false;
 
             //Checking old passwords
             foreach(Password pass in pastPasswords) 
             {
                 if (pass.passString == newPassword)
-                    throw new ArgumentException(error_passwordAlreadyUsed);
+                    //throw new ArgumentException(error_passwordAlreadyUsed);
+                    return false;
             }
 
             //All in order, changing password and adding the last one to past passwords
