@@ -13,10 +13,6 @@ namespace Driver
 {
     public class BridgeReal : IApplicationBridge
     {
-        private static List<int> usersIds;
-        private static List<int> forumsIds;
-        private static List<int> subForumsIds;
-        private static List<int> messagesIds;
         private static IUserManager UM;
         private static IForumManager FM;
         private static IMessageManager MM;
@@ -24,10 +20,6 @@ namespace Driver
 
         public BridgeReal()
         {
-            usersIds = new List<int>();
-            forumsIds = new List<int>();
-            subForumsIds = new List<int>();
-            messagesIds = new List<int>();
             UM = UserManager.Instance;
             FM = ForumManager.getInstance();
             MM = MessageManager.Instance();
