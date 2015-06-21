@@ -9,11 +9,13 @@ namespace User
     public class Password
     {
         public int id { get; set; }
-        public string pass { get; set; }
+        public string passString { get; set; }
 
+        public Password()
+        {}
         public Password(string str)
         {
-            pass = str;
+            passString = str;
         }   
     }
 }

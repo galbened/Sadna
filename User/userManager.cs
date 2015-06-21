@@ -24,10 +24,20 @@ namespace User
             this.newestMemberID = 10;
 
             DBman = new DBmanager();
-
-            
-            //stuff
             /*
+            Member newMember1 = new Member(1, "dude", "dudepass", "dude@dude.com");
+            System.Threading.Thread.Sleep(50);
+            DBman.add(newMember1);
+            //changePassword(2,"tomerb new pass","fixestomerb");
+
+            DBman.update();
+
+            changePassword(newMember1.memberID, "dudepass", "dude fix");
+
+
+            DBman.update();
+            //stuff
+            
             Member newMember1 = new Member(1, "osher", "bl1a", "ossher@ga.com");
             System.Threading.Thread.Sleep(50);
             DBman.add(newMember1);
@@ -121,10 +131,11 @@ namespace User
         {
             if (!isNameAvilable(username))
                 throw new UsernameIsTakenException();
-            DBman.add(new Member(newestMemberID, username, password, email));
-            newestMemberID++;
+            Member member = new Member(newestMemberID, username, password, email);
+            DBman.add(member);
+            //newestMemberID++;
             saveMembersDB();
-            return newestMemberID - 1;
+            return member.memberID;
         }
 
         public bool enterForum(string forumName)
