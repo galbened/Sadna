@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Interfaces;
-using System.Configuration;
 
 namespace User
 {
@@ -15,11 +14,9 @@ namespace User
         IDBManager<Member> DBman;
 
         private static UserManager instance = null;
-        private static int mode;
 
         private UserManager()
         {
-            InitMode();
             this.userTypes = new List<string>();
             userTypes.Add("Normal");
             userTypes.Add("Gold");
@@ -90,23 +87,7 @@ namespace User
             
         }
 
-        private void InitMode()
-        {
-            string modeTxt = ConfigurationManager.AppSettings["mode"];
-         
-            if (modeTxt.CompareTo("NoDB") == 0)
-                mode = 0;
-            else
-                mode = 1;
-        }
 
-        private bool UseDB()
-        {
-            if (mode == 0)
-                return false;
-            else 
-                return true;
-        }
 
         public static UserManager Instance
         {
