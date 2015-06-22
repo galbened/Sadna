@@ -9,10 +9,6 @@ namespace User
 {
     class Context : DbContext
     {
-        public Context()
-            : base("DefaultConnection") // <-- this is what i added.
-        {
-        }
         public DbSet<Member> Members { get; set; }
         //public DbSet<Password> Passwords { get; set; }
     }
