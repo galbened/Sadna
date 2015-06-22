@@ -56,7 +56,7 @@ namespace testProject
 
         protected static int CreateForum(string forumTopic)
         {
-            int ans = bridge.CreateForum(forumTopic,
+            int ans = bridge.CreateForum(1, forumTopic,
                                         1, "",
                                         false, false, false,
                                         false, 3);

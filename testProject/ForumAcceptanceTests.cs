@@ -54,7 +54,7 @@ namespace testProject
 
         protected static int CreateForum(string forumTopic)
         {
-            int ans = bridge.CreateForum(forumTopic,
+            int ans = bridge.CreateForum(1, forumTopic,
                                         1, "",
                                         true, false, true,
                                         true, 3);
@@ -92,7 +92,7 @@ namespace testProject
         public void creatingSubForumTest()
         {
             int currentForum = forumsIds[0];
-            int subForumId = bridge.CreateSubForum(currentForum, "first sub-forum");
+            int subForumId = bridge.CreateSubForum(1, currentForum, "first sub-forum");
             subForumsIds.Add(subForumId);
             Assert.IsTrue(subForumId > 0);
             Assert.IsTrue((bridge.GetSubForumsIds(currentForum)).Contains(subForumId));  
@@ -118,7 +118,7 @@ namespace testProject
         {
             int mainForumId=forumsIds[0];
             int firstSubForum = subForumsIds[0];
-            int secondSubForum = bridge.CreateSubForum(mainForumId, "second sub forum");
+            int secondSubForum = bridge.CreateSubForum(1, mainForumId, "second sub forum");
             Assert.AreNotEqual(firstSubForum, secondSubForum);
         }
          /// <CreateSubForumTestFail>
@@ -150,7 +150,7 @@ namespace testProject
             int forumId = forumsIds[0];
             try
             {
-                bridge.CreateSubForum(forumId, "");
+                bridge.CreateSubForum(1, forumId, "");
                 Assert.Fail("Exception was expected but not thrown. Cannot create subForum with empty string topic");
             }
             catch (Exception)
@@ -159,7 +159,7 @@ namespace testProject
             }
             try
             {
-                bridge.CreateSubForum(forumId, null);
+                bridge.CreateSubForum(1, forumId, null);
                 Assert.Fail("Exception was expected but not thrown. Cannot create subForum with null topic");
             }
             catch (Exception)
@@ -168,7 +168,7 @@ namespace testProject
             }
             try
             {
-                bridge.CreateSubForum(-1, topic[0]);
+                bridge.CreateSubForum(1, -1, topic[0]);
                 Assert.Fail("Exception was expected but not thrown. Cannot create subForum with illegal forumId");
             }
             catch (Exception)
