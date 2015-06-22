@@ -9,12 +9,12 @@ namespace Interfaces
     public interface IApplicationBridge
     {
         
-        int CreateForum(/*int forumAdmin,*/ string name, 
+        int CreateForum(int userRequesterId, string name, 
                        int numOfModerators, string degreeOfEnsuring,
                        Boolean uppercase, Boolean lowercase, Boolean numbers,
                        Boolean symbols, int minLength);
 
-        void SetPolicy(int forumId, int numOfModerators, string degreeOfEnsuring,
+        void SetPolicy(int userRequesterId, int forumId, int numOfModerators, string degreeOfEnsuring,
                        Boolean uppercase, Boolean lowercase, Boolean numbers,
                        Boolean symbols, int minLength);
 
@@ -26,7 +26,7 @@ namespace Interfaces
 
         bool Logout(int userId, int forumId);
 
-        int CreateSubForum(int forumId, string topic);
+        int CreateSubForum(int userRequesterId, int forumId, string topic);
 
         void View(int forumId, out List<string> subForumNames, out List<int> subForumIds);
 
@@ -38,13 +38,13 @@ namespace Interfaces
 
         void ComplainModerator();
 
-        bool DeleteMessage(int messageId);
+        bool DeleteMessage(int userRequesterId, int messageId);
 
-        void RemoveForum(int forumId);
+        void RemoveForum(int userRequesterId, int forumId);
 
-        void AddModerator(int forumId, int subForumId, int moderatorId);
+        void AddModerator(int userRequesterId, int forumId, int subForumId, int moderatorId);
 
-        void RemoveModerator(int forumId, int subForumId, int moderatorId);
+        void RemoveModerator(int userRequesterId, int forumId, int subForumId, int moderatorId);
 
         List<int> GetForumIds();
 
