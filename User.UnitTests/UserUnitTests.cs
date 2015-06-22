@@ -248,15 +248,25 @@ namespace User.UnitTests
         /* stress tests */
 
         bool wasExceptionThrown;
+        public readonly object _locker = new object();
+        int ID=0;
+
+        public int getID()
+        {
+            lock (_locker)
+            {
+                return ID++;
+            }
+        }
 
         public void registerAndDeactivateMethod(int i)
         {
             try
             {
-                string userName = "user" + i.ToString();
+                string userName = "user" + getID().ToString();
                 string email = userName + "@post.bgu.ac.il";
                 int id1 = um.register(userName, "password", email);
-                um.deactivate(id1);
+                //um.deactivate(id1);
             }
             catch (Exception)
             {
@@ -270,7 +280,7 @@ namespace User.UnitTests
         [TestMethod]
         public void registerStressTest()
         {
-            const int NUMBER =100;
+            const int NUMBER =10;
             wasExceptionThrown = false;
             var threads = new Thread[NUMBER];
 

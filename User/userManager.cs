@@ -23,15 +23,19 @@ namespace User
             userTypes.Add("Silver");
             this.newestMemberID = 10;
 
+            //DBmanCreate = new DBmanager();
+            //DBmanCreate.update();
+
             DBman = new DBmanager();
-            /*
-            Member newMember1 = new Member(1, "dude", "dudepass", "dude@dude.com");
-            System.Threading.Thread.Sleep(50);
-            DBman.add(newMember1);
+            //var bla = DBman.getAll();
+            
+            //Member newMember1 = new Member(1, "dude", "dudepass", "dude@dude.com");
+            //System.Threading.Thread.Sleep(50);
+            //DBman.add(newMember1);
             //changePassword(2,"tomerb new pass","fixestomerb");
 
-            DBman.update();
-
+            //DBman.update();
+            /*
             changePassword(newMember1.memberID, "dudepass", "dude fix");
 
 
@@ -135,7 +139,7 @@ namespace User
                 throw new UsernameIsTakenException();
             Member member = new Member(newestMemberID, username, password, email);
             DBman.add(member);
-            //newestMemberID++;
+            newestMemberID++;
             saveMembersDB();
             return member.memberID;
         }

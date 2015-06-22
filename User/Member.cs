@@ -36,7 +36,7 @@ namespace User
         }
         public Member(int memberID, String memberUsername, String memberPassword, String memberEmail)
         {
-            //this.memberID = memberID;
+            this.memberID = memberID;
             this.memberUsername = memberUsername;
             this.memberPassword = "firstPass";
             passwordLastChanged = DateTime.Now;
