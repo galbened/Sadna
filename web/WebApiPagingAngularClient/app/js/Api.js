@@ -46,6 +46,11 @@
                         method: 'POST',
                         url: '/api/forums/addComment',
                         params: {}
+                    },
+                    'getUser': {
+                        method: 'GET',
+                        url: '/api/forums/getUser/:forumId/:userId',
+                        params: { forumId: '@forumId', userId: '@userId' }
                     }
                 });
         }).factory('Users', function ($resource) {

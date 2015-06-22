@@ -28,17 +28,29 @@
         }
 
         function activate() {
-            var queryArgs = {
+            var queryArgsForum = {
                 forumId: $routeParams.forumId,
             };
 
             $rootScope.forumId = $routeParams.forumId;
 
-            if ($rootScope.user) {
-                $scope.user = $rootScope.user;
+            if ($routeParams.userId) {
+                var queryArgsUser = {
+                    forumId: $routeParams.forumId,
+                    userId: $routeParams.userId
+                };
+                return Forums.getUser(queryArgsUser).$promise.then(
+                    function (result) {
+                        console.log(result.data);
+                        $scope.forum = parseForum(result.data);
+                        console.log($scope.forum);
+                        return result.$promise;
+                    }, function (result) {
+                        return $q.reject(result);
+                    });
             }
 
-            return Forums.getForum(queryArgs).$promise.then(
+            return Forums.getForum(queryArgsForum).$promise.then(
                 function (result) {
                     console.log(result.data);
                     $scope.forum = parseForum(result.data);
@@ -60,18 +72,28 @@
         };
 
         $scope.openSignupModal = function () {
-            $modal.open({
+            $scope.modalInstance =  $modal.open({
                 templateUrl: 'app/partials/signup-modal.html',
                 size: 'sm',
                 controller: 'SignupModalCtrl'
             });
+
+            $scope.modalInstance.result.then(function (result) {
+                console.log(result);
+                $scope.user = result;
+            });
         }
 
         $scope.addNewSubForum = function () {
-            $modal.open({
+            $scope.modalInstance = $modal.open({
                 templateUrl: 'app/partials/AddSubForumModal.html',
                 size: 'sm',
                 controller: 'AddSubForumModalCtrl'
+            });
+
+            $scope.modalInstance.result.then(function (result) {
+                console.log(result);
+                $scope.forum.subForums.push(result);
             });
         }
 

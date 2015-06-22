@@ -38,10 +38,11 @@
 
             return Forums.createForum({}, newForumParams).$promise.then(
                 function (result) {
-                    $modalInstance.dismiss('cancel');
-                    return result.$promise;
+                    $scope.newForum = result.data;
+                    $modalInstance.close($scope.newForum);
                 }, function (result) {
-                    //alert(result.data.message);
+                    console.log(result);
+                    alert(result.data.message);
                     return $q.reject(result);
                 });
         }

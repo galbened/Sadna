@@ -28,11 +28,10 @@
 
             return Forums.signup(queryArgs, signup).$promise.then(
                 function (result) {
-                    $rootScope.user = result.data;
-                    $modalInstance.dismiss('cancel');
-                    return result.$promise;
+                    $scope.user = result.data;
+                    $modalInstance.close($scope.user);
                 }, function (result) {
-                    $modalInstance.dismiss('cancel');
+                    alert(result.data.message);
                     return $q.reject(result);
                 });
 

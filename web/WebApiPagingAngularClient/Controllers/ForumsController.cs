@@ -18,7 +18,7 @@ namespace WebApiPagingAngularClient.Controllers
 
         // GET: api/forums/getForums
         [Route("getForums")]
-        public IHttpActionResult Get()
+        public HttpResponseMessage Get()
             {
                 var ids = driver.GetForumIds();
                 var names = driver.GetForumTopics();
@@ -34,12 +34,13 @@ namespace WebApiPagingAngularClient.Controllers
                     data = data
                 };
 
-                return Ok(result);
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, result);
+                return response;
         }
 
         // GET: api/forums/createForum
         [Route("createForum")]
-        public IHttpActionResult Post(newForumParams forum)
+        public HttpResponseMessage Post(newForumParams forum)
         {
             try
             {
@@ -54,27 +55,23 @@ namespace WebApiPagingAngularClient.Controllers
                 {
                     data = data
                 };
-                return Ok(result);
-            }
-            catch
-            {
-               /* var data = new
-                {
-                    message = e.ToString()
-                };
-                var result = new
-                {
-                    data = data
-                };
                 HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, result);
-                return (IHttpActionResult)response;*/
-                return NotFound();
+                return response;
+            }
+            catch(Exception e)
+            {
+                var data = new
+                {
+                    message = e.Message
+                };
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.NotFound, data);
+                return response;
             }
         }
 
         // GET: api/forums/createSubForum/forumId/topic
         [Route("createSubForum/{forumId:int}")]
-        public IHttpActionResult Post(int forumId, newSubForumParams topic)
+        public HttpResponseMessage Post(int forumId, newSubForumParams topic)
         {
             try
             {
@@ -82,8 +79,7 @@ namespace WebApiPagingAngularClient.Controllers
                 var data = new
                 {
                     id = subForumId,
-                    topic = topic,
-                    forumId = forumId
+                    title = topic.topic
                 };
 
                 var result = new
@@ -91,17 +87,23 @@ namespace WebApiPagingAngularClient.Controllers
                     data = data
                 };
 
-                return Ok(result);
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, result);
+                return response;
             }
-            catch
+            catch (Exception e)
             {
-                return NotFound();
+                var data = new
+                {
+                    message = e.Message
+                };
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.NotFound, data);
+                return response;
             }
         }
 
         // GET: api/forums/getForum/forumId
         [Route("getForum/{forumId:int}")]
-        public IHttpActionResult Get(int forumId)
+        public HttpResponseMessage Get(int forumId)
         {
             var name = driver.GetForumName(forumId);
             var subForumIds = driver.GetSubForumsIds(forumId);
@@ -120,12 +122,36 @@ namespace WebApiPagingAngularClient.Controllers
                 data = data
             };
 
-            return Ok(result);
+            HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, result);
+            return response;
+        }
+
+        // GET: api/forums/getUser/forumId/userId
+        [Route("getUser/{forumId:int}/{userId:int}")]
+        public HttpResponseMessage GetUser(int forumId, int userId)
+        {
+            var username = driver.GetUsername(forumId, userId);
+            var type = driver.GetUserType(forumId, userId);
+
+            var data = new
+            {
+                id = userId,
+                username = username,
+                type = type
+            };
+
+            var result = new
+            {
+                data = data
+            };
+
+            HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, result);
+            return response;
         }
 
         // GET: api/forums/signup
         [Route("signup/{forumId}")]
-        public IHttpActionResult Post(int forumId, signupParams sign)
+        public HttpResponseMessage Post(int forumId, signupParams sign)
         {
             try
             {
@@ -142,18 +168,24 @@ namespace WebApiPagingAngularClient.Controllers
                     data = data
                 };
 
-                return Ok(result);
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, result);
+                return response;
             }
-            catch
+            catch (Exception e)
             {
-                return NotFound();
+                var data = new
+                {
+                    message = e.Message
+                };
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.NotFound, data);
+                return response;
             }
 
         }
 
         // GET: api/forums/addThread
         [Route("addThread")]
-        public IHttpActionResult Post(newThreadParams th)
+        public HttpResponseMessage Post(newThreadParams th)
         {
             try
             {
@@ -168,18 +200,24 @@ namespace WebApiPagingAngularClient.Controllers
                     data = data
                 };
 
-                return Ok(result);
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, result);
+                return response; ;
             }
-            catch
+            catch (Exception e)
             {
-                return NotFound();
+                var data = new
+                {
+                    message = e.Message
+                };
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.NotFound, data);
+                return response;
             }
 
         }
 
         // GET: api/forums/addComment
         [Route("addComment")]
-        public IHttpActionResult Post(newCommentParams cm)
+        public HttpResponseMessage Post(newCommentParams cm)
         {
             try
             {
@@ -194,18 +232,24 @@ namespace WebApiPagingAngularClient.Controllers
                     data = data
                 };
 
-                return Ok(result);
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, result);
+                return response;
             }
-            catch
+            catch (Exception e)
             {
-                return NotFound();
+                var data = new
+                {
+                    message = e.Message
+                };
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.NotFound, data);
+                return response;
             }
 
         }
 
         // GET: api/forums/getSubForum/forumId/subForumId
         [Route("getSubForum/{forumId:int}/{subForumId:int}")]
-        public IHttpActionResult Get(int forumId,int subForumId)
+        public HttpResponseMessage Get(int forumId, int subForumId)
         {
             var threads = driver.GetAllThreads(forumId, subForumId);
             var subForum = new {
@@ -224,7 +268,8 @@ namespace WebApiPagingAngularClient.Controllers
                 data = data
             };
 
-            return Ok(result);
+            HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, result);
+            return response;
             
         }
 

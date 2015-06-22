@@ -20,10 +20,11 @@
             console.log(topic);
             return Forums.createSubForum(queryArgs, { 'topic': topic }).$promise.then(
                 function (result) {
-                    $scope.forum = result.data;
-                    $modalInstance.dismiss('cancel');
+                    $scope.newSubForum = result.data;
+                    $modalInstance.close($scope.newSubForum);
                     return result.$promise;
                 }, function (result) {
+                    alert(result.data.message);
                     return $q.reject(result);
                 });
         }
