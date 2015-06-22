@@ -56,8 +56,8 @@ namespace testProject
         {
             int ans = bridge.CreateForum(forumTopic,
                                         1, "",
-                                        true, false, true,
-                                        true, 3);
+                                        false, false, false,
+                                        false, 3);
 
             return ans;
         }
@@ -81,7 +81,7 @@ namespace testProject
         public void NewUserRegisterTest()
         {
             int forumId = forumsIds[0];
-            int userId = bridge.Register(userNamesList[0], passwords[0], emails[0], forumId);
+            int userId = bridge.Register(userNamesList[0], passwords[1], emails[0], forumId);
             Assert.IsTrue(bridge.isRegisteredUser(forumId, userId));
             usersIds.Add(userId);
         }
