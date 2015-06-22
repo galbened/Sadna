@@ -53,13 +53,9 @@
     <Compile Include="DBmanager.cs" />
     <Compile Include="Member.cs" />
     <Compile Include="memberState.cs" />
-    <Compile Include="Migrations\201506181634186_1.cs" />
-    <Compile Include="Migrations\201506181634186_1.Designer.cs">
-      <DependentUpon>201506181634186_1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201506211105028_2.cs" />
-    <Compile Include="Migrations\201506211105028_2.Designer.cs">
-      <DependentUpon>201506211105028_2.cs</DependentUpon>
+    <Compile Include="Migrations\201506220558579_1.cs" />
+    <Compile Include="Migrations\201506220558579_1.Designer.cs">
+      <DependentUpon>201506220558579_1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Password.cs" />
@@ -85,11 +81,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201506181634186_1.resx">
-      <DependentUpon>201506181634186_1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201506211105028_2.resx">
-      <DependentUpon>201506211105028_2.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201506220558579_1.resx">
+      <DependentUpon>201506220558579_1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
