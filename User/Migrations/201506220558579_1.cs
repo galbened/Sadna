@@ -32,7 +32,7 @@ namespace User.Migrations
                 c => new
                     {
                         id = c.Int(nullable: false, identity: true),
-                        pass = c.String(),
+                        passString = c.String(),
                         Member_memberID = c.Int(),
                     })
                 .PrimaryKey(t => t.id)
