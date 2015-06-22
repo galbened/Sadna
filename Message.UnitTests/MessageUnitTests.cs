@@ -186,7 +186,7 @@ namespace Message.UnitTests
             int subForumId = fm.CreateSubForum(1, subTitels[0], forumId);
             int threadId = mm.addThread(forumId, subForumId, userId,userNames[0], topic[0], body[0]);
             int commentID1 = mm.addComment(threadId, userId,userNames[0], topic[1], body[0]);
-            Assert.IsTrue(mm.deleteMessage(commentID1));
+            Assert.IsTrue(mm.deleteMessage(userId, commentID1));
             fm.RemoveForum(1, forumId);
         }
 

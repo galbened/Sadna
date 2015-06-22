@@ -93,7 +93,7 @@ namespace Driver
 
         public bool DeleteMessage(int userRequesterId, int messageId)
         {
-            bool success = MM.deleteMessage(messageId);
+            bool success = MM.deleteMessage(userRequesterId, messageId);
             return success;
         }
 
