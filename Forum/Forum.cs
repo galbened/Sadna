@@ -117,7 +117,7 @@ namespace Forum
             {
                 guestSession.AddAction(ForumLogger.TYPE_ERROR, username + " registration failed " + ex.Message);
                 guestSession.EndSession();
-                throw new ArgumentException(error_failedRegistrarion);
+                throw new ArgumentException(error_failedRegistrarion + ex.Message);
             }
             if (userId > -1)
                 if (!(registeredUsersID.Contains(userId)))
