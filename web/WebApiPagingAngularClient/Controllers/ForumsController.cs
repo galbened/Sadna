@@ -16,6 +16,10 @@ namespace WebApiPagingAngularClient.Controllers
     {
         private static IApplicationBridge driver = new BridgeReal();
 
+        public ForumsController()
+        {
+        }
+
         // GET: api/forums/getForums
         [Route("getForums")]
         public IHttpActionResult Get()
