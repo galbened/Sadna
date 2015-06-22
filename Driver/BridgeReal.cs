@@ -8,6 +8,7 @@ using Message;
 using User;
 using Forum;
 using Notification;
+using ForumLoggers;
 
 namespace Driver
 {
@@ -16,49 +17,119 @@ namespace Driver
         private static IUserManager UM;
         private static IForumManager FM;
         private static IMessageManager MM;
-  
+        private ForumLogger _logger;
 
         public BridgeReal()
         {
+            _logger = ForumLogger.GetInstance();
+            _logger.Write(ForumLogger.TYPE_INFO, "Initializing Driver");          
             UM = UserManager.Instance;
+            _logger.Write(ForumLogger.TYPE_INFO, "User Manager initialized successfully"); 
             FM = ForumManager.getInstance();
+            _logger.Write(ForumLogger.TYPE_INFO, "Forum Manager initialized successfully"); 
             MM = MessageManager.Instance();
+            _logger.Write(ForumLogger.TYPE_INFO, "Message Manager initialized successfully"); 
         }
 
 
         public int CreateForum(/*int forumAdmin,*/ string name, int numOfModerators, string degreeOfEnsuring, bool uppercase, bool lowercase, bool numbers, bool symbols, int minLength)
         {
-            int forumId = FM.CreateForum(name);
+            _logger.Write(ForumLogger.TYPE_INFO, "Trying to create forum " + name);
+            int forumId = -1;
+            try
+            {
+                forumId = FM.CreateForum(name);
+            }
+            catch (Exception ex)
+            {
+                _logger.Write(ForumLogger.TYPE_ERROR, "CreateForum for forum " + name + " creation failed: " + ex.Message);
+                throw ex;
+            }
             SetPolicy(forumId, numOfModerators, degreeOfEnsuring, uppercase, lowercase, numbers, symbols, minLength);
+            _logger.Write(ForumLogger.TYPE_INFO, "Forum " + name + " created successfully"); 
             return forumId;
         }
 
         public void SetPolicy(int forumId, int numOfModerators, string degreeOfEnsuring, bool uppercase, bool lowercase, bool numbers, bool symbols, int minLength)
         {
-            FM.SetPolicy(numOfModerators, degreeOfEnsuring, uppercase, lowercase, numbers, symbols, minLength, forumId);
+            _logger.Write(ForumLogger.TYPE_INFO, "Setting policy to forumId: " + forumId);
+            try
+            {
+                FM.SetPolicy(numOfModerators, degreeOfEnsuring, uppercase, lowercase, numbers, symbols, minLength, forumId);
+            }
+            catch (Exception ex)
+            {
+                _logger.Write(ForumLogger.TYPE_ERROR, "SetPolicy to forumId " + forumId + " failed: " + ex.Message);
+                throw ex;
+            }
+            _logger.Write(ForumLogger.TYPE_INFO, "Policy for forumId: " + forumId + " updated successfully"); 
         }
 
         public int Register(string username, string password, string email, int forumId)
         {
-            int userId = FM.Register(username, password, email, forumId);
+            _logger.Write(ForumLogger.TYPE_INFO, "Trying to register " + forumId + " updated successfully");
+            int userId;
+            try
+            {
+                userId = FM.Register(username, password, email, forumId);
+            }
+            catch(Exception ex)
+            {
+                _logger.Write(ForumLogger.TYPE_ERROR, "Register to username " + username + " failed: " + ex.Message);
+                throw ex;
+            }
+            _logger.Write(ForumLogger.TYPE_INFO, "Registration of " + username + " to forum " + forumId +" completed successfully"); 
             return userId;
         }
 
         public int Login(string username, string password, int forumId)
         {
-            int userId = FM.Login(username, password, forumId);
+            _logger.Write(ForumLogger.TYPE_INFO, username + " is trying to login to forum " + forumId);
+            int userId;
+            try
+            {
+                userId = FM.Login(username, password, forumId);
+            }
+            catch (Exception ex)
+            {
+                _logger.Write(ForumLogger.TYPE_ERROR, "Login for username " + username + "to forum " + forumId + " failed: " + ex.Message);
+                throw ex;
+            }
+            _logger.Write(ForumLogger.TYPE_INFO, username + " logged to forum " + forumId + " successfully"); 
             return userId;
         }
 
         public bool Logout(int userId, int forumId)
         {
-            bool success = FM.Logout(userId, forumId);
+            _logger.Write(ForumLogger.TYPE_INFO, "UserId " +userId + " is trying to logout from forum " + forumId);
+            bool success;
+            try
+            {
+                success = FM.Logout(userId, forumId);
+            }
+            catch (Exception ex)
+            {
+                _logger.Write(ForumLogger.TYPE_ERROR, "Logout for userId " + userId + "from forum " + forumId + " failed: " + ex.Message);
+                throw ex;
+            }
+            _logger.Write(ForumLogger.TYPE_INFO, "UserId " + userId + " disconnected from forumId " + forumId + " successfully"); 
             return success;
         }
 
         public int CreateSubForum(int forumId, string topic)
         {
-            int subForumId = FM.CreateSubForum(topic, forumId);
+            _logger.Write(ForumLogger.TYPE_INFO, "Trying to create subForum " + topic + " in forum " + forumId);
+            int subForumId;
+            try
+            {
+                subForumId = FM.CreateSubForum(topic, forumId);
+            }
+            catch (Exception ex)
+            {
+                _logger.Write(ForumLogger.TYPE_ERROR, "SubForum " + topic + " creation failed in forum " + forumId + " : " + ex.Message);
+                throw ex;
+            }
+            _logger.Write(ForumLogger.TYPE_INFO, "SubForum " + topic + " created successfully in forumId " + forumId);          
             return subForumId;
         }
 
@@ -69,13 +140,35 @@ namespace Driver
 
         public int Publish(int forumId, int subForumId, int publisherID, string publisherName, string title, string body)
         {
-            int messageId = MM.addThread(forumId, subForumId, publisherID, publisherName, title, body);
+            _logger.Write(ForumLogger.TYPE_INFO, "Trying to publish thread with title " + title + " in forum " + forumId + ", subForum: " + subForumId);
+            int messageId;
+            try
+            {
+                messageId = MM.addThread(forumId, subForumId, publisherID, publisherName, title, body);
+            }
+            catch (Exception ex)
+            {
+                _logger.Write(ForumLogger.TYPE_ERROR, "Thread publishment with title: " + title + " in forum " + forumId + ", subForum: " + subForumId +" failed: " + ex.Message);
+                throw ex;
+            }
+            _logger.Write(ForumLogger.TYPE_INFO, "Thread was published successfully in forum " + forumId + ", subForum: " + subForumId);
             return messageId;
         }
 
         public int Comment(int firstMessageId, int publisherID, string publisherName, string title, string body)
         {
-            int messageId = MM.addComment(firstMessageId, publisherID,  publisherName, title, body);
+            _logger.Write(ForumLogger.TYPE_INFO, publisherName +" trying to publish response message for thread " + firstMessageId);
+            int messageId;
+            try
+            {
+                messageId = MM.addComment(firstMessageId, publisherID, publisherName, title, body);
+            }
+            catch (Exception ex)
+            {
+                _logger.Write(ForumLogger.TYPE_ERROR, "Response message publishment failed: " + ex.Message);
+                throw ex;
+            }
+            _logger.Write(ForumLogger.TYPE_INFO, publisherName + " published new response message for thread " + firstMessageId);
             return messageId;
         }
 
@@ -91,13 +184,34 @@ namespace Driver
 
         public bool DeleteMessage(int messageId)
         {
-            bool success = MM.deleteMessage(messageId);
+            _logger.Write(ForumLogger.TYPE_INFO, "Trying to delete messageId " + messageId);
+            bool success;
+            try
+            {
+                success = MM.deleteMessage(messageId);
+            }
+            catch (Exception ex)
+            {
+                _logger.Write(ForumLogger.TYPE_ERROR, "Message " +messageId+" deletion failed: " + ex.Message);
+                throw ex;
+            }
+            _logger.Write(ForumLogger.TYPE_INFO, "Message " + messageId + " deleted successfully");         
             return success;
         }
 
         public void RemoveForum(int forumId)
         {
-            FM.RemoveForum(forumId);
+            _logger.Write(ForumLogger.TYPE_INFO, "Trying to delete forumId " + forumId);
+            try
+            {
+                FM.RemoveForum(forumId);
+            }
+            catch (Exception ex)
+            {
+                _logger.Write(ForumLogger.TYPE_ERROR, "Forum " +forumId +" deletion failed: " + ex.Message);
+                throw ex;
+            }
+            _logger.Write(ForumLogger.TYPE_INFO, "forumId " + forumId + " deleted successfully"); 
         }
 
         public void AddModerator(int forumId, int subForumId, int moderatorId)
@@ -107,7 +221,17 @@ namespace Driver
 
         public void RemoveModerator(int forumId, int subForumId, int moderatorId)
         {
-            FM.RemoveModerator(moderatorId, forumId, subForumId);
+            _logger.Write(ForumLogger.TYPE_INFO, "Trying to remove moderator " + moderatorId + " from forumId " + forumId + ", subForumId: " + subForumId);
+            try
+            {
+                FM.RemoveModerator(moderatorId, forumId, subForumId);
+            }
+            catch (Exception ex)
+            {
+                _logger.Write(ForumLogger.TYPE_ERROR, "Moderator " + moderatorId + " removing from forumId " +forumId+ ", subForum: " +subForumId+" failed: " + ex.Message);
+                throw ex;
+            }
+            _logger.Write(ForumLogger.TYPE_INFO, "Moderator " +moderatorId +" removed successfully from forumId "  +forumId+ ", subForumId: " +subForumId);
         }
 
         public List<int> GetForumIds()

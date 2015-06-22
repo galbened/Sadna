@@ -69,6 +69,7 @@ namespace Forum
 
         public void EndSession()
         {
+            AddAction(ForumLogger.TYPE_INFO, "Session ended for " + userName);
             foreach (ActionInfo ai in actions)
             {
                 logger.WriteNoDate(ai.type, ai.line);
