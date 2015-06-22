@@ -71,6 +71,12 @@ namespace WebApiPagingAngularClient.Models
         public string password { get; set; }
     }
 
+    public class loginParams
+    {
+        public string username { get; set; }
+        public string password { get; set; }
+    }
+
     public class newForumParams
     {
         public string name { get; set; }

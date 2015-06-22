@@ -64,15 +64,20 @@
         }
 
         $scope.openLoginModal = function () {
-            $modal.open({
+            $scope.modalInstance = $modal.open({
                 templateUrl: 'app/partials/login-modal.html',
                 size: 'sm',
                 controller: 'LoginModalCtrl'
             });
+
+            $scope.modalInstance.result.then(function (result) {
+                console.log(result);
+                $scope.user = result;
+            });
         };
 
         $scope.openSignupModal = function () {
-            $scope.modalInstance =  $modal.open({
+            $scope.modalInstance = $modal.open({
                 templateUrl: 'app/partials/signup-modal.html',
                 size: 'sm',
                 controller: 'SignupModalCtrl'
@@ -82,7 +87,20 @@
                 console.log(result);
                 $scope.user = result;
             });
-        }
+        };
+
+        $scope.logout = function () {
+            var queryArgs = {
+                forumId: $rootScope.forumId,
+                userId: $scope.user.id
+            };
+
+            return Forums.logout(queryArgs).$promise.then(
+                function (result) {
+                    $scope.user = undefined;
+                }, function (result) {
+                });
+        };
 
         $scope.addNewSubForum = function () {
             $scope.modalInstance = $modal.open({

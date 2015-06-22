@@ -51,6 +51,16 @@
                         method: 'GET',
                         url: '/api/forums/getUser/:forumId/:userId',
                         params: { forumId: '@forumId', userId: '@userId' }
+                    },
+                    'login': {
+                        method: 'POST',
+                        url: '/api/forums/login/:forumId',
+                        params: { forumId: '@forumId'}
+                    },
+                    'logout': {
+                        method: 'GET',
+                        url: '/api/forums/logout/:forumId/:userId',
+                        params: { forumId: '@forumId', userId: '@userId' }
                     }
                 });
         }).factory('Users', function ($resource) {

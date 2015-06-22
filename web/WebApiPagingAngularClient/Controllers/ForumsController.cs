@@ -128,7 +128,7 @@ namespace WebApiPagingAngularClient.Controllers
 
         // GET: api/forums/getUser/forumId/userId
         [Route("getUser/{forumId:int}/{userId:int}")]
-        public HttpResponseMessage GetUser(int forumId, int userId)
+        public HttpResponseMessage Get_user(int forumId, int userId)
         {
             var username = driver.GetUsername(forumId, userId);
             var type = driver.GetUserType(forumId, userId);
@@ -180,6 +180,57 @@ namespace WebApiPagingAngularClient.Controllers
                 HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.NotFound, data);
                 return response;
             }
+
+        }
+
+        // GET: api/forums/login/forumId
+        [Route("login/{forumId:int}")]
+        public HttpResponseMessage Post(int forumId, loginParams log)
+        {
+            try
+            {
+                var userId = driver.Login(log.username, log.password, forumId);
+                var data = new
+                {
+                    id = userId,
+                    username = log.username,
+                    type = driver.GetUserType(forumId, userId)
+                };
+
+                var result = new
+                {
+                    data = data
+                };
+
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, result);
+                return response;
+            }
+            catch (Exception e)
+            {
+                var data = new
+                {
+                    message = e.Message
+                };
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.NotFound, data);
+                return response;
+            }
+
+        }
+
+        // GET: api/forums/logout/forumId/userId
+        [Route("logout/{forumId:int}/{userId:int}")]
+        public HttpResponseMessage Get_logout(int forumId, int userId)
+        {
+            HttpResponseMessage response;
+            var succ = driver.Logout(userId, forumId);
+            if(succ){
+                response = Request.CreateResponse(HttpStatusCode.OK);
+            }else{
+                response = Request.CreateResponse(HttpStatusCode.NotFound);
+            }
+
+            
+            return response;
 
         }
 
@@ -249,7 +300,7 @@ namespace WebApiPagingAngularClient.Controllers
 
         // GET: api/forums/getSubForum/forumId/subForumId
         [Route("getSubForum/{forumId:int}/{subForumId:int}")]
-        public HttpResponseMessage Get(int forumId, int subForumId)
+        public HttpResponseMessage Get_subforum(int forumId, int subForumId)
         {
             var threads = driver.GetAllThreads(forumId, subForumId);
             var subForum = new {
