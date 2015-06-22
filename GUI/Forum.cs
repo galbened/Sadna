@@ -17,5 +17,15 @@ namespace GUI
             InitializeComponent();
             HeadlineLabel.Text = "Forum/"+forumName;
         }
+
+        private void loginButton_Click(object sender, EventArgs e)
+        {
+            new Login().Show();
+        }
+
+        private void signUpButton_Click(object sender, EventArgs e)
+        {
+            new SignUp().Show();
+        }
     }
 }

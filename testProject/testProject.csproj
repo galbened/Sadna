@@ -78,6 +78,8 @@
     <Compile Include="Driver.cs" />
     <Compile Include="AcceptanceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ForumAcceptanceTests.cs" />
+    <Compile Include="UserAcceptanceTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Driver\Driver.csproj">
