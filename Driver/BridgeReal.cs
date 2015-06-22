@@ -23,6 +23,56 @@ namespace Driver
             UM = UserManager.Instance;
             FM = ForumManager.getInstance();
             MM = MessageManager.Instance();
+
+            List<int> forumIds = new List<int>();
+            List<int> subForumIds = new List<int>();
+            List<int> adminUsersIds = new List<int>();
+            List<int> regularUsersIds = new List<int>();
+            # region forum creation
+            // two moderators,upper/lower/numbers 3 minimum
+            forumIds.Add(CreateForum("Youtube Fail army ",2,"",true,true,true,false,3));
+
+            // one moderators,lower/numbers 4 minimum
+            forumIds.Add(CreateForum("Eliad Malki VEVO", 1, "", false, true, true, false, 4));
+
+            // four moderators,upper/lower/numbers/symbols 5 minimum
+            forumIds.Add( CreateForum("SE workshop", 4, "", false, true, true, true, 5));
+            # endregion
+
+            # region sub-forum creation
+            // subforums for first forum
+            subForumIds.Add(CreateSubForum(forumIds[0], "Compilation"));
+            subForumIds.Add(CreateSubForum(forumIds[0], "Fails of the month"));
+
+
+            // subforums for second forum
+            subForumIds.Add(CreateSubForum(forumIds[1], "The songs"));
+            subForumIds.Add(CreateSubForum(forumIds[1], "Video clips"));
+
+            // subforums for third forum
+            subForumIds.Add(CreateSubForum(forumIds[1], "Meetings"));
+            # endregion 
+
+            #region user_creation_and_registration
+            adminUsersIds.Add(Register("fail army Admin","fa1L100","failarmy@gmail.com",forumIds[0]));
+            regularUsersIds.Add(Register("Gal Porat","ga1PoPo","galpo@gmail.com",forumIds[0]));
+
+
+            adminUsersIds.Add(Register("Eliad Malki Admin","B0nb0n","mamimami@gmail.com",forumIds[1]));
+            regularUsersIds.Add(Register("Osher Damari","s3xyT1m3","osherda@gmail.com",forumIds[1]));
+
+            adminUsersIds.Add(Register("Gal Ben Admin","Ar0ma1989","bened@gmail.com",forumIds[2]));
+            regularUsersIds.Add(Register("Tomer Segal","Yukukuku33","tomerse@gmail.com",forumIds[2]));
+            # endregion 
+
+            # region adding messages
+            // adding two messages to each sub forum,
+            // each message has at least one comment
+            
+            //Publish(forumIds[0],subForumIds[0],
+
+
+            #endregion 
         }
 
 
