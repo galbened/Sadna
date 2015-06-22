@@ -249,7 +249,8 @@ namespace testProject
         {
             if (_real != null)
                  _real.Deactivate(userId);
-            throw new NullReferenceException("_real in null");
+            else
+                throw new NullReferenceException("_real in null");
         }
 
         public Boolean isUserRegistered(int userId)

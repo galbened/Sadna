@@ -42,6 +42,11 @@ namespace testProject
         [ClassCleanup]
         public static void TearDown()
         {
+            foreach(int mem in usersIds)
+            {
+                bridge.Deactivate(mem);
+            }
+
             bridge = null;
             usersIds = null;
             forumsIds = null;
@@ -83,7 +88,8 @@ namespace testProject
         {
             int forumId = forumsIds[0];
             int userId = bridge.Register(userNamesList[0], passwords[1], emails[0], forumId);
-            Assert.IsTrue(bridge.isUserRegistered(userId));
+            Boolean ans = bridge.isUserRegistered(userId);
+            Assert.IsTrue(ans);
             usersIds.Add(userId);
 
         }
@@ -120,8 +126,8 @@ namespace testProject
         public void RegistrationReturnsDiffIDTest()
         {
             int forumId = forumsIds[0];
-            int firstUserId = bridge.Register(userNamesList[0], passwords[0], emails[0], forumId);
-            usersIds.Add(firstUserId);
+            int firstUserId = usersIds[0];
+            //usersIds.Add(firstUserId);
             int secondUserId = bridge.Register(userNamesList[1], passwords[1], emails[1], forumId);
             usersIds.Add(secondUserId);
             Assert.AreNotEqual(firstUserId, secondUserId);
