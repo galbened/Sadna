@@ -274,5 +274,15 @@ namespace User
             Member mem = DBman.getObj(userId);
             return mem.loginStatus;
         }
+
+        public Boolean isUserRegistered(int userId)
+        {
+            Member mem = DBman.getObj(userId);
+            if (mem == null)
+                return false;
+            else
+                return true;
+
+        }
     }
 }

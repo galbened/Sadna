@@ -15,7 +15,7 @@ namespace User.UnitTests
     [TestClass]
     public class UserUnitTest
     {
-        String[] userNames = { "tomer.b", "tomer.s", "gal.b", "gal.p", "osher" };
+        String[] userNames = { "tomer.b1", "tomer.s1", "gal.b", "gal.p", "osher" };
         String[] emails = { "tomer.b@gmail.com", "tomer.s@gmail.com", "gal.b@gmail.com", "gal.p@gmail.com", "osher@gmail.com" };
         String[] passwords = { "123456", "abcdef","aaaaa","bbbbb" };
         IUserManager um = UserManager.Instance;
@@ -248,12 +248,13 @@ namespace User.UnitTests
         /* stress tests */
 
         bool wasExceptionThrown;
-        public readonly object _locker = new object();
-        int ID=0;
+        //public readonly object _locker = new object();
+        UInt16 ID=0;
+        Object myIdLock = new Object();
 
         public int getID()
         {
-            lock (_locker)
+            lock (myIdLock)
             {
                 return ID++;
             }

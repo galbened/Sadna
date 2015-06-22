@@ -81,5 +81,9 @@ namespace Interfaces
         string GetUsername(int forumId, int userId);
 
         List<string> GetSessionHistory(int requesterId, int forumId, int userIdSession);
+
+        void Deactivate(int userId);
+
+        Boolean isUserRegistered(int userId);
     }
 }

@@ -122,9 +122,9 @@ namespace Driver
             return ans;
         }
 
-        public Boolean isRegisteredUser(int forumId, int userId)
+        public Boolean isRegisteredUser(int userId, int forumId)
         {
-            return FM.isRegisteredUser(forumId, userId);
+            return UM.isUserRegistered(userId);
         }
 
         public List<int> getSubForums(int forumId)
@@ -200,6 +200,16 @@ namespace Driver
         public List<string> GetSessionHistory(int requesterId, int forumId, int userIdSession)
         {
             return FM.GetSessionHistory(requesterId, forumId, userIdSession);
+        }
+
+        public void Deactivate(int userId)
+        {
+            UM.deactivate(userId);
+        }
+
+        public Boolean isUserRegistered(int userId)
+        {
+            return UM.isUserRegistered(userId);
         }
     }
 }
