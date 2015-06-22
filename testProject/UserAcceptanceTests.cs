@@ -42,10 +42,6 @@ namespace testProject
         [ClassCleanup]
         public static void TearDown()
         {
-            foreach(int mem in usersIds)
-            {
-                bridge.Deactivate(mem);
-            }
 
             bridge = null;
             usersIds = null;
@@ -90,7 +86,7 @@ namespace testProject
             int userId = bridge.Register(userNamesList[0], passwords[1], emails[0], forumId);
             Boolean ans = bridge.isUserRegistered(userId);
             Assert.IsTrue(ans);
-            usersIds.Add(userId);
+            //usersIds.Add(userId);
 
         }
 
