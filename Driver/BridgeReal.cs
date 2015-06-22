@@ -28,16 +28,16 @@ namespace Driver
         }
 
 
-        public int CreateForum(/*int forumAdmin,*/ string name, int numOfModerators, string degreeOfEnsuring, bool uppercase, bool lowercase, bool numbers, bool symbols, int minLength)
+        public int CreateForum(int userRequesterId, string name, int numOfModerators, string degreeOfEnsuring, bool uppercase, bool lowercase, bool numbers, bool symbols, int minLength)
         {
-            int forumId = FM.CreateForum(name);
-            SetPolicy(forumId, numOfModerators, degreeOfEnsuring, uppercase, lowercase, numbers, symbols, minLength);
+            int forumId = FM.CreateForum(userRequesterId, name);
+            SetPolicy(userRequesterId, forumId, numOfModerators, degreeOfEnsuring, uppercase, lowercase, numbers, symbols, minLength);
             return forumId;
         }
 
-        public void SetPolicy(int forumId, int numOfModerators, string degreeOfEnsuring, bool uppercase, bool lowercase, bool numbers, bool symbols, int minLength)
+        public void SetPolicy(int userRequesterId, int forumId, int numOfModerators, string degreeOfEnsuring, bool uppercase, bool lowercase, bool numbers, bool symbols, int minLength)
         {
-            FM.SetPolicy(numOfModerators, degreeOfEnsuring, uppercase, lowercase, numbers, symbols, minLength, forumId);
+            FM.SetPolicy(userRequesterId, numOfModerators, degreeOfEnsuring, uppercase, lowercase, numbers, symbols, minLength, forumId);
         }
 
         public int Register(string username, string password, string email, int forumId)
@@ -58,9 +58,9 @@ namespace Driver
             return success;
         }
 
-        public int CreateSubForum(int forumId, string topic)
+        public int CreateSubForum(int userRequesterId, int forumId, string topic)
         {
-            int subForumId = FM.CreateSubForum(topic, forumId);
+            int subForumId = FM.CreateSubForum(userRequesterId, topic, forumId);
             return subForumId;
         }
 
@@ -91,25 +91,25 @@ namespace Driver
             throw new NotImplementedException();
         }
 
-        public bool DeleteMessage(int messageId)
+        public bool DeleteMessage(int userRequesterId, int messageId)
         {
             bool success = MM.deleteMessage(messageId);
             return success;
         }
 
-        public void RemoveForum(int forumId)
+        public void RemoveForum(int userRequesterId, int forumId)
         {
-            FM.RemoveForum(forumId);
+            FM.RemoveForum(userRequesterId, forumId);
         }
 
-        public void AddModerator(int forumId, int subForumId, int moderatorId)
+        public void AddModerator(int userRequesterId, int forumId, int subForumId, int moderatorId)
         {
            // FM.AddModerator(moderatorId, forumId, subForumId);
         }
 
-        public void RemoveModerator(int forumId, int subForumId, int moderatorId)
+        public void RemoveModerator(int userRequesterId, int forumId, int subForumId, int moderatorId)
         {
-            FM.RemoveModerator(moderatorId, forumId, subForumId);
+            FM.RemoveModerator(userRequesterId, moderatorId, forumId, subForumId);
         }
 
         public List<int> GetForumIds()
@@ -216,17 +216,17 @@ namespace Driver
 
         public void initializingDemoRunData()
         {
-            int forum_sports = FM.CreateForum("Sports");
-            int forum_news = FM.CreateForum("News");
+            int forum_sports = FM.CreateForum(1, "Sports");
+            int forum_news = FM.CreateForum(1, "News");
 
-            int subforum_1_sports = FM.CreateSubForum("Soccer", forum_sports);
-            int subforum_2_sports = FM.CreateSubForum("Basketball", forum_sports);
-            int subforum_3_sports = FM.CreateSubForum("Tennis", forum_sports);
+            int subforum_1_sports = FM.CreateSubForum(1, "Soccer", forum_sports);
+            int subforum_2_sports = FM.CreateSubForum(1, "Basketball", forum_sports);
+            int subforum_3_sports = FM.CreateSubForum(1, "Tennis", forum_sports);
 
-            int subforum_1_news = FM.CreateSubForum("Domestic", forum_news);
-            int subforum_2_news = FM.CreateSubForum("Abroad", forum_news);
-            int subforum_3_news = FM.CreateSubForum("Politics", forum_news);
-            int subforum_4_news = FM.CreateSubForum("Weather", forum_news);
+            int subforum_1_news = FM.CreateSubForum(1, "Domestic", forum_news);
+            int subforum_2_news = FM.CreateSubForum(1, "Abroad", forum_news);
+            int subforum_3_news = FM.CreateSubForum(1, "Politics", forum_news);
+            int subforum_4_news = FM.CreateSubForum(1, "Weather", forum_news);
 
             int user_1_sports = FM.Register("user_1_sports", "user_1_sports_bpass", "user_1_sports@mail.com", forum_sports);
             int user_2_sports = FM.Register("user_2_sports", "user_2_sports_bpass", "user_2_sports@mail.com", forum_sports);
