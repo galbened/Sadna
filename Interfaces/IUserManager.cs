@@ -42,6 +42,7 @@ namespace Interfaces
         Boolean getConfirmationCodeFromUser(int userID, int code); // input: user enters the code he received by mail.
                                                                    // compares the given code with the real one.
                                                                    // if true, activates account and returns true, false, returns false 
-      
+
+        Boolean isUserRegistered(int userId);
     }
 }

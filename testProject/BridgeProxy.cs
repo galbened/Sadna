@@ -244,5 +244,19 @@ namespace testProject
                 return _real.GetSessionHistory(requesterId, forumId, userIdSession);
             throw new NullReferenceException("_real in null");
         }
+
+        public void Deactivate(int userId)
+        {
+            if (_real != null)
+                 _real.Deactivate(userId);
+            throw new NullReferenceException("_real in null");
+        }
+
+        public Boolean isUserRegistered(int userId)
+        {
+            if (_real != null)
+                return _real.isUserRegistered(userId);
+            throw new NullReferenceException("_real in null");
+        }
     }
 }

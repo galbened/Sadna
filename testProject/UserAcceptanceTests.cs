@@ -16,7 +16,7 @@ namespace testProject
         public String[] subTitels = { "football", "basketball", "animals", "plants" };
         public String[] topic = { "man u", "juve" };
         public String[] body = { "best team in the world" };
-        public String[] userNamesList = { "tomer.b", "tomer.s", "gal.b", "gal.p", "osher" };
+        public String[] userNamesList = { "kktuka.kaks","tomer.belzer", "tomer.s", "gal.b", "gal.p", "osher" };
         public String[] emails = { "tomer.b@gmail.com", "tomer.s@gmail.com", "gal.b@gmail.com", "gal.p@gmail.com", "osher@gmail.com" };
         public String[] passwords = { "Ab3", "123456", "abcdef" };
         public String[] superAdmin = { "admin", "admin" };
@@ -30,6 +30,7 @@ namespace testProject
         [ClassInitialize]
         public static void SetUp(TestContext testContext)
         {
+           
             bridge = Driver.GetBridge();
             usersIds = new List<int>();
             forumsIds = new List<int>();
@@ -82,8 +83,9 @@ namespace testProject
         {
             int forumId = forumsIds[0];
             int userId = bridge.Register(userNamesList[0], passwords[1], emails[0], forumId);
-            Assert.IsTrue(bridge.isRegisteredUser(forumId, userId));
+            Assert.IsTrue(bridge.isUserRegistered(userId));
             usersIds.Add(userId);
+
         }
 
         /// <DoubleRegistrationFail>
@@ -95,7 +97,7 @@ namespace testProject
         public void DoubleRegistrationFail()
         {
             int forumId = forumsIds[0];
-            int userId = usersIds[0];
+            int userId = bridge.Register(userNamesList[0], passwords[0], emails[0], forumId); //usersIds[0];
             Assert.IsTrue(bridge.isRegisteredUser(forumId, userId));
             try
             {
@@ -118,8 +120,10 @@ namespace testProject
         public void RegistrationReturnsDiffIDTest()
         {
             int forumId = forumsIds[0];
-            int firstUserId = usersIds[0];
+            int firstUserId = bridge.Register(userNamesList[0], passwords[0], emails[0], forumId);
+            usersIds.Add(firstUserId);
             int secondUserId = bridge.Register(userNamesList[1], passwords[1], emails[1], forumId);
+            usersIds.Add(secondUserId);
             Assert.AreNotEqual(firstUserId, secondUserId);
         }
         /// <LogintoRegisteredForum>
