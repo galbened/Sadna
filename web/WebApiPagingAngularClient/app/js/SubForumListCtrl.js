@@ -35,6 +35,7 @@
             $rootScope.forumId = $routeParams.forumId;
 
             if ($routeParams.userId) {
+                $rootScope.userId = $routeParams.userId;
                 var queryArgsUser = {
                     forumId: $routeParams.forumId,
                     userId: $routeParams.userId

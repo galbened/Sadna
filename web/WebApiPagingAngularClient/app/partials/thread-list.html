@@ -16,6 +16,7 @@
         </div>
         <div ng-if="user" class="toolbar button-toolbar row text-right" style="margin-right: 350px">
             <h5 class="pull-right" ng-if="user">hello {{user.username}}</h5>
+            <button class="btn btn-default btn-success" data-ng-click="logout()">logout</button>
         </div>
     </div>
 </div>

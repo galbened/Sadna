@@ -15,6 +15,7 @@
 
         $scope.createSubForum = function (topic) {
             var queryArgs = {
+                userId:$rootScope.userId,
                 forumId: $rootScope.forumId,
             };
             console.log(topic);

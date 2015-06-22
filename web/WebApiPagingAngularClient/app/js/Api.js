@@ -29,8 +29,8 @@
                     },
                     'createSubForum': {
                         method: 'POST',
-                        url: '/api/forums/createSubForum/:forumId',
-                        params: { forumId: '@forumId' }
+                        url: '/api/forums/createSubForum/:userId/:forumId',
+                        params: { userId:'@userId', forumId: '@forumId' }
                     },
                     'signup': {
                         method: 'POST',

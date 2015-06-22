@@ -48,7 +48,7 @@ namespace WebApiPagingAngularClient.Controllers
         {
             try
             {
-                int forumId = driver.CreateForum(forum.name, forum.numOfModerators, forum.degreeOfEnsuring,
+                int forumId = driver.CreateForum(1,forum.name, forum.numOfModerators, forum.degreeOfEnsuring,
                     forum.uppercase, forum.lowercase, forum.numbers, forum.symbols, forum.minLength);
                 var data = new
                 {
@@ -73,13 +73,13 @@ namespace WebApiPagingAngularClient.Controllers
             }
         }
 
-        // GET: api/forums/createSubForum/forumId/topic
-        [Route("createSubForum/{forumId:int}")]
-        public HttpResponseMessage Post(int forumId, newSubForumParams topic)
+        // GET: api/forums/createSubForum/userId/forumId/
+        [Route("createSubForum/{userId}/{forumId:int}")]
+        public HttpResponseMessage Post(int userId,int forumId, newSubForumParams topic)
         {
             try
             {
-                int subForumId = driver.CreateSubForum(forumId, topic.topic);
+                int subForumId = driver.CreateSubForum(userId, forumId, topic.topic);
                 var data = new
                 {
                     id = subForumId,
