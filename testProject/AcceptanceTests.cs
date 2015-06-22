@@ -55,7 +55,7 @@ namespace testProject
 
         private int CreateForum()
         {
-            int ans = bridge.CreateForum(topic[0],
+            int ans = bridge.CreateForum(1, topic[0],
                                         1, "",
                                         true, false, true,
                                         true, 3);
@@ -77,7 +77,7 @@ namespace testProject
             string currentTopic = topic[0];
             try
             {
-                int forumId = bridge.CreateForum(currentTopic,
+                int forumId = bridge.CreateForum(1, currentTopic,
                                             1, "",
                                             true, false, true,
                                             true, 3);
@@ -153,7 +153,7 @@ namespace testProject
         public void SetPolicyTest()
         {
             int forumId = CreateForum();
-            bridge.SetPolicy(forumId,
+            bridge.SetPolicy(1, forumId,
                                     2, "a",
                                     false, true, false,
                                     false, 4);
@@ -249,7 +249,7 @@ namespace testProject
         public void CreateSubForumTest()
         {
             int forumId = CreateForum();
-            int subForumId = bridge.CreateSubForum(forumId, topic[0]);
+            int subForumId = bridge.CreateSubForum(1, forumId, topic[0]);
             Assert.IsTrue(subForumId > 0);
             Assert.IsTrue((bridge.GetSubForumsIds(forumId)).Contains(subForumId));     
         }
@@ -266,7 +266,7 @@ namespace testProject
             int forumId = CreateForum();
             try
             {
-                bridge.CreateSubForum(forumId, "");
+                bridge.CreateSubForum(1, forumId, "");
                 Assert.Fail("Exception was expected but not thrown. Cannot create subForum with empty string topic");
             }
             catch (Exception)
@@ -275,7 +275,7 @@ namespace testProject
             }
              try
             {
-                bridge.CreateSubForum(forumId, null);
+                bridge.CreateSubForum(1, forumId, null);
                 Assert.Fail("Exception was expected but not thrown. Cannot create subForum with null topic");
             }
             catch (Exception)
@@ -284,7 +284,7 @@ namespace testProject
             }
             try
             {
-                bridge.CreateSubForum(forumId + 1, topic[0]);
+                bridge.CreateSubForum(1, forumId + 1, topic[0]);
                 Assert.Fail("Exception was expected but not thrown. Cannot create subForum with null topic");
             }
             catch (Exception)
@@ -301,8 +301,8 @@ namespace testProject
         public void ViewTest()
         {
             int forumId = CreateForum();
-            int subForumId1 = bridge.CreateSubForum(forumId, topic[0]);
-            int subForumId2 = bridge.CreateSubForum(forumId, topic[1]);
+            int subForumId1 = bridge.CreateSubForum(1, forumId, topic[0]);
+            int subForumId2 = bridge.CreateSubForum(1, forumId, topic[1]);
             List<string> subForumNames = new List<string>();
             List<int> subForumIds = new List<int>();
             bridge.View(forumId, out subForumNames, out subForumIds);
@@ -323,7 +323,7 @@ namespace testProject
         public void RemoveForumTest()
         {
             int forumId = CreateForum();
-            bridge.RemoveForum(forumId);
+            bridge.RemoveForum(1, forumId);
             List<string> subForumNames = new List<string>();
             List<int> subForumIds = new List<int>();
             try
@@ -346,7 +346,7 @@ namespace testProject
         public void PublishTestSuccess()
         {
             int forumId = CreateForum();
-            int subForumId = bridge.CreateSubForum(forumId, topic[0]);
+            int subForumId = bridge.CreateSubForum(1, forumId, topic[0]);
             int publisherID = bridge.Register(userNames[0], passwords[0], emails[0], forumId);
             int messageId = bridge.Publish(forumId, subForumId, publisherID,userNames[0], titles[0], body[0]);
             List<ThreadInfo> allThreads = bridge.GetAllThreads(forumId, subForumId);
@@ -363,7 +363,7 @@ namespace testProject
         public void PublishTestWrongTitle()
         {
             int forumId = CreateForum();
-            int subForumId = bridge.CreateSubForum(forumId, topic[0]);
+            int subForumId = bridge.CreateSubForum(1, forumId, topic[0]);
             int publisherID = bridge.Register(userNames[0], passwords[0], emails[0], forumId);
             try
             {
@@ -395,7 +395,7 @@ namespace testProject
         public void CommentTestSuccess()
         {
             int forumId = CreateForum();
-            int subForumId = bridge.CreateSubForum(forumId, topic[0]);
+            int subForumId = bridge.CreateSubForum(1, forumId, topic[0]);
             int publisherID = bridge.Register(userNames[0], passwords[0], emails[0], forumId);
             int firstMessageId = bridge.Publish(forumId, subForumId, publisherID,userNames[0], titles[0], body[0]);
             int responseMessageId = bridge.Comment(firstMessageId, publisherID,userNames[0], titles[1], body[1]);
@@ -413,10 +413,10 @@ namespace testProject
         public void DeleteOnlyThreadTest()
         {
             int forumId = CreateForum();
-            int subForumId = bridge.CreateSubForum(forumId, topic[0]);
+            int subForumId = bridge.CreateSubForum(1, forumId, topic[0]);
             int publisherID = bridge.Register(userNames[0], passwords[0], emails[0], forumId);
             int threadId = bridge.Publish(forumId, subForumId, publisherID,userNames[0], titles[0], body[0]);
-            bridge.DeleteMessage(threadId);
+            bridge.DeleteMessage(1, threadId);
             List<ThreadInfo> allThreads = bridge.GetAllThreads(forumId, subForumId);
             //Assert.IsFalse(allThreads.Contains());
             try
@@ -439,16 +439,16 @@ namespace testProject
         public void DeleteCommentTest()
         {
             int forumId = CreateForum();
-            int subForumId = bridge.CreateSubForum(forumId, topic[0]);
+            int subForumId = bridge.CreateSubForum(1, forumId, topic[0]);
             int publisherID = bridge.Register(userNames[0], passwords[0], emails[0], forumId);
             int firstMessageId = bridge.Publish(forumId, subForumId, publisherID,userNames[0], titles[0], body[0]);
             int responseMessageId = bridge.Comment(firstMessageId, publisherID,userNames[0], titles[1], body[1]);
-            bridge.DeleteMessage(responseMessageId);
+            bridge.DeleteMessage(1, responseMessageId);
             List<int> allComments = bridge.GetAllComments(forumId,subForumId,firstMessageId);
             try
             {
                 Assert.IsFalse(allComments.Contains(responseMessageId));
-                bridge.DeleteMessage(responseMessageId);
+                bridge.DeleteMessage(1, responseMessageId);
                 Assert.Fail("Exception was expected but not thrown. Cannot delete on non-existing response message");
             }
             catch (Exception)
@@ -466,11 +466,11 @@ namespace testProject
         public void DeleteThreadWithCommentsTest()
         {
             int forumId = CreateForum();
-            int subForumId = bridge.CreateSubForum(forumId, topic[0]);
+            int subForumId = bridge.CreateSubForum(1, forumId, topic[0]);
             int publisherID = bridge.Register(userNames[0], passwords[0], emails[0], forumId);
             int firstMessageId = bridge.Publish(forumId, subForumId, publisherID,userNames[0], titles[0], body[0]);
             int responseMessageId = bridge.Comment(firstMessageId, publisherID,userNames[0], titles[1], body[1]);
-            bridge.DeleteMessage(firstMessageId);
+            bridge.DeleteMessage(1, firstMessageId);
             List<ThreadInfo> allMessages = bridge.GetAllThreads(forumId, subForumId);
             try
             {
@@ -484,7 +484,7 @@ namespace testProject
             try
             {
                 //Assert.IsFalse(allMessages.Contains(firstMessageId));
-                bridge.DeleteMessage(responseMessageId);
+                bridge.DeleteMessage(1, responseMessageId);
                 Assert.Fail("Exception was expected but not thrown. First message should be deleted with all of its comments");
             }
             catch (Exception)
@@ -504,14 +504,14 @@ namespace testProject
         public void AddModeratorTest()
         {
             int forumId = CreateForum();
-            int subForumId = bridge.CreateSubForum(forumId, topic[0]);
+            int subForumId = bridge.CreateSubForum(1, forumId, topic[0]);
             int moderatorId = bridge.Register(userNames[0], passwords[0], emails[0], forumId);
-            bridge.AddModerator(forumId, subForumId, moderatorId);
+            bridge.AddModerator(1, forumId, subForumId, moderatorId);
             List<int> allModerators = bridge.GetModerators(forumId, subForumId);
             Assert.IsTrue(allModerators.Contains(moderatorId));
             try
             {
-                bridge.AddModerator(forumId, subForumId, moderatorId);
+                bridge.AddModerator(1, forumId, subForumId, moderatorId);
                 Assert.Fail("Exception was expected but not thrown. Cannot add the same moderator twice");
             }
             catch (Exception)
@@ -529,15 +529,15 @@ namespace testProject
         public void RemoveModeratorTest()
         {
             int forumId = CreateForum();
-            int subForumId = bridge.CreateSubForum(forumId, topic[0]);
+            int subForumId = bridge.CreateSubForum(1, forumId, topic[0]);
             int moderatorId = bridge.Register(userNames[0], passwords[0], emails[0], forumId);
-            bridge.AddModerator(forumId, subForumId, moderatorId);
-            bridge.RemoveModerator(forumId, subForumId, moderatorId);
+            bridge.AddModerator(1, forumId, subForumId, moderatorId);
+            bridge.RemoveModerator(1, forumId, subForumId, moderatorId);
             List<int> allModerators = bridge.GetModerators(forumId, subForumId);
             Assert.IsFalse(allModerators.Contains(moderatorId));
             try
             {
-                bridge.RemoveModerator(forumId, subForumId, moderatorId);
+                bridge.RemoveModerator(1, forumId, subForumId, moderatorId);
                 Assert.Fail("Exception was expected but not thrown. Cannot remove non-existed moderator");
             }
             catch (Exception)
