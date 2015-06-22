@@ -77,10 +77,11 @@ namespace testProject
         [TestMethod]
         public void creatingForumTest()
         {
-            List<int> allForumsPreCreation = bridge.getForumIds();
+            List<int> allForumsPreCreation = bridge.GetForumIds();
             int newForumId = CreateForum("First Forum");
             forumsIds.Add(newForumId);
-            Assert.IsTrue((bridge.getForumsIds()).contains(newForumId) && !allForumsPreCreation.Contains(newForumId));
+            List<int> allForumsPostCreation = bridge.GetForumIds();
+            Assert.IsTrue(allForumsPostCreation.Contains(newForumId) && !allForumsPreCreation.Contains(newForumId));
 
         }
         /// <TestMethod1>
@@ -144,7 +145,7 @@ namespace testProject
         /// or illegal forumId
         /// </CreateSubForumTestFail>
         [TestMethod]
-        public void CreateSubForumTestFail()
+        public void CreateSubForumTestFailForumAcceptance()
         {
             int forumId = forumsIds[0];
             try

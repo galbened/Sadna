@@ -278,7 +278,7 @@ namespace testProject
         /// and user name
         /// </ChangeUsernameTest>
         [TestMethod]
-        public void ChangeUsernameTest()
+        public void ChangeUsernameTestUserAcceptance()
         {
             int forumId = forumsIds[0];
             int userId = usersIds[0];
@@ -301,7 +301,7 @@ namespace testProject
         /// should fail due to incorrect params
         /// </ChangeUsernameIncorrectDetailsTest>
         [TestMethod]
-        public void ChangeUsernameIncorrectDetailsTest()
+        public void ChangeUsernameIncorrectDetailsTestUserAcceptance()
         {
             int forumId = forumsIds[0];
             int userId = usersIds[0];
