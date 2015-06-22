@@ -56,9 +56,9 @@ namespace WebApiPagingAngularClient.Controllers
                 };
                 return Ok(result);
             }
-            catch(Exception e)
+            catch
             {
-                var data = new
+               /* var data = new
                 {
                     message = e.ToString()
                 };
@@ -67,7 +67,8 @@ namespace WebApiPagingAngularClient.Controllers
                     data = data
                 };
                 HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, result);
-                return (IHttpActionResult)response;
+                return (IHttpActionResult)response;*/
+                return NotFound();
             }
         }
 
