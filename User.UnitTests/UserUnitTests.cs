@@ -248,12 +248,13 @@ namespace User.UnitTests
         /* stress tests */
 
         bool wasExceptionThrown;
-        public readonly object _locker = new object();
-        int ID=0;
+        //public readonly object _locker = new object();
+        UInt16 ID=0;
+        Object myIdLock = new Object();
 
         public int getID()
         {
-            lock (_locker)
+            lock (myIdLock)
             {
                 return ID++;
             }
