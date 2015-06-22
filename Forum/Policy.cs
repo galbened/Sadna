@@ -89,6 +89,7 @@ namespace Forum
         internal int PasswordExpectancy
         {
             get { return passwordExpectancy; }
+            set { passwordExpectancy = value; }
         }
 
         internal string PasswordEnsuringDegree

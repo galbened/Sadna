@@ -1,10 +1,10 @@
 ﻿<div class="row">
     <div class="col-sm-7">
         <div ng-if="!user">
-            <h3 style="margin: 13px 11px;color: black;"><a href="#/">Forums</a>/<a href="#/forums/{{forum.id}}">{{forum.title}}</a>/<a href="#/forums/{{forum.id}}/{{subForum.id}}">{{subForum.title}}</a></h3>
+            <h3 style="margin: 13px 11px;color: black;"><a href="#/">Forums</a>/<a href="#/subForums/{{forum.id}}">{{forum.title}}</a>/<a href="#/threads/{{forum.id}}/{{subForum.id}}">{{subForum.title}}</a></h3>
         </div>
         <div ng-if="user">
-            <h3 style="margin: 13px 11px;color: black;"><a href="#/">Forums</a>/<a href="#/forums/{{forum.id}}/{{user.id}}">{{forum.title}}</a>/<a href="#/forums/{{forum.id}}/{{subForum.id}}/{{user.id}}">{{subForum.title}}</a></h3>
+            <h3 style="margin: 13px 11px;color: black;"><a href="#/">Forums</a>/<a href="#/subForums/{{forum.id}}/{{user.id}}">{{forum.title}}</a>/<a href="#/threads/{{forum.id}}/{{subForum.id}}/{{user.id}}">{{subForum.title}}</a></h3>
         </div>
     </div>
     <div class="col-sm-5">
