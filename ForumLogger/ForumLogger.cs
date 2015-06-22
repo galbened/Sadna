@@ -223,6 +223,15 @@ namespace ForumLoggers
             streamWriter.WriteLine(string.Format("{0:M/d/yyyy HH:mm:ss tt}", DateTime.Now ) + ". Type: " +  type + ": " + line);
         }
 
+        public void WriteNoDate(string type, string line)
+        {
+            for (int i = indent; i > 0; i--)
+            {
+                streamWriter.Write("\t");
+            }
+            streamWriter.WriteLine( type + line);
+        }
+
         /// <summary> 
         /// Shutdown() is guaranteed to be called by MSBuild at the end of the build, after all  
         /// events have been raised. 

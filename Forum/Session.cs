@@ -61,7 +61,7 @@ namespace Forum
         public void AddAction(string type, string line)
         {
             ActionInfo ai = new ActionInfo();
-            ai.type = type;
+            ai.type = string.Format("{0:M/d/yyyy HH:mm:ss tt}", DateTime.Now) + ". Type: " + type + ": ";
             ai.line = line;
             actions.Add(ai);
         }
@@ -71,7 +71,7 @@ namespace Forum
         {
             foreach (ActionInfo ai in actions)
             {
-                logger.Write(ai.type, ai.line);
+                logger.WriteNoDate(ai.type, ai.line);
             }
         }
 
