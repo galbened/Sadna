@@ -24,14 +24,14 @@ namespace testProject
         public int CreateForum(/*int forumAdmin,*/ string name, int numOfModerators, string degreeOfEnsuring, bool uppercase, bool lowercase, bool numbers, bool symbols, int minLength)
         {
             if (_real != null)
-                return _real.CreateForum(/*forumAdmin,*/ name, numOfModerators, degreeOfEnsuring, uppercase, lowercase, numbers, symbols, minLength);
+                return _real.CreateForum(/*forumAdmin,*/ 1, name, numOfModerators, degreeOfEnsuring, uppercase, lowercase, numbers, symbols, minLength);
             throw new NullReferenceException("_real in null");
         }
 
         public void SetPolicy(int forumId, int numOfModerators, string degreeOfEnsuring, bool uppercase, bool lowercase, bool numbers, bool symbols, int minLength)
         {
             if (_real != null)
-                _real.SetPolicy(forumId, numOfModerators, degreeOfEnsuring, uppercase, lowercase, numbers, symbols, minLength);
+                _real.SetPolicy(1, forumId, numOfModerators, degreeOfEnsuring, uppercase, lowercase, numbers, symbols, minLength);
             throw new NullReferenceException("_real in null");
         }
 
@@ -59,7 +59,7 @@ namespace testProject
         public int CreateSubForum(int forumId, string topic)
         {
             if (_real != null)
-                return _real.CreateSubForum(forumId, topic);
+                return _real.CreateSubForum(1, forumId, topic);
             throw new NullReferenceException("_real in null");
         }
 
@@ -114,28 +114,28 @@ namespace testProject
         public bool DeleteMessage(int messageId)
         {
             if (_real != null)
-                return _real.DeleteMessage(messageId);
+                return _real.DeleteMessage(1, messageId);
             throw new NullReferenceException("_real in null");
         }
 
         public void RemoveForum(int forumId)
         {
             if (_real != null)
-                _real.RemoveForum(forumId);
+                _real.RemoveForum(1, forumId);
             throw new NullReferenceException("_real in null");
         }
 
         public void AddModerator(int forumId, int subForumId, int moderatorId)
         {
             if (_real != null)
-                _real.AddModerator(forumId, subForumId, moderatorId);
+                _real.AddModerator(1, forumId, subForumId, moderatorId);
             throw new NullReferenceException("_real in null");
         }
 
         public void RemoveModerator(int forumId, int subForumId, int moderatorId)
         {
             if (_real != null)
-                _real.RemoveModerator(forumId, subForumId, moderatorId);
+                _real.RemoveModerator(1, forumId, subForumId, moderatorId);
             throw new NullReferenceException("_real in null");
         }
 
