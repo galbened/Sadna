@@ -41,7 +41,7 @@
                     $modalInstance.dismiss('cancel');
                     return result.$promise;
                 }, function (result) {
-                    alert(result.data.message);
+                    //alert(result.data.message);
                     return $q.reject(result);
                 });
         }

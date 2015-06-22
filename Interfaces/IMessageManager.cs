@@ -71,5 +71,9 @@ namespace Interfaces
 
         List<ThreadInfo> GetAllThreads(int forumId, int subForumId);
 
+        List<CommentInfo> GetAllThreadComments(int firstMessageId);
+
+        int GetNumOfComments(int threadId);
+
     }
 }

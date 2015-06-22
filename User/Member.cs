@@ -25,9 +25,10 @@ namespace User
         //public virtual List<Member> FriendsList { get; set; }
         public List<Member> FriendsList { get; set; }
         
-        public List<Password> pastPasswords { get; set; }
+        public virtual List<Password> pastPasswords { get; set; }
 
         private const string error_passwordAlreadyUsed = "Password already used in past"; 
+        private const string error_oldPasswordDoesNotMatch = "Old password doesn't match the active one"; 
 
         public Member()
         {
@@ -37,7 +38,7 @@ namespace User
         {
             //this.memberID = memberID;
             this.memberUsername = memberUsername;
-            this.memberPassword = memberPassword;
+            this.memberPassword = "firstPass";
             passwordLastChanged = DateTime.Now;
             this.memberEmail = memberEmail;
             this.loginStatus = false;
@@ -45,6 +46,7 @@ namespace User
             //this.FriendsList = new List<Friendship>();
             currentState = new stateNormal();       // new user begins as a Normal user
             pastPasswords = new List<Password>();
+            setPassword("firstPass", memberPassword);
             FriendsList = new List<Member>();
             //creating confirmation code and sending it to user email
             this.confirmationCode = creatingConfirmationCodeAndSending(memberUsername, memberEmail);
@@ -112,23 +114,31 @@ namespace User
          * */
         public Boolean setPassword(string oldPassword, string newPassword)
         {
-            //TODO - for a list
-            /*
-            if (oldPassword.CompareTo(memberPassword) == 0)
+            //first time changing password - incoming from instructor (no need to check anything)
+            if(memberPassword == "firstPass")
             {
-                if ((pastPasswords.Contains(newPassword))||(oldPassword.CompareTo(newPassword) == 0))
-                    throw new ArgumentException(error_passwordAlreadyUsed);
-                memberPassword = newPassword;
-                pastPasswords.Add(oldPassword);
+                this.memberPassword = newPassword;
+                pastPasswords.Add(new Password(this.memberPassword));
                 return true;
             }
-            return false;
-            */
 
-            pastPasswords.Add(new Password(memberPassword));
+            //Checking if old password matches the active one
+            if (memberPassword != oldPassword)
+                //throw new ArgumentException(error_oldPasswordDoesNotMatch);
+                return false;
 
-            memberPassword = newPassword;
-            //pastPasswords.Add(oldPassword);
+            //Checking old passwords
+            foreach(Password pass in pastPasswords) 
+            {
+                if (pass.passString == newPassword)
+                    //throw new ArgumentException(error_passwordAlreadyUsed);
+                    return false;
+            }
+
+            //All in order, changing password and adding the last one to past passwords
+            this.memberPassword = newPassword;
+            pastPasswords.Add(new Password(this.memberPassword));
+
             return true;
         }
         

@@ -4,44 +4,74 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Interfaces;
+using System.Configuration;
 
 namespace Message
 {
     class DBthreadManager : IDBManager<Thread>
     {
         Context db;
+        private int mode;
 
         public DBthreadManager()
         {
-            db = new Context();
+            InitMode();
+            if (UseDB())
+                db = new Context();
             //db.Database.ExecuteSqlCommand("TRUNCATE TABLE Members");
+        }
+
+        private void InitMode()
+        {
+            string modeTxt = ConfigurationManager.AppSettings["mode"];
+            if (modeTxt.CompareTo("NoDB") == 0)
+                mode = 0;
+            else
+                mode = 1;
+        }
+
+        private bool UseDB()
+        {
+            if (mode == 0)
+                return false;
+            else
+                return true;
         }
 
         public Thread getObj(int ID)
         {
-            return db.Threads.Find(ID);
+            if (UseDB())
+                return db.Threads.Find(ID);
+            else
+                return null;
         }
 
         public List<Thread> getAll()
         {
-            return db.Threads.ToList();
+            if (UseDB())
+                return db.Threads.ToList();
+            else
+                return new List<Thread>();
         }
 
         public void update()
         {
-            db.SaveChanges();
+            if (UseDB())
+                db.SaveChanges();
         }
 
 
         public void add(Thread obj)
         {
-            db.Threads.Add(obj);
+            if (UseDB())
+                 db.Threads.Add(obj);
         }
 
 
         public void remove(Thread obj)
         {
-            db.Threads.Remove(obj);
+            if (UseDB())
+                db.Threads.Remove(obj);
         }
     }
 }

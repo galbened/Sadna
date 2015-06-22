@@ -13,10 +13,6 @@ namespace Driver
 {
     public class BridgeReal : IApplicationBridge
     {
-        private static List<int> usersIds;
-        private static List<int> forumsIds;
-        private static List<int> subForumsIds;
-        private static List<int> messagesIds;
         private static IUserManager UM;
         private static IForumManager FM;
         private static IMessageManager MM;
@@ -24,10 +20,6 @@ namespace Driver
 
         public BridgeReal()
         {
-            usersIds = new List<int>();
-            forumsIds = new List<int>();
-            subForumsIds = new List<int>();
-            messagesIds = new List<int>();
             UM = UserManager.Instance;
             FM = ForumManager.getInstance();
             MM = MessageManager.Instance();
@@ -193,6 +185,21 @@ namespace Driver
         public bool isLoggedin(int userId)
         {
             return UM.isLoggedin(userId);
+        }
+
+        public string GetUserType(int forumId, int userId)
+        {
+            return FM.GetUserType(forumId, userId);
+        }
+
+        public string GetUsername(int forumId, int userId)
+        {
+            return FM.GetUsername(forumId, userId);
+        }
+
+        public List<string> GetSessionHistory(int requesterId, int forumId, int userIdSession)
+        {
+            return FM.GetSessionHistory(requesterId, forumId, userIdSession);
         }
     }
 }
