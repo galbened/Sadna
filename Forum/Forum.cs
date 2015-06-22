@@ -120,8 +120,12 @@ namespace Forum
                 throw new ArgumentException(error_failedRegistrarion + ex.Message);
             }
             if (userId > -1)
+            {
                 if (!(registeredUsersID.Contains(userId)))
                     registeredUsersID.Add(userId);
+                if (!(logedUsersId.Contains(userId)))
+                    logedUsersId.Add(userId);
+            }
             guestSession.EndSession();
             Session se = new Session(userId, username, forumID, forumName, SessionReason.registration);
             sessions.Add(userId, se);
@@ -167,6 +171,7 @@ namespace Forum
             poli.Numbers=numbers;
             poli.Symbols=symbols;
             poli.MinLength=minLength;
+            poli.PasswordExpectancy = 20;
         }
 
         public int ForumID
