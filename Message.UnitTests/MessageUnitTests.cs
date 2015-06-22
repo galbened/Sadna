@@ -280,5 +280,31 @@ namespace Message.UnitTests
             int numOfMessages = mm.NumOfMessages(forumId, subForumId);
             Assert.AreEqual(numOfMessages, 3);
         }
+
+
+        [TestMethod]
+        public void AddMessageBadWordTest()
+        {
+            int forumId = fm.CreateForum(titels[0]);
+            int userId = fm.Register(userNames[0], passwords[0], emails[0], forumId);
+            fm.AddAdmin(userId, forumId);
+            int subForumId = fm.CreateSubForum(subTitels[0], forumId);
+            try
+            {
+                int threadIdWithComment = mm.addThread(forumId, subForumId, userId, userNames[0], "shirmut", body[0]);
+            }
+            catch (ArgumentException)
+            {
+                Assert.IsTrue(true);
+            }
+            try
+            {
+                int threadIdWithComment = mm.addThread(forumId, subForumId, userId, userNames[0], topic[0], "fuck");
+            }
+            catch (ArgumentException)
+            {
+                Assert.IsTrue(true);
+            }
+        }
     }
 }

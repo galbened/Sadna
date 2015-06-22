@@ -36,21 +36,17 @@
         }
 
         $scope.addNewForum = function () {
-            var modalInstance = $modal.open({
+            $scope.modalInstance = $modal.open({
                 templateUrl: 'app/partials/AddForumModal.html',
                 size: 'sm',
                 controller: 'AddForumModalCtrl',
             });
 
-            modalInstance.result.then(function () {
-                return Forums.getForums().$promise.then(
-                    function (result) {
-                        $scope.forums = parseForums(result.data);
-                        return result.$promise;
-                    }, function (result) {
-                        return $q.reject(result);
-                    });
+            $scope.modalInstance.result.then(function (result) {
+                console.log(result);
+                $scope.forums.push(result);
             });
+
         }
 
         $scope.removeForums = function () {

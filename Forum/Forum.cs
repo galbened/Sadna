@@ -23,6 +23,7 @@ namespace Forum
         private const string error_expiredPassword = "Password expired need to change";
         private const string error_subForumID = "No such SubForum: ";
         private const string error_invalidPassword = "Password is not valid according to policy";
+        private const string error_failedRegistrarion = "Failed to register new user in user manager";
 
 
         public string forumName { get; set; }
@@ -116,6 +117,7 @@ namespace Forum
             {
                 guestSession.AddAction(ForumLogger.TYPE_ERROR, username + " registration failed " + ex.Message);
                 guestSession.EndSession();
+                throw new ArgumentException(error_failedRegistrarion + ex.Message);
             }
             if (userId > -1)
                 if (!(registeredUsersID.Contains(userId)))

@@ -21,9 +21,11 @@ namespace Message
         private const string error_callerIDnotMatch = "Only publisher can edit message";
         private const string error_wrongForumOrSubForumId = "ForumId or SubForumId not found in all Threads";
         private const string error_responseNotThread = "ThreadId expected but got comment message Id";
+        private const string error_wrongWords = "The message contains wrong words";
         private ForumLogger _logger;
 
         IDBManager<Message> DBmessageMan;
+        private HashSet<string> badWords;
 
         public static IMessageManager Instance()
         {
@@ -37,7 +39,10 @@ namespace Message
             messages = new HashSet<Message>();
             threads = new HashSet<Thread>();
             lastMessageID = -1;
+
             _logger = ForumLogger.GetInstance();
+
+            InitWrongWords();
 
             DBmessageMan = new DBmessageManager();
 
@@ -54,7 +59,20 @@ namespace Message
              */
         }
 
-     
+       private void InitWrongWords()
+       {
+           badWords = new HashSet<string>();
+           badWords.Add("fuck");
+           badWords.Add("sharmuta");
+           badWords.Add("sharlila");
+           badWords.Add("sharlil");
+           badWords.Add("sharmut");
+           badWords.Add("motherfucker");
+           badWords.Add("nigger");
+           badWords.Add("asshole");
+           badWords.Add("shirlul");
+           badWords.Add("shirluh");
+       }
 
         public int addThread(int forumId, int subForumId, int publisherId, string publisherName, string title, string body)
         {
@@ -63,6 +81,8 @@ namespace Message
                 _logger.Write(ForumLogger.TYPE_ERROR, "Failed adding new thread " + error_emptyTitle);
                 throw new ArgumentException(error_emptyTitle);
             }
+            if (!IsValidMessage(title, body))
+                throw new ArgumentException(error_wrongWords);
             lastMessageID++;
             int messageId = lastMessageID;
             Thread thread = new Thread(forumId, subForumId, messageId, publisherId,publisherName, title, body);
@@ -81,6 +101,8 @@ namespace Message
                 _logger.Write(ForumLogger.TYPE_ERROR, "Failed adding new comment " + error_emptyTitle);
                 throw new ArgumentException(error_emptyTitle);
             }
+            if (!IsValidMessage(title, body))
+                throw new ArgumentException(error_wrongWords);
             FirstMessage first = (FirstMessage)findMessage(firstMessageID);
             //checking if firstMessageID exists and really FirstMessage
             if ((first != null) && (first.isFirst()))
@@ -105,6 +127,8 @@ namespace Message
                 _logger.Write(ForumLogger.TYPE_ERROR, "Failed editing message " + messageId + ": " +error_emptyTitle);
                 throw new ArgumentException(error_emptyTitle);
             }
+            if (!IsValidMessage(title, body))
+                throw new ArgumentException(error_wrongWords);
             Message ms = findMessage(messageId);
             if (ms != null)
             {
@@ -259,6 +283,25 @@ namespace Message
                 }
             }
             return ans;
+        }
+
+
+        private bool IsValidMessage(string title, string body)
+        {
+            string[] titleSplit = title.Split(' ');
+            foreach (string word in titleSplit)
+            {
+                if (badWords.Contains(word))
+                    return false;
+            }
+            string[] bodySplit = body.Split(' ');
+            foreach (string word in bodySplit)
+            {
+                if (badWords.Contains(word))
+                    return false;
+            }
+            return true;
+
         }
 
         

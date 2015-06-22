@@ -16,8 +16,20 @@
                 subForumId: $routeParams.subForumId,
             };
 
-            if ($rootScope.user) {
-                $scope.user = $rootScope.user;
+            if ($routeParams.userId) {
+                var queryArgsUser = {
+                    forumId: $routeParams.forumId,
+                    userId: $routeParams.userId
+                };
+                return Forums.getUser(queryArgsUser).$promise.then(
+                    function (result) {
+                        console.log(result.data);
+                        $scope.forum = parseForum(result.data);
+                        console.log($scope.forum);
+                        return result.$promise;
+                    }, function (result) {
+                        return $q.reject(result);
+                    });
             }
 
             return Forums.getSubForum(queryArgs).$promise.then( 
@@ -40,23 +52,23 @@
                     title: title,
                     body: content
                 };
-            } else {
-                var queryArgs = {
-                    forumId: $routeParams.forumId,
-                    subForumId: $routeParams.subForumId,
-                    publisherID: 0,
-                    publisherName: 'amit romem',
-                    title: title,
-                    body: content
-                };
-            }
 
-            return Forums.addThread({},queryArgs).$promise.then(
-                function (result) {
-                    return result.$promise;
-                }, function (result) {
-                    return $q.reject(result);
-                });
+                return Forums.addThread({}, queryArgs).$promise.then(
+                    function (result) {
+                        return Forums.getSubForum(queryArgs).$promise.then(
+                            function (result) {
+                                $scope.forum = result.data;
+                                $scope.subForum = $scope.forum.subForum;
+                                return result.$promise;
+                            }, function (result) {
+                                return $q.reject(result);
+                            });
+                    }, function (result) {
+                        return $q.reject(result);
+                    });
+            } else {
+                alert("log in first");
+            }
         }
 
         $scope.addComment = function (threadId) {

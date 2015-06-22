@@ -1,6 +1,22 @@
 ﻿<div class="row">
-    <div class="col-sm-10">
-        <h3 style="margin: 13px 11px;color: black;"><a href="#/">Forums</a>/<a href="#/forums/{{forum.id}}">{{forum.title}}</a>/<a href="#/forums/{{forum.id}}/{{subForum.id}}">{{subForum.title}}</a></h3>
+    <div class="col-sm-7">
+        <div ng-if="!user">
+            <h3 style="margin: 13px 11px;color: black;"><a href="#/">Forums</a>/<a href="#/forums/{{forum.id}}">{{forum.title}}</a>/<a href="#/forums/{{forum.id}}/{{subForum.id}}">{{subForum.title}}</a></h3>
+        </div>
+        <div ng-if="user">
+            <h3 style="margin: 13px 11px;color: black;"><a href="#/">Forums</a>/<a href="#/forums/{{forum.id}}/{{user.id}}">{{forum.title}}</a>/<a href="#/forums/{{forum.id}}/{{subForum.id}}/{{user.id}}">{{subForum.title}}</a></h3>
+        </div>
+    </div>
+    <div class="col-sm-5">
+        <div ng-if="!user" class="toolbar button-toolbar row text-right" style="margin-right: 350px">
+            <span class="form-group">
+                <button class="btn btn-default btn-success" data-ng-click="openLoginModal()">login</button>
+                <button class="btn btn-info" data-ng-click="openSignupModal()">signup</button>
+            </span>
+        </div>
+        <div ng-if="user" class="toolbar button-toolbar row text-right" style="margin-right: 350px">
+            <h5 class="pull-right" ng-if="user">hello {{user.username}}</h5>
+        </div>
     </div>
 </div>
 <hr />
