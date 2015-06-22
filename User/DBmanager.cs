@@ -14,12 +14,19 @@ namespace User
         Context db;
         private int mode;
         private readonly object _locker = new object();
+        public Dictionary<int,Member> Members;
 
         public DBmanager()
         {
             InitMode();
             if (UseDB())
-                 db = new Context();
+            {
+                db = new Context();
+            }
+            else
+            {
+                Members = new Dictionary<int, Member>();
+            }
             //db.Database.ExecuteSqlCommand("DELETE FROM Members DBCC CHECKIDENT ('Members',RESEED, 0)");
             //db.Database.ExecuteSqlCommand("TRUNCATE TABLE Members");
         }
@@ -50,7 +57,10 @@ namespace User
                     return db.Members.Find(ID);
                 }
             else
-                return null;
+            {
+                return Members[ID];
+            }
+                //return null;
         }
 
         public List<Member> getAll()
@@ -61,7 +71,7 @@ namespace User
                     return db.Members.ToList();
                 }
             else
-                return new List<Member>();
+                return Members.Values.ToList();
         }
 
         public void update()
@@ -81,6 +91,8 @@ namespace User
                 {
                     db.Members.Add(obj);
                 }
+            else
+                Members.Add(obj.memberID, obj);
         }
 
 
@@ -91,6 +103,8 @@ namespace User
                 {
                     db.Members.Remove(obj);
                 }
+            else
+                Members.Remove(obj.memberID);
         }
     }
 }
