@@ -55,7 +55,11 @@
 
                 return Forums.addThread({}, queryArgs).$promise.then(
                     function (result) {
-                        return Forums.getSubForum(queryArgs).$promise.then(
+                        var queryArgsSubForum = {
+                            forumId: $routeParams.forumId,
+                            subForumId: $routeParams.subForumId,
+                        };
+                        return Forums.getSubForum(queryArgsSubForum).$promise.then(
                             function (result) {
                                 $scope.forum = result.data;
                                 $scope.subForum = $scope.forum.subForum;
@@ -72,18 +76,22 @@
             }
         }
 
-        $scope.addComment = function (threadId) {
+        $scope.addComment = function (threadId, comment) {
             if ($scope.user) {
                 var queryArgs = {
                     firstMessageId: threadId,
                     publisherID: $scope.user.id,
                     publisherName: $scope.user.username,
-                    title: 'snsacksc',
-                    body: 'sacijbsacjksa sakcbskjac asskacnsak'
+                    title: comment.title,
+                    body: comment.content
                 };
                 return Forums.addComment({}, queryArgs).$promise.then(
                     function (result) {
-                        return Forums.getSubForum(queryArgs).$promise.then(
+                        var queryArgsSubForum = {
+                            forumId: $routeParams.forumId,
+                            subForumId: $routeParams.subForumId,
+                        };
+                        return Forums.getSubForum(queryArgsSubForum).$promise.then(
                             function (result) {
                                 $scope.forum = result.data;
                                 $scope.subForum = $scope.forum.subForum;

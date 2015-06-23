@@ -1,10 +1,10 @@
 ﻿<div class="row">
     <div class="col-sm-7">
         <div ng-if="!user">
-            <h3 style="margin: 13px 11px;color: black;"><a href="#/">Forums</a>/<a href="#/subForums/{{forum.id}}">{{forum.title}}</a>/<a href="#/threads/{{forum.id}}/{{subForum.id}}">{{subForum.title}}</a></h3>
+            <h3 style="margin: 13px 11px;color: black;"><a href="#/">Forums</a>/<a href="#/subForums/{{forum.forumId}}">{{forum.title}}</a>/<a href="#/threads/{{forum.forumId}}/{{subForum.subForumId}}">{{subForum.title}}</a></h3>
         </div>
         <div ng-if="user">
-            <h3 style="margin: 13px 11px;color: black;"><a href="#/">Forums</a>/<a href="#/subForums/{{forum.id}}/{{user.id}}">{{forum.title}}</a>/<a href="#/threads/{{forum.id}}/{{subForum.id}}/{{user.id}}">{{subForum.title}}</a></h3>
+            <h3 style="margin: 13px 11px;color: black;"><a href="#/">Forums</a>/<a href="#/subForums/{{forum.forumId}}/{{user.id}}">{{forum.title}}</a>/<a href="#/threads/{{forum.forumId}}/{{subForum.subForumId}}/{{user.id}}">{{subForum.title}}</a></h3>
         </div>
     </div>
     <div class="col-sm-5">
@@ -47,16 +47,16 @@
                 </div>
             </div>
             <div class="form-group" style="margin-left: 70px">
-                <textarea ng-model="title{{theard.id}}" class="form-control" rows="1" placeholder="title"></textarea>
-                <textarea ng-model="content{{theard.id}}" class="form-control" rows="3" placeholder="content"></textarea>
-                <button class="btn btn-default btn-info" data-ng-click="addComment(theard.id)">Add comment</button>
+                <textarea ng-model="comment.title"  class="form-control" rows="1" placeholder="title"></textarea>
+                <textarea ng-model="comment.content" class="form-control" rows="3" placeholder="content"></textarea>
+                <button class="btn btn-default btn-info" data-ng-click="addComment(thread.id,comment);comment.title='';comment.content='';">Add comment</button>
             </div>
 
         </div>
         <div class="form-group" style="margin-left: 20px">
             <textarea class="form-control" rows="1" placeholder="title" ng-model="title"></textarea>
             <textarea class="form-control" rows="3" placeholder="content" ng-model="content"></textarea>
-            <button class="btn btn-default btn-info" data-ng-click="addThread(title,content)">Add thread</button>
+            <button class="btn btn-default btn-info" data-ng-click="addThread(title,content);title='';content=''">Add thread</button>
         </div>
     </div>
 </form>
