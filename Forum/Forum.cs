@@ -412,10 +412,17 @@ namespace Forum
 
         private Session GetSession(int userId)
         {
-            Session ans = sessions[userId];
-            if (ans != null)
-                return ans;
-            throw new ArgumentException("User " + userId + " has no open session!");
+            try
+            {
+                Session ans = sessions[userId];
+                if (ans != null)
+                    return ans;
+            }
+            catch (Exception ex)
+            {
+                throw new ArgumentException("User " + userId + " has no open session!: " + ex.Message);
+            }
+            return null;
         }
     }
 }
