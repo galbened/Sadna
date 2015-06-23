@@ -8,7 +8,6 @@ using Message;
 using User;
 using Forum;
 using Notification;
-using ForumLoggers;
 
 namespace Driver
 {
@@ -18,22 +17,15 @@ namespace Driver
         private static IForumManager FM;
         private static IMessageManager MM;
         private static BridgeReal instance=null;
-        private ForumLogger _logger;
   
 
         private BridgeReal()
         {
-            _logger = ForumLogger.GetInstance();
-            _logger.Write(ForumLogger.TYPE_INFO, "Initializing Driver"); 
             UM = UserManager.Instance;
-            _logger.Write(ForumLogger.TYPE_INFO, "User Manager initialized successfully"); 
             FM = ForumManager.getInstance();
-            _logger.Write(ForumLogger.TYPE_INFO, "Forum Manager initialized successfully"); 
             MM = MessageManager.Instance();
-            _logger.Write(ForumLogger.TYPE_INFO, "Message Manager initialized successfully");
-            _logger.Write(ForumLogger.TYPE_INFO, "Initializing Data"); 
+
             initializingDemoRunData();
-            _logger.Write(ForumLogger.TYPE_INFO, "Data initialized successfully"); 
         }
 
         public static BridgeReal GetInstance()

@@ -61,7 +61,7 @@ namespace Forum
         public void AddAction(string type, string line)
         {
             ActionInfo ai = new ActionInfo();
-            ai.type = string.Format("{0:M/d/yyyy HH:mm:ss tt}", DateTime.Now) + ". Type: " + type + ". UserName: " + userName + ". UserId: " + userId +": ";
+            ai.type = string.Format("{0:M/d/yyyy HH:mm:ss tt}", DateTime.Now) + ". Type: " + type + ": ";
             ai.line = line;
             actions.Add(ai);
         }

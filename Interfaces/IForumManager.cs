@@ -26,7 +26,7 @@ namespace Interfaces
                        Boolean uppercase, Boolean lowercase, Boolean numbers,
                        Boolean symbols, int minLength, int forumId);
         Boolean IsModerator(int userId, int forumId, int subForumId);
-        void AddModerator(int userRequesterId, int forumId, int subForumId, int moderatorId);
+        void AddModerator(int userRequesterId, int userId, int forumID, int subForumId, int callerId);
         void RemoveModerator(int userRequesterId, int userId, int forumID, int subForumId);
         void SetTopic(string topic, int forumID, int subForumId);
         int GetForumId(string name);

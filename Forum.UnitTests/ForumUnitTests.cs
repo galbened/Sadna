@@ -116,7 +116,7 @@ namespace Forum.UnitTests
             int subForumId = fm.CreateSubForum(1, subTitels[0], forumId);
             int userId = fm.Register(user[0], user[1], user[2], forumId);
             Console.WriteLine(subForumId);
-            fm.AddModerator(1, forumId, subForumId, userId);
+            fm.AddModerator(1, userId, forumId, subForumId, 1);
             Assert.IsTrue(fm.IsModerator(userId, forumId, subForumId));
             fm.RemoveModerator(1, userId, forumId, subForumId);
             fm.UnRegister(userId, forumId);
@@ -131,7 +131,7 @@ namespace Forum.UnitTests
             int subForumId = fm.CreateSubForum(1, subTitels[0], forumId);
             int userId = fm.Register(user[0], user[1], user[2], forumId);
             Assert.IsFalse(fm.IsModerator(userId, forumId, subForumId));
-            fm.AddModerator(1, forumId, subForumId, userId);
+            fm.AddModerator(1, userId, forumId, subForumId, 1);
             fm.RemoveModerator(1, userId, forumId, subForumId);
             Assert.IsFalse(fm.IsModerator(userId, forumId, subForumId));
             fm.UnRegister(userId, forumId);
