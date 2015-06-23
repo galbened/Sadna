@@ -48,6 +48,8 @@ namespace Interfaces
         List<string> GetModeratorNames(int forumId, int subForumId);
         List<int> GetMembersNoAdminIds(int forumId);
         List<string> GetMembersNoAdminNames(int forumId);
+        List<int> GetMembersNoModeratorIds(int forumId, int subForumId);
+        List<string> GetMembersNoModeratorNames(int forumId, int subForumId);
     } 
 }
 

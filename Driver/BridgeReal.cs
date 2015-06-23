@@ -264,12 +264,12 @@ namespace Driver
 
         public List<int> GetMembersNoModeratorIds(int forumId, int subForumId)
         {
-            throw new NotImplementedException();
+            return FM.GetMembersNoModeratorIds(forumId, subForumId);
         }
 
         public List<string> GetMembersNoModeratorNames(int forumId, int subForumId)
         {
-            throw new NotImplementedException();
+            return FM.GetMembersNoModeratorNames(forumId, subForumId);
         }
 
         public void initializingDemoRunData()

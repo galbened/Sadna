@@ -440,6 +440,27 @@ namespace Forum
             return ans;
         }
 
+
+        public List<int> GetMembersNoModeratorIds(int forumId, int subForumId)
+        {
+            List<int> ans = new List<int>();
+            Forum fr = GetForum(forumId);
+            ans = fr.GetMembersNoModeratorIds(subForumId);
+            return ans;          
+        }
+
+
+        public List<string> GetMembersNoModeratorNames(int forumId, int subForumId)
+        {
+            List<string> ans = new List<string>();
+            List<int> membersNoModeratorIds = new List<int>();
+            foreach (int id in membersNoModeratorIds)
+            {
+                ans.Add(GetUsername(forumId, id));
+            }
+            return ans;
+        }
+
         
 
 

@@ -422,6 +422,18 @@ namespace Forum
         }
 
 
+        internal List<int> GetMembersNoModeratorIds(int subForumId)
+        {
+            List<int> ans = new List<int>();
+            foreach (int id in registeredUsersID)
+            {
+                if (!IsModerator(id, subForumId))
+                    ans.Add(id);
+            }
+            return ans;
+        }
+
+
 
 
 
