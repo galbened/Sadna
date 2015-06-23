@@ -132,7 +132,7 @@ namespace Driver
 
         public void AddAdmin(int userRequesterId, int forumId, int adminId)
         {
-            throw new NotImplementedException();
+            FM.AddAdmin(userRequesterId, adminId, forumId);
         }
 
         public void AddModerator(int userRequesterId, int forumId, int subForumId, int moderatorId)
