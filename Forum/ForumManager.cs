@@ -452,7 +452,7 @@ namespace Forum
         public List<string> GetMembersNoModeratorNames(int forumId, int subForumId)
         {
             List<string> ans = new List<string>();
-            List<int> membersNoModeratorIds = new List<int>();
+            List<int> membersNoModeratorIds = GetMembersNoModeratorIds(forumId, subForumId);
             foreach (int id in membersNoModeratorIds)
             {
                 ans.Add(GetUsername(forumId, id));
