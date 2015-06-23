@@ -221,6 +221,29 @@ namespace WebApiPagingAngularClient.Controllers
 
         }
 
+        // GET: api/forums/removeForum/forumId
+        [Route("removeForum/{forumId:int}")]
+        public HttpResponseMessage Post(int forumId)
+        {
+            try
+            {
+                driver.RemoveForum(1, forumId);
+
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);
+                return response;
+            }
+            catch (Exception e)
+            {
+                var data = new
+                {
+                    message = e.Message
+                };
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.NotFound, data);
+                return response;
+            }
+
+        }
+
         // GET: api/forums/logout/forumId/userId
         [Route("logout/{forumId:int}/{userId:int}")]
         public HttpResponseMessage Get_logout(int forumId, int userId)
@@ -326,6 +349,25 @@ namespace WebApiPagingAngularClient.Controllers
             HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, result);
             return response;
             
+        }
+
+        // GET: api/forums/DeleteMessage/userId/messageId
+        [Route("DeleteMessage/{userId:int}/{messageId:int}")]
+        public HttpResponseMessage Post(int userId, int messageId)
+        {
+            var succ = driver.DeleteMessage(userId, messageId);
+            HttpResponseMessage response;
+            if (succ)
+            {
+                response = Request.CreateResponse(HttpStatusCode.OK);
+            }
+            else
+            {
+                response = Request.CreateResponse(HttpStatusCode.NotFound);
+            }
+
+            return response;
+
         }
 
     }

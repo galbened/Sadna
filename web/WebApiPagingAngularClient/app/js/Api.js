@@ -61,6 +61,16 @@
                         method: 'GET',
                         url: '/api/forums/logout/:forumId/:userId',
                         params: { forumId: '@forumId', userId: '@userId' }
+                    },
+                    'removeForum': {
+                        method: 'POST',
+                        url: '/api/forums/removeForum/:forumId',
+                        params: { forumId: '@forumId' }
+                    },
+                    'deleteMessage': {
+                        method: 'POST',
+                        url: '/api/forums/deleteMessage/:userId/:messageId',
+                        params: { userId: '@userId', messageId: '@messageId'}
                     }
                 });
         }).factory('Users', function ($resource) {

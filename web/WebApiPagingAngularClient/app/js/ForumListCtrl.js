@@ -50,10 +50,14 @@
         }
 
         $scope.removeForums = function () {
-            $modal.open({
+            $scope.modalInstance = $modal.open({
                 templateUrl: 'app/partials/remove-forum-modal.html',
                 size: 'sm',
                 controller: 'RemoveForumCtrl'
+            });
+
+            $scope.modalInstance.result.then(function (result) {
+                $scope.forums = result;
             });
         }
 

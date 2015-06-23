@@ -72,7 +72,9 @@
             });
 
             $scope.modalInstance.result.then(function (result) {
+                console.log('kaka');
                 console.log(result);
+                console.log('pipi');
                 $scope.user = result;
             });
         };

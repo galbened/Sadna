@@ -69,6 +69,7 @@
                                 return $q.reject(result);
                             });
                     }, function (result) {
+                        alert(result.data.message);
                         return $q.reject(result);
                     });
             } else {
@@ -101,6 +102,7 @@
                                 return $q.reject(result);
                             });
                     }, function (result) {
+                        alert(result.data.message);
                         return $q.reject(result);
                     });
             } else {
@@ -146,6 +148,33 @@
                 function (result) {
                     $scope.user = undefined;
                 }, function (result) {
+                });
+        };
+
+        $scope.deleteMessage = function (messageId) {
+            var queryArgs = {
+                userId: $scope.user.id,
+                messageId:  messageId
+            };
+
+            return Forums.deleteMessage(queryArgs).$promise.then(
+                function (result) {
+                    var queryArgsSubForum = {
+                        forumId: $routeParams.forumId,
+                        subForumId: $routeParams.subForumId,
+                    };
+                    return Forums.getSubForum(queryArgsSubForum).$promise.then(
+                        function (result) {
+                            $scope.forum = result.data;
+                            $scope.subForum = $scope.forum.subForum;
+                            return result.$promise;
+                        }, function (result) {
+                            alert(result.data.message);
+                            return $q.reject(result);
+                        });
+                }, function (result) {
+                    alert(result.data.message);
+                    return $q.reject(result);
                 });
         };
     }
