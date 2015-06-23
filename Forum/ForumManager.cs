@@ -81,9 +81,7 @@ namespace Forum
         {
             if ((topic == null) || (topic == ""))
                 throw new ArgumentException(error_emptyTitleSub);
-            List<int> forumAdmins = GetForumAdmins(forumId);
-            if ((userRequesterId!=1) && (!CheckExisting(forumAdmins, userRequesterId)))
-                throw new UnauthorizedAccessException(error_accessDenied);
+
             int ans = -1;
 
             Forum forum = DBforumMan.getObj(forumId);
@@ -92,7 +90,7 @@ namespace Forum
             //    if (frm.ForumID == forumId)
             //        ans = frm.CreateSubForum(topic);
             //}
-            ans = forum.CreateSubForum(topic);
+            ans = forum.CreateSubForum(userRequesterId,topic);
             DBforumMan.update();
             return ans;
         }
@@ -111,36 +109,30 @@ namespace Forum
         }
         public Boolean RemoveSubForum(int userRequesterId, int forumId, int subForumId, int callerUserId)
         {
-            List<int> forumAdmins = GetForumAdmins(forumId);
-            if ((userRequesterId != 1) && (!CheckExisting(forumAdmins, userRequesterId)))
-                throw new UnauthorizedAccessException(error_accessDenied);
+           
             foreach (Forum frm in DBforumMan.getAll())
                 if (frm.ForumID == forumId)
-                    return frm.RemoveSubForum(subForumId, callerUserId);
+                    return frm.RemoveSubForum(userRequesterId,subForumId, callerUserId);
             DBforumMan.update();
             return false;
         }
         public void AddAdmin(int userRequesterId, int userId, int forumId)
         {
-            List<int> forumAdmins = GetForumAdmins(forumId);
-            if ((userRequesterId != 1) && (!CheckExisting(forumAdmins, userRequesterId)))
-                throw new UnauthorizedAccessException(error_accessDenied);
+           
             foreach (Forum frm in DBforumMan.getAll())
             {
                 if (frm.ForumID == forumId)
-                    frm.AddAdmin(userId);
+                    frm.AddAdmin(userRequesterId,userId);
             }
             DBforumMan.update();
         }
         public void RemoveAdmin(int userRequesterId, int userId, int forumId)
         {
-            List<int> forumAdmins = GetForumAdmins(forumId);
-            if ((userRequesterId != 1) && (!CheckExisting(forumAdmins, userRequesterId)))
-                throw new UnauthorizedAccessException(error_accessDenied);
+           
             foreach (Forum frm in DBforumMan.getAll())
             {
                 if (frm.ForumID == forumId)
-                    frm.RemoveAdmin(userId);
+                    frm.RemoveAdmin(userRequesterId,userId);
             }
             DBforumMan.update();
         }
@@ -209,13 +201,11 @@ namespace Forum
                        Boolean uppercase, Boolean lowercase, Boolean numbers,
                        Boolean symbols, int minLength, int forumId)
         {
-            List<int> forumAdmins = GetForumAdmins(forumId);
-            if ((userRequesterId != 1) && (!CheckExisting(forumAdmins, userRequesterId)))
-                throw new UnauthorizedAccessException(error_accessDenied);
+           
             foreach (Forum frm in DBforumMan.getAll())
                 if (frm.ForumID == forumId)
                 {
-                    frm.SetPolicy(numOfModerators, degreeOfEnsuring, uppercase, lowercase
+                    frm.SetPolicy(userRequesterId,numOfModerators, degreeOfEnsuring, uppercase, lowercase
                         , numbers, symbols, minLength);
                     DBforumMan.update();
                     break;
@@ -232,28 +222,22 @@ namespace Forum
         }
         public void AddModerator(int userRequesterId, int userId, int forumId, int subForumId, int callerId)
         {
-            List<int> forumAdmins = GetForumAdmins(forumId);
-            List<int> subForumModerators = GetSubForumModerators(forumId, subForumId);           
-             if ((userRequesterId != 1) && (!CheckExisting(forumAdmins, userRequesterId) && (!CheckExisting(subForumModerators, subForumId))))
-                throw new UnauthorizedAccessException(error_accessDenied);
+
              foreach (Forum frm in DBforumMan.getAll())
             {
                 if (frm.ForumID == forumId)
-                    frm.AddModerator(userId, subForumId, callerId);
+                    frm.AddModerator(userRequesterId,userId, subForumId, callerId);
             }
              DBforumMan.update();
         }
 
         public void RemoveModerator(int userRequesterId, int userId, int forumId, int subForumId)
         {
-            List<int> forumAdmins = GetForumAdmins(forumId);
-            List<int> subForumModerators = GetSubForumModerators(forumId, subForumId);           
-             if ((userRequesterId != 1) && (!CheckExisting(forumAdmins, userRequesterId) && (!CheckExisting(subForumModerators, subForumId))))
-                throw new UnauthorizedAccessException(error_accessDenied);
+         
              foreach (Forum frm in DBforumMan.getAll())
             {
                 if (frm.ForumID == forumId)
-                    frm.RemoveModerator(userId, subForumId);
+                    frm.RemoveModerator(userRequesterId,userId, subForumId);
             }
              DBforumMan.update();
         }
@@ -424,22 +408,6 @@ namespace Forum
             }
             throw new ArgumentException(error_forumID + forumId);
         }
-
-        private List<int> GetForumAdmins(int forumId)
-        {
-            Forum fr = GetForum(forumId);
-            List<int> ans = fr.GetAdminsId();
-            return ans;
-        }
-
-        private List<int> GetSubForumModerators(int forumId, int subForumId)
-        {
-            Forum fr = GetForum(forumId);
-            SubForum sf = fr.GetSubForum(subForumId);
-            List<int> moderators = sf.GetModeratorsIds();
-            return moderators;
-        }
-
 
         private bool CheckExisting(List<int> list, int find)
         {
