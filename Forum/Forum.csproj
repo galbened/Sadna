@@ -53,6 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="adminUsers.cs" />
     <Compile Include="Context.cs" />
     <Compile Include="DBforumManager.cs" />
     <Compile Include="DBsubForumManager.cs" />
