@@ -27,7 +27,8 @@ namespace Forum
 
 
         public string forumName { get; set; }
-        public List<SubForum> subForums { get; private set; }
+        public List<SubForum> subForums { get; set; }
+        //public List<SubForum> subForums { get; private set; }
         private Dictionary<int, Session> sessions;
 
         public Forum() 
