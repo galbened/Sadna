@@ -259,7 +259,7 @@ namespace Driver
 
         public List<string> GetMembersNoAdminNames(int forumId)
         {
-            throw new NotImplementedException();
+            return FM.GetMembersNoAdminNames(forumId);
         }
 
         public List<int> GetMembersNoModeratorIds(int forumId, int subForumId)

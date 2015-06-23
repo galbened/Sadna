@@ -429,6 +429,17 @@ namespace Forum
             return ans;
         }
 
+        public List<string> GetMembersNoAdminNames(int forumId)
+        {
+            List<int> ids = GetMembersNoAdminIds(forumId);
+            List<string> ans = new List<string>();
+            foreach (int id in ids)
+            {
+                ans.Add(GetUsername(forumId, id));
+            }
+            return ans;
+        }
+
         
 
 
