@@ -104,7 +104,12 @@ namespace Driver
             throw new NotImplementedException();
         }
 
-        public void ComplainModerator()
+        public void ComplainModerator(int userRequesterId, int moderator, int forumId, int subForumId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool EditMessage(int userRequesterId, int messageId, string title, string body)
         {
             throw new NotImplementedException();
         }
@@ -118,6 +123,16 @@ namespace Driver
         public void RemoveForum(int userRequesterId, int forumId)
         {
             FM.RemoveForum(userRequesterId, forumId);
+        }
+
+        public void RemoveSubForum(int userRequesterId, int forumId, int subForumId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddAdmin(int userRequesterId, int forumId, int adminId)
+        {
+            throw new NotImplementedException();
         }
 
         public void AddModerator(int userRequesterId, int forumId, int subForumId, int moderatorId)
@@ -227,17 +242,35 @@ namespace Driver
             return UM.isUserRegistered(userId);
         }
 
-        List<int> GetModeratorIds(int forumId, int subForumId);
+        public List<int> GetModeratorIds(int forumId, int subForumId)
+        {
+            throw new NotImplementedException();
+        }
 
-        List<string> GetModeratorNames(int forumId, int subForumId);
+        public List<string> GetModeratorNames(int forumId, int subForumId)
+        {
+            throw new NotImplementedException();
+        }
 
-        List<int> GetMembersNoAdminIds(int forumId);
+        public List<int> GetMembersNoAdminIds(int forumId)
+        {
+            throw new NotImplementedException();
+        }
 
-        List<string> GetMembersNoAdminNames(int forumId);
+        public List<string> GetMembersNoAdminNames(int forumId)
+        {
+            throw new NotImplementedException();
+        }
 
-        List<int> GetMembersNoModeratorIds(int forumId, int subForumId);
+        public List<int> GetMembersNoModeratorIds(int forumId, int subForumId)
+        {
+            throw new NotImplementedException();
+        }
 
-        List<string> GetMembersNoModeratorNames(int forumId, int subForumId);
+        public List<string> GetMembersNoModeratorNames(int forumId, int subForumId)
+        {
+            throw new NotImplementedException();
+        }
 
         public void initializingDemoRunData()
         {
