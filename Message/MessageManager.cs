@@ -156,9 +156,23 @@ namespace Message
                 // if firstMessage, it should be deleted with all its comments
                 if (ms.isFirst())
                 {
-                    HashSet<ResponseMessage> messagesForDeletion = ((FirstMessage)ms).ResponseMessages;
-                    foreach (ResponseMessage rm in messagesForDeletion)
-                        messages.Remove(rm);
+                    FirstMessage fm = (FirstMessage)ms;
+                    HashSet<ResponseMessage> messagesForDeletion = fm.ResponseMessages;
+                    while (messagesForDeletion.Count > 0)
+                    {
+                            ResponseMessage rm = messagesForDeletion.ElementAt(0);
+                            fm.removeRespone(rm);
+                            messages.Remove(rm);
+                    }
+                    messages.Remove(ms);
+                }
+                // if responseMessage, should delete itself and the pointer from its firstMessage
+                else
+                {
+                    ResponseMessage rm = (ResponseMessage)ms;
+                    FirstMessage fm = GetFirstMessage(rm);
+                    fm.removeRespone(rm);
+                    messages.Remove(rm);
                 }
                 //remove the message anyway
                  messages.Remove(ms);
@@ -166,11 +180,25 @@ namespace Message
                  return true;
             }
             throw new InvalidOperationException(error_messageIdNotFound);
-                
-
         }
 
-    
+
+        public FirstMessage GetFirstMessage(ResponseMessage rm)
+        {
+            FirstMessage fm;
+            for (int i = 0; i < messages.Count; i++)
+            {
+                if (messages.ElementAt(i).isFirst())
+                {
+                   fm = (FirstMessage)messages.ElementAt(i);
+                   if (fm.IncludeComment(rm))
+                       return fm;
+                }
+            }
+            return null;
+        }
+
+
 
         public int NumOfMessages(int forumId, int subForumId)
         {
@@ -226,6 +254,11 @@ namespace Message
                 throw new ArgumentException(error_responseNotThread);
             return fm.getNumofComments();
 
+        }
+
+        public int GetTotalMessagesCount()
+        {
+            return messages.Count;
         }
 
        

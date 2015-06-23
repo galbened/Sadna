@@ -44,6 +44,18 @@ namespace Message
             responseMessages.Add(responseMessage);
         }
 
+        public void removeRespone(ResponseMessage responseMessage)
+        {
+            responseMessages.Remove(responseMessage);
+        }
+
+        public bool IncludeComment(ResponseMessage rm)
+        {
+            if (responseMessages.Contains(rm))
+                return true;
+            return false;
+        }
+
 
         public HashSet<ResponseMessage> ResponseMessages
         {
