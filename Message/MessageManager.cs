@@ -12,7 +12,7 @@ namespace Message
     public class MessageManager : IMessageManager
     {
         private HashSet<Message> messages;
-        private HashSet<Thread> threads;
+        //private HashSet<Thread> threads;
         private static MessageManager instance = null;
         private int lastMessageID;
         private const string error_emptyTitle = "Cannot add thread without title";
@@ -22,7 +22,7 @@ namespace Message
         private const string error_responseNotThread = "ThreadId expected but got comment message Id";
         private const string error_wrongWords = "The message contains wrong words";
 
-        IDBManager<Message> DBmessageMan;
+        //IDBManager<Message> DBmessageMan;
         IDBManager<Thread> DBthreadMan;
 
         private HashSet<string> badWords;
@@ -37,12 +37,12 @@ namespace Message
         private MessageManager()
         {
             messages = new HashSet<Message>();
-            threads = new HashSet<Thread>();
+            //threads = new HashSet<Thread>();
             lastMessageID = -1;
 
             InitWrongWords();
 
-            DBmessageMan = new DBmessageManager();
+            //DBmessageMan = new DBmessageManager();
             DBthreadMan = new DBthreadManager();
 
             /*
@@ -84,9 +84,11 @@ namespace Message
             lastMessageID++;
             int messageId = lastMessageID;
             Thread thread = new Thread(forumId, subForumId, messageId, publisherId,publisherName, title, body);
-            threads.Add(thread);
+            DBthreadMan.add(thread);
+            //threads.Add(thread);
             Message ms = thread.GetMessage();
             messages.Add(ms);
+            saveMessageDB();
             return ms.MessageID;
         }
 
@@ -108,6 +110,7 @@ namespace Message
                 ResponseMessage rm = new ResponseMessage(messageId, publisherID, publisherName, title, body);
                 first.addResponse(rm);
                 messages.Add(rm);
+                saveMessageDB();
                 return rm.MessageID;
             }
             throw new InvalidOperationException(error_messageIdNotFound);
@@ -130,6 +133,7 @@ namespace Message
                 if (ms.PublisherID == userRequesterId)
                 {
                     ms.editMessage(title, body);
+                    saveMessageDB();
                     return true;
                 }
                 else
@@ -158,6 +162,7 @@ namespace Message
                 }
                 //remove the message anyway
                  messages.Remove(ms);
+                 saveMessageDB();
                  return true;
             }
             throw new InvalidOperationException(error_messageIdNotFound);
@@ -170,7 +175,7 @@ namespace Message
         public int NumOfMessages(int forumId, int subForumId)
         {
             int ans = 0;
-            foreach (Thread thread in threads)
+            foreach (Thread thread in DBthreadMan.getAll())
             {
                 ans += thread.NumOfMessages(forumId, subForumId);
             }
@@ -180,7 +185,7 @@ namespace Message
         public int NumOfMessages(int forumId, int subForumId, int userId)
         {
             int ans = 0;
-            foreach (Thread thread in threads)
+            foreach (Thread thread in DBthreadMan.getAll())
             {
                 ans += thread.NumOfMessages(forumId, subForumId, userId);
             }
@@ -191,9 +196,9 @@ namespace Message
         {
             List<ThreadInfo> ans = new List<ThreadInfo>();
             Thread thread = null;
-            for (int i=0; i < threads.Count; i++)
+            for (int i = 0; i < DBthreadMan.getAll().Count; i++)
             {
-                thread = threads.ElementAt(i);
+                thread = DBthreadMan.getAll().ElementAt(i);
                 if (thread.ForumId == forumId && thread.SubForumId == subForumId)
                 {
                     ThreadInfo cur = new ThreadInfo();
@@ -297,9 +302,9 @@ namespace Message
         }
 
 
-        public void saveDB()
+        public void saveMessageDB()
         {
-            DBmessageMan.update();
+            //DBmessageMan.update();
             DBthreadMan.update();
         }
     }

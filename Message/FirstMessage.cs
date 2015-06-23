@@ -11,8 +11,6 @@ namespace Message
     [Table("FirstMessages")]
     public class FirstMessage : Message
     {
-        [Key]
-        public int id { get; set; }
         private HashSet<ResponseMessage> responseMessages = new HashSet<ResponseMessage>();
 
         public FirstMessage() : base()
