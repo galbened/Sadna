@@ -23,5 +23,10 @@ namespace Forum
         {
             return userId == id;
         }
+
+        public int GetModeratorId()
+        {
+            return userId;
+        }
     }
 }

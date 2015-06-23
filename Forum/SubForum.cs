@@ -35,6 +35,16 @@ namespace Forum
         {
             return Contains(userId);
         }
+
+        public List<int> GetModeratorsIds()
+        {
+            List<int> ans = new List<int>();
+            foreach (Moderator md in moderators)
+            {
+                ans.Add(md.GetModeratorId());
+            }
+            return ans;
+        }
         
         public void AddModerator(int userId, int callerId)
         {

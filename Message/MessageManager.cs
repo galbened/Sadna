@@ -137,9 +137,11 @@ namespace Message
 
 
 
-        public bool deleteMessage(int messageID)
+        public bool deleteMessage(int userRequesterId, int messageID)
         {
             Message ms = findMessage(messageID);
+            if ((!(ms.publisherID != messageID)) && (!(messageID != 1)))
+                throw new UnauthorizedAccessException("User has no permissions to delete the message " + messageID);
             if (ms != null)
             {
                 // if firstMessage, it should be deleted with all its comments

@@ -93,7 +93,7 @@ namespace Driver
 
         public bool DeleteMessage(int userRequesterId, int messageId)
         {
-            bool success = MM.deleteMessage(messageId);
+            bool success = MM.deleteMessage(userRequesterId, messageId);
             return success;
         }
 
@@ -245,7 +245,7 @@ namespace Driver
             MM.addComment(thread_1_subforum_1_news, user_3_news, UM.getUsername(user_3_news), "reponse message title 1 3", "response message body 1 3");
             MM.addComment(thread_1_subforum_1_news, user_4_news, UM.getUsername(user_4_news), "reponse message title 1 4", "response message body 1 4");
 
-
+            FM.AddAdmin(1,user_1_sports, forum_sports);
 
             /*
             List<int> forumIds = new List<int>();

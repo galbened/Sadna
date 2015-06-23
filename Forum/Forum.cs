@@ -52,6 +52,8 @@ namespace Forum
             sessions = new Dictionary<int, Session>();
         }
 
+        public List<int> GetAdminsId() { return adminsID; }
+
         public int CreateSubForum(string topic)
         {
             foreach (SubForum sbfrm in subForums)

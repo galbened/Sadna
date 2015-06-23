@@ -51,10 +51,11 @@ namespace Interfaces
         /// <deleteMessage>
         /// Delete Message(First\Response)
         /// </deleteMessage>
+        /// <param name="userRequesterId">ID of the user requests to delete the message</param>
         /// <param name="messageId">ID of the message to delete</param>
         /// <returns>true if message deleted successfully</returns>
         /// <throws>InvalidOperationException if messageId doesn't exist</throws>
-        bool deleteMessage(int messageId);
+        bool deleteMessage(int userRequesterId, int messageId);
 
 
         /*
