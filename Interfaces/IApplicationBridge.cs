@@ -34,7 +34,7 @@ namespace Interfaces
 
         int Comment(int firstMessageId, int publisherID, string publisherName, string title, string body);
 
-        void SendFriendRequest();
+        void SendFriendRequest(int requesterId, int friendId, int forumId);
 
         void ComplainModerator(int userRequesterId, int moderator, int forumId, int subForumId);
 

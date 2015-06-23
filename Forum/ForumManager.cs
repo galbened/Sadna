@@ -452,12 +452,21 @@ namespace Forum
         public List<string> GetMembersNoModeratorNames(int forumId, int subForumId)
         {
             List<string> ans = new List<string>();
-            List<int> membersNoModeratorIds = new List<int>();
+            List<int> membersNoModeratorIds = GetMembersNoModeratorIds(forumId, subForumId);
             foreach (int id in membersNoModeratorIds)
             {
                 ans.Add(GetUsername(forumId, id));
             }
             return ans;
+        }
+
+
+        public void SendFriendRequest(int requesterId, int friendId, int forumId)
+        {
+            string userNameFrom = GetUsername(forumId, requesterId);
+            string userNameTo = GetUsername(forumId, friendId);
+            string emailTo = GetUserMail(forumId, friendId);
+            Notification.Notification.SendFriendRequestNotification(userNameFrom, userNameTo, emailTo);
         }
 
         

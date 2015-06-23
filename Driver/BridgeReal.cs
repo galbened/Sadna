@@ -99,9 +99,9 @@ namespace Driver
             return messageId;
         }
 
-        public void SendFriendRequest()
+        public void SendFriendRequest(int requesterId, int friendId, int forumId)
         {
-            throw new NotImplementedException();
+            FM.SendFriendRequest(requesterId, friendId, forumId);
         }
 
         public void ComplainModerator(int userRequesterId, int moderator, int forumId, int subForumId)
