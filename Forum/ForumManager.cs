@@ -401,6 +401,27 @@ namespace Forum
             
         }
 
+        public List<int> GetModeratorIds(int forumId, int subForumId)
+        {
+            Forum fr = GetForum(forumId);
+            SubForum sf = fr.GetSubForum(subForumId);
+            List<int> moderatorsIds = sf.GetModeratorsIds();
+            return moderatorsIds;
+        }
+
+        public List<string> GetModeratorNames(int forumId, int subForumId)
+        {
+            List<int> moderatorsIds = GetModeratorIds(forumId, subForumId);
+            List<string> ans = new List<string>();
+            foreach (int md in moderatorsIds)
+            {
+                string moderatorName = GetUsername(forumId, md);
+                ans.Add(moderatorName);
+            }
+            return ans;
+        }
+        
+
 
 
         private string GetUserMail(int forumId, int userId)
