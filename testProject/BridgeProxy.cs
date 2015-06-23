@@ -104,10 +104,17 @@ namespace testProject
             throw new NullReferenceException("_real in null");
         }
 
-        public void ComplainModerator()
+        public void ComplainModerator(int userRequesterId, int moderator, int forumId, int subForumId)
         {
             if (_real != null)
-                _real.ComplainModerator();
+                _real.ComplainModerator(userRequesterId, moderator, forumId, subForumId);
+            throw new NullReferenceException("_real in null");
+        }
+
+        public bool EditMessage(int userRequesterId, int messageId, string title, string body)
+        {
+            if (_real != null)
+                _real.EditMessage(userRequesterId, messageId, title, body);
             throw new NullReferenceException("_real in null");
         }
 
@@ -122,6 +129,20 @@ namespace testProject
         {
             if (_real != null)
                 _real.RemoveForum(1, forumId);
+            throw new NullReferenceException("_real in null");
+        }
+
+        public void RemoveSubForum(int userRequesterId, int forumId, int subForumId)
+        {
+            if (_real != null)
+                _real.RemoveSubForum(userRequesterId, forumId, subForumId);
+            throw new NullReferenceException("_real in null");
+        }
+
+        public void AddAdmin(int userRequesterId, int forumId, int adminId)
+        {
+            if (_real != null)
+                _real.AddAdmin(userRequesterId, forumId, adminId);
             throw new NullReferenceException("_real in null");
         }
 
@@ -257,6 +278,48 @@ namespace testProject
         {
             if (_real != null)
                 return _real.isUserRegistered(userId);
+            throw new NullReferenceException("_real in null");
+        }
+
+        public List<int> GetModeratorIds(int forumId)
+        {
+            if (_real != null)
+                return _real.GetModeratorIds(forumId);
+            throw new NullReferenceException("_real in null");
+        }
+
+        public List<string> GetModeratorNames(int forumId)
+        {
+            if (_real != null)
+                return _real.GetModeratorNames(forumId);
+            throw new NullReferenceException("_real in null");
+        }
+
+        public List<int> GetMembersNoAdminIds(int forumId)
+        {
+            if (_real != null)
+                return _real.GetMembersNoAdminIds(forumId);
+            throw new NullReferenceException("_real in null");
+        }
+
+        public List<string> GetMembersNoAdminNames(int forumId)
+        {
+            if (_real != null)
+                return _real.GetMembersNoAdminNames(forumId);
+            throw new NullReferenceException("_real in null");
+        }
+
+        public List<int> GetMembersNoModeratorIds(int forumId, int subForumId)
+        {
+            if (_real != null)
+                return _real.GetMembersNoModeratorIds(forumId, subForumId);
+            throw new NullReferenceException("_real in null");
+        }
+
+        public List<string> GetMembersNoModeratorNames(int forumId, int subForumId)
+        {
+            if (_real != null)
+                return _real.GetMembersNoModeratorNames(forumId, subForumId);
             throw new NullReferenceException("_real in null");
         }
     }

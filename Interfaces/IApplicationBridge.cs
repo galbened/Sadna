@@ -36,11 +36,17 @@ namespace Interfaces
 
         void SendFriendRequest();
 
-        void ComplainModerator();
+        void ComplainModerator(int userRequesterId, int moderator, int forumId, int subForumId);
+
+        bool EditMessage(int userRequesterId, int messageId, string title, string body);
 
         bool DeleteMessage(int userRequesterId, int messageId);
 
         void RemoveForum(int userRequesterId, int forumId);
+
+        void RemoveSubForum(int userRequesterId, int forumId, int subForumId);
+
+        void AddAdmin(int userRequesterId, int forumId, int adminId);
 
         void AddModerator(int userRequesterId, int forumId, int subForumId, int moderatorId);
 
@@ -85,5 +91,18 @@ namespace Interfaces
         void Deactivate(int userId);
 
         Boolean isUserRegistered(int userId);
+
+        List<int> GetModeratorIds(int forumId);
+
+        List<string> GetModeratorNames(int forumId);
+
+        List<int> GetMembersNoAdminIds(int forumId);
+
+        List<string> GetMembersNoAdminNames(int forumId);
+
+        List<int> GetMembersNoModeratorIds(int forumId, int subForumId);
+
+        List<string> GetMembersNoModeratorNames(int forumId, int subForumId);
+
     }
 }

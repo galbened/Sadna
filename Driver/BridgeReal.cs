@@ -122,7 +122,7 @@ namespace Driver
 
         public void AddModerator(int userRequesterId, int forumId, int subForumId, int moderatorId)
         {
-           // FM.AddModerator(moderatorId, forumId, subForumId);
+            FM.AddModerator(userRequesterId, forumId, subForumId, moderatorId);
         }
 
         public void RemoveModerator(int userRequesterId, int forumId, int subForumId, int moderatorId)
