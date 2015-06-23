@@ -11,5 +11,9 @@ namespace Forum
     {
         public DbSet<Forum> Forums { get; set; }
         public DbSet<SubForum> SubForums { get; set; }
+
+        public Context()
+            : base("name=ForumDBConnectionString")
+        { }
     }
 }

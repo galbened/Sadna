@@ -16,15 +16,25 @@ namespace Driver
         private static IUserManager UM;
         private static IForumManager FM;
         private static IMessageManager MM;
+        private static BridgeReal instance=null;
   
 
-        public BridgeReal()
+        private BridgeReal()
         {
             UM = UserManager.Instance;
             FM = ForumManager.getInstance();
             MM = MessageManager.Instance();
 
             initializingDemoRunData();
+        }
+
+        public static BridgeReal GetInstance()
+        {
+            if (instance == null)
+            {
+                instance = new BridgeReal();
+            }
+            return instance;
         }
 
 

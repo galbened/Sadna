@@ -14,7 +14,7 @@ namespace WebApiPagingAngularClient.Controllers
     [RoutePrefix("api/users")]
     public class UsersController : ApiController
     {
-        private static IApplicationBridge driver = new BridgeReal();
+        private static IApplicationBridge driver = BridgeReal.GetInstance();
 
         // GET: api/users/getUser
         [Route("getUser")]
