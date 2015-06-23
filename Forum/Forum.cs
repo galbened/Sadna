@@ -424,6 +424,32 @@ namespace Forum
             return ans;
         }
 
+        internal List<int> GetMembersNoAdminIds()
+        {
+            List<int> ans = new List<int>();
+            foreach (int registeredUser in registeredUsersID)
+            {
+                if (!IsAdmin(registeredUser))
+                    ans.Add(registeredUser);
+            }
+            return ans;          
+        }
+
+
+        internal List<int> GetMembersNoModeratorIds(int subForumId)
+        {
+            List<int> ans = new List<int>();
+            foreach (int id in registeredUsersID)
+            {
+                if (!IsModerator(id, subForumId))
+                    ans.Add(id);
+            }
+            return ans;
+        }
+
+
+
+
 
         private bool CheckExisting(List<int> list, int find)
         {

@@ -44,6 +44,12 @@ namespace Interfaces
         string GetUsername(int forumId, int userId);
         List<string> GetSessionHistory(int requesterId, int forumId, int userIdSession);
         void ComplainModerator(int userRequesterId, int moderator, int forumId, int subForumId);
+        List<int> GetModeratorIds(int forumId, int subForumId);
+        List<string> GetModeratorNames(int forumId, int subForumId);
+        List<int> GetMembersNoAdminIds(int forumId);
+        List<string> GetMembersNoAdminNames(int forumId);
+        List<int> GetMembersNoModeratorIds(int forumId, int subForumId);
+        List<string> GetMembersNoModeratorNames(int forumId, int subForumId);
     } 
 }
 

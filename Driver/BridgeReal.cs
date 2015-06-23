@@ -244,32 +244,32 @@ namespace Driver
 
         public List<int> GetModeratorIds(int forumId, int subForumId)
         {
-            throw new NotImplementedException();
+            return FM.GetModeratorIds(forumId, subForumId);
         }
 
         public List<string> GetModeratorNames(int forumId, int subForumId)
         {
-            throw new NotImplementedException();
+            return FM.GetModeratorNames(forumId, subForumId);
         }
 
         public List<int> GetMembersNoAdminIds(int forumId)
         {
-            throw new NotImplementedException();
+            return FM.GetMembersNoAdminIds(forumId);
         }
 
         public List<string> GetMembersNoAdminNames(int forumId)
         {
-            throw new NotImplementedException();
+            return FM.GetMembersNoAdminNames(forumId);
         }
 
         public List<int> GetMembersNoModeratorIds(int forumId, int subForumId)
         {
-            throw new NotImplementedException();
+            return FM.GetMembersNoModeratorIds(forumId, subForumId);
         }
 
         public List<string> GetMembersNoModeratorNames(int forumId, int subForumId)
         {
-            throw new NotImplementedException();
+            return FM.GetMembersNoModeratorNames(forumId, subForumId);
         }
 
         public void initializingDemoRunData()

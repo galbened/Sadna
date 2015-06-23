@@ -400,6 +400,68 @@ namespace Forum
             
         }
 
+        public List<int> GetModeratorIds(int forumId, int subForumId)
+        {
+            Forum fr = GetForum(forumId);
+            SubForum sf = fr.GetSubForum(subForumId);
+            List<int> moderatorsIds = sf.GetModeratorsIds();
+            return moderatorsIds;
+        }
+
+        public List<string> GetModeratorNames(int forumId, int subForumId)
+        {
+            List<int> moderatorsIds = GetModeratorIds(forumId, subForumId);
+            List<string> ans = new List<string>();
+            foreach (int md in moderatorsIds)
+            {
+                string moderatorName = GetUsername(forumId, md);
+                ans.Add(moderatorName);
+            }
+            return ans;
+        }
+
+
+        public List<int> GetMembersNoAdminIds(int forumId)
+        {
+            Forum fr = GetForum(forumId);
+            List<int> ans = fr.GetMembersNoAdminIds();
+            return ans;
+        }
+
+        public List<string> GetMembersNoAdminNames(int forumId)
+        {
+            List<int> ids = GetMembersNoAdminIds(forumId);
+            List<string> ans = new List<string>();
+            foreach (int id in ids)
+            {
+                ans.Add(GetUsername(forumId, id));
+            }
+            return ans;
+        }
+
+
+        public List<int> GetMembersNoModeratorIds(int forumId, int subForumId)
+        {
+            List<int> ans = new List<int>();
+            Forum fr = GetForum(forumId);
+            ans = fr.GetMembersNoModeratorIds(subForumId);
+            return ans;          
+        }
+
+
+        public List<string> GetMembersNoModeratorNames(int forumId, int subForumId)
+        {
+            List<string> ans = new List<string>();
+            List<int> membersNoModeratorIds = new List<int>();
+            foreach (int id in membersNoModeratorIds)
+            {
+                ans.Add(GetUsername(forumId, id));
+            }
+            return ans;
+        }
+
+        
+
 
 
         private string GetUserMail(int forumId, int userId)
