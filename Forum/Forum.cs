@@ -220,6 +220,7 @@ namespace Forum
         {
             logedUsersId.Remove(userId);
             registeredUsersID.Remove(userId);
+            usrMngr.deactivate(userId);
         }
 
         internal int GetSubForumId(string topic)
