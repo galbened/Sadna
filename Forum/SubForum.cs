@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 
@@ -7,6 +8,8 @@ namespace Forum
 {
     public class SubForum
     {
+        [Key]
+        public int id { get; set; }
         public int subForumId { get; set; }
         private string topic;
         public List<Moderator> moderators { get; set; }
