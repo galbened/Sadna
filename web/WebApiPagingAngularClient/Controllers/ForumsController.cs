@@ -244,6 +244,28 @@ namespace WebApiPagingAngularClient.Controllers
 
         }
 
+        // GET: api/forums/removeSubForum/forumId/subForumId/userId
+        [Route("removeSubForum/{forumId:int}/{subForumId:int}/{userId:int}")]
+        public HttpResponseMessage Post_remove_subforum(int forumId, int subForumId, int userId)
+        {
+            try
+            {
+
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);
+                return response;
+            }
+            catch (Exception e)
+            {
+                var data = new
+                {
+                    message = e.Message
+                };
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.NotFound, data);
+                return response;
+            }
+
+        }
+
         // GET: api/forums/logout/forumId/userId
         [Route("logout/{forumId:int}/{userId:int}")]
         public HttpResponseMessage Get_logout(int forumId, int userId)

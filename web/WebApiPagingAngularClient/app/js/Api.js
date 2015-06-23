@@ -67,6 +67,11 @@
                         url: '/api/forums/removeForum/:forumId',
                         params: { forumId: '@forumId' }
                     },
+                    'removeSubForum': {
+                        method: 'POST',
+                        url: '/api/forums/removeForum/:forumId/:subForumId/:userId',
+                        params: { forumId: '@forumId',subForumId:'@subForumId', userId:'@userId'}
+                    },
                     'deleteMessage': {
                         method: 'POST',
                         url: '/api/forums/deleteMessage/:userId/:messageId',

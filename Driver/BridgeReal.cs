@@ -8,6 +8,7 @@ using Message;
 using User;
 using Forum;
 using Notification;
+using ForumLoggers;
 
 namespace Driver
 {
@@ -17,15 +18,22 @@ namespace Driver
         private static IForumManager FM;
         private static IMessageManager MM;
         private static BridgeReal instance=null;
+        private ForumLogger _logger;
   
 
         private BridgeReal()
         {
+            _logger = ForumLogger.GetInstance();
+            _logger.Write(ForumLogger.TYPE_INFO, "Initializing Driver"); 
             UM = UserManager.Instance;
+            _logger.Write(ForumLogger.TYPE_INFO, "User Manager initialized successfully"); 
             FM = ForumManager.getInstance();
+            _logger.Write(ForumLogger.TYPE_INFO, "Forum Manager initialized successfully"); 
             MM = MessageManager.Instance();
-
+            _logger.Write(ForumLogger.TYPE_INFO, "Message Manager initialized successfully");
+            _logger.Write(ForumLogger.TYPE_INFO, "Initializing Data"); 
             initializingDemoRunData();
+            _logger.Write(ForumLogger.TYPE_INFO, "Data initialized successfully"); 
         }
 
         public static BridgeReal GetInstance()
@@ -245,6 +253,14 @@ namespace Driver
             int user_2_news = FM.Register("user_2_news", "user_2_news_bpass", "user_2_news@mail.com", forum_news);
             int user_3_news = FM.Register("user_3_news", "user_3_news_bpass", "user_3_news@mail.com", forum_news);
             int user_4_news = FM.Register("user_4_news", "user_4_news_bpass", "user_4_news@mail.com", forum_news);
+
+            bool kash = FM.Logout(user_1_sports, forum_sports);
+            kash = FM.Logout(user_2_sports, forum_sports);
+            kash = FM.Logout(user_3_sports, forum_sports);
+            kash = FM.Logout(user_1_news, forum_news);
+            kash = FM.Logout(user_2_news, forum_news);
+            kash = FM.Logout(user_3_news, forum_news);
+            kash = FM.Logout(user_4_news, forum_news);
 
             int thread_1_subforum_1_sports = MM.addThread(forum_sports, subforum_1_sports, user_1_sports, UM.getUsername(user_1_sports), "message title 1", "message body 1");
             MM.addComment(thread_1_subforum_1_sports, user_2_sports, UM.getUsername(user_2_sports), "reponse message title 1 2", "response message body 1 2");

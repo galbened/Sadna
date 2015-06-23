@@ -22,6 +22,7 @@ namespace Forum
         public Policy()
         {
             moderatorNum = 2;
+            passwordExpectancy = 20;
         }
 
         public Policy(int moderN, string passEnsDeg, Boolean upper, Boolean lower, Boolean nums, Boolean symbs, int mLen, int passExp)

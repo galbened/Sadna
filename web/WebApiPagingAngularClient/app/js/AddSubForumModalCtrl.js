@@ -11,14 +11,15 @@
         activate();
 
         function activate() {
+            $scope.id = $scope.params.userId;
+            console.log($scope.params);
         }
 
         $scope.createSubForum = function (topic) {
             var queryArgs = {
-                userId:$rootScope.userId,
+                userId: $scope.id,
                 forumId: $rootScope.forumId,
             };
-            console.log(topic);
             return Forums.createSubForum(queryArgs, { 'topic': topic }).$promise.then(
                 function (result) {
                     $scope.newSubForum = result.data;
