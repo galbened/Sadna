@@ -143,7 +143,6 @@ namespace Forum
                 if (frm.ForumID == forumId)
                     return frm.IsAdmin(userId);
             }
-            DBforumMan.update();
             return false;
         }
         public int Register(string username, string password, string mail, int forumId)

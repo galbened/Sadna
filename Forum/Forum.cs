@@ -12,11 +12,15 @@ namespace Forum
     public class Forum
     {
         public int forumID { get; set; }
-        private List<int> registeredUsersID,logedUsersId, adminsID;
+        private List<int> logedUsersId, adminsID;
+        public List<RegisteredUser> registeredUsers { get; set; }
         //private int forumID;
-        private Policy poli;
-        private static int subForumIdCounter;
+        public static Policy poli { get; set; }
+        //private Policy poli;
+        public static int subForumIdCounter { get; set; }
+        //private static int subForumIdCounter;
         private IUserManager usrMngr;
+
         private const string error_existTitle = "Cannot create subForum with already exit title";
         private const string error_notAdmim = "Cannot create subForum with not admin caller ID";
         private const string error_forumID = "No such Forum: ";
@@ -28,8 +32,11 @@ namespace Forum
 
 
         public string forumName { get; set; }
-        public List<SubForum> subForums { get; private set; }
-        private Dictionary<int, Session> sessions;
+        public List<SubForum> subForums { get; set; }
+        //public List<SubForum> subForums { get; private set; }
+
+        private static Dictionary<int, Session> sessions { get; set; }
+        //private Dictionary<int, Session> sessions;
 
         public Forum() 
         {
@@ -39,8 +46,8 @@ namespace Forum
         {
             forumName = name;
             forumID = id;
-            registeredUsersID = new List<int>();
-            registeredUsersID.Add(1);
+            registeredUsers = new List<RegisteredUser>();
+            registeredUsers.Add(new RegisteredUser(1));
             adminsID = new List<int>();
             adminsID.Add(1);
             logedUsersId = new List<int>();
@@ -100,7 +107,7 @@ namespace Forum
             }
             try
             {
-                if (registeredUsersID.Contains(userId))
+                if (registeredUsers.Any(ru => ru.userID == userId))
                     adminsID.Add(userId);
             }
             catch (Exception ex)
@@ -167,8 +174,11 @@ namespace Forum
             }
             if (userId > -1)
             {
-                if (!(registeredUsersID.Contains(userId)))
-                    registeredUsersID.Add(userId);
+                if (!(registeredUsers.Any(ru => ru.userID == userId)))
+                    registeredUsers.Add(new RegisteredUser(userId));
+
+                //if (!(registeredUsersID.Contains(userId)))
+                //    registeredUsersID.Add(userId);
                 if (!(logedUsersId.Contains(userId)))
                     logedUsersId.Add(userId);
             }
@@ -184,7 +194,9 @@ namespace Forum
             if (!canLogin)
                 throw new ArgumentException(error_expiredPassword);
             int userId = usrMngr.login(username, password);
-            if (registeredUsersID.Contains(userId))
+
+            //if (registeredUsersID.Contains(userId))
+            if (registeredUsers.Any(ru => ru.userID == userId))
                 if (!(logedUsersId.Contains(userId)))
                     logedUsersId.Add(userId);
                 else
@@ -263,7 +275,8 @@ namespace Forum
             }
             try
             {
-                if (registeredUsersID.Contains(moderatorId))
+                if (registeredUsers.Any(ru => ru.userID == moderatorId))
+                //if (registeredUsersID.Contains(moderatorId))
                     foreach (SubForum sbfrm in subForums)
                         if ((sbfrm.SubForumId == subForumId) && (sbfrm.NumOfModerators() < poli.ModeratorNum))
                             sbfrm.AddModerator(moderatorId, userRequesterId);
@@ -317,7 +330,8 @@ namespace Forum
         internal void UnRegister(int userId)
         {
             logedUsersId.Remove(userId);
-            registeredUsersID.Remove(userId);
+            registeredUsers.RemoveAll(ru => ru.userID == userId);
+            //registeredUsersID.Remove(userId);
             usrMngr.deactivate(userId);
         }
 
@@ -374,8 +388,8 @@ namespace Forum
 
         internal Boolean isUserRegistered(int userId)
         {
-            return registeredUsersID.Contains(userId);
-
+            return (registeredUsers.Any(ru => ru.userID == userId));
+            //return registeredUsersID.Contains(userId);
         }
 
         internal string GetSubForumTopic(int forumId,int subForumId)
