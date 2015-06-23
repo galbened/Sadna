@@ -50,6 +50,7 @@ namespace Forum
             usrMngr = UserManager.Instance;
             subForumIdCounter = 100;
             sessions = new Dictionary<int, Session>();
+            sessions.Add(1, new Session("Admin", forumID, forumName));
         }
 
         public int CreateSubForum(int userRequesterId, string topic)

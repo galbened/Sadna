@@ -27,6 +27,7 @@ namespace User
             //DBmanCreate.update();
 
             DBman = new DBmanager();
+            AddSuperAdmin();
             //var bla = DBman.getAll();
             
             //Member newMember1 = new Member(1, "dude", "dudepass", "dude@dude.com");
@@ -101,6 +102,13 @@ namespace User
                     instance = new UserManager();
                 return instance;
             }
+        }
+
+        private void AddSuperAdmin()
+        {
+            Member member = new Member(1, "Admin", "Admin", "DrPC@gmail.com");
+            DBman.add(member);
+            saveMembersDB();
         }
 
 
