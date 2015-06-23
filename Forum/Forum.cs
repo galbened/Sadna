@@ -24,6 +24,7 @@ namespace Forum
         private const string error_subForumID = "No such SubForum: ";
         private const string error_invalidPassword = "Password is not valid according to policy";
         private const string error_failedRegistrarion = "Failed to register new user in user manager";
+        private const string error_accessDenied = "User has no permissions to perform this operation";
 
 
         public string forumName { get; set; }
@@ -32,7 +33,6 @@ namespace Forum
 
         public Forum() 
         {
-            forumName = "bla";
         }
 
         public Forum(string name, int id)
@@ -52,24 +52,30 @@ namespace Forum
             sessions = new Dictionary<int, Session>();
         }
 
-        public List<int> GetAdminsId() { return adminsID; }
-
-        public int CreateSubForum(string topic)
+        public int CreateSubForum(int userRequesterId, string topic)
         {
-            foreach (SubForum sbfrm in subForums)
-                if (sbfrm.Topic.CompareTo(topic) == 0)
-                    throw new ArgumentException(error_existTitle);
-            subForums.Add(new SubForum(topic, subForumIdCounter));
-            subForumIdCounter++;
-            return subForumIdCounter - 1;
-            /*if (adminsID.Contains(callerUserId))
+            Session se = GetSession(userRequesterId);
+            se.AddAction(ForumLogger.TYPE_INFO, "Trying to create subForum " + topic + " in forum " + forumID);
+            if ((userRequesterId != 1) && (!CheckExisting(adminsID, userRequesterId)))
             {
+                se.AddAction(ForumLogger.TYPE_ERROR, error_accessDenied); 
+                throw new UnauthorizedAccessException(error_accessDenied);
+            }
+            try
+            {
+                foreach (SubForum sbfrm in subForums)
+                    if (sbfrm.Topic.CompareTo(topic) == 0)
+                        throw new ArgumentException(error_existTitle);
                 subForums.Add(new SubForum(topic, subForumIdCounter));
                 subForumIdCounter++;
-                return subForumIdCounter - 1;
             }
-            else
-                throw new ArgumentException(error_notAdmim);*/
+            catch (Exception ex)
+            {
+                se.AddAction(ForumLogger.TYPE_ERROR, ex.Message);
+                throw ex;
+            }
+            se.AddAction(ForumLogger.TYPE_INFO, "SubForum " + topic + "with Id " +(subForumIdCounter - 1)+" created successfully in forumId " + forumID);   
+            return subForumIdCounter - 1;
         }
 
         public Policy Poli
@@ -77,15 +83,47 @@ namespace Forum
             get { return poli; }
         }
 
-        public void AddAdmin(int userId)
+        public void AddAdmin(int userRequesterId, int userId)
         {
-            if (registeredUsersID.Contains(userId))
-                adminsID.Add(userId);
+            Session se = GetSession(userRequesterId);
+            se.AddAction(ForumLogger.TYPE_INFO, "Trying to add admin " + userId + " to forum " + forumID);
+            if ((userRequesterId != 1) && (!CheckExisting(adminsID, userRequesterId)))
+            {
+                se.AddAction(ForumLogger.TYPE_ERROR, error_accessDenied); 
+                throw new UnauthorizedAccessException(error_accessDenied);
+            }
+            try
+            {
+                if (registeredUsersID.Contains(userId))
+                    adminsID.Add(userId);
+            }
+            catch (Exception ex)
+            {
+                se.AddAction(ForumLogger.TYPE_ERROR, ex.Message);
+                throw ex;
+            }
+            se.AddAction(ForumLogger.TYPE_INFO, "Admin " + userId + " was added to forumId " + forumID);
         }
 
-        public void RemoveAdmin(int userId)
+        public void RemoveAdmin(int userRequesterId, int userId)
         {
-            adminsID.Remove(userId);
+            Session se = GetSession(userRequesterId);
+            se.AddAction(ForumLogger.TYPE_INFO, "Trying to remove admin " + userId + " to forum " + forumID);
+            if ((userRequesterId != 1) && (!CheckExisting(adminsID, userRequesterId)))
+            {
+                se.AddAction(ForumLogger.TYPE_ERROR, error_accessDenied);
+                throw new UnauthorizedAccessException(error_accessDenied);
+            }
+            try
+            {
+                adminsID.Remove(userId);
+            }
+            catch (Exception ex)
+            {
+                se.AddAction(ForumLogger.TYPE_ERROR, ex.Message);
+                throw ex;
+            }
+            se.AddAction(ForumLogger.TYPE_INFO, "Admin " + userId + " was removed from forumId " + forumID);
         }
 
         public void ShowSubForums()
@@ -162,18 +200,34 @@ namespace Forum
             return true;
         }
 
-        public void SetPolicy(int numOfModerators, string degreeOfEnsuring,
+        public void SetPolicy(int userRequesterId, int numOfModerators, string degreeOfEnsuring,
                        Boolean uppercase, Boolean lowercase, Boolean numbers,
                        Boolean symbols, int minLength)
         {
-            poli.ModeratorNum=numOfModerators;
-            poli.PasswordEnsuringDegree=degreeOfEnsuring;
-            poli.UpperCase=uppercase;
-            poli.LowerCase=lowercase;
-            poli.Numbers=numbers;
-            poli.Symbols=symbols;
-            poli.MinLength=minLength;
-            poli.PasswordExpectancy = 20;
+            Session se = GetSession(userRequesterId);
+            se.AddAction(ForumLogger.TYPE_INFO, "Trying to set policy in forum " + forumID);
+            if ((userRequesterId != 1) && (!CheckExisting(adminsID, userRequesterId)))
+            {
+                se.AddAction(ForumLogger.TYPE_ERROR, error_accessDenied);
+                throw new UnauthorizedAccessException(error_accessDenied);
+            }
+            try
+            {
+                poli.ModeratorNum = numOfModerators;
+                poli.PasswordEnsuringDegree = degreeOfEnsuring;
+                poli.UpperCase = uppercase;
+                poli.LowerCase = lowercase;
+                poli.Numbers = numbers;
+                poli.Symbols = symbols;
+                poli.MinLength = minLength;
+                poli.PasswordExpectancy = 20;
+            }
+            catch (Exception ex)
+            {
+                se.AddAction(ForumLogger.TYPE_ERROR, ex.Message);
+                throw ex;
+            }
+            se.AddAction(ForumLogger.TYPE_INFO, "Policy was changed successfully in forum " + forumID);
         }
 
         public int ForumID
@@ -189,19 +243,57 @@ namespace Forum
             throw new ArgumentException(error_forumID+subForumId);
         }
 
-        internal void AddModerator(int userId, int subForumId, int callerId)
+        internal void AddModerator(int userRequesterId, int subForumId, int moderatorId)
         {
-            if (registeredUsersID.Contains(userId))
-                foreach (SubForum sbfrm in subForums)
-                    if ((sbfrm.SubForumId == subForumId)&&(sbfrm.NumOfModerators()<poli.ModeratorNum))
-                        sbfrm.AddModerator(userId, callerId);
+            Session se = GetSession(userRequesterId);
+            se.AddAction(ForumLogger.TYPE_INFO, "Trying to add moderator " + moderatorId + " to forum " + forumID + ", subForum: " + subForumId);
+
+            SubForum sf = GetSubForum(subForumId);
+            List<int> moderators = sf.GetModeratorsIds();
+            if ((userRequesterId != 1) && (!CheckExisting(adminsID, userRequesterId) && (!CheckExisting(moderators, subForumId))))
+            {
+                se.AddAction(ForumLogger.TYPE_ERROR, error_accessDenied);
+                throw new UnauthorizedAccessException(error_accessDenied);
+            }
+            try
+            {
+                if (registeredUsersID.Contains(moderatorId))
+                    foreach (SubForum sbfrm in subForums)
+                        if ((sbfrm.SubForumId == subForumId) && (sbfrm.NumOfModerators() < poli.ModeratorNum))
+                            sbfrm.AddModerator(moderatorId, userRequesterId);
+            }
+            catch (Exception ex)
+            {
+                se.AddAction(ForumLogger.TYPE_ERROR, ex.Message);
+                throw ex;
+            }
+            se.AddAction(ForumLogger.TYPE_INFO, "Moderator " + moderatorId + " added to forum " + forumID + ", subForum: " + subForumId);
         }
 
-        internal void RemoveModerator(int userId, int subForumId)
+        internal void RemoveModerator(int userRequesterId, int userId, int subForumId)
         {
-            foreach (SubForum sbfrm in subForums)
-                if (sbfrm.SubForumId == subForumId)
-                    sbfrm.RemoveModerator(userId);
+            Session se = GetSession(userRequesterId);
+            se.AddAction(ForumLogger.TYPE_INFO, "Trying to remove moderator " + userId + " from forum " + forumID + ", subForum: " + subForumId);
+
+            SubForum sf = GetSubForum(subForumId);
+            List<int> moderators = sf.GetModeratorsIds();
+            if ((userRequesterId != 1) && (!CheckExisting(adminsID, userRequesterId) && (!CheckExisting(moderators, subForumId))))
+            {
+                se.AddAction(ForumLogger.TYPE_ERROR, error_accessDenied);
+                throw new UnauthorizedAccessException(error_accessDenied);
+            }
+            try
+            {
+                foreach (SubForum sbfrm in subForums)
+                    if (sbfrm.SubForumId == subForumId)
+                        sbfrm.RemoveModerator(userId);
+            }
+            catch (Exception ex)
+            {
+                se.AddAction(ForumLogger.TYPE_ERROR, ex.Message);
+                throw ex;
+            }
+            se.AddAction(ForumLogger.TYPE_INFO, "Moderator " + userId + " removed from forum " + forumID + ", subForum: " + subForumId);
         }
 
         internal void SetSubTopic(string topic, int subForumId)
@@ -239,17 +331,33 @@ namespace Forum
             throw new ArgumentException(error_forumID + subForumId); ;
         }
 
-        internal Boolean RemoveSubForum(int subForumId, int callerUserId)
+        internal Boolean RemoveSubForum(int userRequesterId, int subForumId, int callerUserId)
         {
-            SubForum tmp = null;
-            foreach (SubForum sbfrm in subForums)
-                if (sbfrm.SubForumId == subForumId)
-                    tmp = sbfrm;
-            if (adminsID.Contains(callerUserId))
+            Session se = GetSession(userRequesterId);
+            se.AddAction(ForumLogger.TYPE_INFO, "Trying to remove subForum " + subForumId + " in forum " + forumID);
+            if ((userRequesterId != 1) && (!CheckExisting(adminsID, userRequesterId)))
             {
-                subForums.Remove(tmp);
-                return true;
+                se.AddAction(ForumLogger.TYPE_ERROR, error_accessDenied); 
+                throw new UnauthorizedAccessException(error_accessDenied);
             }
+            try
+            {
+                SubForum tmp = null;
+                foreach (SubForum sbfrm in subForums)
+                    if (sbfrm.SubForumId == subForumId)
+                        tmp = sbfrm;
+                if (adminsID.Contains(callerUserId))
+                {
+                    subForums.Remove(tmp);
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                se.AddAction(ForumLogger.TYPE_ERROR, ex.Message);
+                throw ex;
+            }
+            se.AddAction(ForumLogger.TYPE_INFO, "SubForum " + subForumId + "removed from forum " + forumID);
             return false;
         }
 
@@ -288,6 +396,17 @@ namespace Forum
                 ans.Add(ai.line);
             }
             return ans;
+        }
+
+
+        private bool CheckExisting(List<int> list, int find)
+        {
+            foreach (int obj in list)
+            {
+                if (obj == find)
+                    return true;
+            }
+            return false;
         }
 
 

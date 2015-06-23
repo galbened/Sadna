@@ -220,13 +220,13 @@ namespace Forum
             }
             throw new ArgumentException(error_forumID + forumId); ;
         }
-        public void AddModerator(int userRequesterId, int userId, int forumId, int subForumId, int callerId)
+        public void AddModerator(int userRequesterId, int forumId, int subForumId, int moderatorId)
         {
 
             foreach (Forum frm in DBforumMan.getAll())
             {
                 if (frm.ForumID == forumId)
-                    frm.AddModerator(userRequesterId, userId, subForumId, callerId);
+                    frm.AddModerator(userRequesterId, subForumId, moderatorId);
             }
             DBforumMan.update();
         }
