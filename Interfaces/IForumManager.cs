@@ -11,7 +11,7 @@ namespace Interfaces
     {
         int CreateForum(int userRequesterId, string name);
         void RemoveForum(int userRequesterId, int forumId);
-        Boolean RemoveSubForum(int userRequesterId, int forumId, int subForumId, int callerUserId);
+        Boolean RemoveSubForum(int userRequesterId, int forumId, int subForumId);
         //return -1 for already exist topic and -2 for not admin caller.
         int CreateSubForum(int userRequesterId, string topic, int forumId);
         void AddAdmin(int userRequesterId, int userId, int forumId);

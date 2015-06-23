@@ -56,8 +56,8 @@ namespace Forum.UnitTests
             int id3 = fm.CreateSubForum(1, subTitels[0], id1);
             Assert.AreNotEqual(id1, id2);
             fm.RemoveForum(1, id1);
-            fm.RemoveSubForum(1, id1, id2, 1);
-            fm.RemoveSubForum(1, id1, id3, 1);
+            fm.RemoveSubForum(1, id1, id2);
+            fm.RemoveSubForum(1, id1, id3);
         }
 
         [TestMethod]
@@ -75,7 +75,7 @@ namespace Forum.UnitTests
                 Assert.IsTrue(true);
             }
             fm.RemoveForum(1, id1);
-            fm.RemoveSubForum(1, id1, id2, 1);
+            fm.RemoveSubForum(1, id1, id2);
         }
 
         /*
@@ -120,7 +120,7 @@ namespace Forum.UnitTests
             Assert.IsTrue(fm.IsModerator(userId, forumId, subForumId));
             fm.RemoveModerator(1, userId, forumId, subForumId);
             fm.UnRegister(userId, forumId);
-            fm.RemoveSubForum(1, forumId, subForumId, 1);
+            fm.RemoveSubForum(1, forumId, subForumId);
             fm.RemoveForum(1, forumId);
         }
 
@@ -135,7 +135,7 @@ namespace Forum.UnitTests
             fm.RemoveModerator(1, userId, forumId, subForumId);
             Assert.IsFalse(fm.IsModerator(userId, forumId, subForumId));
             fm.UnRegister(userId, forumId);
-            fm.RemoveSubForum(1, forumId, subForumId, 1);
+            fm.RemoveSubForum(1, forumId, subForumId);
             fm.RemoveForum(1, forumId);
         }
     }

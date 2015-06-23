@@ -337,7 +337,7 @@ namespace Forum
             throw new ArgumentException(error_forumID + subForumId); ;
         }
 
-        internal Boolean RemoveSubForum(int userRequesterId, int subForumId, int callerUserId)
+        internal Boolean RemoveSubForum(int userRequesterId, int subForumId)
         {
             Session se = GetSession(userRequesterId);
             se.AddAction(ForumLogger.TYPE_INFO, "Trying to remove subForum " + subForumId + " in forum " + forumID);
@@ -352,7 +352,7 @@ namespace Forum
                 foreach (SubForum sbfrm in subForums)
                     if (sbfrm.SubForumId == subForumId)
                         tmp = sbfrm;
-                if (adminsID.Contains(callerUserId))
+                if (adminsID.Contains(userRequesterId))
                 {
                     subForums.Remove(tmp);
                     return true;

@@ -127,7 +127,7 @@ namespace Driver
 
         public void RemoveSubForum(int userRequesterId, int forumId, int subForumId)
         {
-            throw new NotImplementedException();
+            FM.RemoveSubForum(userRequesterId, forumId, subForumId);
         }
 
         public void AddAdmin(int userRequesterId, int forumId, int adminId)

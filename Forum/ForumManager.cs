@@ -107,12 +107,12 @@ namespace Forum
             DBforumMan.update();
 
         }
-        public Boolean RemoveSubForum(int userRequesterId, int forumId, int subForumId, int callerUserId)
+        public Boolean RemoveSubForum(int userRequesterId, int forumId, int subForumId)
         {
 
             foreach (Forum frm in DBforumMan.getAll())
                 if (frm.ForumID == forumId)
-                    return frm.RemoveSubForum(userRequesterId, subForumId, callerUserId);
+                    return frm.RemoveSubForum(userRequesterId, subForumId);
             DBforumMan.update();
             return false;
         }
