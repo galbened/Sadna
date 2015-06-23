@@ -12,7 +12,8 @@ namespace Forum
     public class Forum
     {
         public int forumID { get; set; }
-        private List<int> logedUsersId;
+        //private List<int> logedUsersId;
+        public List<LoggedUser> loggedUsers { get; set; }
         public List<RegisteredUser> registeredUsers { get; set; }
         public List<AdminUser> adminUsers { get; set; }
         //private int forumID;
@@ -51,8 +52,8 @@ namespace Forum
             registeredUsers.Add(new RegisteredUser(1));
             adminUsers = new List<AdminUser>();
             adminUsers.Add(new AdminUser(1));
-            logedUsersId = new List<int>();
-            logedUsersId.Add(1);
+            loggedUsers = new List<LoggedUser>();
+            loggedUsers.Add(new LoggedUser(1));
             subForums = new List<SubForum>();
             poli = new Policy();
             usrMngr = UserManager.Instance;
@@ -181,11 +182,12 @@ namespace Forum
             {
                 if (!(registeredUsers.Any(ru => ru.userID == userId)))
                     registeredUsers.Add(new RegisteredUser(userId));
-
                 //if (!(registeredUsersID.Contains(userId)))
                 //    registeredUsersID.Add(userId);
-                if (!(logedUsersId.Contains(userId)))
-                    logedUsersId.Add(userId);
+                if (!(loggedUsers.Any(lu => lu.userID == userId)))
+                    loggedUsers.Add(new LoggedUser(userId));
+                //if (!(logedUsersId.Contains(userId)))
+                //    logedUsersId.Add(userId);
             }
             guestSession.EndSession();
             Session se = new Session(userId, username, forumID, forumName, SessionReason.registration);
@@ -202,8 +204,10 @@ namespace Forum
 
             //if (registeredUsersID.Contains(userId))
             if (registeredUsers.Any(ru => ru.userID == userId))
-                if (!(logedUsersId.Contains(userId)))
-                    logedUsersId.Add(userId);
+                if (!(loggedUsers.Any(lu => lu.userID == userId)))
+                    loggedUsers.Add(new LoggedUser(userId));
+                //if (!(logedUsersId.Contains(userId)))
+                //    logedUsersId.Add(userId);
                 else
                     return -1;
             Session se = new Session(userId, username, forumID, forumName, SessionReason.loggin);
@@ -213,10 +217,15 @@ namespace Forum
 
         public Boolean Logout(int userId)
         {
-            if (!(logedUsersId.Contains(userId)))
+            //if (!(loggedUsers.Any(lu => lu.userID == userId)))
+            //    loggedUsers.Add(new LoggedUser(userId));
+
+            if (!(loggedUsers.Any(lu => lu.userID == userId)))
                 return false;
             usrMngr.logout(userId);
-            logedUsersId.Remove(userId);
+
+            loggedUsers.RemoveAll(lu => lu.userID == userId);
+            //logedUsersId.Remove(userId);
             Session se = GetSession(userId);
             se.EndSession();
             sessions.Remove(userId);
@@ -334,7 +343,8 @@ namespace Forum
 
         internal void UnRegister(int userId)
         {
-            logedUsersId.Remove(userId);
+            loggedUsers.RemoveAll(lu => lu.userID == userId);
+            //logedUsersId.Remove(userId);
             registeredUsers.RemoveAll(ru => ru.userID == userId);
             //registeredUsersID.Remove(userId);
             usrMngr.deactivate(userId);
