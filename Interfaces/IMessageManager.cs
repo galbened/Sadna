@@ -38,6 +38,7 @@ namespace Interfaces
         /// <editMessage>
         /// Edit Message (First\Response)
         /// </editMessage>
+        /// <param name="userRequesterId">ID of requester user</param>
         /// <param name="messageId">ID of the message to edit</param>
         /// <param name="callerID">ID of requesting user</param>
         /// <returns>true if message edited successfully</returns>
@@ -45,7 +46,7 @@ namespace Interfaces
         /// ArgumentException if title is empty
         /// InvalidOperationException if messageId doesn't exist
         /// </throws>
-        bool editMessage(int messageId, string title, string body, int callerID);
+        bool editMessage(int userRequesterId, int messageId, string title, string body);
 
 
         /// <deleteMessage>

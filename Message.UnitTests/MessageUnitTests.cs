@@ -133,7 +133,7 @@ namespace Message.UnitTests
             int subForumId = fm.CreateSubForum(1, subTitels[0], forumId);
             int threadId = mm.addThread(forumId, subForumId, userId,userNames[0], topic[0], body[0]);
             int commentID1 = mm.addComment(threadId, userId, userNames[0], topic[1], body[0]);
-            Assert.IsTrue(mm.editMessage(commentID1, topic[0], body[0], userId));
+            Assert.IsTrue(mm.editMessage(userId, commentID1, topic[0], body[0]));
             fm.UnRegister(userId, forumId);
             fm.RemoveForum(1, forumId);
         }
@@ -170,7 +170,7 @@ namespace Message.UnitTests
             int commentID1 = mm.addComment(threadId, userId,userNames[0], topic[1], body[0]);
             try
             {
-                Assert.IsFalse(mm.editMessage(-200, topic[0], body[0], 1));
+                Assert.IsFalse(mm.editMessage(userId , - 200, topic[0], body[0]));
                 Assert.Fail();
             }
             catch (InvalidOperationException)

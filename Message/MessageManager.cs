@@ -111,7 +111,7 @@ namespace Message
         }
 
 
-        public bool editMessage(int messageId, string title, string body, int callerID)
+        public bool editMessage(int userRequesterId, int messageId, string title, string body)
         {
             if ((title == null) || (title.Equals("")))
             {
@@ -122,7 +122,9 @@ namespace Message
             Message ms = findMessage(messageId);
             if (ms != null)
             {
-                if (ms.PublisherID == callerID)
+                if ((!(ms.publisherID != userRequesterId)) && (!(userRequesterId != 1)))
+                    throw new UnauthorizedAccessException("User " + userRequesterId + " has no permissions to edit the message " + messageId);
+                if (ms.PublisherID == userRequesterId)
                 {
                     ms.editMessage(title, body);
                     return true;

@@ -111,7 +111,7 @@ namespace Driver
 
         public bool EditMessage(int userRequesterId, int messageId, string title, string body)
         {
-            throw new NotImplementedException();
+            return MM.editMessage(userRequesterId, messageId, title, body);
         }
 
         public bool DeleteMessage(int userRequesterId, int messageId)
