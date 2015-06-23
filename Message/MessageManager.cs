@@ -23,6 +23,8 @@ namespace Message
         private const string error_wrongWords = "The message contains wrong words";
 
         IDBManager<Message> DBmessageMan;
+        IDBManager<Thread> DBthreadMan;
+
         private HashSet<string> badWords;
 
         public static IMessageManager Instance()
@@ -41,6 +43,7 @@ namespace Message
             InitWrongWords();
 
             DBmessageMan = new DBmessageManager();
+            DBthreadMan = new DBthreadManager();
 
             /*
             DBmessageMan.add(new FirstMessage(1, 1, "Gal", "Test", "Checking messages DB!"));
@@ -293,9 +296,11 @@ namespace Message
 
         }
 
-        
 
-        
-
+        public void saveDB()
+        {
+            DBmessageMan.update();
+            DBthreadMan.update();
+        }
     }
 }

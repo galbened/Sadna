@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,8 @@ namespace Message
     [Table("FirstMessages")]
     public class FirstMessage : Message
     {
-
+        [Key]
+        public int id { get; set; }
         private HashSet<ResponseMessage> responseMessages = new HashSet<ResponseMessage>();
 
         public FirstMessage() : base()
