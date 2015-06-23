@@ -11,5 +11,9 @@ namespace User
     {
         public DbSet<Member> Members { get; set; }
         //public DbSet<Password> Passwords { get; set; }
+
+        public Context()
+            : base("name=UserDBConnectionString")
+        { }
     }
 }
