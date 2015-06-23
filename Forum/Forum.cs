@@ -53,6 +53,11 @@ namespace Forum
             sessions.Add(1, new Session("Admin", forumID, forumName));
         }
 
+        public List<int> GetForumAdmins()
+        {
+            return adminsID;
+        }
+
         public int CreateSubForum(int userRequesterId, string topic)
         {
             Session se = GetSession(userRequesterId);
@@ -396,6 +401,12 @@ namespace Forum
             {
                 ans.Add(ai.line);
             }
+            return ans;
+        }
+
+        public string GetUserMail(int userId)
+        {
+            string ans = usrMngr.GetUserMail(userId);
             return ans;
         }
 

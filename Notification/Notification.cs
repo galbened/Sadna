@@ -83,7 +83,7 @@ namespace Notification
                 SmtpServer.Credentials = new System.Net.NetworkCredential("drpcbgu", "123drpc123");
                 SmtpServer.EnableSsl = true;
 
-                SmtpServer.Send(mail);
+                //SmtpServer.Send(mail);
             }
             catch (Exception ex)
             {

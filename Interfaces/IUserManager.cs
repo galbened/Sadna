@@ -44,5 +44,7 @@ namespace Interfaces
                                                                    // if true, activates account and returns true, false, returns false 
 
         Boolean isUserRegistered(int userId);
+
+        string GetUserMail(int userId);
     }
 }

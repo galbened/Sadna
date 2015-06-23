@@ -292,5 +292,12 @@ namespace User
                 return true;
 
         }
+
+        public string GetUserMail(int userId)
+        {
+            Member mem = DBman.getObj(userId);
+            string ans = mem.memberEmail;
+            return ans;
+        }
     }
 }
