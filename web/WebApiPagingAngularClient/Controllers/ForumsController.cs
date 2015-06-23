@@ -14,7 +14,7 @@ namespace WebApiPagingAngularClient.Controllers
     [RoutePrefix("api/forums")]
     public class ForumsController : ApiController
     {
-        private static IApplicationBridge driver = new BridgeReal();
+        private static IApplicationBridge driver = BridgeReal.GetInstance();
 
         public ForumsController()
         {

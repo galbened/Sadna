@@ -14,7 +14,7 @@ namespace testProject
         {
             BridgeProxy bridge = new BridgeProxy();
 
-            bridge.SetRealBridge(new BridgeReal()); // add real bridge here
+            bridge.SetRealBridge(BridgeReal.GetInstance()); // add real bridge here
             return bridge;
         }
     }

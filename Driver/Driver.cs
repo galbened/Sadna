@@ -18,7 +18,7 @@ namespace Driver
 
         public static void Main(string[] args)
         {
-            bridge = new BridgeReal();
+            bridge = BridgeReal.GetInstance();
            
 
             while (true)
