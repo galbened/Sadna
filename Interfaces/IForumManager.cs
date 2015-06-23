@@ -50,6 +50,7 @@ namespace Interfaces
         List<string> GetMembersNoAdminNames(int forumId);
         List<int> GetMembersNoModeratorIds(int forumId, int subForumId);
         List<string> GetMembersNoModeratorNames(int forumId, int subForumId);
+        void SendFriendRequest(int requesterId, int friendId, int forumId);
     } 
 }
 

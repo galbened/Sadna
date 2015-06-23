@@ -460,6 +460,15 @@ namespace Forum
             return ans;
         }
 
+
+        public void SendFriendRequest(int requesterId, int friendId, int forumId)
+        {
+            string userNameFrom = GetUsername(forumId, requesterId);
+            string userNameTo = GetUsername(forumId, friendId);
+            string emailTo = GetUserMail(forumId, friendId);
+            Notification.Notification.SendFriendRequestNotification(userNameFrom, userNameTo, emailTo);
+        }
+
         
 
 

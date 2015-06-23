@@ -97,10 +97,10 @@ namespace testProject
             throw new NullReferenceException("_real in null");
         }
 
-        public void SendFriendRequest()
+        public void SendFriendRequest(int requesterId, int friendId, int forumId)
         {
             if (_real != null)
-                _real.SendFriendRequest();
+                _real.SendFriendRequest(requesterId, friendId, forumId);
             throw new NullReferenceException("_real in null");
         }
 
