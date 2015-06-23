@@ -427,10 +427,10 @@ namespace Forum
         internal List<int> GetMembersNoAdminIds()
         {
             List<int> ans = new List<int>();
-            foreach (int registeredUser in registeredUsersID)
+            foreach (RegisteredUser ru in registeredUsers)
             {
-                if (!IsAdmin(registeredUser))
-                    ans.Add(registeredUser);
+                if (!IsAdmin(ru.userID))
+                    ans.Add(ru.userID);
             }
             return ans;          
         }
@@ -439,10 +439,12 @@ namespace Forum
         internal List<int> GetMembersNoModeratorIds(int subForumId)
         {
             List<int> ans = new List<int>();
-            foreach (int id in registeredUsersID)
+            foreach (RegisteredUser ru in registeredUsers)
             {
-                if (!IsModerator(id, subForumId))
-                    ans.Add(id);
+                if (!IsModerator(ru.userID, subForumId))
+                    ans.Add(ru.userID);
+                //if (!IsModerator(id, subForumId))
+                //    ans.Add(id);
             }
             return ans;
         }
