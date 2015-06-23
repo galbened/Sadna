@@ -244,12 +244,12 @@ namespace Driver
 
         public List<int> GetModeratorIds(int forumId, int subForumId)
         {
-            throw new NotImplementedException();
+            return FM.GetModeratorIds(forumId, subForumId);
         }
 
         public List<string> GetModeratorNames(int forumId, int subForumId)
         {
-            throw new NotImplementedException();
+            return FM.GetModeratorNames(forumId, subForumId);
         }
 
         public List<int> GetMembersNoAdminIds(int forumId)
