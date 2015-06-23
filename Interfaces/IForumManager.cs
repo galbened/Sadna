@@ -43,6 +43,7 @@ namespace Interfaces
         string GetUserType(int forumId, int userId);
         string GetUsername(int forumId, int userId);
         List<string> GetSessionHistory(int requesterId, int forumId, int userIdSession);
+        void ComplainModerator(int userRequesterId, int moderator, int forumId, int subForumId);
     } 
 }
 

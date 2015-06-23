@@ -106,7 +106,7 @@ namespace Driver
 
         public void ComplainModerator(int userRequesterId, int moderator, int forumId, int subForumId)
         {
-            throw new NotImplementedException();
+            FM.ComplainModerator(userRequesterId, moderator, forumId, subForumId);
         }
 
         public bool EditMessage(int userRequesterId, int messageId, string title, string body)

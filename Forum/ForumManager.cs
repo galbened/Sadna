@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Interfaces;
 using ForumLoggers;
 using Message;
-using System.Configuration;
+using Notification;
 
 
 namespace Forum
@@ -386,7 +386,34 @@ namespace Forum
 
         }
 
+        public void ComplainModerator(int userRequesterId, int moderator, int forumId, int subForumId)
+        {
+            string complainer = GetUsername(forumId, userRequesterId);
+            List<int> adminsIds = GetForumAdmins(forumId);          
+            string complainOnUser = GetUsername(forumId, moderator);
 
+            foreach(int admin in adminsIds)
+            {
+                string complainToUser = GetUsername(forumId, admin);
+                string complainToMail = GetUserMail(forumId, admin);
+                Notification.Notification.SendComplaintNotification(complainer, complainToUser, complainOnUser, complainToMail);
+            }
+            
+        }
+
+
+
+        private string GetUserMail(int forumId, int userId)
+        {
+            Forum fr = GetForum(forumId);
+            return fr.GetUserMail(userId);
+        }
+
+        private List<int> GetForumAdmins(int forumId)
+        {
+            Forum fr = GetForum(forumId);
+            return fr.GetForumAdmins();
+        }
 
 
         private Forum GetForum(int forumId)

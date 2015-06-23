@@ -70,18 +70,25 @@ namespace Notification
         */
         private static void SendMailToUser(string targetMail, string title, string body)
         {
-            MailMessage mail = new MailMessage();
-            SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
+            try
+            {
+                MailMessage mail = new MailMessage();
+                SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
 
-            mail.From = new MailAddress(systemMail);
-            mail.Subject = title;
-            mail.To.Add(targetMail);
-            mail.Body = body;
-            SmtpServer.Port = 587;
-            SmtpServer.Credentials = new System.Net.NetworkCredential("drpcbgu", "123drpc123");
-            SmtpServer.EnableSsl = true;
+                mail.From = new MailAddress(systemMail);
+                mail.Subject = title;
+                mail.To.Add(targetMail);
+                mail.Body = body;
+                SmtpServer.Port = 587;
+                SmtpServer.Credentials = new System.Net.NetworkCredential("drpcbgu", "123drpc123");
+                SmtpServer.EnableSsl = true;
 
-            //SmtpServer.Send(mail);
+                SmtpServer.Send(mail);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Failed sending mail: " + ex.Message);
+            }
         }
 
     }
