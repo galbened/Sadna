@@ -203,13 +203,6 @@ namespace testProject
             throw new NullReferenceException("_real in null");
         }
 
-        public List<int> GetModerators(int forumId, int subForumId)
-        {
-            if (_real != null)
-                return _real.GetModerators(forumId, subForumId);
-            throw new NullReferenceException("_real in null");
-        }
-
         public string GetForumName(int forumId)
         {
             if (_real != null)
@@ -281,17 +274,17 @@ namespace testProject
             throw new NullReferenceException("_real in null");
         }
 
-        public List<int> GetModeratorIds(int forumId)
+        public List<int> GetModeratorIds(int forumId, int subForumId)
         {
             if (_real != null)
-                return _real.GetModeratorIds(forumId);
+                return _real.GetModeratorIds(forumId, subForumId);
             throw new NullReferenceException("_real in null");
         }
 
-        public List<string> GetModeratorNames(int forumId)
+        public List<string> GetModeratorNames(int forumId, int subForumId)
         {
             if (_real != null)
-                return _real.GetModeratorNames(forumId);
+                return _real.GetModeratorNames(forumId, subForumId);
             throw new NullReferenceException("_real in null");
         }
 

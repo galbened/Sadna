@@ -162,11 +162,6 @@ namespace Driver
             return FM.GetAllComments(forumId, subForumId,messageId);
         }
 
-        public List<int> GetModerators(int forumId, int subForumId)
-        {
-            throw new NotImplementedException();
-        }
-
         public string GetForumName(int forumId)
         {
             return FM.GetForumName(forumId);
@@ -231,6 +226,18 @@ namespace Driver
         {
             return UM.isUserRegistered(userId);
         }
+
+        List<int> GetModeratorIds(int forumId, int subForumId);
+
+        List<string> GetModeratorNames(int forumId, int subForumId);
+
+        List<int> GetMembersNoAdminIds(int forumId);
+
+        List<string> GetMembersNoAdminNames(int forumId);
+
+        List<int> GetMembersNoModeratorIds(int forumId, int subForumId);
+
+        List<string> GetMembersNoModeratorNames(int forumId, int subForumId);
 
         public void initializingDemoRunData()
         {

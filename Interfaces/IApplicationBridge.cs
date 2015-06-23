@@ -62,8 +62,6 @@ namespace Interfaces
 
         List<int> GetAllComments(int forumId,int subForumId, int messageId);// should throw exception in case of missing messageId
 
-        List<int> GetModerators(int forumId, int subForumId);
-
         string GetForumName(int forumId);
 
         List<int> GetSubForumsIds(int forumId);
@@ -92,9 +90,9 @@ namespace Interfaces
 
         Boolean isUserRegistered(int userId);
 
-        List<int> GetModeratorIds(int forumId);
+        List<int> GetModeratorIds(int forumId, int subForumId);
 
-        List<string> GetModeratorNames(int forumId);
+        List<string> GetModeratorNames(int forumId, int subForumId);
 
         List<int> GetMembersNoAdminIds(int forumId);
 
