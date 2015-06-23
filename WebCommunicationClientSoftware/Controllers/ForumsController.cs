@@ -12,7 +12,7 @@ namespace WebCommunicationClientSoftware.Controllers
     [RoutePrefix("api/forums")]
     public class ForumsController : ApiController
     {
-        //private static IApplicationBridge driver = new BridgeReal();
+        private static IApplicationBridge driver = BridgeReal.GetInstance();
 
         public ForumsController()
         {
@@ -21,11 +21,14 @@ namespace WebCommunicationClientSoftware.Controllers
         [Route("getForumsIds")]
         public List<int> Get()
         {
-            Console.Write("!!!!!!!!!!!1\ngot getforums request!\n!!!!!!!!!!!1\n");
-            //List<int> ids = driver.GetForumIds();
-            List<int> ids = new List<int>();
-            ids.Add(3);
-            ids.Add(4);
+            List<int> ids = driver.GetForumIds();
+            return ids;
+        }
+
+        [Route("getSubForumsIds/{forumId:int}")]
+        public List<int> Get(int forumId)
+        {
+            List<int> ids = driver.GetSubForumsIds(forumId);
             return ids;
         }
 
