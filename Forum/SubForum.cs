@@ -9,7 +9,8 @@ namespace Forum
     {
         public int subForumId { get; set; }
         private string topic;
-        private List<Moderator> moderators;
+        public List<Moderator> moderators { get; set; }
+        //private List<Moderator> moderators;
         //private int subForumId;
 
         public SubForum() { }
