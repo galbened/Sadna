@@ -46,6 +46,7 @@ namespace Interfaces
         void ComplainModerator(int userRequesterId, int moderator, int forumId, int subForumId);
         List<int> GetModeratorIds(int forumId, int subForumId);
         List<string> GetModeratorNames(int forumId, int subForumId);
+        List<int> GetMembersNoAdminIds(int forumId);
     } 
 }
 

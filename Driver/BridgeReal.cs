@@ -254,7 +254,7 @@ namespace Driver
 
         public List<int> GetMembersNoAdminIds(int forumId)
         {
-            throw new NotImplementedException();
+            return FM.GetMembersNoAdminIds(forumId);
         }
 
         public List<string> GetMembersNoAdminNames(int forumId)

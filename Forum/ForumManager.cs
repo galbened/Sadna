@@ -420,6 +420,15 @@ namespace Forum
             }
             return ans;
         }
+
+
+        public List<int> GetMembersNoAdminIds(int forumId)
+        {
+            Forum fr = GetForum(forumId);
+            List<int> ans = fr.GetMembersNoAdminIds();
+            return ans;
+        }
+
         
 
 

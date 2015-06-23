@@ -410,6 +410,20 @@ namespace Forum
             return ans;
         }
 
+        internal List<int> GetMembersNoAdminIds()
+        {
+            List<int> ans = new List<int>();
+            foreach (int registeredUser in registeredUsersID)
+            {
+                if (!IsAdmin(registeredUser))
+                    ans.Add(registeredUser);
+            }
+            return ans;          
+        }
+
+
+
+
 
         private bool CheckExisting(List<int> list, int find)
         {
