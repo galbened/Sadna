@@ -13,7 +13,7 @@ namespace Forum
     {
         Context db;
         private int mode;
-
+        public Dictionary<int, Forum> Forums;
 
         public DBforumManager()
         {
@@ -22,6 +22,10 @@ namespace Forum
             {
                 db = new Context();
                 db.Configuration.LazyLoadingEnabled = false;
+            }
+            else
+            {
+                Forums = new Dictionary<int, Forum>();
             }
             //db.Database.ExecuteSqlCommand("TRUNCATE TABLE SubForums");
             //db.Database.ExecuteSqlCommand("DELETE FROM Fora DBCC CHECKIDENT ('Fora',RESEED, 0)");
@@ -50,7 +54,7 @@ namespace Forum
             if (UseDB())
                 return db.Forums.Find(ID);
             else
-                return null;
+                return Forums[ID];
             //return db.Forums.SingleOrDefault(p => p.forumID == ID);
         }
 
@@ -59,7 +63,7 @@ namespace Forum
             if (UseDB())
                 return db.Forums.ToList();
             else
-                return new List<Forum>();
+                return Forums.Values.ToList();
         }
 
         public void update()
@@ -73,6 +77,8 @@ namespace Forum
         {
             if (UseDB())
               db.Forums.Add(obj);
+            else
+                Forums.Add(obj.forumID, obj);
         }
 
 
@@ -80,6 +86,8 @@ namespace Forum
         {
             if (UseDB())
               db.Forums.Remove(obj);
+            else
+                Forums.Remove(obj.forumID);
         }
     }
 }
