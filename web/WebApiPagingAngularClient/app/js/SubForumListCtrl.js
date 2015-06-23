@@ -42,6 +42,22 @@
                 };
                 return Forums.getUser(queryArgsUser).$promise.then(
                     function (result) {
+                        $scope.user = result.data;
+                        return Forums.getForum(queryArgsForum).$promise.then(
+                            function (result) {
+                                console.log(result.data);
+                                $scope.forum = parseForum(result.data);
+                                console.log($scope.forum);
+                                return result.$promise;
+                            }, function (result) {
+                                return $q.reject(result);
+                            });
+                    }, function (result) {
+                        return $q.reject(result);
+                    });
+            } else {
+                return Forums.getForum(queryArgsForum).$promise.then(
+                    function (result) {
                         console.log(result.data);
                         $scope.forum = parseForum(result.data);
                         console.log($scope.forum);
@@ -50,17 +66,6 @@
                         return $q.reject(result);
                     });
             }
-
-            return Forums.getForum(queryArgsForum).$promise.then(
-                function (result) {
-                    console.log(result.data);
-                    $scope.forum = parseForum(result.data);
-                    console.log($scope.forum);
-                    return result.$promise;
-                }, function (result) {
-                    return $q.reject(result);
-                });
-
 
         }
 
@@ -72,10 +77,9 @@
             });
 
             $scope.modalInstance.result.then(function (result) {
-                console.log('kaka');
                 console.log(result);
-                console.log('pipi');
                 $scope.user = result;
+                $rootScope.userId = $scope.user.userId;
             });
         };
 
@@ -89,6 +93,7 @@
             $scope.modalInstance.result.then(function (result) {
                 console.log(result);
                 $scope.user = result;
+                $rootScope.userId = $scope.user.userId;
             });
         };
 
@@ -106,7 +111,12 @@
         };
 
         $scope.addNewSubForum = function () {
+
+            var scope = $rootScope.$new();
+            scope.params = { userId: $scope.user.id };
+
             $scope.modalInstance = $modal.open({
+                scope: scope,
                 templateUrl: 'app/partials/AddSubForumModal.html',
                 size: 'sm',
                 controller: 'AddSubForumModalCtrl'
@@ -115,6 +125,34 @@
             $scope.modalInstance.result.then(function (result) {
                 console.log(result);
                 $scope.forum.subForums.push(result);
+            });
+        }
+
+        $scope.removeSubForum = function () {
+
+            var scope = $rootScope.$new();
+            scope.params = { userId: $scope.user.id };
+
+            $scope.modalInstance = $modal.open({
+                scope: scope,
+                templateUrl: 'app/partials/remove-subforum-modal.html',
+                size: 'sm',
+                controller: 'RemoveSubForumCtrl'
+            });
+
+            $scope.modalInstance.result.then(function (result) {
+                var queryArgsForum = {
+                    forumId: $routeParams.forumId,
+                };
+                return Forums.getForum(queryArgsForum).$promise.then(
+                    function (result) {
+                        console.log(result.data);
+                        $scope.forum = parseForum(result.data);
+                        console.log($scope.forum);
+                        return result.$promise;
+                    }, function (result) {
+                        return $q.reject(result);
+                    });
             });
         }
 

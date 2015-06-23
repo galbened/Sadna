@@ -236,6 +236,14 @@ namespace Driver
             int user_3_news = FM.Register("user_3_news", "user_3_news_bpass", "user_3_news@mail.com", forum_news);
             int user_4_news = FM.Register("user_4_news", "user_4_news_bpass", "user_4_news@mail.com", forum_news);
 
+            bool kash = FM.Logout(user_1_sports, forum_sports);
+            kash = FM.Logout(user_2_sports, forum_sports);
+            kash = FM.Logout(user_3_sports, forum_sports);
+            kash = FM.Logout(user_1_news, forum_news);
+            kash = FM.Logout(user_2_news, forum_news);
+            kash = FM.Logout(user_3_news, forum_news);
+            kash = FM.Logout(user_4_news, forum_news);
+
             int thread_1_subforum_1_sports = MM.addThread(forum_sports, subforum_1_sports, user_1_sports, UM.getUsername(user_1_sports), "message title 1", "message body 1");
             MM.addComment(thread_1_subforum_1_sports, user_2_sports, UM.getUsername(user_2_sports), "reponse message title 1 2", "response message body 1 2");
             MM.addComment(thread_1_subforum_1_sports, user_3_sports, UM.getUsername(user_3_sports), "reponse message title 1 3", "response message body 1 3");

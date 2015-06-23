@@ -228,8 +228,10 @@
     <Content Include="app\js\Api.js" />
     <Content Include="app\js\AddForumModalCtrl.js" />
     <Content Include="app\js\RemoveForumCtrl.js" />
+    <Content Include="app\js\RemoveSubForumCtrl.js" />
     <Content Include="app\partials\AddForumModal.html" />
     <Content Include="app\partials\AddSubForumModal.html" />
+    <Content Include="app\partials\remove-subforum-modal.html" />
     <Content Include="app\partials\remove-forum-modal.html" />
     <Content Include="app\partials\thread-list.html" />
     <Content Include="app\js\ThreadListCtrl.js" />
