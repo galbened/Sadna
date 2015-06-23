@@ -244,9 +244,9 @@ namespace WebApiPagingAngularClient.Controllers
 
         }
 
-        // GET: api/forums/removeForum/forumId/subForumId/userId
-        [Route("removeForum/{forumId:int}/{subForumId:int}/{userId:int}")]
-        public HttpResponseMessage Post(int forumId)
+        // GET: api/forums/removeSubForum/forumId/subForumId/userId
+        [Route("removeSubForum/{forumId:int}/{subForumId:int}/{userId:int}")]
+        public HttpResponseMessage Post_remove_subforum(int forumId, int subForumId, int userId)
         {
             try
             {
