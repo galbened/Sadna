@@ -11,5 +11,9 @@ namespace Message
     {
         public DbSet<Message> Messages { get; set; }
         public DbSet<Thread> Threads { get; set; }
+
+        public Context()
+            : base("name=MessageDBConnectionString")
+        { }
     }
 }

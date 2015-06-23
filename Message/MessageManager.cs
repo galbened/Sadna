@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Interfaces;
 using Microsoft.Build.Utilities;
 using Microsoft.Build.Framework;
-using ForumLoggers;
 
 namespace Message
 {
@@ -22,7 +21,6 @@ namespace Message
         private const string error_wrongForumOrSubForumId = "ForumId or SubForumId not found in all Threads";
         private const string error_responseNotThread = "ThreadId expected but got comment message Id";
         private const string error_wrongWords = "The message contains wrong words";
-        private ForumLogger _logger;
 
         IDBManager<Message> DBmessageMan;
         private HashSet<string> badWords;
@@ -39,8 +37,6 @@ namespace Message
             messages = new HashSet<Message>();
             threads = new HashSet<Thread>();
             lastMessageID = -1;
-
-            _logger = ForumLogger.GetInstance();
 
             InitWrongWords();
 
@@ -78,7 +74,6 @@ namespace Message
         {
             if ((title == null) || (title.Equals("")))
             {
-                _logger.Write(ForumLogger.TYPE_ERROR, "Failed adding new thread " + error_emptyTitle);
                 throw new ArgumentException(error_emptyTitle);
             }
             if (!IsValidMessage(title, body))
@@ -89,7 +84,6 @@ namespace Message
             threads.Add(thread);
             Message ms = thread.GetMessage();
             messages.Add(ms);
-            _logger.Write(ForumLogger.TYPE_INFO, "New thread was added " + ms.MessageID);
             return ms.MessageID;
         }
 
@@ -98,7 +92,6 @@ namespace Message
         {
             if ((title == null) || (title.Equals("")))
             {
-                _logger.Write(ForumLogger.TYPE_ERROR, "Failed adding new comment " + error_emptyTitle);
                 throw new ArgumentException(error_emptyTitle);
             }
             if (!IsValidMessage(title, body))
@@ -112,10 +105,8 @@ namespace Message
                 ResponseMessage rm = new ResponseMessage(messageId, publisherID, publisherName, title, body);
                 first.addResponse(rm);
                 messages.Add(rm);
-                _logger.Write(ForumLogger.TYPE_INFO, "New comment was added " + rm.MessageID);
                 return rm.MessageID;
             }
-            _logger.Write(ForumLogger.TYPE_ERROR, "Failed adding new comment " + error_messageIdNotFound);
             throw new InvalidOperationException(error_messageIdNotFound);
         }
 
@@ -124,7 +115,6 @@ namespace Message
         {
             if ((title == null) || (title.Equals("")))
             {
-                _logger.Write(ForumLogger.TYPE_ERROR, "Failed editing message " + messageId + ": " +error_emptyTitle);
                 throw new ArgumentException(error_emptyTitle);
             }
             if (!IsValidMessage(title, body))
@@ -135,24 +125,23 @@ namespace Message
                 if (ms.PublisherID == callerID)
                 {
                     ms.editMessage(title, body);
-                    _logger.Write(ForumLogger.TYPE_INFO, "Message was edited " + messageId);
                     return true;
                 }
                 else
                 {
-                    _logger.Write(ForumLogger.TYPE_ERROR, "Failed editing message " + messageId + ": " + error_callerIDnotMatch + ". callerID is " + callerID);
                     throw new ArgumentException(error_callerIDnotMatch);
                 }
             }
-            //_logger.Write(ForumLogger.TYPE_ERROR, "Failed editing message " + messageId + ": " + error_messageIdNotFound);
             throw new InvalidOperationException(error_messageIdNotFound);
         }
 
 
 
-        public bool deleteMessage(int messageID)
+        public bool deleteMessage(int userRequesterId, int messageID)
         {
             Message ms = findMessage(messageID);
+            if ((!(ms.publisherID != messageID)) && (!(messageID != 1)))
+                throw new UnauthorizedAccessException("User has no permissions to delete the message " + messageID);
             if (ms != null)
             {
                 // if firstMessage, it should be deleted with all its comments
@@ -164,10 +153,8 @@ namespace Message
                 }
                 //remove the message anyway
                  messages.Remove(ms);
-                 _logger.Write(ForumLogger.TYPE_INFO, "Message was deleted " + messageID);
                  return true;
             }
-            _logger.Write(ForumLogger.TYPE_ERROR, "Failed deleting message " + messageID + ": " + error_messageIdNotFound);
             throw new InvalidOperationException(error_messageIdNotFound);
                 
 

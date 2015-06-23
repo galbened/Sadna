@@ -111,7 +111,7 @@ namespace ForumLoggers
             try
             {
                 // Open the file 
-                this.streamWriter = new StreamWriter(logFile);
+                //this.streamWriter = new StreamWriter(logFile, true);
             }
             catch (Exception ex)
             {
@@ -216,20 +216,26 @@ namespace ForumLoggers
 
         public void Write(string type, string line)
         {
-            for (int i = indent; i > 0; i--)
+            using (streamWriter = new StreamWriter(@"C:\Workshop_log.txt", true))
             {
-                streamWriter.Write("\t");
-            }
-            streamWriter.WriteLine(string.Format("{0:M/d/yyyy HH:mm:ss tt}", DateTime.Now ) + ". Type: " +  type + ": " + line);
+                for (int i = indent; i > 0; i--)
+                {
+                    streamWriter.Write("\t");
+                }
+                streamWriter.WriteLine(string.Format("{0:M/d/yyyy HH:mm:ss tt}", DateTime.Now) + ". Type: " + type + ": " + line);              
+            }         
         }
 
         public void WriteNoDate(string type, string line)
         {
-            for (int i = indent; i > 0; i--)
+            using (streamWriter = new StreamWriter(@"C:\Workshop_log.txt", true))
             {
-                streamWriter.Write("\t");
-            }
-            streamWriter.WriteLine( type + line);
+                for (int i = indent; i > 0; i--)
+                {
+                    streamWriter.Write("\t");
+                }
+                streamWriter.WriteLine( type + line);
+            }   
         }
 
         /// <summary> 

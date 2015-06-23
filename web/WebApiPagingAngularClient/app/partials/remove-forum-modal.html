@@ -1,5 +1,5 @@
-﻿<div>
-    <div class="panel-heading text-center">Remove forums</div>
+﻿<div ng-if ="notAdmin">
+    <div class="panel-heading text-center">Super Admin</div>
     <hr />
     <div class="panel-body">
         <div class="form-group">
@@ -8,10 +8,28 @@
         <div class="form-group">
             <input type="password" class="form-control" placeholder="Password" data-ng-model="password">
         </div>
+        <div class="alert alert-danger" ng-if="incorrectPaswword">incorrect pasword or username</div>
         <div class="form-group">
             <button type="submit" class="btn btn-lg btn-success btn-block"
                     ng-click="superAdminLogin(username,password)">
-                remove forums
+                i'm super admin
+            </button>
+        </div>
+    </div>
+</div>
+<div ng-if="!notAdmin">
+    <div class="panel-heading text-center">Remove a forum</div>
+    <hr />
+    <div class="panel-body">
+        <span>Select a forum</span>
+        <select ng-model="forumId" convert-to-number style="margin-bottom: 20px; width:100px;">
+            <option ng-repeat="forum in forums" value="{{forum.id}}">{{forum.title}}</option>
+        </select>
+        <br />
+        <div class="form-group">
+            <button type="submit" class="btn btn-lg btn-success btn-block"
+                    ng-click="removeForum(forumId)">
+                remove forum
             </button>
         </div>
     </div>

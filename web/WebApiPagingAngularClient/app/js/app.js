@@ -10,11 +10,11 @@
             controller: 'ForumListCtrl',
             caseInsensitiveMatch: true
         });
-        $routeProvider.when('/forums/:forumId/:userId?', {
+        $routeProvider.when('/subForums/:forumId/:userId?', {
             templateUrl: 'app/partials/subforum-list.html',
             controller: 'SubForumListCtrl'
         });
-        $routeProvider.when('/forums/:forumId/:subForumId/:userId?', {
+        $routeProvider.when('/threads/:forumId/:subForumId/:userId?', {
             templateUrl: 'app/partials/thread-list.html',
             controller: 'ThreadListCtrl'
         });

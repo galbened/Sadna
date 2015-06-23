@@ -35,6 +35,7 @@
             $rootScope.forumId = $routeParams.forumId;
 
             if ($routeParams.userId) {
+                $rootScope.userId = $routeParams.userId;
                 var queryArgsUser = {
                     forumId: $routeParams.forumId,
                     userId: $routeParams.userId
@@ -71,7 +72,9 @@
             });
 
             $scope.modalInstance.result.then(function (result) {
+                console.log('kaka');
                 console.log(result);
+                console.log('pipi');
                 $scope.user = result;
             });
         };
