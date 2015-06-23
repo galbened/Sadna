@@ -13,6 +13,7 @@ namespace Forum
         public DbSet<SubForum> SubForums { get; set; }
         public DbSet<RegisteredUser> RegisteredUsers { get; set; }
         public DbSet<AdminUser> AdminUsers { get; set; }
+        public DbSet<LoggedUser> LoggedUsers { get; set; }
 
         public Context()
             : base("name=ForumDBConnectionString")

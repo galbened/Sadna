@@ -53,10 +53,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="adminUsers.cs" />
+    <Compile Include="AdminUser.cs" />
     <Compile Include="Context.cs" />
     <Compile Include="DBforumManager.cs" />
     <Compile Include="DBsubForumManager.cs" />
+    <Compile Include="LoggedUser.cs" />
     <Compile Include="Moderator.cs" />
     <Compile Include="Policy.cs" />
     <Compile Include="Forum.cs" />
