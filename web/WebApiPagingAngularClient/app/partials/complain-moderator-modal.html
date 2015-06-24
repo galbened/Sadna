@@ -1,1 +1,15 @@
-﻿
+﻿<div class="panel-heading text-center">Complain moderator</div>
+<hr />
+<div class="panel-body">
+    <span>Complain moderator</span>
+    <select ng-model="moderatorId" convert-to-number style="margin-bottom: 20px; width:100px;">
+        <option ng-repeat="moderator in moderators" value="{{moderator.id}}">{{moderator.username}}</option>
+    </select>
+    <br />
+    <div class="form-group">
+        <button type="submit" class="btn btn-lg btn-success btn-block"
+                ng-click="complainModerator(moderatorId)">
+            Complain moderator
+        </button>
+    </div>
+</div>
