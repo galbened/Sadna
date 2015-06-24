@@ -362,7 +362,8 @@ namespace Forum
 
         internal void UnRegister(int userId)
         {
-            loggedUsers.RemoveAll(lu => lu.userID == userId);
+            Logout(userId);
+            //loggedUsers.RemoveAll(lu => lu.userID == userId);
             //logedUsersId.Remove(userId);
             registeredUsers.RemoveAll(ru => ru.userID == userId);
             //registeredUsersID.Remove(userId);
