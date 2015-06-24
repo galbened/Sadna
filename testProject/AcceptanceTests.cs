@@ -25,7 +25,7 @@ namespace testProject
         private static List<int> forumsIds;
         private static List<int> subForumsIds;
         private static List<int> messagesIds;
-
+        /*
 
         [ClassInitialize]
         public static void SetUp(TestContext testContext)
@@ -546,6 +546,6 @@ namespace testProject
             }
         }
 
-           
+           */
     }
 }
