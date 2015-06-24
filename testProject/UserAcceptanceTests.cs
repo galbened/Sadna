@@ -187,10 +187,11 @@ namespace testProject
                 bridge.Logout(userId, forumId);
                 int loginResponse = bridge.Login(userNamesList[0], passwords[0], forumId);
                 Assert.AreEqual(userId, loginResponse);
-                Assert.IsTrue(bridge.isLoggedin(loginResponse));
+                Assert.IsTrue(bridge.isLoggedin(userId));
             }
             catch
             {
+                bridge.Deactivate(userId);
                 Assert.Fail();
             }
             bridge.Deactivate(userId);
@@ -216,6 +217,7 @@ namespace testProject
             }
             catch
             {
+                bridge.Deactivate(userId);
                 Assert.Fail();
             }
 
@@ -228,6 +230,7 @@ namespace testProject
             }
             catch
             {
+                bridge.Deactivate(userId);
                 Assert.Fail("Old username is not fully deleted");
             }
             bridge.Deactivate(userId);
@@ -253,6 +256,7 @@ namespace testProject
             }
             catch
             {
+                
                 Assert.IsTrue(true);
             }
             
@@ -266,6 +270,7 @@ namespace testProject
             }
             catch
             {
+
                 Assert.IsTrue(true);
             }
             bridge.Deactivate(userId);
