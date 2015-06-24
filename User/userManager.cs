@@ -146,7 +146,8 @@ namespace User
             if (!isNameAvilable(username))
                 throw new UsernameIsTakenException();
             Member member = new Member(newestMemberID, username, password, email);
-            DBman.add(member);
+            member.loginStatus = true; 
+           DBman.add(member);
             newestMemberID++;
             saveMembersDB();
             return member.memberID;

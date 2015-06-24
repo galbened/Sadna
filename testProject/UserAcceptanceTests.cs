@@ -126,11 +126,12 @@ namespace testProject
         {
             int forumId = forumsIds[0];
             int userId = bridge.Register(userNamesList[0], passwords[0], emails[0], forumId);
-            int loggedUser = bridge.Login(userNamesList[0], passwords[0], forumId);
-            Assert.IsTrue(userId==loggedUser);
+            //int loggedUser = bridge.Login(userNamesList[0], passwords[0], forumId);
+            //Assert.IsTrue(userId==loggedUser);
             Assert.IsTrue(bridge.isLoggedin(userId));
             bridge.Deactivate(userId);
         }
+
         /// <LogintoRegisteredForum>
         /// TestId: 10.5
         /// should fail since unregistered
