@@ -315,5 +315,12 @@ namespace testProject
                 return _real.GetMembersNoModeratorNames(forumId, subForumId);
             throw new NullReferenceException("_real in null");
         }
+
+        public Boolean IsPasswordCorrect(int userId, String password)
+        {
+            if (_real != null)
+                return _real.IsPasswordCorrect(userId, password);
+            throw new NullReferenceException("_real in null");
+        }
     }
 }

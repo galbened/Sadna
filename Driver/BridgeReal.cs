@@ -272,6 +272,11 @@ namespace Driver
             return FM.GetMembersNoModeratorNames(forumId, subForumId);
         }
 
+        public Boolean IsPasswordCorrect(int userId, String password)
+        {
+            return UM.IsPasswordCorrect(userId, password);
+        }
+
         public void initializingDemoRunData()
         {
             /*

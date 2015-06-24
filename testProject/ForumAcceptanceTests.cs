@@ -80,14 +80,7 @@ namespace testProject
             return ans;
         }
         #endregion
-        /// <TestMethod1>
-        /// TestId: 10.
-        /// should 
-        /// </TestMethod1>
-        [TestMethod]
-        public void TestMethod1()
-        {
-        }
+
         /// <creatingSubForum>
         /// TestId: 10.0.1
         /// should add succefully the new forum
@@ -131,7 +124,7 @@ namespace testProject
         [TestMethod]
         public void creatingSubForumTest_admin()
         {
-            int currentForum = forumsIds[0];
+            int currentForum = CreateForum_superAdmin("admin users subforums"); ;
             int subForumId = bridge.CreateSubForum(1, currentForum, "first sub-forum");
             subForumsIds.Add(subForumId);
             Assert.IsTrue(subForumId > 0);
@@ -140,12 +133,18 @@ namespace testProject
         [TestMethod]
         public void creatingSubForumTest_regular()
         {
-            int currentForum = forumsIds[0];
+            int currentForum = CreateForum_superAdmin("regular users subforums");
             int newUserId = bridge.Register("newRegUser", passwords[0], "pap@gmail.com", currentForum);
-            int subForumId = bridge.CreateSubForum(newUserId, currentForum, "first sub-forum");
-            subForumsIds.Add(subForumId);
-            Assert.IsTrue(subForumId > 0);
-            Assert.IsTrue((bridge.GetSubForumsIds(currentForum)).Contains(subForumId));
+            try
+            {
+                int subForumId = bridge.CreateSubForum(newUserId, currentForum, "first sub-forum as regular");
+                Assert.Fail("regular user can't create new subForum");
+            }
+            catch
+            {
+                Assert.IsTrue(true);
+            }
+
             bridge.Deactivate(newUserId);
         }
         /// <creatingForumReturnsDiffIDTest>
@@ -156,8 +155,9 @@ namespace testProject
         [TestMethod]
         public void creatingForumReturnsDiffIDTest()
         {
-            int newForumId = CreateForum_superAdmin("Second Forum");
-            Assert.AreNotEqual(forumsIds[0], newForumId);
+            int firstForumId = CreateForum_superAdmin("First forum");
+            int secondForumId = CreateForum_superAdmin("Second Forum");
+            Assert.AreNotEqual(firstForumId, secondForumId);
         }
         /// <creatingSubForumReturnsDiffIDTest>
         /// TestId: 10.2
@@ -167,8 +167,8 @@ namespace testProject
         [TestMethod]
         public void creatingSubForumReturnsDiffIDTest()
         {
-            int mainForumId=forumsIds[0];
-            int firstSubForum = subForumsIds[0];
+            int mainForumId = CreateForum_superAdmin("twin Ids subforums"); ;
+            int firstSubForum = bridge.CreateSubForum(1, mainForumId, "first sub forum");
             int secondSubForum = bridge.CreateSubForum(1, mainForumId, "second sub forum");
             Assert.AreNotEqual(firstSubForum, secondSubForum);
         }
@@ -177,12 +177,22 @@ namespace testProject
         /// should fail due to empty\null topic
         /// </CreateSubForumTestFail>
         [TestMethod]
-        public void CreateSubForumTestFail()
+        public void CreateForumTestFail()
         {
             try
             {
-                int temporaryForum = CreateForum_superAdmin(null);
+                int temporaryForumId = CreateForum_superAdmin(null);
                 Assert.Fail("Can't create forum with a null topic");
+            }
+            catch
+            {
+                Assert.IsTrue(true);
+            }
+            try
+            {
+                int temporaryForumId = CreateForum_superAdmin("The original");
+                int notOriginalId = CreateForum_superAdmin("The original");
+                Assert.Fail("can't create forum with the same topic");
             }
             catch
             {
