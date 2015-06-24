@@ -203,6 +203,17 @@
             });
         };
 
+        $scope.removeModerator = function () {
+            var scope = $rootScope.$new();
+            scope.params = { userId: $scope.user.id };
+            $scope.modalInstance = $modal.open({
+                scope: scope,
+                templateUrl: 'app/partials/remove-moderator-modal.html',
+                size: 'sm',
+                controller: 'RemoveModeratorModalCtrl'
+            });
+        };
+
         $scope.enableEditing = function (data) {
             data.edit = true;
         };

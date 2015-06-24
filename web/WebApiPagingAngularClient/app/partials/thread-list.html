@@ -24,6 +24,7 @@
 <div class="toolbar button-toolbar row" style="margin-left: 115px;margin-bottom: 20px">
     <span ng-if="user && user.type ==='admin'" class="form-group">
         <button class="btn btn-default " data-ng-click="addModerator()">Add moderator  </button>
+        <button class="btn btn-default " data-ng-click="removeModerator()">Remove moderator  </button>
     </span>
     <span ng-if="user && user.type ==='member'" class="form-group">
         <button class="btn btn-default " data-ng-click="complainModerator()">Complain moderator </button>

@@ -594,13 +594,36 @@ namespace WebApiPagingAngularClient.Controllers
 
         }
 
-        // GET: api/forums/addModerator/forumId/subForumId/userId/moderetorId
+        // GET: api/forums/complainModerator/forumId/subForumId/userId/moderetorId
         [Route("complainModerator/{forumId:int}/{subForumId:int}/{userId:int}/{moderatorId:int}")]
         public HttpResponseMessage Post_complainModerator(int forumId, int subForumId, int userId, int moderatorId)
         {
             try
             {
                 driver.ComplainModerator(userId,moderatorId, forumId, subForumId);
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);
+
+                return response;
+            }
+            catch (Exception e)
+            {
+                var data = new
+                {
+                    message = e.Message
+                };
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.NotFound, data);
+                return response;
+            }
+
+        }
+
+        // GET: api/forums/addModerator/forumId/subForumId/userId/moderetorId
+        [Route("removeModerator/{forumId:int}/{subForumId:int}/{userId:int}/{moderatorId:int}")]
+        public HttpResponseMessage Post_removeModerator(int forumId, int subForumId, int userId, int moderatorId)
+        {
+            try
+            {
+                driver.RemoveModerator(userId, moderatorId, forumId, subForumId);
                 HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);
 
                 return response;

@@ -1,0 +1,16 @@
+﻿
+<div class="panel-heading text-center">Remove moderator</div>
+<hr />
+<div class="panel-body">
+    <span>Remove moderator</span>
+    <select ng-model="moderatorId" convert-to-number style="margin-bottom: 20px; width:100px;">
+        <option ng-repeat="moderator in moderators" value="{{moderator.id}}">{{moderator.username}}</option>
+    </select>
+    <br />
+    <div class="form-group">
+        <button type="submit" class="btn btn-lg btn-success btn-block"
+                ng-click="removeModerator(moderatorId)">
+            Remove moderator
+        </button>
+    </div>
+</div>

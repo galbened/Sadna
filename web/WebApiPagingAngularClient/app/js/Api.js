@@ -112,6 +112,11 @@
                         url: '/api/forums/complainModerator/:forumId/:subForumId/:userId/:moderatorId',
                         params: { forumId: '@forumId', subForumId: '@subForumId', userId: '@userId', moderatorId: '@moderatorId' }
                     },
+                    'removeModerator':{
+                        method: 'POST',
+                        url: '/api/forums/removeModerator/:forumId/:subForumId/:userId/:moderatorId',
+                        params: { forumId: '@forumId', subForumId: '@subForumId', userId: '@userId', moderatorId: '@moderatorId' }
+                    },
                     'setPolicy': {
                         method: 'POST',
                         url: '/api/forums/setPolicy/:forumId/:userId',
