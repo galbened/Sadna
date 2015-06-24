@@ -35,7 +35,7 @@ namespace Forum
 
 
         public string forumName { get; set; }
-        public virtual List<SubForum> subForums { get; set; }
+        public List<SubForum> subForums { get; set; }
         //public List<SubForum> subForums { get; private set; }
 
         private static Dictionary<int, Session> sessions { get; set; }
