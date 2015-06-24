@@ -31,6 +31,7 @@ namespace Forum
         private const string error_invalidPassword = "Password is not valid according to policy";
         private const string error_failedRegistrarion = "Failed to register new user in user manager";
         private const string error_accessDenied = "User has no permissions to perform this operation";
+        private const string error_notLogged = "User is not registered to forum"; 
 
 
         public string forumName { get; set; }
@@ -197,23 +198,49 @@ namespace Forum
 
         public int Login(string username, string password)
         {
+            Boolean isRegistered =true;
+            int userid = GetUserId(username);
+            if (userid < 0)
+                isRegistered = false;
+            if (!isRegistered)
+                throw new ArgumentException(error_notLogged);
             Boolean canLogin = usrMngr.IsPasswordValid(username, poli.PasswordExpectancy);
+            int userId = 0;
             if (!canLogin)
                 throw new ArgumentException(error_expiredPassword);
-            int userId = usrMngr.login(username, password);
-
+            try
+            {
+                 userId = usrMngr.login(username, password);
+              
+            }
+            catch
+            {
+                throw new WrongUsernameOrPasswordException();
+            }
             //if (registeredUsersID.Contains(userId))
+           /* try{
             if (registeredUsers.Any(ru => ru.userID == userId))
                 if (!(loggedUsers.Any(lu => lu.userID == userId)))
                     loggedUsers.Add(new LoggedUser(userId));
                 //if (!(logedUsersId.Contains(userId)))
                 //    logedUsersId.Add(userId);
                 else
-                    return -1;
+                    return -1;*/
+            loggedUsers.Add(new LoggedUser(userId));
             Session se = new Session(userId, username, forumID, forumName, SessionReason.loggin);
             sessions.Add(userId, se);
             return userId;
         }
+
+        private int GetUserId(string username)
+        {
+            int userId = usrMngr.GetUserId(username);
+            RegisteredUser user = new RegisteredUser(userId);
+            if (registeredUsers.Contains(user))
+                return userId;
+            return -1;
+        }
+
 
         public Boolean Logout(int userId)
         {
@@ -352,7 +379,8 @@ namespace Forum
 
         internal void UnRegister(int userId)
         {
-            loggedUsers.RemoveAll(lu => lu.userID == userId);
+            Logout(userId);
+            //loggedUsers.RemoveAll(lu => lu.userID == userId);
             //logedUsersId.Remove(userId);
             registeredUsers.RemoveAll(ru => ru.userID == userId);
             //registeredUsersID.Remove(userId);
@@ -414,6 +442,11 @@ namespace Forum
         {
             return (registeredUsers.Any(ru => ru.userID == userId));
             //return registeredUsersID.Contains(userId);
+        }
+
+        internal bool isUserLogged(int userId)
+        {
+            return (loggedUsers.Any(ru => ru.userID == userId));
         }
 
         internal string GetSubForumTopic(int forumId,int subForumId)

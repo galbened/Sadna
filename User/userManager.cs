@@ -146,7 +146,8 @@ namespace User
             if (!isNameAvilable(username))
                 throw new UsernameIsTakenException();
             Member member = new Member(newestMemberID, username, password, email);
-            DBman.add(member);
+            member.loginStatus = true; 
+           DBman.add(member);
             newestMemberID++;
             saveMembersDB();
             return member.memberID;
@@ -187,6 +188,13 @@ namespace User
                 }
             }
             throw new UsernameIllegalChangeException();
+        }
+
+        public Boolean IsPasswordCorrect(int userId, String password)
+        {
+            Member mem = DBman.getObj(userId);
+            return (mem.memberPassword.CompareTo(password) == 0);
+
         }
 
         public int addFriend(int userID, int friendID)
@@ -298,6 +306,19 @@ namespace User
             Member mem = DBman.getObj(userId);
             string ans = mem.memberEmail;
             return ans;
+        }
+
+
+        public int GetUserId(string userName)
+        {
+            List<Member> members = DBman.getAll();
+            foreach (Member mem in members)
+            {
+                if (mem.memberUsername.CompareTo(userName) == 0)
+                    return mem.memberID;
+            }
+            throw new ArgumentException("UserName " + userName + " not exist");
+
         }
     }
 }

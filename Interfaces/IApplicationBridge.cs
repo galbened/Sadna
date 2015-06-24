@@ -102,5 +102,6 @@ namespace Interfaces
 
         List<string> GetMembersNoModeratorNames(int forumId, int subForumId);
 
+        Boolean IsPasswordCorrect(int userId, String password);
     }
 }

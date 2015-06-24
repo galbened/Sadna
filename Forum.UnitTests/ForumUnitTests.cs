@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Interfaces;
+using System.Collections.Generic;
 using Forum;
 
 namespace Forum.UnitTests
@@ -137,6 +138,43 @@ namespace Forum.UnitTests
             fm.UnRegister(userId, forumId);
             fm.RemoveSubForum(1, forumId, subForumId);
             fm.RemoveForum(1, forumId);
+        }
+
+
+        [TestMethod]
+        public void UnregisteredUserLogToForumTest()
+        {
+            int forumId1 = fm.CreateForum(1, titels[0]);
+            int forumId2 = fm.CreateForum(1, titels[1]);
+            int userId = fm.Register(user[0], user[1], user[2], forumId1);
+            Assert.IsTrue(fm.isRegisteredUser(forumId1, userId));
+            fm.Logout(userId, forumId1);
+            Assert.IsFalse(fm.isLoggedUser(forumId1, userId));
+            try
+            {
+                fm.Login(user[0], user[1], forumId2);
+                Assert.Fail("Exception was expected but not thrown. Unregistered user cannot log forum");
+            }
+            catch (Exception ex)
+            {
+                Assert.IsFalse(fm.isLoggedUser(forumId2, userId));
+            }
+            fm.UnRegister(userId, forumId1);
+            fm.RemoveForum(1, forumId1);
+            fm.RemoveForum(1, forumId2);
+        }
+
+        [TestMethod]
+        public void ComplainModerator()
+        {
+            int forumId = fm.CreateForum(1, titels[0]);
+            int subForumId = fm.CreateSubForum(1, subTitels[0], forumId);
+            int userRequesterId = fm.Register(user[0], user[1], user[2], forumId);
+            int moderator = fm.Register("moderator", user[1], user[2], forumId);
+            fm.AddModerator(1, forumId, subForumId ,moderator);
+            List<int> moderators = fm.GetModeratorIds(forumId, subForumId);
+            Assert.IsTrue(moderators.Contains(moderator));
+            fm.ComplainModerator(userRequesterId, moderator, forumId, subForumId);
         }
     }
 }
