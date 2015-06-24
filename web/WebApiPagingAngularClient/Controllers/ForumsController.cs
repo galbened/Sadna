@@ -250,7 +250,7 @@ namespace WebApiPagingAngularClient.Controllers
         {
             try
             {
-
+                driver.RemoveSubForum(userId, forumId, subForumId);
                 HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);
                 return response;
             }
@@ -389,6 +389,97 @@ namespace WebApiPagingAngularClient.Controllers
             }
 
             return response;
+
+        }
+
+        // GET: api/forums/getNotAdmins/forumId
+        [Route("getNotAdmins/{forumId:int}")]
+        public HttpResponseMessage Get_notadmins(int forumId)
+        {
+            var ids = driver.GetMembersNoAdminIds(forumId);
+            var usernames = driver.GetMembersNoAdminNames(forumId);
+
+            var data = new
+            {
+                ids = ids,
+                usernames = usernames
+            };
+
+            var result = new
+            {
+                data = data
+            };
+            HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, result);
+
+            return response;
+
+        }
+
+        // GET: api/forums/addAdmin/forumId/userId
+        [Route("addAdmin/{forumId:int}/{userId:int}/{adminId:int}")]
+        public HttpResponseMessage Post_addAdmin(int forumId, int userId,int adminId)
+        {
+            try{
+                driver.AddAdmin(userId, forumId, adminId);
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);
+
+                return response;
+            }
+            catch (Exception e)
+            {
+                var data = new
+                {
+                    message = e.Message
+                };
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.NotFound, data);
+                return response;
+            }
+
+        }
+
+        // GET: api/forums/getNotModerators/forumId/subForumId
+        [Route("getNotModerators/{forumId:int}/{subForumId:int}")]
+        public HttpResponseMessage Get_notadmins(int forumId, int subForumId)
+        {
+            var ids = driver.GetMembersNoModeratorIds(forumId, subForumId);
+            var usernames = driver.GetMembersNoModeratorNames(forumId, subForumId);
+
+            var data = new
+            {
+                ids = ids,
+                usernames = usernames
+            };
+
+            var result = new
+            {
+                data = data
+            };
+            HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, result);
+
+            return response;
+
+        }
+
+        // GET: api/forums/addModerator/forumId/subForumId/userId/moderetorId
+        [Route("addModerator/{forumId:int}/{subForumId:int}/{userId:int}/{moderatorId:int}")]
+        public HttpResponseMessage Post_addModerator(int forumId, int subForumId, int userId, int moderatorId)
+        {
+            try
+            {
+                driver.AddModerator(userId, forumId, subForumId, moderatorId);
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);
+
+                return response;
+            }
+            catch(Exception e)
+            {
+                var data = new
+                {
+                    message = e.Message
+                };
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.NotFound, data);
+                return response;
+            }
 
         }
 

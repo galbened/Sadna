@@ -180,5 +180,20 @@
                     });
             }
         };
+
+        $scope.addModerator = function () {
+            var scope = $rootScope.$new();
+            scope.params = { userId: $scope.user.id };
+            $scope.modalInstance = $modal.open({
+                scope: scope,
+                templateUrl: 'app/partials/add-moderator-modal.html',
+                size: 'sm',
+                controller: 'AddModeratorModalCtrl'
+            });
+        };
+
+        $scope.complainModerator = function () {
+
+        };
     }
 })();

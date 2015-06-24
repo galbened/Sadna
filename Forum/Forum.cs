@@ -276,10 +276,19 @@ namespace Forum
             try
             {
                 if (registeredUsers.Any(ru => ru.userID == moderatorId))
-                //if (registeredUsersID.Contains(moderatorId))
+                {
+                    Boolean flag = false;
+                    //if (registeredUsersID.Contains(moderatorId))
                     foreach (SubForum sbfrm in subForums)
                         if ((sbfrm.SubForumId == subForumId) && (sbfrm.NumOfModerators() < poli.ModeratorNum))
+                        {
                             sbfrm.AddModerator(moderatorId, userRequesterId);
+                            flag = true;
+                        }
+                    if (!flag)
+                        throw new ArgumentException("too much moderators");
+                }
+                
             }
             catch (Exception ex)
             {

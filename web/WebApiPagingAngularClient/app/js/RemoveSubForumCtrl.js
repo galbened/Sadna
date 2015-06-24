@@ -5,9 +5,9 @@
         .module('app')
         .controller('RemoveSubForumCtrl', RemoveSubForumCtrl);
 
-    RemoveSubForumCtrl.$inject = ['$scope', 'Forums', '$modalInstance','$routeParams'];
+    RemoveSubForumCtrl.$inject = ['$scope', 'Forums', '$modalInstance','$routeParams','$q'];
 
-    function RemoveSubForumCtrl($scope, Forums, $modalInstance, $routeParams) {
+    function RemoveSubForumCtrl($scope, Forums, $modalInstance, $routeParams, $q) {
         activate();
 
         var parseForum = function (data) {
@@ -46,16 +46,16 @@
                 });
         }
 
-        $scope.removeForum = function (subForumId) {
+        $scope.removeSubForum = function (subForumId) {
             var deleteSubForumParams = {
-                'forumId': forumId,
+                'forumId': $routeParams.forumId,
                 'userId': $scope.id,
                 'subForumId': subForumId
             };
 
             return Forums.removeSubForum(deleteSubForumParams).$promise.then(
                 function (result) {
-                    return Forums.getForum({ 'forumId': forumId }).$promise.then(
+                    return Forums.getForum({ 'forumId': $routeParams.forumId }).$promise.then(
                         function (result) {
                             $scope.forum = parseForum(result.data);
                             $modalInstance.close($scope.forum);
@@ -66,7 +66,6 @@
                 }, function (result) {
                     console.log(result);
                     alert(result.data.message);
-                    return $q.reject(result);
                 });
         };
     }

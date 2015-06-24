@@ -27,6 +27,9 @@ namespace WebApiPagingAngularClient
                     "~/app/js/RemoveForumCtrl.js",
                     "~/app/js/AddSubForumModalCtrl.js",
                     "~/app/js/RemoveSubForumCtrl.js",
+                    "~/app/js/AddAdminModalCtrl.js",
+                    "~/app/js/AddModeratorModalCtrl.js",
+                    "~/app/js/ComplainModertorModalCtrl.js",
                     "~/app/js/Api.js"));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're

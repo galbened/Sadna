@@ -156,6 +156,17 @@
             });
         }
 
+        $scope.addAdmin = function () {
+            var scope = $rootScope.$new();
+            scope.params = { userId: $scope.user.id };
+            $scope.modalInstance = $modal.open({
+                scope: scope,
+                templateUrl: 'app/partials/add-admin-modal.html',
+                size: 'sm',
+                controller: 'AddAdminModalCtrl'
+            });
+        }
+
 
     }
 })();

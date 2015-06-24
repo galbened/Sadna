@@ -69,13 +69,33 @@
                     },
                     'removeSubForum': {
                         method: 'POST',
-                        url: '/api/forums/removeForum/:forumId/:subForumId/:userId',
+                        url: '/api/forums/removeSubForum/:forumId/:subForumId/:userId',
                         params: { forumId: '@forumId',subForumId:'@subForumId', userId:'@userId'}
                     },
                     'deleteMessage': {
                         method: 'POST',
                         url: '/api/forums/deleteMessage/:userId/:messageId',
                         params: { userId: '@userId', messageId: '@messageId'}
+                    },
+                    'getNotAdmins': {
+                        method: 'GET',
+                        url: '/api/forums/getNotAdmins/:forumId',
+                        params: { forumId: '@forumId'}
+                    },
+                    'addAdmin':{
+                        method: 'POST',
+                        url: '/api/forums/addAdmin/:forumId/:userId/:adminId',
+                        params: { forumId: '@forumId',userId:'@userId',adminId:'@adminId'}
+                    },
+                    'getNotModerators': {
+                        method: 'GET',
+                        url: '/api/forums/getNotModerators/:forumId/:subForumId',
+                        params: { forumId: '@forumId',subForumId:'@subForumId'}
+                    },
+                    'addModerator':{
+                        method: 'POST',
+                        url: '/api/forums/addModerator/:forumId/:subForumId/:userId/:moderatorId',
+                        params: { forumId: '@forumId', subForumId: '@subForumId', userId: '@userId', moderatorId: '@moderatorId' }
                     }
                 });
         }).factory('Users', function ($resource) {
