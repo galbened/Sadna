@@ -279,7 +279,7 @@ namespace Driver
 
         public void initializingDemoRunData()
         {
-            /*
+            
             int forum_sports = FM.CreateForum(1, "Sports");
             int forum_news = FM.CreateForum(1, "News");
 
@@ -321,7 +321,7 @@ namespace Driver
 
             FM.AddAdmin(1,admin_1_sports, forum_sports);
             FM.AddAdmin(2, admin_1_news, forum_news);
-           */
+        
             //---------------------------------------------
             /*
             List<int> forumIds = new List<int>();
