@@ -266,6 +266,10 @@ namespace Driver
             MM.addComment(thread_1_subforum_1_sports, user_2_sports, UM.getUsername(user_2_sports), "reponse message title 1 2", "response message body 1 2");
             MM.addComment(thread_1_subforum_1_sports, user_3_sports, UM.getUsername(user_3_sports), "reponse message title 1 3", "response message body 1 3");
 
+            thread_1_subforum_1_sports = MM.addThread(forum_sports, subforum_1_sports, user_1_sports, UM.getUsername(user_1_sports), "message title 1", "message body 1");
+            MM.addComment(thread_1_subforum_1_sports, user_2_sports, UM.getUsername(user_2_sports), "reponse message title 1 2", "response message body 1 2");
+            MM.addComment(thread_1_subforum_1_sports, user_3_sports, UM.getUsername(user_3_sports), "reponse message title 1 3", "response message body 1 3");
+
             int thread_1_subforum_1_news = MM.addThread(forum_news, subforum_1_news, user_1_news, UM.getUsername(user_1_news), "message title 1", "message body 1");
             MM.addComment(thread_1_subforum_1_news, user_2_news, UM.getUsername(user_2_news), "reponse message title 1 2", "response message body 1 2");
             MM.addComment(thread_1_subforum_1_news, user_3_news, UM.getUsername(user_3_news), "reponse message title 1 3", "response message body 1 3");

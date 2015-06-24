@@ -18,19 +18,18 @@ namespace WebCommunicationClientSoftware.Controllers
         {
         }
 
-        [Route("getForumsNames")]
+        //[Route("getForumsNames")]
         public List<string> Get()
         {
             List<string> names = driver.GetForumTopics();
             return names;
         }
 
-        [Route("getSubForumsNames/{forumId:int}")]
-        public List<string> Get(int forumId)
+        public int Post(WebCommunicationClientSoftware.Models.newThreadParams thread)
         {
-            List<string> names = driver.GetSubForumsTopics(forumId);
-            return names;
+            return driver.Publish(thread.forumId, thread.subForumId, thread.publisherID, thread.publisherName, thread.title, thread.body); 
         }
+       
     }
     
 }
