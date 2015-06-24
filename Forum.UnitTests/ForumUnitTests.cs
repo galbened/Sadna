@@ -171,6 +171,15 @@ namespace Forum.UnitTests
             int subForumId = fm.CreateSubForum(1, subTitels[0], forumId);
             int userRequesterId = fm.Register(user[0], user[1], user[2], forumId);
             int moderator = fm.Register("moderator", user[1], user[2], forumId);
+            try
+            {
+                fm.ComplainModerator(userRequesterId, moderator, forumId, subForumId);
+                Assert.Fail("Exception was expected but not thrown. Cannot complain on non-moderator user");
+            }
+            catch (ArgumentException)
+            {
+                Assert.IsTrue(true);
+            }
             fm.AddModerator(1, forumId, subForumId ,moderator);
             List<int> moderators = fm.GetModeratorIds(forumId, subForumId);
             Assert.IsTrue(moderators.Contains(moderator));
