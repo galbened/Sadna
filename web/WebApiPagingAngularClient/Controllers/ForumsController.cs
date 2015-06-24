@@ -15,6 +15,7 @@ namespace WebApiPagingAngularClient.Controllers
     public class ForumsController : ApiController
     {
         private static IApplicationBridge driver = BridgeReal.GetInstance();
+        private static int SUPER_ADMIN = 1;
 
         public ForumsController()
         {
@@ -63,6 +64,28 @@ namespace WebApiPagingAngularClient.Controllers
                 return response;
             }
             catch(Exception e)
+            {
+                var data = new
+                {
+                    message = e.Message
+                };
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.NotFound, data);
+                return response;
+            }
+        }
+
+        // GET: api/forums/setPolicy/forumId/userId
+        [Route("setPolicy/{forumId:int}/{userId:int}")]
+        public HttpResponseMessage Post(int forumId,int userId,newForumParams forum)
+        {
+            try
+            {
+                driver.SetPolicy(userId, forumId, forum.numOfModerators, forum.degreeOfEnsuring,
+                    forum.uppercase, forum.lowercase, forum.numbers, forum.symbols, forum.minLength);
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);
+                return response;
+            }
+            catch (Exception e)
             {
                 var data = new
                 {
@@ -134,23 +157,40 @@ namespace WebApiPagingAngularClient.Controllers
         [Route("getUser/{forumId:int}/{userId:int}")]
         public HttpResponseMessage Get_user(int forumId, int userId)
         {
-            var username = driver.GetUsername(forumId, userId);
-            var type = driver.GetUserType(forumId, userId);
-
-            var data = new
+            if (userId == SUPER_ADMIN)
             {
-                id = userId,
-                username = username,
-                type = type
-            };
+                var data = new
+                {
+                    id = 1,
+                    username = "Admin",
+                    type = "admin"
+                };
+                var result = new
+                {
+                    data = data
+                };
 
-            var result = new
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, result);
+                return response;
+            }
+            else
             {
-                data = data
-            };
+                var username = driver.GetUsername(forumId, userId);
+                var type = driver.GetUserType(forumId, userId);
+                var data = new
+                {
+                    id = userId,
+                    username = username,
+                    type = type
+                };
+                var result = new
+                {
+                    data = data
+                };
 
-            HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, result);
-            return response;
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, result);
+                return response;
+            }
         }
 
         // GET: api/forums/signup
@@ -193,21 +233,41 @@ namespace WebApiPagingAngularClient.Controllers
         {
             try
             {
-                var userId = driver.Login(log.username, log.password, forumId);
-                var data = new
+                if (log.username.CompareTo("Admin") == 0 && log.password.CompareTo("Admin") == 0)
                 {
-                    id = userId,
-                    username = log.username,
-                    type = driver.GetUserType(forumId, userId)
-                };
+                    var data = new
+                    {
+                        id = 1,
+                        username = "Admin",
+                        type = "admin"
+                    };
 
-                var result = new
+                    var result = new
+                    {
+                        data = data
+                    };
+
+                    HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, result);
+                    return response;
+                }
+                else
                 {
-                    data = data
-                };
+                    var userId = driver.Login(log.username, log.password, forumId);
+                    var data = new
+                    {
+                        id = userId,
+                        username = log.username,
+                        type = driver.GetUserType(forumId, userId)
+                    };
 
-                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, result);
-                return response;
+                    var result = new
+                    {
+                        data = data
+                    };
+
+                    HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, result);
+                    return response;
+                }
             }
             catch (Exception e)
             {
@@ -250,7 +310,7 @@ namespace WebApiPagingAngularClient.Controllers
         {
             try
             {
-
+                driver.RemoveSubForum(userId, forumId, subForumId);
                 HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);
                 return response;
             }
@@ -270,6 +330,10 @@ namespace WebApiPagingAngularClient.Controllers
         [Route("logout/{forumId:int}/{userId:int}")]
         public HttpResponseMessage Get_logout(int forumId, int userId)
         {
+            if (userId == SUPER_ADMIN)
+            {
+                return Request.CreateResponse(HttpStatusCode.OK);
+            }
             HttpResponseMessage response;
             var succ = driver.Logout(userId, forumId);
             if(succ){
@@ -347,6 +411,30 @@ namespace WebApiPagingAngularClient.Controllers
 
         }
 
+        // GET: api/forums/editComment
+        [Route("editMessage")]
+        public HttpResponseMessage Post_editmessage(editMessageParams cm)
+        {
+            try
+            {
+                var commentId = driver.EditMessage(cm.publisherID, cm.messageId, cm.title, cm.body);
+
+
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);
+                return response;
+            }
+            catch (Exception e)
+            {
+                var data = new
+                {
+                    message = e.Message
+                };
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.NotFound, data);
+                return response;
+            }
+
+        }
+
         // GET: api/forums/getSubForum/forumId/subForumId
         [Route("getSubForum/{forumId:int}/{subForumId:int}")]
         public HttpResponseMessage Get_subforum(int forumId, int subForumId)
@@ -391,6 +479,168 @@ namespace WebApiPagingAngularClient.Controllers
             return response;
 
         }
+
+        // GET: api/forums/getNotAdmins/forumId
+        [Route("getNotAdmins/{forumId:int}")]
+        public HttpResponseMessage Get_notadmins(int forumId)
+        {
+            var ids = driver.GetMembersNoAdminIds(forumId);
+            var usernames = driver.GetMembersNoAdminNames(forumId);
+
+            var data = new
+            {
+                ids = ids,
+                usernames = usernames
+            };
+
+            var result = new
+            {
+                data = data
+            };
+            HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, result);
+
+            return response;
+
+        }
+
+        // GET: api/forums/addAdmin/forumId/userId
+        [Route("addAdmin/{forumId:int}/{userId:int}/{adminId:int}")]
+        public HttpResponseMessage Post_addAdmin(int forumId, int userId,int adminId)
+        {
+            try{
+                driver.AddAdmin(userId, forumId, adminId);
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);
+
+                return response;
+            }
+            catch (Exception e)
+            {
+                var data = new
+                {
+                    message = e.Message
+                };
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.NotFound, data);
+                return response;
+            }
+
+        }
+
+        // GET: api/forums/getNotModerators/forumId/subForumId
+        [Route("getNotModerators/{forumId:int}/{subForumId:int}")]
+        public HttpResponseMessage Get_notadmins(int forumId, int subForumId)
+        {
+            var ids = driver.GetMembersNoModeratorIds(forumId, subForumId);
+            var usernames = driver.GetMembersNoModeratorNames(forumId, subForumId);
+
+            var data = new
+            {
+                ids = ids,
+                usernames = usernames
+            };
+
+            var result = new
+            {
+                data = data
+            };
+            HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, result);
+
+            return response;
+
+        }
+
+        // GET: api/forums/getModerators/forumId/subForumId
+        [Route("getModerators/{forumId:int}/{subForumId:int}")]
+        public HttpResponseMessage Get_moderators(int forumId, int subForumId)
+        {
+            var ids = driver.GetModeratorIds(forumId, subForumId);
+            var usernames = driver.GetModeratorNames(forumId, subForumId);
+
+            var data = new
+            {
+                ids = ids,
+                usernames = usernames
+            };
+
+            var result = new
+            {
+                data = data
+            };
+            HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, result);
+
+            return response;
+
+        }
+
+        // GET: api/forums/addModerator/forumId/subForumId/userId/moderetorId
+        [Route("addModerator/{forumId:int}/{subForumId:int}/{userId:int}/{moderatorId:int}")]
+        public HttpResponseMessage Post_addModerator(int forumId, int subForumId, int userId, int moderatorId)
+        {
+            try
+            {
+                driver.AddModerator(userId, forumId, subForumId, moderatorId);
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);
+
+                return response;
+            }
+            catch(Exception e)
+            {
+                var data = new
+                {
+                    message = e.Message
+                };
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.NotFound, data);
+                return response;
+            }
+
+        }
+
+        // GET: api/forums/complainModerator/forumId/subForumId/userId/moderetorId
+        [Route("complainModerator/{forumId:int}/{subForumId:int}/{userId:int}/{moderatorId:int}")]
+        public HttpResponseMessage Post_complainModerator(int forumId, int subForumId, int userId, int moderatorId)
+        {
+            try
+            {
+                driver.ComplainModerator(userId,moderatorId, forumId, subForumId);
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);
+
+                return response;
+            }
+            catch (Exception e)
+            {
+                var data = new
+                {
+                    message = e.Message
+                };
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.NotFound, data);
+                return response;
+            }
+
+        }
+
+        // GET: api/forums/addModerator/forumId/subForumId/userId/moderetorId
+        [Route("removeModerator/{forumId:int}/{subForumId:int}/{userId:int}/{moderatorId:int}")]
+        public HttpResponseMessage Post_removeModerator(int forumId, int subForumId, int userId, int moderatorId)
+        {
+            try
+            {
+                driver.RemoveModerator(userId, moderatorId, forumId, subForumId);
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);
+
+                return response;
+            }
+            catch (Exception e)
+            {
+                var data = new
+                {
+                    message = e.Message
+                };
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.NotFound, data);
+                return response;
+            }
+
+        }
+
+
 
     }
 }

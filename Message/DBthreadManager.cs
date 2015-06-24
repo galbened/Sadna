@@ -12,12 +12,15 @@ namespace Message
     {
         Context db;
         private int mode;
+        public List<Thread> Threads;
 
         public DBthreadManager()
         {
             InitMode();
             if (UseDB())
                 db = new Context();
+            else
+                Threads = new List<Thread>();
             //db.Database.ExecuteSqlCommand("TRUNCATE TABLE Members");
         }
 
@@ -51,7 +54,7 @@ namespace Message
             if (UseDB())
                 return db.Threads.ToList();
             else
-                return new List<Thread>();
+                return Threads;
         }
 
         public void update()
@@ -64,7 +67,9 @@ namespace Message
         public void add(Thread obj)
         {
             if (UseDB())
-                 db.Threads.Add(obj);
+                db.Threads.Add(obj);
+            else
+                Threads.Add(obj);
         }
 
 
@@ -72,6 +77,8 @@ namespace Message
         {
             if (UseDB())
                 db.Threads.Remove(obj);
+            else
+                Threads.Remove(obj);
         }
     }
 }

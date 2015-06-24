@@ -1,0 +1,15 @@
+﻿<div class="panel-heading text-center">Add admin</div>
+<hr />
+<div class="panel-body">
+    <span>Add admin</span>
+    <select ng-model="adminId" convert-to-number style="margin-bottom: 20px; width:100px;">
+        <option ng-repeat="admin in admins" value="{{admin.id}}">{{admin.username}}</option>
+    </select>
+    <br />
+    <div class="form-group">
+        <button type="submit" class="btn btn-lg btn-success btn-block"
+                ng-click="addAdmin(adminId)">
+            add admin
+        </button>
+    </div>
+</div>

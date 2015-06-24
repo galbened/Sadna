@@ -47,6 +47,11 @@
                         url: '/api/forums/addComment',
                         params: {}
                     },
+                    'editMessage': {
+                        method: 'POST',
+                        url: '/api/forums/editMessage',
+                        params: {}
+                    },
                     'getUser': {
                         method: 'GET',
                         url: '/api/forums/getUser/:forumId/:userId',
@@ -69,13 +74,53 @@
                     },
                     'removeSubForum': {
                         method: 'POST',
-                        url: '/api/forums/removeForum/:forumId/:subForumId/:userId',
+                        url: '/api/forums/removeSubForum/:forumId/:subForumId/:userId',
                         params: { forumId: '@forumId',subForumId:'@subForumId', userId:'@userId'}
                     },
                     'deleteMessage': {
                         method: 'POST',
                         url: '/api/forums/deleteMessage/:userId/:messageId',
                         params: { userId: '@userId', messageId: '@messageId'}
+                    },
+                    'getNotAdmins': {
+                        method: 'GET',
+                        url: '/api/forums/getNotAdmins/:forumId',
+                        params: { forumId: '@forumId'}
+                    },
+                    'addAdmin':{
+                        method: 'POST',
+                        url: '/api/forums/addAdmin/:forumId/:userId/:adminId',
+                        params: { forumId: '@forumId',userId:'@userId',adminId:'@adminId'}
+                    },
+                    'getNotModerators': {
+                        method: 'GET',
+                        url: '/api/forums/getNotModerators/:forumId/:subForumId',
+                        params: { forumId: '@forumId',subForumId:'@subForumId'}
+                    },
+                    'getModerators': {
+                        method: 'GET',
+                        url: '/api/forums/getModerators/:forumId/:subForumId',
+                        params: { forumId: '@forumId',subForumId:'@subForumId'}
+                    },
+                    'addModerator':{
+                        method: 'POST',
+                        url: '/api/forums/addModerator/:forumId/:subForumId/:userId/:moderatorId',
+                        params: { forumId: '@forumId', subForumId: '@subForumId', userId: '@userId', moderatorId: '@moderatorId' }
+                    },
+                    'complainModerator':{
+                        method: 'POST',
+                        url: '/api/forums/complainModerator/:forumId/:subForumId/:userId/:moderatorId',
+                        params: { forumId: '@forumId', subForumId: '@subForumId', userId: '@userId', moderatorId: '@moderatorId' }
+                    },
+                    'removeModerator':{
+                        method: 'POST',
+                        url: '/api/forums/removeModerator/:forumId/:subForumId/:userId/:moderatorId',
+                        params: { forumId: '@forumId', subForumId: '@subForumId', userId: '@userId', moderatorId: '@moderatorId' }
+                    },
+                    'setPolicy': {
+                        method: 'POST',
+                        url: '/api/forums/setPolicy/:forumId/:userId',
+                        params: { forumId: '@forumId', userId: '@userId' }
                     }
                 });
         }).factory('Users', function ($resource) {

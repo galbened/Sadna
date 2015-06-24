@@ -34,6 +34,7 @@ namespace Interfaces
 
         bool isLoggedin(int userId);
 
+        Boolean IsPasswordCorrect(int userId,String password);
 
         //void complaint(notificationStatus complaint, int userID);// notificationStatus yet to be written
 
@@ -44,5 +45,9 @@ namespace Interfaces
                                                                    // if true, activates account and returns true, false, returns false 
 
         Boolean isUserRegistered(int userId);
+
+        string GetUserMail(int userId);
+
+        int GetUserId(string userName);
     }
 }

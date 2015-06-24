@@ -39,6 +39,7 @@ namespace User.UnitTests
         [ExpectedException(typeof(UsernameIsTakenException), "Username entered is taken.")]
         public void registrationAgainFailTest()
         {
+            
             int id1 = um.register(userNames[0], passwords[0], emails[0]);
             int id2;
 
@@ -54,6 +55,7 @@ namespace User.UnitTests
 
             um.deactivate(id1);
             um.deactivate(id2);
+             
         }
 
         /*
@@ -68,19 +70,22 @@ namespace User.UnitTests
         public void registerLoginLogoutTest()
         {
             int id1 = um.register(userNames[0], passwords[0], emails[0]);
-            Assert.AreEqual(um.login(userNames[0], passwords[0]), id1);
+            string check = um.getUsername(id1);
+            Assert.AreEqual(userNames[0], check);
             Assert.IsTrue(um.logout(id1));
-            um.login(userNames[0], passwords[0]);
+            //um.login(userNames[0], passwords[0]);
             um.deactivate(id1);
         }
 
         [TestMethod]
         public void loginTwiceFailTest()
         {
+            
             int id1 = um.register(userNames[0], passwords[0], emails[0]);
-            id1 = um.login(userNames[0], passwords[0]);
+            //id1 = um.login(userNames[0], passwords[0]);
             //Assert.AreEqual(um.login(userNames[0], passwords[0]), -1);
             um.deactivate(id1);
+             
         }
 
         [TestMethod]
@@ -93,10 +98,10 @@ namespace User.UnitTests
         public void logoutTwiceFailsTest()
         {
             int id1 = um.register(userNames[0], passwords[0], emails[0]);
-            id1 = um.login(userNames[0], passwords[0]);
+            //id1 = um.login(userNames[0], passwords[0]);
             Assert.IsTrue(um.logout(id1));
             Assert.IsFalse(um.logout(id1));
-            id1 = um.login(userNames[0], passwords[0]);
+            //id1 = um.login(userNames[0], passwords[0]);
             um.deactivate(id1);
         }
 
@@ -110,10 +115,11 @@ namespace User.UnitTests
         public void changeUsernameNotLogedinTest()
         {
             int id1 = um.register(userNames[0], passwords[0], emails[0]);
+            um.logout(id1);
             try
             {
                 id1 = um.changeUsername(id1, userNames[1], passwords[0]);
-                id1 = um.login(userNames[0], passwords[0]);
+                //id1 = um.login(userNames[0], passwords[0]);
             }
             catch(UsernameIllegalChangeException)
             {
@@ -127,7 +133,7 @@ namespace User.UnitTests
         public void changeUsernameTest()
         {
             int id1 = um.register(userNames[0], passwords[0], emails[0]);
-            id1 = um.login(userNames[0], passwords[0]);
+            //id1 = um.login(userNames[0], passwords[0]);
             int id2 = um.changeUsername(id1, userNames[1], passwords[0]);
             Assert.AreEqual(id1, id2); //should return the same ID
             Assert.AreEqual(userNames[1].CompareTo(um.getUsername(id1)), 0);
@@ -143,7 +149,7 @@ namespace User.UnitTests
             int id1 = um.register(userNames[0], passwords[0], emails[0]);
             try
             {
-                id1 = um.login(userNames[0], passwords[0]);
+                //id1 = um.login(userNames[0], passwords[0]);
                 um.changeUsername(id1, userNames[1], passwords[1]);//user details incorrect
             }
             catch (UsernameIllegalChangeException)
@@ -163,6 +169,7 @@ namespace User.UnitTests
         public void changePasswordNotLogedinTest()
         {
             int id1 = um.register(userNames[0], passwords[0], emails[0]);
+            um.logout(id1);
             try
             {
                 id1 = um.changePassword(id1, passwords[0], passwords[1]);
@@ -182,7 +189,7 @@ namespace User.UnitTests
             int id1 = um.register(userNames[0], passwords[0], emails[0]);
             try
             {
-                id1 = um.login(userNames[0], passwords[0]);
+                //id1 = um.login(userNames[0], passwords[0]);
                 um.changePassword(id1, passwords[0], passwords[1]);
                 um.changePassword(id1, passwords[1], passwords[2]);
                 um.changePassword(id1, passwords[2], passwords[3]);
@@ -203,7 +210,7 @@ namespace User.UnitTests
             int id1 = um.register(userNames[0], passwords[0], emails[0]);
             try
             {
-                id1 = um.login(userNames[0], passwords[0]);
+                //id1 = um.login(userNames[0], passwords[0]);
                 um.changePassword(id1, passwords[1], passwords[0]);
             }
             catch (UserPasswordIllegalChangeException)
@@ -223,7 +230,7 @@ namespace User.UnitTests
         {
             int id1 = um.register(userNames[0], passwords[0], emails[0]);
             int id2 = um.register(userNames[1], passwords[1], emails[1]);
-            id1 = um.login(userNames[0], passwords[0]);
+            //id1 = um.login(userNames[0], passwords[0]);
             int notID = um.addFriend(id1, id2);
             Assert.AreNotEqual(notID, -1); //notification should be sent
             um.deactivate(id1);
@@ -239,7 +246,7 @@ namespace User.UnitTests
         public void deactivateTest()
         {
             int id1 = um.register(userNames[0], passwords[0], emails[0]);
-            id1 = um.login(userNames[0], passwords[0]);
+            //id1 = um.login(userNames[0], passwords[0]);
             um.deactivate(id1);
             //Assert.AreEqual(um.login(userNames[0], passwords[0]), -1);//should fail - users not exists
             um.login(userNames[0], passwords[0]);//should fail - users not exists
@@ -267,7 +274,7 @@ namespace User.UnitTests
                 string userName = "user" + getID().ToString();
                 string email = userName + "@post.bgu.ac.il";
                 int id1 = um.register(userName, "password", email);
-                //um.deactivate(id1);
+                um.deactivate(id1);
             }
             catch (Exception)
             {

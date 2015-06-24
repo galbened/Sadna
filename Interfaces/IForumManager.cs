@@ -11,7 +11,7 @@ namespace Interfaces
     {
         int CreateForum(int userRequesterId, string name);
         void RemoveForum(int userRequesterId, int forumId);
-        Boolean RemoveSubForum(int userRequesterId, int forumId, int subForumId, int callerUserId);
+        Boolean RemoveSubForum(int userRequesterId, int forumId, int subForumId);
         //return -1 for already exist topic and -2 for not admin caller.
         int CreateSubForum(int userRequesterId, string topic, int forumId);
         void AddAdmin(int userRequesterId, int userId, int forumId);
@@ -38,11 +38,20 @@ namespace Interfaces
         List<int> GetSubForumsIds(int forumId);
         List<string> GetSubForumsTopics(int forumId);
         Boolean isRegisteredUser(int forumId, int userId);
+        Boolean isLoggedUser(int forumId, int userId);
         string GetSubForumTopic(int forumId, int subForumId);
         List<int> GetAllComments(int forumId, int subForumId,int messageId);
         string GetUserType(int forumId, int userId);
         string GetUsername(int forumId, int userId);
         List<string> GetSessionHistory(int requesterId, int forumId, int userIdSession);
+        void ComplainModerator(int userRequesterId, int moderator, int forumId, int subForumId);
+        List<int> GetModeratorIds(int forumId, int subForumId);
+        List<string> GetModeratorNames(int forumId, int subForumId);
+        List<int> GetMembersNoAdminIds(int forumId);
+        List<string> GetMembersNoAdminNames(int forumId);
+        List<int> GetMembersNoModeratorIds(int forumId, int subForumId);
+        List<string> GetMembersNoModeratorNames(int forumId, int subForumId);
+        void SendFriendRequest(int requesterId, int friendId, int forumId);
     } 
 }
 

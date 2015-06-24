@@ -99,14 +99,19 @@ namespace Driver
             return messageId;
         }
 
-        public void SendFriendRequest()
+        public void SendFriendRequest(int requesterId, int friendId, int forumId)
         {
-            throw new NotImplementedException();
+            FM.SendFriendRequest(requesterId, friendId, forumId);
         }
 
-        public void ComplainModerator()
+        public void ComplainModerator(int userRequesterId, int moderator, int forumId, int subForumId)
         {
-            throw new NotImplementedException();
+            FM.ComplainModerator(userRequesterId, moderator, forumId, subForumId);
+        }
+
+        public bool EditMessage(int userRequesterId, int messageId, string title, string body)
+        {
+            return MM.editMessage(userRequesterId, messageId, title, body);
         }
 
         public bool DeleteMessage(int userRequesterId, int messageId)
@@ -120,9 +125,19 @@ namespace Driver
             FM.RemoveForum(userRequesterId, forumId);
         }
 
+        public void RemoveSubForum(int userRequesterId, int forumId, int subForumId)
+        {
+            FM.RemoveSubForum(userRequesterId, forumId, subForumId);
+        }
+
+        public void AddAdmin(int userRequesterId, int forumId, int adminId)
+        {
+            FM.AddAdmin(userRequesterId, adminId, forumId);
+        }
+
         public void AddModerator(int userRequesterId, int forumId, int subForumId, int moderatorId)
         {
-           // FM.AddModerator(moderatorId, forumId, subForumId);
+            FM.AddModerator(userRequesterId, forumId, subForumId, moderatorId);
         }
 
         public void RemoveModerator(int userRequesterId, int forumId, int subForumId, int moderatorId)
@@ -160,11 +175,6 @@ namespace Driver
         public List<int> GetAllComments(int forumId, int subForumId, int messageId)
         {
             return FM.GetAllComments(forumId, subForumId,messageId);
-        }
-
-        public List<int> GetModerators(int forumId, int subForumId)
-        {
-            throw new NotImplementedException();
         }
 
         public string GetForumName(int forumId)
@@ -232,11 +242,47 @@ namespace Driver
             return UM.isUserRegistered(userId);
         }
 
+        public List<int> GetModeratorIds(int forumId, int subForumId)
+        {
+            return FM.GetModeratorIds(forumId, subForumId);
+        }
+
+        public List<string> GetModeratorNames(int forumId, int subForumId)
+        {
+            return FM.GetModeratorNames(forumId, subForumId);
+        }
+
+        public List<int> GetMembersNoAdminIds(int forumId)
+        {
+            return FM.GetMembersNoAdminIds(forumId);
+        }
+
+        public List<string> GetMembersNoAdminNames(int forumId)
+        {
+            return FM.GetMembersNoAdminNames(forumId);
+        }
+
+        public List<int> GetMembersNoModeratorIds(int forumId, int subForumId)
+        {
+            return FM.GetMembersNoModeratorIds(forumId, subForumId);
+        }
+
+        public List<string> GetMembersNoModeratorNames(int forumId, int subForumId)
+        {
+            return FM.GetMembersNoModeratorNames(forumId, subForumId);
+        }
+
+        public Boolean IsPasswordCorrect(int userId, String password)
+        {
+            return UM.IsPasswordCorrect(userId, password);
+        }
+
         public void initializingDemoRunData()
         {
+            
             int forum_sports = FM.CreateForum(1, "Sports");
             int forum_news = FM.CreateForum(1, "News");
-
+            
             int subforum_1_sports = FM.CreateSubForum(1, "Soccer", forum_sports);
             int subforum_2_sports = FM.CreateSubForum(1, "Basketball", forum_sports);
             int subforum_3_sports = FM.CreateSubForum(1, "Tennis", forum_sports);
@@ -246,6 +292,7 @@ namespace Driver
             int subforum_3_news = FM.CreateSubForum(1, "Politics", forum_news);
             int subforum_4_news = FM.CreateSubForum(1, "Weather", forum_news);
 
+            int admin_1_sports = FM.Register("admin_1_sports", "admin_1_sports_bpass", "admin_1_sports@mail.com", forum_sports);
             int user_1_sports = FM.Register("user_1_sports", "user_1_sports_bpass", "user_1_sports@mail.com", forum_sports);
             int user_2_sports = FM.Register("user_2_sports", "user_2_sports_bpass", "user_2_sports@mail.com", forum_sports);
             int user_3_sports = FM.Register("user_3_sports", "user_3_sports_bpass", "user_3_sports@mail.com", forum_sports);
@@ -253,14 +300,11 @@ namespace Driver
             int user_2_news = FM.Register("user_2_news", "user_2_news_bpass", "user_2_news@mail.com", forum_news);
             int user_3_news = FM.Register("user_3_news", "user_3_news_bpass", "user_3_news@mail.com", forum_news);
             int user_4_news = FM.Register("user_4_news", "user_4_news_bpass", "user_4_news@mail.com", forum_news);
+            int admin_1_news = FM.Register("admin_1_news", "admin_1_news_bpass", "admin_1_news@mail.com", forum_news);
 
-            bool kash = FM.Logout(user_1_sports, forum_sports);
-            kash = FM.Logout(user_2_sports, forum_sports);
-            kash = FM.Logout(user_3_sports, forum_sports);
-            kash = FM.Logout(user_1_news, forum_news);
-            kash = FM.Logout(user_2_news, forum_news);
-            kash = FM.Logout(user_3_news, forum_news);
-            kash = FM.Logout(user_4_news, forum_news);
+            /*
+
+            */ 
 
             int thread_1_subforum_1_sports = MM.addThread(forum_sports, subforum_1_sports, user_1_sports, UM.getUsername(user_1_sports), "message title 1", "message body 1");
             MM.addComment(thread_1_subforum_1_sports, user_2_sports, UM.getUsername(user_2_sports), "reponse message title 1 2", "response message body 1 2");
@@ -274,60 +318,24 @@ namespace Driver
             MM.addComment(thread_1_subforum_1_news, user_2_news, UM.getUsername(user_2_news), "reponse message title 1 2", "response message body 1 2");
             MM.addComment(thread_1_subforum_1_news, user_3_news, UM.getUsername(user_3_news), "reponse message title 1 3", "response message body 1 3");
             MM.addComment(thread_1_subforum_1_news, user_4_news, UM.getUsername(user_4_news), "reponse message title 1 4", "response message body 1 4");
+            
+            FM.AddAdmin(1,admin_1_sports, forum_sports);
 
-            FM.AddAdmin(1,user_1_sports, forum_sports);
 
+
+            bool kash = FM.Logout(user_1_sports, forum_sports);
+            kash = FM.Logout(user_2_sports, forum_sports);
+            kash = FM.Logout(user_3_sports, forum_sports);
+            kash = FM.Logout(user_1_news, forum_news);
+            kash = FM.Logout(user_2_news, forum_news);
+            kash = FM.Logout(user_3_news, forum_news);
+            kash = FM.Logout(user_4_news, forum_news);
+            kash = FM.Logout(admin_1_news, forum_news);
+            kash = FM.Logout(admin_1_sports, forum_sports);
             /*
-            List<int> forumIds = new List<int>();
-            List<int> subForumIds = new List<int>();
-            List<int> adminUsersIds = new List<int>();
-            List<int> regularUsersIds = new List<int>();
-            # region forum creation
-            // two moderators,upper/lower/numbers 3 minimum
-            forumIds.Add(CreateForum("Youtube Fail army ", 2, "", true, true, true, false, 3));
+            FM.AddAdmin(2, admin_1_news, forum_news);
+        */
 
-            // one moderators,lower/numbers 4 minimum
-            forumIds.Add(CreateForum("Eliad Malki VEVO", 1, "", false, true, true, false, 4));
-
-            // four moderators,upper/lower/numbers/symbols 5 minimum
-            forumIds.Add(CreateForum("SE workshop", 4, "", false, true, true, true, 5));
-            # endregion
-
-            # region sub-forum creation
-            // subforums for first forum
-            subForumIds.Add(CreateSubForum(forumIds[0], "Compilation"));
-            subForumIds.Add(CreateSubForum(forumIds[0], "Fails of the month"));
-
-
-            // subforums for second forum
-            subForumIds.Add(CreateSubForum(forumIds[1], "The songs"));
-            subForumIds.Add(CreateSubForum(forumIds[1], "Video clips"));
-
-            // subforums for third forum
-            subForumIds.Add(CreateSubForum(forumIds[1], "Meetings"));
-            # endregion
-
-            #region user_creation_and_registration
-            adminUsersIds.Add(Register("fail army Admin", "fa1L100", "failarmy@gmail.com", forumIds[0]));
-            regularUsersIds.Add(Register("Gal Porat", "ga1PoPo", "galpo@gmail.com", forumIds[0]));
-
-
-            adminUsersIds.Add(Register("Eliad Malki Admin", "B0nb0n", "mamimami@gmail.com", forumIds[1]));
-            regularUsersIds.Add(Register("Osher Damari", "s3xyT1m3", "osherda@gmail.com", forumIds[1]));
-
-            adminUsersIds.Add(Register("Gal Ben Admin", "Ar0ma1989", "bened@gmail.com", forumIds[2]));
-            regularUsersIds.Add(Register("Tomer Segal", "Yukukuku33", "tomerse@gmail.com", forumIds[2]));
-            # endregion
-
-            # region adding messages
-            // adding two messages to each sub forum,
-            // each message has at least one comment
-
-            //Publish(forumIds[0],subForumIds[0],
-
-
-            #endregion 
-            */
         }
     }
 }

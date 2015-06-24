@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Interfaces;
 using ForumLoggers;
 using Message;
-using System.Configuration;
+using Notification;
 
 
 namespace Forum
@@ -22,6 +22,7 @@ namespace Forum
         private const string error_existTitle = "Cannot create forum with already exit title";
         private const string error_forumID = "No such forum: ";
         private const string error_accessDenied = "You have no permissions to perform this operation";
+        private const string error_noSuchUser = "Requested user not exist";
 
         IDBManager<Forum> DBforumMan;
 
@@ -107,12 +108,12 @@ namespace Forum
             DBforumMan.update();
 
         }
-        public Boolean RemoveSubForum(int userRequesterId, int forumId, int subForumId, int callerUserId)
+        public Boolean RemoveSubForum(int userRequesterId, int forumId, int subForumId)
         {
 
             foreach (Forum frm in DBforumMan.getAll())
                 if (frm.ForumID == forumId)
-                    return frm.RemoveSubForum(userRequesterId, subForumId, callerUserId);
+                    return frm.RemoveSubForum(userRequesterId, subForumId);
             DBforumMan.update();
             return false;
         }
@@ -143,7 +144,6 @@ namespace Forum
                 if (frm.ForumID == forumId)
                     return frm.IsAdmin(userId);
             }
-            DBforumMan.update();
             return false;
         }
         public int Register(string username, string password, string mail, int forumId)
@@ -340,6 +340,14 @@ namespace Forum
             return cur.isUserRegistered(userId);
         }
 
+        public Boolean isLoggedUser(int forumId, int userId)
+        {
+            List<int> ans = new List<int>();
+            int forumIndex = GetForumIndex(forumId);
+            Forum cur = DBforumMan.getAll().ElementAt(forumIndex);
+            return cur.isUserLogged(userId);
+        }
+
         public string GetSubForumTopic(int forumId, int subForumId)
         {
             string ans = null;
@@ -386,7 +394,111 @@ namespace Forum
 
         }
 
+        public void ComplainModerator(int userRequesterId, int moderator, int forumId, int subForumId)
+        {
 
+            Forum fr = GetForum(forumId);
+            SubForum sf = fr.GetSubForum(subForumId);
+            List<int> moderators = sf.GetModeratorsIds();
+            if (!moderators.Contains(moderator))
+                throw new ArgumentException(error_noSuchUser + ": " + moderator);
+            string complainer = GetUsername(forumId, userRequesterId);
+            List<int> adminsIds = GetForumAdmins(forumId);          
+            string complainOnUser = GetUsername(forumId, moderator);
+
+            foreach(int admin in adminsIds)
+            {
+                string complainToUser = GetUsername(forumId, admin);
+                string complainToMail = GetUserMail(forumId, admin);
+                Notification.Notification.SendComplaintNotification(complainer, complainToUser, complainOnUser, complainToMail);
+            }
+            
+        }
+
+        public List<int> GetModeratorIds(int forumId, int subForumId)
+        {
+            Forum fr = GetForum(forumId);
+            SubForum sf = fr.GetSubForum(subForumId);
+            List<int> moderatorsIds = sf.GetModeratorsIds();
+            return moderatorsIds;
+        }
+
+        public List<string> GetModeratorNames(int forumId, int subForumId)
+        {
+            List<int> moderatorsIds = GetModeratorIds(forumId, subForumId);
+            List<string> ans = new List<string>();
+            foreach (int md in moderatorsIds)
+            {
+                string moderatorName = GetUsername(forumId, md);
+                ans.Add(moderatorName);
+            }
+            return ans;
+        }
+
+
+        public List<int> GetMembersNoAdminIds(int forumId)
+        {
+            Forum fr = GetForum(forumId);
+            List<int> ans = fr.GetMembersNoAdminIds();
+            return ans;
+        }
+
+        public List<string> GetMembersNoAdminNames(int forumId)
+        {
+            List<int> ids = GetMembersNoAdminIds(forumId);
+            List<string> ans = new List<string>();
+            foreach (int id in ids)
+            {
+                ans.Add(GetUsername(forumId, id));
+            }
+            return ans;
+        }
+
+
+        public List<int> GetMembersNoModeratorIds(int forumId, int subForumId)
+        {
+            List<int> ans = new List<int>();
+            Forum fr = GetForum(forumId);
+            ans = fr.GetMembersNoModeratorIds(subForumId);
+            return ans;          
+        }
+
+
+        public List<string> GetMembersNoModeratorNames(int forumId, int subForumId)
+        {
+            List<string> ans = new List<string>();
+            List<int> membersNoModeratorIds = GetMembersNoModeratorIds(forumId, subForumId);
+            foreach (int id in membersNoModeratorIds)
+            {
+                ans.Add(GetUsername(forumId, id));
+            }
+            return ans;
+        }
+
+
+        public void SendFriendRequest(int requesterId, int friendId, int forumId)
+        {
+            string userNameFrom = GetUsername(forumId, requesterId);
+            string userNameTo = GetUsername(forumId, friendId);
+            string emailTo = GetUserMail(forumId, friendId);
+            Notification.Notification.SendFriendRequestNotification(userNameFrom, userNameTo, emailTo);
+        }
+
+        
+
+
+
+        private string GetUserMail(int forumId, int userId)
+        {
+            Forum fr = GetForum(forumId);
+            return fr.GetUserMail(userId);
+        }
+
+        private List<int> GetForumAdmins(int forumId)
+        {
+            Forum fr = GetForum(forumId);
+            return fr.GetForumAdmins();
+        }
 
 
         private Forum GetForum(int forumId)

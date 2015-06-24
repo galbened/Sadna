@@ -9,11 +9,15 @@ namespace Message
     public class Thread
     {
         public int id { get; set; }
-        private int forumId;
-        private int subForumId;
-        private FirstMessage firstMessage;
+        public int forumId { get; set; }
+        //private int forumId;
+        public int subForumId { get; set; }
+        //private int subForumId;
+        public FirstMessage firstMessage { get; set; }
+        //private FirstMessage firstMessage;
 
-
+        public Thread()
+        { }
         public Thread(int forumId, int subForumId, int messageId, int publisherID, string publisherName, string title, string body)
         {
             this.forumId = forumId;
@@ -37,7 +41,7 @@ namespace Message
 
         }
 
-        public Message GetMessage()
+        public FirstMessage GetMessage()
         {
             return firstMessage;
         }

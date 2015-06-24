@@ -224,13 +224,23 @@
     <Compile Include="Utility\QueryHelper.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\js\AddAdminModalCtrl.js" />
+    <Content Include="app\js\AddModeratorModalCtrl.js" />
     <Content Include="app\js\AddSubForumModalCtrl.js" />
     <Content Include="app\js\Api.js" />
     <Content Include="app\js\AddForumModalCtrl.js" />
+    <Content Include="app\js\ComplainModertorModalCtrl.js" />
     <Content Include="app\js\RemoveForumCtrl.js" />
+    <Content Include="app\js\RemoveModeratorModalCtrl.js" />
     <Content Include="app\js\RemoveSubForumCtrl.js" />
+    <Content Include="app\js\SetPolicyModalCtrl.js" />
+    <Content Include="app\partials\add-admin-modal.html" />
     <Content Include="app\partials\AddForumModal.html" />
     <Content Include="app\partials\AddSubForumModal.html" />
+    <Content Include="app\partials\complain-moderator-modal.html" />
+    <Content Include="app\partials\add-moderator-modal.html" />
+    <Content Include="app\partials\remove-moderator-modal.html" />
+    <Content Include="app\partials\set-policy-modal.html" />
     <Content Include="app\partials\remove-subforum-modal.html" />
     <Content Include="app\partials\remove-forum-modal.html" />
     <Content Include="app\partials\thread-list.html" />

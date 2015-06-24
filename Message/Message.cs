@@ -9,7 +9,7 @@ namespace Message
 {
     public abstract class Message : IMessage
     {
-        public int id { get; set; }
+        public int messageID { get; set; }
         public int publisherID { get; set; }
         public string publisherName { get; set; }
         public string title { get; set; }
@@ -30,7 +30,7 @@ namespace Message
 
         public Message(int id, int publisherID, string publisherName, string title, string body)
         {
-            this.id = id;
+            this.messageID = id;
             this.publisherID = publisherID;
             this.publisherName = publisherName;
             this.title = title;
@@ -42,7 +42,7 @@ namespace Message
 
         public int MessageID
         {
-            get { return id; }
+            get { return messageID; }
         }
 
         public String Content

@@ -12,11 +12,17 @@ namespace Forum
     public class Forum
     {
         public int forumID { get; set; }
-        private List<int> registeredUsersID,logedUsersId, adminsID;
+        //private List<int> logedUsersId;
+        public List<LoggedUser> loggedUsers { get; set; }
+        public List<RegisteredUser> registeredUsers { get; set; }
+        public List<AdminUser> adminUsers { get; set; }
         //private int forumID;
-        private Policy poli;
-        private static int subForumIdCounter;
+        public static Policy poli { get; set; }
+        //private Policy poli;
+        public static int subForumIdCounter { get; set; }
+        //private static int subForumIdCounter;
         private IUserManager usrMngr;
+
         private const string error_existTitle = "Cannot create subForum with already exit title";
         private const string error_notAdmim = "Cannot create subForum with not admin caller ID";
         private const string error_forumID = "No such Forum: ";
@@ -25,11 +31,15 @@ namespace Forum
         private const string error_invalidPassword = "Password is not valid according to policy";
         private const string error_failedRegistrarion = "Failed to register new user in user manager";
         private const string error_accessDenied = "User has no permissions to perform this operation";
+        private const string error_notLogged = "User is not registered to forum"; 
 
 
         public string forumName { get; set; }
-        public List<SubForum> subForums { get; private set; }
-        private Dictionary<int, Session> sessions;
+        public virtual List<SubForum> subForums { get; set; }
+        //public List<SubForum> subForums { get; private set; }
+
+        private static Dictionary<int, Session> sessions { get; set; }
+        //private Dictionary<int, Session> sessions;
 
         public Forum() 
         {
@@ -39,12 +49,12 @@ namespace Forum
         {
             forumName = name;
             forumID = id;
-            registeredUsersID = new List<int>();
-            registeredUsersID.Add(1);
-            adminsID = new List<int>();
-            adminsID.Add(1);
-            logedUsersId = new List<int>();
-            logedUsersId.Add(1);
+            registeredUsers = new List<RegisteredUser>();
+            registeredUsers.Add(new RegisteredUser(1));
+            adminUsers = new List<AdminUser>();
+            adminUsers.Add(new AdminUser(1));
+            loggedUsers = new List<LoggedUser>();
+            loggedUsers.Add(new LoggedUser(1));
             subForums = new List<SubForum>();
             poli = new Policy();
             usrMngr = UserManager.Instance;
@@ -53,11 +63,19 @@ namespace Forum
             sessions.Add(1, new Session("Admin", forumID, forumName));
         }
 
+        public List<int> GetForumAdmins()
+        {
+            List<int> list = new List<int>();
+            foreach (AdminUser au in adminUsers)
+                list.Add(au.userID);
+            return list;
+        }
+
         public int CreateSubForum(int userRequesterId, string topic)
         {
             Session se = GetSession(userRequesterId);
             se.AddAction(ForumLogger.TYPE_INFO, "Trying to create subForum " + topic + " in forum " + forumID);
-            if ((userRequesterId != 1) && (!CheckExisting(adminsID, userRequesterId)))
+            if ((userRequesterId != 1) && (!(adminUsers.Any(au => au.userID == userRequesterId))))
             {
                 se.AddAction(ForumLogger.TYPE_ERROR, error_accessDenied); 
                 throw new UnauthorizedAccessException(error_accessDenied);
@@ -88,15 +106,15 @@ namespace Forum
         {
             Session se = GetSession(userRequesterId);
             se.AddAction(ForumLogger.TYPE_INFO, "Trying to add admin " + userId + " to forum " + forumID);
-            if ((userRequesterId != 1) && (!CheckExisting(adminsID, userRequesterId)))
+            if ((userRequesterId != 1) && (!adminUsers.Any(au => au.userID == userRequesterId)))
             {
                 se.AddAction(ForumLogger.TYPE_ERROR, error_accessDenied); 
                 throw new UnauthorizedAccessException(error_accessDenied);
             }
             try
             {
-                if (registeredUsersID.Contains(userId))
-                    adminsID.Add(userId);
+                if (registeredUsers.Any(ru => ru.userID == userId))
+                    adminUsers.Add(new AdminUser(userId));
             }
             catch (Exception ex)
             {
@@ -110,14 +128,15 @@ namespace Forum
         {
             Session se = GetSession(userRequesterId);
             se.AddAction(ForumLogger.TYPE_INFO, "Trying to remove admin " + userId + " to forum " + forumID);
-            if ((userRequesterId != 1) && (!CheckExisting(adminsID, userRequesterId)))
+            if ((userRequesterId != 1) && (!adminUsers.Any(au => au.userID == userRequesterId)))
             {
                 se.AddAction(ForumLogger.TYPE_ERROR, error_accessDenied);
                 throw new UnauthorizedAccessException(error_accessDenied);
             }
             try
             {
-                adminsID.Remove(userId);
+                adminUsers.RemoveAll(ru => ru.userID == userId);
+                //adminsID.Remove(userId);
             }
             catch (Exception ex)
             {
@@ -137,7 +156,7 @@ namespace Forum
 
         public Boolean IsAdmin(int userId)
         {
-            return adminsID.Contains(userId);
+            return adminUsers.Any(au => au.userID == userId);
         }
         
         public int Register(string username, string password, string mail)
@@ -162,10 +181,14 @@ namespace Forum
             }
             if (userId > -1)
             {
-                if (!(registeredUsersID.Contains(userId)))
-                    registeredUsersID.Add(userId);
-                if (!(logedUsersId.Contains(userId)))
-                    logedUsersId.Add(userId);
+                if (!(registeredUsers.Any(ru => ru.userID == userId)))
+                    registeredUsers.Add(new RegisteredUser(userId));
+                //if (!(registeredUsersID.Contains(userId)))
+                //    registeredUsersID.Add(userId);
+                if (!(loggedUsers.Any(lu => lu.userID == userId)))
+                    loggedUsers.Add(new LoggedUser(userId));
+                //if (!(logedUsersId.Contains(userId)))
+                //    logedUsersId.Add(userId);
             }
             guestSession.EndSession();
             Session se = new Session(userId, username, forumID, forumName, SessionReason.registration);
@@ -175,26 +198,63 @@ namespace Forum
 
         public int Login(string username, string password)
         {
+            Boolean isRegistered =true;
+            int userid = GetUserId(username);
+            if (userid < 0)
+                isRegistered = false;
+            if (!isRegistered)
+                throw new ArgumentException(error_notLogged);
             Boolean canLogin = usrMngr.IsPasswordValid(username, poli.PasswordExpectancy);
+            int userId = 0;
             if (!canLogin)
                 throw new ArgumentException(error_expiredPassword);
-            int userId = usrMngr.login(username, password);
-            if (registeredUsersID.Contains(userId))
-                if (!(logedUsersId.Contains(userId)))
-                    logedUsersId.Add(userId);
+            try
+            {
+                 userId = usrMngr.login(username, password);
+              
+            }
+            catch
+            {
+                throw new WrongUsernameOrPasswordException();
+            }
+            //if (registeredUsersID.Contains(userId))
+           /* try{
+            if (registeredUsers.Any(ru => ru.userID == userId))
+                if (!(loggedUsers.Any(lu => lu.userID == userId)))
+                    loggedUsers.Add(new LoggedUser(userId));
+                //if (!(logedUsersId.Contains(userId)))
+                //    logedUsersId.Add(userId);
                 else
-                    return -1;
+                    return -1;*/
+            loggedUsers.Add(new LoggedUser(userId));
             Session se = new Session(userId, username, forumID, forumName, SessionReason.loggin);
             sessions.Add(userId, se);
             return userId;
         }
 
+        private int GetUserId(string username)
+        {
+            int userId = usrMngr.GetUserId(username);
+            foreach (RegisteredUser regUser in registeredUsers)
+            {
+                if (regUser.userID == userId)
+                    return userId;
+            }
+            return -1;
+        }
+
+
         public Boolean Logout(int userId)
         {
-            if (!(logedUsersId.Contains(userId)))
+            //if (!(loggedUsers.Any(lu => lu.userID == userId)))
+            //    loggedUsers.Add(new LoggedUser(userId));
+
+            if (!(loggedUsers.Any(lu => lu.userID == userId)))
                 return false;
             usrMngr.logout(userId);
-            logedUsersId.Remove(userId);
+
+            loggedUsers.RemoveAll(lu => lu.userID == userId);
+            //logedUsersId.Remove(userId);
             Session se = GetSession(userId);
             se.EndSession();
             sessions.Remove(userId);
@@ -207,7 +267,7 @@ namespace Forum
         {
             Session se = GetSession(userRequesterId);
             se.AddAction(ForumLogger.TYPE_INFO, "Trying to set policy in forum " + forumID);
-            if ((userRequesterId != 1) && (!CheckExisting(adminsID, userRequesterId)))
+            if ((userRequesterId != 1) && (!adminUsers.Any(au => au.userID == userRequesterId)))
             {
                 se.AddAction(ForumLogger.TYPE_ERROR, error_accessDenied);
                 throw new UnauthorizedAccessException(error_accessDenied);
@@ -251,17 +311,27 @@ namespace Forum
 
             SubForum sf = GetSubForum(subForumId);
             List<int> moderators = sf.GetModeratorsIds();
-            if ((userRequesterId != 1) && (!CheckExisting(adminsID, userRequesterId) && (!CheckExisting(moderators, subForumId))))
+            if ((userRequesterId != 1) && (!adminUsers.Any(au => au.userID == userRequesterId) && (!CheckExisting(moderators, subForumId))))
             {
                 se.AddAction(ForumLogger.TYPE_ERROR, error_accessDenied);
                 throw new UnauthorizedAccessException(error_accessDenied);
             }
             try
             {
-                if (registeredUsersID.Contains(moderatorId))
+                if (registeredUsers.Any(ru => ru.userID == moderatorId))
+                {
+                    Boolean flag = false;
+                    //if (registeredUsersID.Contains(moderatorId))
                     foreach (SubForum sbfrm in subForums)
                         if ((sbfrm.SubForumId == subForumId) && (sbfrm.NumOfModerators() < poli.ModeratorNum))
+                        {
                             sbfrm.AddModerator(moderatorId, userRequesterId);
+                            flag = true;
+                        }
+                    if (!flag)
+                        throw new ArgumentException("too much moderators");
+                }
+                
             }
             catch (Exception ex)
             {
@@ -278,7 +348,7 @@ namespace Forum
 
             SubForum sf = GetSubForum(subForumId);
             List<int> moderators = sf.GetModeratorsIds();
-            if ((userRequesterId != 1) && (!CheckExisting(adminsID, userRequesterId) && (!CheckExisting(moderators, subForumId))))
+            if ((userRequesterId != 1) && (!adminUsers.Any(au => au.userID == userRequesterId) && (!CheckExisting(moderators, subForumId))))
             {
                 se.AddAction(ForumLogger.TYPE_ERROR, error_accessDenied);
                 throw new UnauthorizedAccessException(error_accessDenied);
@@ -311,8 +381,11 @@ namespace Forum
 
         internal void UnRegister(int userId)
         {
-            logedUsersId.Remove(userId);
-            registeredUsersID.Remove(userId);
+            Logout(userId);
+            //loggedUsers.RemoveAll(lu => lu.userID == userId);
+            //logedUsersId.Remove(userId);
+            registeredUsers.RemoveAll(ru => ru.userID == userId);
+            //registeredUsersID.Remove(userId);
             usrMngr.deactivate(userId);
         }
 
@@ -332,11 +405,11 @@ namespace Forum
             throw new ArgumentException(error_forumID + subForumId); ;
         }
 
-        internal Boolean RemoveSubForum(int userRequesterId, int subForumId, int callerUserId)
+        internal Boolean RemoveSubForum(int userRequesterId, int subForumId)
         {
             Session se = GetSession(userRequesterId);
             se.AddAction(ForumLogger.TYPE_INFO, "Trying to remove subForum " + subForumId + " in forum " + forumID);
-            if ((userRequesterId != 1) && (!CheckExisting(adminsID, userRequesterId)))
+            if ((userRequesterId != 1) && (!adminUsers.Any(au => au.userID == userRequesterId)))
             {
                 se.AddAction(ForumLogger.TYPE_ERROR, error_accessDenied); 
                 throw new UnauthorizedAccessException(error_accessDenied);
@@ -347,7 +420,7 @@ namespace Forum
                 foreach (SubForum sbfrm in subForums)
                     if (sbfrm.SubForumId == subForumId)
                         tmp = sbfrm;
-                if (adminsID.Contains(callerUserId))
+                if (adminUsers.Any(au => au.userID == userRequesterId))
                 {
                     subForums.Remove(tmp);
                     return true;
@@ -369,8 +442,13 @@ namespace Forum
 
         internal Boolean isUserRegistered(int userId)
         {
-            return registeredUsersID.Contains(userId);
+            return (registeredUsers.Any(ru => ru.userID == userId));
+            //return registeredUsersID.Contains(userId);
+        }
 
+        internal bool isUserLogged(int userId)
+        {
+            return (loggedUsers.Any(ru => ru.userID == userId));
         }
 
         internal string GetSubForumTopic(int forumId,int subForumId)
@@ -398,6 +476,40 @@ namespace Forum
             }
             return ans;
         }
+
+        public string GetUserMail(int userId)
+        {
+            string ans = usrMngr.GetUserMail(userId);
+            return ans;
+        }
+
+        internal List<int> GetMembersNoAdminIds()
+        {
+            List<int> ans = new List<int>();
+            foreach (RegisteredUser ru in registeredUsers)
+            {
+                if (!IsAdmin(ru.userID))
+                    ans.Add(ru.userID);
+            }
+            return ans;          
+        }
+
+
+        internal List<int> GetMembersNoModeratorIds(int subForumId)
+        {
+            List<int> ans = new List<int>();
+            foreach (RegisteredUser ru in registeredUsers)
+            {
+                if (!IsModerator(ru.userID, subForumId))
+                    ans.Add(ru.userID);
+                //if (!IsModerator(id, subForumId))
+                //    ans.Add(id);
+            }
+            return ans;
+        }
+
+
+
 
 
         private bool CheckExisting(List<int> list, int find)

@@ -24,7 +24,8 @@
         <div class="toolbar button-toolbar row" style="margin-left: 115px;margin-bottom: 20px">
             <span ng-if="user && user.type ==='admin'" class="form-group">
                 <button class="btn btn-default " data-ng-click="addNewSubForum()">Add new sub-forum</button>
-                <button class="btn btn-default " data-ng-click="">Forum Settings  </button>
+                <button class="btn btn-default " data-ng-click="addAdmin()">Add admin  </button>
+                <button class="btn btn-default " data-ng-click="setPolicy()">set policy  </button>
                 <button class="btn btn-danger" data-ng-click="removeSubForum()">Remove sub-forum</button>
             </span>
         </div>

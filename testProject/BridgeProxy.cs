@@ -97,17 +97,24 @@ namespace testProject
             throw new NullReferenceException("_real in null");
         }
 
-        public void SendFriendRequest()
+        public void SendFriendRequest(int requesterId, int friendId, int forumId)
         {
             if (_real != null)
-                _real.SendFriendRequest();
+                _real.SendFriendRequest(requesterId, friendId, forumId);
             throw new NullReferenceException("_real in null");
         }
 
-        public void ComplainModerator()
+        public void ComplainModerator(int userRequesterId, int moderator, int forumId, int subForumId)
         {
             if (_real != null)
-                _real.ComplainModerator();
+                _real.ComplainModerator(userRequesterId, moderator, forumId, subForumId);
+            throw new NullReferenceException("_real in null");
+        }
+
+        public bool EditMessage(int userRequesterId, int messageId, string title, string body)
+        {
+            if (_real != null)
+                _real.EditMessage(userRequesterId, messageId, title, body);
             throw new NullReferenceException("_real in null");
         }
 
@@ -122,6 +129,20 @@ namespace testProject
         {
             if (_real != null)
                 _real.RemoveForum(1, forumId);
+            throw new NullReferenceException("_real in null");
+        }
+
+        public void RemoveSubForum(int userRequesterId, int forumId, int subForumId)
+        {
+            if (_real != null)
+                _real.RemoveSubForum(userRequesterId, forumId, subForumId);
+            throw new NullReferenceException("_real in null");
+        }
+
+        public void AddAdmin(int userRequesterId, int forumId, int adminId)
+        {
+            if (_real != null)
+                _real.AddAdmin(userRequesterId, forumId, adminId);
             throw new NullReferenceException("_real in null");
         }
 
@@ -179,13 +200,6 @@ namespace testProject
         {
             if (_real != null)
                 return _real.GetAllComments(forumId, subForumId, firstMessageId);
-            throw new NullReferenceException("_real in null");
-        }
-
-        public List<int> GetModerators(int forumId, int subForumId)
-        {
-            if (_real != null)
-                return _real.GetModerators(forumId, subForumId);
             throw new NullReferenceException("_real in null");
         }
 
@@ -257,6 +271,55 @@ namespace testProject
         {
             if (_real != null)
                 return _real.isUserRegistered(userId);
+            throw new NullReferenceException("_real in null");
+        }
+
+        public List<int> GetModeratorIds(int forumId, int subForumId)
+        {
+            if (_real != null)
+                return _real.GetModeratorIds(forumId, subForumId);
+            throw new NullReferenceException("_real in null");
+        }
+
+        public List<string> GetModeratorNames(int forumId, int subForumId)
+        {
+            if (_real != null)
+                return _real.GetModeratorNames(forumId, subForumId);
+            throw new NullReferenceException("_real in null");
+        }
+
+        public List<int> GetMembersNoAdminIds(int forumId)
+        {
+            if (_real != null)
+                return _real.GetMembersNoAdminIds(forumId);
+            throw new NullReferenceException("_real in null");
+        }
+
+        public List<string> GetMembersNoAdminNames(int forumId)
+        {
+            if (_real != null)
+                return _real.GetMembersNoAdminNames(forumId);
+            throw new NullReferenceException("_real in null");
+        }
+
+        public List<int> GetMembersNoModeratorIds(int forumId, int subForumId)
+        {
+            if (_real != null)
+                return _real.GetMembersNoModeratorIds(forumId, subForumId);
+            throw new NullReferenceException("_real in null");
+        }
+
+        public List<string> GetMembersNoModeratorNames(int forumId, int subForumId)
+        {
+            if (_real != null)
+                return _real.GetMembersNoModeratorNames(forumId, subForumId);
+            throw new NullReferenceException("_real in null");
+        }
+
+        public Boolean IsPasswordCorrect(int userId, String password)
+        {
+            if (_real != null)
+                return _real.IsPasswordCorrect(userId, password);
             throw new NullReferenceException("_real in null");
         }
     }

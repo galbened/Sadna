@@ -53,23 +53,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdminUser.cs" />
     <Compile Include="Context.cs" />
     <Compile Include="DBforumManager.cs" />
     <Compile Include="DBsubForumManager.cs" />
-    <Compile Include="Migrations\201506171720580_1.cs" />
-    <Compile Include="Migrations\201506171720580_1.Designer.cs">
-      <DependentUpon>201506171720580_1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201506171726241_2.cs" />
-    <Compile Include="Migrations\201506171726241_2.Designer.cs">
-      <DependentUpon>201506171726241_2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="LoggedUser.cs" />
     <Compile Include="Moderator.cs" />
     <Compile Include="Policy.cs" />
     <Compile Include="Forum.cs" />
     <Compile Include="ForumManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RegisteredUser.cs" />
     <Compile Include="Session.cs" />
     <Compile Include="SubForum.cs" />
   </ItemGroup>
@@ -98,14 +92,6 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201506171720580_1.resx">
-      <DependentUpon>201506171720580_1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201506171726241_2.resx">
-      <DependentUpon>201506171726241_2.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

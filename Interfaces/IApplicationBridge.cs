@@ -34,13 +34,19 @@ namespace Interfaces
 
         int Comment(int firstMessageId, int publisherID, string publisherName, string title, string body);
 
-        void SendFriendRequest();
+        void SendFriendRequest(int requesterId, int friendId, int forumId);
 
-        void ComplainModerator();
+        void ComplainModerator(int userRequesterId, int moderator, int forumId, int subForumId);
+
+        bool EditMessage(int userRequesterId, int messageId, string title, string body);
 
         bool DeleteMessage(int userRequesterId, int messageId);
 
         void RemoveForum(int userRequesterId, int forumId);
+
+        void RemoveSubForum(int userRequesterId, int forumId, int subForumId);
+
+        void AddAdmin(int userRequesterId, int forumId, int adminId);
 
         void AddModerator(int userRequesterId, int forumId, int subForumId, int moderatorId);
 
@@ -55,8 +61,6 @@ namespace Interfaces
         List<ThreadInfo> GetAllThreads(int forumId, int subForumId);
 
         List<int> GetAllComments(int forumId,int subForumId, int messageId);// should throw exception in case of missing messageId
-
-        List<int> GetModerators(int forumId, int subForumId);
 
         string GetForumName(int forumId);
 
@@ -85,5 +89,19 @@ namespace Interfaces
         void Deactivate(int userId);
 
         Boolean isUserRegistered(int userId);
+
+        List<int> GetModeratorIds(int forumId, int subForumId);
+
+        List<string> GetModeratorNames(int forumId, int subForumId);
+
+        List<int> GetMembersNoAdminIds(int forumId);
+
+        List<string> GetMembersNoAdminNames(int forumId);
+
+        List<int> GetMembersNoModeratorIds(int forumId, int subForumId);
+
+        List<string> GetMembersNoModeratorNames(int forumId, int subForumId);
+
+        Boolean IsPasswordCorrect(int userId, String password);
     }
 }

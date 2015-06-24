@@ -32,6 +32,7 @@ namespace Message.UnitTests
             int subForumId = fm.CreateSubForum(1, subTitels[0], forumId);
             int threadId1 = mm.addThread(forumId, subForumId, userId, userNames[0], topic[0], body[0]);
             int threadId2 = mm.addThread(forumId, subForumId, userId, userNames[0], topic[1], body[0]);
+            Assert.AreEqual(mm.GetTotalMessagesCount(), 2);
             Assert.AreNotEqual(threadId1, threadId2);
             fm.UnRegister(userId, forumId);
             fm.RemoveForum(1, forumId);          
@@ -52,7 +53,7 @@ namespace Message.UnitTests
             }
             catch (ArgumentException)
             {
-                Assert.IsTrue(true);
+                Assert.AreEqual(mm.GetTotalMessagesCount(), 0);
             }
             fm.UnRegister(userId, forumId);
             fm.RemoveForum(1, forumId);
@@ -71,6 +72,7 @@ namespace Message.UnitTests
             int threadId = mm.addThread(forumId, subForumId, userId,userNames[0], topic[0], body[0]);
             int commentID1 = mm.addComment(threadId, userId,userNames[0], topic[1], body[0]);
             int commentID2 = mm.addComment(threadId, userId,userNames[0], topic[1], body[0]);
+            Assert.AreEqual(mm.GetTotalMessagesCount(), 3);
             Assert.AreNotEqual(commentID1, commentID2);
             int numOfComments = mm.GetNumOfComments(threadId);
             Assert.AreEqual(numOfComments, 2);
@@ -86,6 +88,7 @@ namespace Message.UnitTests
             fm.AddAdmin(1, userId, forumId);
             int subForumId = fm.CreateSubForum(1, subTitels[0], forumId);
             int threadId = mm.addThread(forumId, subForumId, userId,userNames[0], topic[0], body[0]);
+            Assert.AreEqual(mm.GetTotalMessagesCount(), 1);
             try
             {
                  int commentID1 = mm.addComment(threadId, userId,userNames[0], "", body[0]);
@@ -93,7 +96,7 @@ namespace Message.UnitTests
             }
             catch (ArgumentException)
             {
-                Assert.IsTrue(true);
+                Assert.AreEqual(mm.GetTotalMessagesCount(), 1);
             }
             fm.UnRegister(userId, forumId);
             fm.RemoveForum(1, forumId);
@@ -115,7 +118,7 @@ namespace Message.UnitTests
             }
             catch (InvalidOperationException)
             {
-                Assert.IsTrue(true);
+                Assert.AreEqual(mm.GetTotalMessagesCount(), 0);
             }
             fm.UnRegister(userId, forumId);
             fm.RemoveForum(1, forumId);
@@ -133,7 +136,8 @@ namespace Message.UnitTests
             int subForumId = fm.CreateSubForum(1, subTitels[0], forumId);
             int threadId = mm.addThread(forumId, subForumId, userId,userNames[0], topic[0], body[0]);
             int commentID1 = mm.addComment(threadId, userId, userNames[0], topic[1], body[0]);
-            Assert.IsTrue(mm.editMessage(commentID1, topic[0], body[0], userId));
+            Assert.AreEqual(mm.GetTotalMessagesCount(), 2);
+            Assert.IsTrue(mm.editMessage(userId, commentID1, topic[0], body[0]));
             fm.UnRegister(userId, forumId);
             fm.RemoveForum(1, forumId);
         }
@@ -146,6 +150,7 @@ namespace Message.UnitTests
             fm.AddAdmin(1, userId, forumId);
             int subForumId = fm.CreateSubForum(1, subTitels[0], forumId);
             int threadId = mm.addThread(forumId, subForumId, userId,userNames[0], topic[0], body[0]);
+            Assert.AreEqual(mm.GetTotalMessagesCount(), 1);
             try
             {
                 int commentID1 = mm.addComment(threadId, userId,userNames[0], /*topic[1]*/"", body[0]);
@@ -153,7 +158,7 @@ namespace Message.UnitTests
             }
             catch (ArgumentException)
             {
-                Assert.IsTrue(true);
+                Assert.AreEqual(mm.GetTotalMessagesCount(), 1);
             }
             fm.UnRegister(userId, forumId);
             fm.RemoveForum(1, forumId);
@@ -168,14 +173,15 @@ namespace Message.UnitTests
             int subForumId = fm.CreateSubForum(1, subTitels[0], forumId);
             int threadId = mm.addThread(forumId, subForumId, userId,userNames[0], topic[0], body[0]);
             int commentID1 = mm.addComment(threadId, userId,userNames[0], topic[1], body[0]);
+            Assert.AreEqual(mm.GetTotalMessagesCount(), 2);
             try
             {
-                Assert.IsFalse(mm.editMessage(-200, topic[0], body[0], 1));
+                Assert.IsFalse(mm.editMessage(userId , - 200, topic[0], body[0]));
                 Assert.Fail();
             }
             catch (InvalidOperationException)
             {
-                Assert.IsTrue(true);
+                Assert.AreEqual(mm.GetTotalMessagesCount(), 2);
             }
             fm.UnRegister(userId, forumId);
             fm.RemoveForum(1, forumId);           
@@ -189,7 +195,18 @@ namespace Message.UnitTests
             fm.AddAdmin(1, userId, forumId);
             int subForumId = fm.CreateSubForum(1, subTitels[0], forumId);
             int threadId = mm.addThread(forumId, subForumId, userId, userNames[0], topic[0], body[0]);
+            Assert.AreEqual(mm.GetTotalMessagesCount(), 1);
             Assert.IsTrue(mm.deleteMessage(userId, threadId));
+            Assert.AreEqual(mm.GetTotalMessagesCount(), 0);
+            try
+            {
+                mm.addComment(threadId, userId, userNames[0], "title", "body");
+                Assert.Fail("Exception was expected but not thrown. Cannot add comment to deleted thread");
+            }
+            catch(InvalidOperationException ex)
+            {
+                Assert.AreEqual(mm.GetTotalMessagesCount(), 0);
+            }
             fm.UnRegister(userId, forumId);
             fm.RemoveForum(1, forumId);
         }
@@ -204,7 +221,18 @@ namespace Message.UnitTests
             int threadId = mm.addThread(forumId, subForumId, userId, userNames[0], topic[0], body[0]);
             int commentID1 = mm.addComment(threadId, userId, userNames[0], topic[1], body[1]);
             int commentIDs = mm.addComment(threadId, userId, userNames[0], topic[2], body[2]);
+            Assert.AreEqual(mm.GetTotalMessagesCount(), 3);
             Assert.IsTrue(mm.deleteMessage(userId, threadId));
+            Assert.AreEqual(mm.GetTotalMessagesCount(), 0);
+            try
+            {
+                mm.addComment(threadId, userId, userNames[0], "title", "body");
+                Assert.Fail("Exception was expected but not thrown. Cannot add comment to deleted thread");
+            }
+            catch (InvalidOperationException ex)
+            {
+                Assert.AreEqual(mm.GetTotalMessagesCount(), 0);
+            }
             fm.UnRegister(userId, forumId);
             fm.RemoveForum(1, forumId);
         }
@@ -221,7 +249,11 @@ namespace Message.UnitTests
             int subForumId = fm.CreateSubForum(1, subTitels[0], forumId);
             int threadId = mm.addThread(forumId, subForumId, userId,userNames[0], topic[0], body[0]);
             int commentID1 = mm.addComment(threadId, userId,userNames[0], topic[1], body[0]);
+            Assert.AreEqual(mm.GetTotalMessagesCount(), 2);
+            Assert.AreEqual(mm.GetNumOfComments(threadId), 1);
             Assert.IsTrue(mm.deleteMessage(userId, commentID1));
+            Assert.AreEqual(mm.GetTotalMessagesCount(), 1);
+            Assert.AreEqual(mm.GetNumOfComments(threadId), 0);
             fm.UnRegister(userId, forumId);
             fm.RemoveForum(1, forumId);
         }
@@ -236,6 +268,7 @@ namespace Message.UnitTests
             fm.AddAdmin(1, userId, forumId);
             int subForumId = fm.CreateSubForum(1, subTitels[0], forumId);
             int threadId = mm.addThread(forumId, subForumId, userId, userNames[0], topic[0], body[0]);
+            Assert.AreEqual(mm.GetTotalMessagesCount(), 1);
             try
             {
                 int commentID1 = mm.addComment(-5, userId,userNames[0], topic[1], body[0]);
@@ -243,7 +276,7 @@ namespace Message.UnitTests
             }
             catch (InvalidOperationException)
             {
-                Assert.IsTrue(true);
+                Assert.AreEqual(mm.GetTotalMessagesCount(), 1);
             }
             fm.UnRegister(userId, forumId);
             fm.RemoveForum(1, forumId);
@@ -259,6 +292,7 @@ namespace Message.UnitTests
             int threadId = mm.addThread(forumId, subForumId, userId, userNames[0], topic[0], body[0]);
             int commentID1 = mm.addComment(threadId, userId, userNames[0], topic[1], body[0]);
             int commentID2 = mm.addComment(threadId, userId, userNames[1], topic[2], body[1]);
+            Assert.AreEqual(mm.GetTotalMessagesCount(), 3);
             List<CommentInfo> comments = mm.GetAllThreadComments(threadId);
             Assert.AreEqual(comments.Count, 2);
             //Testing the first comment
@@ -271,6 +305,15 @@ namespace Message.UnitTests
             Assert.AreEqual(comments[1].publisher, userNames[1]);
             Assert.AreEqual(comments[1].topic, topic[2]);
             Assert.AreEqual(comments[1].content, body[1]);
+            //Deleting a comment
+            Assert.IsTrue(mm.deleteMessage(userId, commentID1));
+            Assert.AreEqual(mm.GetTotalMessagesCount(), 2);
+            comments = mm.GetAllThreadComments(threadId);
+            //Testing the first comment - should be the second added comment
+            Assert.AreEqual(comments[0].Id, commentID2);
+            Assert.AreEqual(comments[0].publisher, userNames[1]);
+            Assert.AreEqual(comments[0].topic, topic[2]);
+            Assert.AreEqual(comments[0].content, body[1]);
             fm.UnRegister(userId, forumId);
             fm.RemoveForum(1, forumId);
         }
@@ -286,6 +329,7 @@ namespace Message.UnitTests
             int threadIdWithComment = mm.addThread(forumId, subForumId, userId, userNames[0], topic[0], body[0]);
             int commentID1 = mm.addComment(threadIdWithComment, userId, userNames[0], topic[1], body[1]);
             int threadIdNoComments = mm.addThread(forumId, subForumId, userId, userNames[1], topic[2], body[2]);
+            Assert.AreEqual(mm.GetTotalMessagesCount(), 3);
             List<ThreadInfo> threads = mm.GetAllThreads(forumId, subForumId);
             Assert.AreEqual(threads.Count, 2);
             //Testing the first thread
@@ -299,13 +343,26 @@ namespace Message.UnitTests
             Assert.AreEqual(threads[0].comments[0].publisher, userNames[0]);
             Assert.AreEqual(threads[0].comments[0].topic, topic[1]);
             Assert.AreEqual(threads[0].comments[0].content, body[1]);
-
             //Testing the second thread
             Assert.AreEqual(threads[1].id, threadIdNoComments);
             Assert.AreEqual(threads[1].publisher, userNames[1]);
             Assert.AreEqual(threads[1].topic, topic[2]);
             Assert.AreEqual(threads[1].content, body[2]);
             Assert.AreEqual(threads[1].comments.Count, 0);
+            //Deleting the thread
+            Assert.IsTrue(mm.deleteMessage(userId, threadIdWithComment));
+            Assert.AreEqual(mm.GetTotalMessagesCount(), 1);            
+            threads = mm.GetAllThreads(forumId, subForumId);
+            Assert.AreEqual(threads.Count, 1);
+            //Testing the first thread - was the second before deletion
+            Assert.AreEqual(threads[0].id, threadIdNoComments);
+            Assert.AreEqual(threads[0].publisher, userNames[1]);
+            Assert.AreEqual(threads[0].topic, topic[2]);
+            Assert.AreEqual(threads[0].content, body[2]);
+            Assert.AreEqual(threads[0].comments.Count, 0);
+
+
+            Assert.AreEqual(threads.Count, 1);
             fm.UnRegister(userId, forumId);
             fm.RemoveForum(1, forumId);
         }
@@ -320,6 +377,7 @@ namespace Message.UnitTests
             int threadIdWithComment = mm.addThread(forumId, subForumId, userId, userNames[0], topic[0], body[0]);
             int commentID1 = mm.addComment(threadIdWithComment, userId, userNames[0], topic[1], body[1]);
             int threadIdNoComments = mm.addThread(forumId, subForumId, userId, userNames[1], topic[2], body[2]);
+            Assert.AreEqual(mm.GetTotalMessagesCount(), 3);
             int numOfMessages = mm.NumOfMessages(forumId, subForumId);
             Assert.AreEqual(numOfMessages, 3);
             fm.UnRegister(userId, forumId);
