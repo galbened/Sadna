@@ -153,10 +153,10 @@ namespace testProject
             } 
         }
 
-        /// <TestMethod1>
-        /// TestId: 10.
+        /// <LogoutTest>
+        /// TestId: 10.6
         /// should 
-        /// </TestMethod1>
+        /// </LogoutTest>
         [TestMethod]
         public void LogoutTest()
         {
@@ -173,7 +173,28 @@ namespace testProject
             }
             bridge.Deactivate(userId);
         }
-
+        /// <LogoutLoginTest>
+        /// TestId: 10.7
+        /// should 
+        /// </LogoutLoginTest>
+        [TestMethod]
+        public void LogoutLoginTest()
+        {
+            int forumId = forumsIds[0];
+            int userId = bridge.Register(userNamesList[0], passwords[0], emails[0], forumId);
+            try
+            {
+                bridge.Logout(userId, forumId);
+                int loginResponse = bridge.Login(userNamesList[0], passwords[0], forumId);
+                Assert.AreEqual(userId, loginResponse);
+                Assert.IsTrue(bridge.isLoggedin(loginResponse));
+            }
+            catch
+            {
+                Assert.Fail();
+            }
+            bridge.Deactivate(userId);
+        }
 
         /// <ChangeUsernameTest>
         /// TestId: 10.8
@@ -189,9 +210,8 @@ namespace testProject
             try
             {
                 int responseId = bridge.ChangeUsername(userId, temporaryUsername, passwords[0]);
-                Assert.Equals(responseId, userId);
-                string newUsername = bridge.GetUsername(responseId);
-                Assert.Equals(newUsername, temporaryUsername);
+                string newUsername = bridge.GetUsername(userId);
+                Assert.AreEqual(newUsername, temporaryUsername);
 
             }
             catch
@@ -278,17 +298,15 @@ namespace testProject
         /// and user name
         /// </ChangeUsernameTest>
         [TestMethod]
-        public void ChangeUsernameTestUserAcceptance()
+        public void ChangePasswordTest()
         {
             int forumId = forumsIds[0];
             int userId = bridge.Register(userNamesList[0], passwords[0], emails[0], forumId);
-            int loggedUser = bridge.Login(userNamesList[0], passwords[0], forumId);
             try
             {
                 int ResponseId = bridge.ChangePassword(userId, passwords[0], passwords[1]);
-                Assert.Equals(ResponseId, userId);
-                // restoring password
-                ResponseId = bridge.ChangePassword(userId, passwords[1], passwords[0]);
+                Assert.IsTrue(bridge.IsPasswordCorrect(userId,passwords[1]));
+                Assert.IsFalse(bridge.IsPasswordCorrect(userId, passwords[0]));
             }
             catch
             {
@@ -302,11 +320,10 @@ namespace testProject
         /// should fail due to incorrect params
         /// </ChangeUsernameIncorrectDetailsTest>
         [TestMethod]
-        public void ChangeUsernameIncorrectDetailsTestUserAcceptance()
+        public void ChangePasswordWrongCredentialsTest()
         {
             int forumId = forumsIds[0];
             int userId = bridge.Register(userNamesList[0], passwords[0], emails[0], forumId);
-            int loggedUser = bridge.Login(userNamesList[0], passwords[0], forumId);
             try //wrong password
             {
                 int ResponseId = bridge.ChangePassword(userId, passwords[1], passwords[1]);

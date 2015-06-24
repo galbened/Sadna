@@ -272,8 +272,14 @@ namespace Driver
             return FM.GetMembersNoModeratorNames(forumId, subForumId);
         }
 
+        public Boolean IsPasswordCorrect(int userId, String password)
+        {
+            return UM.IsPasswordCorrect(userId, password);
+        }
+
         public void initializingDemoRunData()
         {
+            /*
             int forum_sports = FM.CreateForum(1, "Sports");
             int forum_news = FM.CreateForum(1, "News");
 
@@ -286,6 +292,7 @@ namespace Driver
             int subforum_3_news = FM.CreateSubForum(1, "Politics", forum_news);
             int subforum_4_news = FM.CreateSubForum(1, "Weather", forum_news);
 
+            int admin_1_sports = FM.Register("admin_1_sports", "admin_1_sports_bpass", "admin_1_sports@mail.com", forum_sports);
             int user_1_sports = FM.Register("user_1_sports", "user_1_sports_bpass", "user_1_sports@mail.com", forum_sports);
             int user_2_sports = FM.Register("user_2_sports", "user_2_sports_bpass", "user_2_sports@mail.com", forum_sports);
             int user_3_sports = FM.Register("user_3_sports", "user_3_sports_bpass", "user_3_sports@mail.com", forum_sports);
@@ -293,6 +300,7 @@ namespace Driver
             int user_2_news = FM.Register("user_2_news", "user_2_news_bpass", "user_2_news@mail.com", forum_news);
             int user_3_news = FM.Register("user_3_news", "user_3_news_bpass", "user_3_news@mail.com", forum_news);
             int user_4_news = FM.Register("user_4_news", "user_4_news_bpass", "user_4_news@mail.com", forum_news);
+            int admin_1_news = FM.Register("admin_1_news", "admin_1_news_bpass", "admin_1_news@mail.com", forum_news);
 
             bool kash = FM.Logout(user_1_sports, forum_sports);
             kash = FM.Logout(user_2_sports, forum_sports);
@@ -311,8 +319,10 @@ namespace Driver
             MM.addComment(thread_1_subforum_1_news, user_3_news, UM.getUsername(user_3_news), "reponse message title 1 3", "response message body 1 3");
             MM.addComment(thread_1_subforum_1_news, user_4_news, UM.getUsername(user_4_news), "reponse message title 1 4", "response message body 1 4");
 
-            FM.AddAdmin(1,user_1_sports, forum_sports);
-
+            FM.AddAdmin(1,admin_1_sports, forum_sports);
+            FM.AddAdmin(2, admin_1_news, forum_news);
+           */
+            //---------------------------------------------
             /*
             List<int> forumIds = new List<int>();
             List<int> subForumIds = new List<int>();

@@ -57,6 +57,10 @@
     <Compile Include="Migrations\201506220558579_1.Designer.cs">
       <DependentUpon>201506220558579_1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201506240722199_2.cs" />
+    <Compile Include="Migrations\201506240722199_2.Designer.cs">
+      <DependentUpon>201506240722199_2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Password.cs" />
     <Compile Include="stateGold.cs" />
@@ -83,6 +87,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201506220558579_1.resx">
       <DependentUpon>201506220558579_1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506240722199_2.resx">
+      <DependentUpon>201506240722199_2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

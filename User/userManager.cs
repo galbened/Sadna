@@ -190,6 +190,13 @@ namespace User
             throw new UsernameIllegalChangeException();
         }
 
+        public Boolean IsPasswordCorrect(int userId, String password)
+        {
+            Member mem = DBman.getObj(userId);
+            return (mem.memberPassword.CompareTo(password) == 0);
+
+        }
+
         public int addFriend(int userID, int friendID)
         {
             //Member mem = getMemberByID(userID);

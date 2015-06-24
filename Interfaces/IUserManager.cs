@@ -34,6 +34,7 @@ namespace Interfaces
 
         bool isLoggedin(int userId);
 
+        Boolean IsPasswordCorrect(int userId,String password);
 
         //void complaint(notificationStatus complaint, int userID);// notificationStatus yet to be written
 
