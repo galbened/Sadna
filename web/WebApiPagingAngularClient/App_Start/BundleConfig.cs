@@ -29,6 +29,7 @@ namespace WebApiPagingAngularClient
                     "~/app/js/RemoveSubForumCtrl.js",
                     "~/app/js/AddAdminModalCtrl.js",
                     "~/app/js/AddModeratorModalCtrl.js",
+                    "~/app/js/SetPolicyModalCtrl.js",
                     "~/app/js/ComplainModertorModalCtrl.js",
                     "~/app/js/Api.js"));
 

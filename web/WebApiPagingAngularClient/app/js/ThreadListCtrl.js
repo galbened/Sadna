@@ -193,7 +193,51 @@
         };
 
         $scope.complainModerator = function () {
+            var scope = $rootScope.$new();
+            scope.params = { userId: $scope.user.id };
+            $scope.modalInstance = $modal.open({
+                scope: scope,
+                templateUrl: 'app/partials/complain-moderator-modal.html',
+                size: 'sm',
+                controller: 'ComplainModertorModalCtrl'
+            });
+        };
 
+        $scope.enableEditing = function (data) {
+            data.edit = true;
+        };
+
+        $scope.editMessage = function (data) {
+            data.edit = false;
+            if ($scope.user) {
+                var queryArgs = {
+                    messageId: data.id,
+                    publisherID: $scope.user.id,
+                    title: data.topic,
+                    body: data.content
+                };
+                return Forums.editMessage({}, queryArgs).$promise.then(
+                    function (result) {
+                        var queryArgsSubForum = {
+                            forumId: $routeParams.forumId,
+                            subForumId: $routeParams.subForumId,
+                        };
+                        return Forums.getSubForum(queryArgsSubForum).$promise.then(
+                            function (result) {
+                                $scope.forum = result.data;
+                                $scope.subForum = $scope.forum.subForum;
+                                return result.$promise;
+                            }, function (result) {
+                                alert(result.data.message);
+                                return $q.reject(result);
+                            });
+                    }, function (result) {
+                        alert(result.data.message);
+                        return $q.reject(result);
+                    });
+            } else {
+                alert("log in first");
+            }
         };
     }
 })();

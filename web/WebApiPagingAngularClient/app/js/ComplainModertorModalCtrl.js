@@ -10,38 +10,46 @@
     function ComplainModertorModalCtrl($scope, Forums, $modalInstance, $routeParams, $q) {
         activate();
 
-        var parseAdmins = function (data) {
-            var admins = [];
+        var parseModerators = function (data) {
+            var moderators = [];
             for (var i = 0; i < data.usernames.length; i++) {
-                var admin = {
+                var moderator = {
                     'id': data.ids[i],
                     'username': data.usernames[i]
                 }
-                admins.push(admin);
+                moderators.push(moderator);
             }
-            return admins;
+            return moderators;
         };
 
         function activate() {
-            return Forums.getNotAdmins({ 'forumId': $routeParams.forumId }).$promise.then(
+            return Forums.getModerators({ 'forumId': $routeParams.forumId, 'subForumId': $routeParams.subForumId }).$promise.then(
                 function (result) {
-                    $scope.admins = parseAdmins(result.data);
+                    $scope.moderators = parseModerators(result.data);
                 }, function (result) {
                     console.log(result);
                     alert(result.data.message);
                 });
         }
 
-        $scope.addAdmin = function (adminId) {
-            var newAdminParams = {
+        $scope.complainModerator = function (moderatorId) {
+            var newModeratorParams = {
                 'forumId': $routeParams.forumId,
+                'subForumId': $routeParams.subForumId,
                 'userId': $scope.params.userId,
-                'adminId': adminId
+                'moderatorId': moderatorId
             };
 
-            return Forums.addAdmin(newAdminParams).$promise.then(
+            var name;
+            for(var i = 0; i<$scope.moderators.length;i++){
+                if(moderatorId == $scope.moderators[i].id){
+                    name = $scope.moderators[i].username;
+                }
+            }
+
+            return Forums.complainModerator(newModeratorParams).$promise.then(
                 function (result) {
-                    alert("admin added successfully");
+                    alert("A complaint on "+name+ " was sent to forum admins");
                     $modalInstance.close('success');
                 }, function (result) {
                     console.log(result);

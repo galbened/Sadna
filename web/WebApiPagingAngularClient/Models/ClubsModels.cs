@@ -112,4 +112,12 @@ namespace WebApiPagingAngularClient.Models
         public string title { get; set; }
         public string body { get; set; }
     }
+
+    public class editMessageParams
+    {
+        public int messageId { get; set; }
+        public int publisherID { get; set; }
+        public string title { get; set; }
+        public string body { get; set; }
+    }
 }
