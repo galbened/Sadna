@@ -198,18 +198,28 @@ namespace Forum
         public int Login(string username, string password)
         {
             Boolean canLogin = usrMngr.IsPasswordValid(username, poli.PasswordExpectancy);
+            int userId = 0;
             if (!canLogin)
                 throw new ArgumentException(error_expiredPassword);
-            int userId = usrMngr.login(username, password);
-
+            try
+            {
+                 userId = usrMngr.login(username, password);
+              
+            }
+            catch
+            {
+                throw new WrongUsernameOrPasswordException();
+            }
             //if (registeredUsersID.Contains(userId))
+           /* try{
             if (registeredUsers.Any(ru => ru.userID == userId))
                 if (!(loggedUsers.Any(lu => lu.userID == userId)))
                     loggedUsers.Add(new LoggedUser(userId));
                 //if (!(logedUsersId.Contains(userId)))
                 //    logedUsersId.Add(userId);
                 else
-                    return -1;
+                    return -1;*/
+            loggedUsers.Add(new LoggedUser(userId));
             Session se = new Session(userId, username, forumID, forumName, SessionReason.loggin);
             sessions.Add(userId, se);
             return userId;
@@ -352,7 +362,8 @@ namespace Forum
 
         internal void UnRegister(int userId)
         {
-            loggedUsers.RemoveAll(lu => lu.userID == userId);
+            Logout(userId);
+            //loggedUsers.RemoveAll(lu => lu.userID == userId);
             //logedUsersId.Remove(userId);
             registeredUsers.RemoveAll(ru => ru.userID == userId);
             //registeredUsersID.Remove(userId);

@@ -37,7 +37,6 @@ namespace Message
         private MessageManager()
         {
             messages = new HashSet<Message>();
-            //threads = new HashSet<Thread>();
             lastMessageID = -1;
 
             InitWrongWords();
@@ -85,7 +84,6 @@ namespace Message
             int messageId = lastMessageID;
             Thread thread = new Thread(forumId, subForumId, messageId, publisherId,publisherName, title, body);
             DBthreadMan.add(thread);
-            //threads.Add(thread);
             Message ms = thread.GetMessage();
             messages.Add(ms);
             saveMessageDB();
@@ -164,7 +162,10 @@ namespace Message
                             fm.removeRespone(rm);
                             messages.Remove(rm);
                     }
-                    messages.Remove(ms);
+                    messages.Remove(fm);
+                    //removing firstMessage pointer from its thread
+                    Thread trd = GetFirstMessageThread(fm);
+                    DBthreadMan.remove(trd);
                 }
                 // if responseMessage, should delete itself and the pointer from its firstMessage
                 else
@@ -174,8 +175,6 @@ namespace Message
                     fm.removeRespone(rm);
                     messages.Remove(rm);
                 }
-                //remove the message anyway
-                 messages.Remove(ms);
                  saveMessageDB();
                  return true;
             }
@@ -193,6 +192,21 @@ namespace Message
                    fm = (FirstMessage)messages.ElementAt(i);
                    if (fm.IncludeComment(rm))
                        return fm;
+                }
+            }
+            return null;
+        }
+
+        public Thread GetFirstMessageThread(FirstMessage fm)
+        {
+            Thread trd;
+            List<Thread> threads = DBthreadMan.getAll();
+            for (int i = 0; i < threads.Count; i++)
+            {
+                if (threads.ElementAt(i).GetMessage() == fm)
+                {
+                    trd = threads.ElementAt(i);
+                    return trd;
                 }
             }
             return null;
@@ -337,7 +351,6 @@ namespace Message
 
         public void saveMessageDB()
         {
-            //DBmessageMan.update();
             DBthreadMan.update();
         }
     }

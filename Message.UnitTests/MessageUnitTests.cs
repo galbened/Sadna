@@ -305,6 +305,15 @@ namespace Message.UnitTests
             Assert.AreEqual(comments[1].publisher, userNames[1]);
             Assert.AreEqual(comments[1].topic, topic[2]);
             Assert.AreEqual(comments[1].content, body[1]);
+            //Deleting a comment
+            Assert.IsTrue(mm.deleteMessage(userId, commentID1));
+            Assert.AreEqual(mm.GetTotalMessagesCount(), 2);
+            comments = mm.GetAllThreadComments(threadId);
+            //Testing the first comment - should be the second added comment
+            Assert.AreEqual(comments[0].Id, commentID2);
+            Assert.AreEqual(comments[0].publisher, userNames[1]);
+            Assert.AreEqual(comments[0].topic, topic[2]);
+            Assert.AreEqual(comments[0].content, body[1]);
             fm.UnRegister(userId, forumId);
             fm.RemoveForum(1, forumId);
         }
@@ -334,13 +343,26 @@ namespace Message.UnitTests
             Assert.AreEqual(threads[0].comments[0].publisher, userNames[0]);
             Assert.AreEqual(threads[0].comments[0].topic, topic[1]);
             Assert.AreEqual(threads[0].comments[0].content, body[1]);
-
             //Testing the second thread
             Assert.AreEqual(threads[1].id, threadIdNoComments);
             Assert.AreEqual(threads[1].publisher, userNames[1]);
             Assert.AreEqual(threads[1].topic, topic[2]);
             Assert.AreEqual(threads[1].content, body[2]);
             Assert.AreEqual(threads[1].comments.Count, 0);
+            //Deleting the thread
+            Assert.IsTrue(mm.deleteMessage(userId, threadIdWithComment));
+            Assert.AreEqual(mm.GetTotalMessagesCount(), 1);            
+            threads = mm.GetAllThreads(forumId, subForumId);
+            Assert.AreEqual(threads.Count, 1);
+            //Testing the first thread - was the second before deletion
+            Assert.AreEqual(threads[0].id, threadIdNoComments);
+            Assert.AreEqual(threads[0].publisher, userNames[1]);
+            Assert.AreEqual(threads[0].topic, topic[2]);
+            Assert.AreEqual(threads[0].content, body[2]);
+            Assert.AreEqual(threads[0].comments.Count, 0);
+
+
+            Assert.AreEqual(threads.Count, 1);
             fm.UnRegister(userId, forumId);
             fm.RemoveForum(1, forumId);
         }

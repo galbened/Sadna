@@ -41,7 +41,7 @@ namespace Message
 
         }
 
-        public Message GetMessage()
+        public FirstMessage GetMessage()
         {
             return firstMessage;
         }

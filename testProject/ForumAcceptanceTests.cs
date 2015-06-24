@@ -18,7 +18,7 @@ namespace testProject
         public String[] body = { "best team in the world" };
         public String[] userNamesList = { "tomer.b", "tomer.s", "gal.b", "gal.p", "osher" };
         public String[] emails = { "tomer.b@gmail.com", "tomer.s@gmail.com", "gal.b@gmail.com", "gal.p@gmail.com", "osher@gmail.com" };
-        public String[] passwords = { "Ab3", "123456", "abcdef" };
+        public String[] passwords = { "@ds1Ab3", "123456", "abcdef" };
         public String[] superAdmin = { "admin", "admin" };
 
 
@@ -54,16 +54,25 @@ namespace testProject
 
         protected static int CreateForum_superAdmin(string forumTopic)
         {
-            int ans = bridge.CreateForum(1, "galpopopo",
+            int ans = bridge.CreateForum(1, forumTopic,
                                         1, "",
                                         false, false, false,
                                         false, 1);
 
             return ans;
         }
+        protected static int CreateForum_policySet(string forumTopic,Boolean upper, Boolean lower, Boolean numbers, Boolean symbols, int minLength)
+        {
+            int ans = bridge.CreateForum(1, forumTopic,
+                                        1, "",
+                                        upper, lower, numbers,
+                                        symbols, minLength);
+
+            return ans;
+        }
         protected static int CreateForum_regular(int userId,string forumTopic)
         {
-            int ans = bridge.CreateForum(userId, "galpopopo",
+            int ans = bridge.CreateForum(userId, forumTopic,
                                         1, "",
                                         false, false, false,
                                         false, 1);
@@ -214,6 +223,81 @@ namespace testProject
                 Assert.Fail("Exception was expected but not thrown. Cannot create subForum with illegal forumId");
             }
             catch (Exception)
+            {
+                Assert.IsTrue(true);
+            }
+        }
+        /// <CreateForumIllegalPolicies>
+        /// TestId: 10.10
+        /// should fail due to empty\null topic
+        /// </CreateForumIllegalPolicies>
+        [TestMethod]
+        public void CreateForumIllegalPasswords_minLength()
+        {
+            int temporaryForum = CreateForum_policySet("Long Password", false, false, false, false, 10);
+            try
+            {
+                int newUser = bridge.Register("short_pass_user", "12344", "e-mail@e-mail.com", temporaryForum);
+                Assert.Fail("Can't register if password is not according to the policy : minimum length");
+               
+            }
+            catch
+            {
+                Assert.IsTrue(true);
+            }
+        }
+        public void CreateForumIllegalPasswords_symbols()
+        {
+            int temporaryForum = CreateForum_policySet("symbols forum",false , false, false, true, 1);
+            try
+            {
+                int newUser = bridge.Register("no_symbols_user", "aA1", "e-mail@e-mail.com", temporaryForum);
+                Assert.Fail("Can't register if password is not according to the policy : symbols");
+
+            }
+            catch
+            {
+                Assert.IsTrue(true);
+            }
+        }
+        public void CreateForumIllegalPasswords_numbers()
+        {
+            int temporaryForum = CreateForum_policySet("numbers forum", false, false,true, false, 1);
+            try
+            {
+                int newUser = bridge.Register("no_numbers_user", "aA#da", "e-mail@e-mail.com", temporaryForum);
+                Assert.Fail("Can't register if password is not according to the policy : numbers");
+
+            }
+            catch
+            {
+                Assert.IsTrue(true);
+            }
+        }
+        public void CreateForumIllegalPasswords_lowerCase()
+        {
+            int temporaryForum = CreateForum_policySet("lowerCase forum", false, true, false, false, 1);
+            try
+            {
+                int newUser = bridge.Register("no_lowerCase_user", "A#1AS", "e-mail@e-mail.com", temporaryForum);
+                Assert.Fail("Can't register if password is not according to the policy : lowercase");
+
+            }
+            catch
+            {
+                Assert.IsTrue(true);
+            }
+        }
+        public void CreateForumIllegalPasswords_upperCase()
+        {
+            int temporaryForum = CreateForum_policySet("upperCase forum", true, false, false, false, 1);
+            try
+            {
+                int newUser = bridge.Register("no_upperCase_user", "asd#$1", "e-mail@e-mail.com", temporaryForum);
+                Assert.Fail("Can't register if password is not according to the policy : uppercase");
+
+            }
+            catch
             {
                 Assert.IsTrue(true);
             }
