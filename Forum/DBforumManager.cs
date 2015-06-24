@@ -21,7 +21,7 @@ namespace Forum
             if (UseDB())
             {
                 db = new Context();
-                db.Configuration.LazyLoadingEnabled = false;
+                //db.Configuration.LazyLoadingEnabled = false;
             }
             else
             {
