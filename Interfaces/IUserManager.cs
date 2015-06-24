@@ -46,5 +46,7 @@ namespace Interfaces
         Boolean isUserRegistered(int userId);
 
         string GetUserMail(int userId);
+
+        int GetUserId(string userName);
     }
 }

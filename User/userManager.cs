@@ -300,5 +300,18 @@ namespace User
             string ans = mem.memberEmail;
             return ans;
         }
+
+
+        public int GetUserId(string userName)
+        {
+            List<Member> members = DBman.getAll();
+            foreach (Member mem in members)
+            {
+                if (mem.memberUsername.CompareTo(userName) == 0)
+                    return mem.memberID;
+            }
+            throw new ArgumentException("UserName " + userName + " not exist");
+
+        }
     }
 }

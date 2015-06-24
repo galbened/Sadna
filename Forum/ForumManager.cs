@@ -339,6 +339,14 @@ namespace Forum
             return cur.isUserRegistered(userId);
         }
 
+        public Boolean isLoggedUser(int forumId, int userId)
+        {
+            List<int> ans = new List<int>();
+            int forumIndex = GetForumIndex(forumId);
+            Forum cur = DBforumMan.getAll().ElementAt(forumIndex);
+            return cur.isUserLogged(userId);
+        }
+
         public string GetSubForumTopic(int forumId, int subForumId)
         {
             string ans = null;

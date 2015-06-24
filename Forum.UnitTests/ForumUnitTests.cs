@@ -138,5 +138,29 @@ namespace Forum.UnitTests
             fm.RemoveSubForum(1, forumId, subForumId);
             fm.RemoveForum(1, forumId);
         }
+
+
+        [TestMethod]
+        public void UnregisteredUserLogToForumTest()
+        {
+            int forumId1 = fm.CreateForum(1, titels[0]);
+            int forumId2 = fm.CreateForum(1, titels[1]);
+            int userId = fm.Register(user[0], user[1], user[2], forumId1);
+            Assert.IsTrue(fm.isRegisteredUser(forumId1, userId));
+            fm.Logout(userId, forumId1);
+            Assert.IsFalse(fm.isLoggedUser(forumId1, userId));
+            try
+            {
+                fm.Login(user[0], user[1], forumId2);
+                Assert.Fail("Exception was expected but not thrown. Unregistered user cannot log forum");
+            }
+            catch (Exception ex)
+            {
+                Assert.IsFalse(fm.isLoggedUser(forumId2, userId));
+            }
+            fm.UnRegister(userId, forumId1);
+            fm.RemoveForum(1, forumId1);
+            fm.RemoveForum(1, forumId2);
+        }
     }
 }
