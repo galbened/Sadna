@@ -167,6 +167,17 @@
             });
         }
 
+        $scope.setPolicy = function () {
+            var scope = $rootScope.$new();
+            scope.params = { userId: $scope.user.id };
+            $scope.modalInstance = $modal.open({
+                scope: scope,
+                templateUrl: 'app/partials/set-policy-modal.html',
+                size: 'sm',
+                controller: 'SetPolicyModalCtrl'
+            });
+        }
+
 
     }
 })();

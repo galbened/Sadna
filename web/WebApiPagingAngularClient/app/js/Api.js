@@ -47,6 +47,11 @@
                         url: '/api/forums/addComment',
                         params: {}
                     },
+                    'editMessage': {
+                        method: 'POST',
+                        url: '/api/forums/editMessage',
+                        params: {}
+                    },
                     'getUser': {
                         method: 'GET',
                         url: '/api/forums/getUser/:forumId/:userId',
@@ -92,10 +97,25 @@
                         url: '/api/forums/getNotModerators/:forumId/:subForumId',
                         params: { forumId: '@forumId',subForumId:'@subForumId'}
                     },
+                    'getModerators': {
+                        method: 'GET',
+                        url: '/api/forums/getModerators/:forumId/:subForumId',
+                        params: { forumId: '@forumId',subForumId:'@subForumId'}
+                    },
                     'addModerator':{
                         method: 'POST',
                         url: '/api/forums/addModerator/:forumId/:subForumId/:userId/:moderatorId',
                         params: { forumId: '@forumId', subForumId: '@subForumId', userId: '@userId', moderatorId: '@moderatorId' }
+                    },
+                    'complainModerator':{
+                        method: 'POST',
+                        url: '/api/forums/complainModerator/:forumId/:subForumId/:userId/:moderatorId',
+                        params: { forumId: '@forumId', subForumId: '@subForumId', userId: '@userId', moderatorId: '@moderatorId' }
+                    },
+                    'setPolicy': {
+                        method: 'POST',
+                        url: '/api/forums/setPolicy/:forumId/:userId',
+                        params: { forumId: '@forumId', userId: '@userId' }
                     }
                 });
         }).factory('Users', function ($resource) {

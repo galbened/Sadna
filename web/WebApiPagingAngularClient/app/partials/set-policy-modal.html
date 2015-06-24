@@ -1,0 +1,29 @@
+﻿<div class="panel-heading text-center">Set Policy for {{forum.title}}</div>
+<hr />
+<div class="panel-body">
+    <div class="form-group">
+        <input type="text" class="form-control" placeholder="Number of moderators" data-ng-model="numOfAdmins">
+    </div>
+    <div>
+        <input icheck type="checkbox" model="uppercase" /><span>Passwors with uppercase</span>
+    </div>
+    <div>
+        <input icheck type="checkbox" model="lowercase" /><span>Passwors with lowercase</span>
+    </div>
+    <div>
+        <input icheck type="checkbox" model="numbers" /><span>Passwors with numbers</span>
+    </div>
+    <div>
+        <input icheck type="checkbox" model="symbols" /><span>Passwors with symbols</span>
+    </div>
+    <div class="form-group">
+        <input type="text" class="form-control" placeholder="minimum password length" data-ng-model="length">
+    </div>
+    <br />
+    <div class="form-group">
+        <button type="submit" class="btn btn-lg btn-success btn-block"
+                ng-click="setPolicy(numOfAdmins,uppercase,lowercase,numbers,symbols,length)">
+            set policy
+        </button>
+    </div>
+</div>
