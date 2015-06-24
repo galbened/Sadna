@@ -77,5 +77,7 @@ namespace Interfaces
 
         int GetNumOfComments(int threadId);
 
+        int GetTotalMessagesCount();
+
     }
 }

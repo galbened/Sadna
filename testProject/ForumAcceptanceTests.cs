@@ -52,9 +52,18 @@ namespace testProject
 
         //These function should be used only if their relevant use-case test succeeded
 
-        protected static int CreateForum(string forumTopic)
+        protected static int CreateForum_superAdmin(string forumTopic)
         {
             int ans = bridge.CreateForum(1, "galpopopo",
+                                        1, "",
+                                        false, false, false,
+                                        false, 1);
+
+            return ans;
+        }
+        protected static int CreateForum_regular(int userId,string forumTopic)
+        {
+            int ans = bridge.CreateForum(userId, "galpopopo",
                                         1, "",
                                         false, false, false,
                                         false, 1);
@@ -75,27 +84,60 @@ namespace testProject
         /// should add succefully the new forum
         /// </creatingSubForum>
         [TestMethod]
-        public void creatingForumTest()
+        public void creatingForumTest_superAdmin()
         {
             List<int> allForumsPreCreation = bridge.GetForumIds();
-            int newForumId = CreateForum("First Forum");
+
+            int newForumId = CreateForum_superAdmin("First admin Forum");
             forumsIds.Add(newForumId);
             List<int> allForumsPostCreation = bridge.GetForumIds();
             Assert.IsTrue(allForumsPostCreation.Contains(newForumId) && !allForumsPreCreation.Contains(newForumId));
 
+        }
+        [TestMethod]
+        public void creatingForumTest_regular()
+        {
+            List<int> allForumsPreCreation = bridge.GetForumIds();
+             int newUserId=2;
+            if (allForumsPreCreation.Count > 0)
+            {
+                 newUserId=bridge.Register("newRegUser",passwords[0],"pap@gmail.com",allForumsPreCreation[0]);
+            }
+            try
+            {
+                int newForumId = CreateForum_regular(newUserId, "First reg Forum");
+                Assert.Fail("regular user can't create a forum");
+            }
+            catch
+            {
+                Assert.IsTrue(true);
+            }
+            bridge.Deactivate(newUserId);
+        
         }
         /// <TestMethod1>
         /// TestId: 10.
         /// should add succefully the new sub forum
         /// </TestMethod1>
         [TestMethod]
-        public void creatingSubForumTest()
+        public void creatingSubForumTest_admin()
         {
             int currentForum = forumsIds[0];
             int subForumId = bridge.CreateSubForum(1, currentForum, "first sub-forum");
             subForumsIds.Add(subForumId);
             Assert.IsTrue(subForumId > 0);
             Assert.IsTrue((bridge.GetSubForumsIds(currentForum)).Contains(subForumId));  
+        }
+        [TestMethod]
+        public void creatingSubForumTest_regular()
+        {
+            int currentForum = forumsIds[0];
+            int newUserId = bridge.Register("newRegUser", passwords[0], "pap@gmail.com", currentForum);
+            int subForumId = bridge.CreateSubForum(newUserId, currentForum, "first sub-forum");
+            subForumsIds.Add(subForumId);
+            Assert.IsTrue(subForumId > 0);
+            Assert.IsTrue((bridge.GetSubForumsIds(currentForum)).Contains(subForumId));
+            bridge.Deactivate(newUserId);
         }
         /// <creatingForumReturnsDiffIDTest>
         /// TestId: 10.1
@@ -105,7 +147,7 @@ namespace testProject
         [TestMethod]
         public void creatingForumReturnsDiffIDTest()
         {
-            int newForumId = CreateForum("Second Forum");
+            int newForumId = CreateForum_superAdmin("Second Forum");
             Assert.AreNotEqual(forumsIds[0], newForumId);
         }
         /// <creatingSubForumReturnsDiffIDTest>
@@ -130,7 +172,7 @@ namespace testProject
         {
             try
             {
-                int temporaryForum = CreateForum(null);
+                int temporaryForum = CreateForum_superAdmin(null);
                 Assert.Fail("Can't create forum with a null topic");
             }
             catch

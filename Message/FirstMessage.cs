@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,6 @@ namespace Message
     [Table("FirstMessages")]
     public class FirstMessage : Message
     {
-
         private HashSet<ResponseMessage> responseMessages = new HashSet<ResponseMessage>();
 
         public FirstMessage() : base()
@@ -42,6 +42,18 @@ namespace Message
         public void addResponse(ResponseMessage responseMessage)
         {
             responseMessages.Add(responseMessage);
+        }
+
+        public void removeRespone(ResponseMessage responseMessage)
+        {
+            responseMessages.Remove(responseMessage);
+        }
+
+        public bool IncludeComment(ResponseMessage rm)
+        {
+            if (responseMessages.Contains(rm))
+                return true;
+            return false;
         }
 
 

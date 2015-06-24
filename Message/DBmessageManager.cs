@@ -13,12 +13,15 @@ namespace Message
     {
         Context db;
         private int mode;
+        public Dictionary<int, Message> Messages;
 
         public DBmessageManager()
         {
             InitMode();
             if (UseDB())
                 db = new Context();
+            else
+                Messages = new Dictionary<int, Message>();
             //db.Database.ExecuteSqlCommand("TRUNCATE TABLE Members");
         }
 
@@ -41,10 +44,10 @@ namespace Message
 
         public Message getObj(int ID)
         {
-            if(UseDB())
+            if (UseDB())
                 return db.Messages.Find(ID);
             else
-                return null;
+                return Messages[ID];
         }
 
         public List<Message> getAll()
@@ -52,7 +55,7 @@ namespace Message
             if (UseDB())
                 return db.Messages.ToList();
             else
-                return new List<Message>();
+                return Messages.Values.ToList();
         }
 
         public void update()
@@ -66,13 +69,16 @@ namespace Message
         {
             if (UseDB())
               db.Messages.Add(obj);
+            else
+                Messages.Add(obj.messageID, obj);
         }
-
 
         public void remove(Message obj)
         {
             if (UseDB())
                 db.Messages.Remove(obj);
+            else
+                Messages.Remove(obj.messageID);
         }
     }
 }
