@@ -22,6 +22,7 @@ namespace Forum
         private const string error_existTitle = "Cannot create forum with already exit title";
         private const string error_forumID = "No such forum: ";
         private const string error_accessDenied = "You have no permissions to perform this operation";
+        private const string error_noSuchUser = "Requested user not exist";
 
         IDBManager<Forum> DBforumMan;
 
@@ -395,6 +396,12 @@ namespace Forum
 
         public void ComplainModerator(int userRequesterId, int moderator, int forumId, int subForumId)
         {
+
+            Forum fr = GetForum(forumId);
+            SubForum sf = fr.GetSubForum(subForumId);
+            List<int> moderators = sf.GetModeratorsIds();
+            if (!moderators.Contains(moderator))
+                throw new ArgumentException(error_noSuchUser + ": " + moderator);
             string complainer = GetUsername(forumId, userRequesterId);
             List<int> adminsIds = GetForumAdmins(forumId);          
             string complainOnUser = GetUsername(forumId, moderator);
