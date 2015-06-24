@@ -235,9 +235,11 @@ namespace Forum
         private int GetUserId(string username)
         {
             int userId = usrMngr.GetUserId(username);
-            RegisteredUser user = new RegisteredUser(userId);
-            if (registeredUsers.Contains(user))
-                return userId;
+            foreach (RegisteredUser regUser in registeredUsers)
+            {
+                if (regUser.userID == userId)
+                    return userId;
+            }
             return -1;
         }
 
